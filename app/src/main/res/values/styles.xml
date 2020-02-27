@@ -8,4 +8,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--  Font styles  -->
+    <style name="font_title">
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/text_26sp</item>
+    </style>
+
+    <style name="font_heading">
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/text_18sp</item>
+    </style>
+
+    <style name="font_normal">
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">@dimen/text_14sp</item>
+    </style>
+
+    <style name="font_small">
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">@dimen/text_12sp</item>
+    </style>
 </resources>
