@@ -1,11 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/dark_primary</item>
         <item name="colorAccent">@color/pink</item>
+        <item name="android:typeface">@font/rubik_regular</item>
+        <item name="fontFamily">@font/rubik_regular</item>
     </style>
 
     <!--  Font styles  -->
