@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_64dp">
+
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Atur Target Pendukung"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_description"
+            style="@style/font_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_add_target"
+            style="@style/font_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:background="@drawable/bg_border_dash"
+            android:text="+ tambah target"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_description" />
+
+        <view
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_1dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:alpha="0.2"
+            android:background="@color/dark_secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_add_target" />
+
+        <TextView
+            android:id="@+id/textview_add_target"
+            style="@style/font_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:text="Tambah dari rekomendasi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_target_1"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:background="@color/light_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_add_target" />
+
+        <TextView
+            android:id="@+id/textview_target_1"
+            style="@style/font_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginBottom="@dimen/space_4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Rutin belajar mandiri"
+            android:textColor="@color/light_primary"
+            app:layout_constraintBottom_toTopOf="@id/textview_target_description_1"
+            app:layout_constraintStart_toStartOf="@id/textview_target_description_1" />
+
+        <TextView
+            android:id="@+id/textview_target_description_1"
+            style="@style/font_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Buat sesi khusus untuk belajar mandiri"
+            android:textColor="@color/light_primary"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_target_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_target_2"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:background="@color/light_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageview_target_1" />
+
+        <TextView
+            android:id="@+id/textview_target_2"
+            style="@style/font_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginBottom="@dimen/space_4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Rutin berlatih"
+            android:textColor="@color/light_primary"
+            app:layout_constraintBottom_toTopOf="@id/textview_target_description_2"
+            app:layout_constraintStart_toStartOf="@id/textview_target_description_2" />
+
+        <TextView
+            android:id="@+id/textview_target_description_2"
+            style="@style/font_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Buat sesi khusus untuk berlatih"
+            android:textColor="@color/light_primary"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_target_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_target_3"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:background="@color/light_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageview_target_2" />
+
+        <TextView
+            android:id="@+id/textview_target_3"
+            style="@style/font_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginBottom="@dimen/space_4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Bentuk keahlian baru"
+            android:textColor="@color/light_primary"
+            app:layout_constraintBottom_toTopOf="@id/textview_target_description_3"
+            app:layout_constraintStart_toStartOf="@id/textview_target_description_3" />
+
+        <TextView
+            android:id="@+id/textview_target_description_3"
+            style="@style/font_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Kuasai keahlian baru yang narik bagimu"
+            android:textColor="@color/light_primary"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_target_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/font_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:background="@drawable/bg_rounded_dark_secondary"
+            android:text="Simpan"
+            android:textColor="@color/light_primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageview_target_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
