@@ -35,4 +35,60 @@
         <item name="android:fontFamily">@font/rubik_regular</item>
         <item name="android:textSize">@dimen/text_12sp</item>
     </style>
+
+    <!--  Button styles  -->
+    <style name="button_dash">
+        <item name="android:textColor">@color/dark_primary</item>
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">@dimen/text_18sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_border_dash</item>
+    </style>
+
+    <style name="button_selected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintWidth_max">150dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:background">@color/yellow</item>
+        <item name="android:textColor">@color/dark_primary</item>
+    </style>
+    <!--  Chip styles  -->
+
+    <style name="chip">
+        <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Choice</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="chipCornerRadius">@dimen/radius_small</item>
+        <item name="android:textAppearance">@style/font_normal</item>
+        <item name="chipStrokeWidth">@dimen/common_1dp</item>
+        <item name="android:textColor">@color/dark_primary</item>
+    </style>
+
+    <style name="chip_selected" parent="chip">
+        <item name="chipBackgroundColor">@color/yellow</item>
+        <item name="chipStrokeColor">@color/yellow</item>
+    </style>
+
+    <style name="chip_not_selected" parent="chip">
+        <item name="chipBackgroundColor">@color/light_primary</item>
+        <item name="chipStrokeColor">@color/dark_secondary</item>
+    </style>
+
+    <style name="chip_selected_wide" parent="chip_selected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="layout_constraintWidth_max">150dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="chip_not_selected_wide" parent="chip_not_selected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="layout_constraintWidth_max">150dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="chipStrokeWidth">2.5dp</item>
+    </style>
+
 </resources>

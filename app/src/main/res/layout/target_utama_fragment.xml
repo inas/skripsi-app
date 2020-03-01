@@ -31,11 +31,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_add_target"
-            style="@style/font_heading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/button_dash"
             android:layout_marginTop="@dimen/space_16dp"
-            android:background="@drawable/bg_border_dash"
             android:text="+ tambah target"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
