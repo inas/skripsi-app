@@ -75,9 +75,7 @@
         app:layout_constraintTop_toBottomOf="@id/textlayout_note" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/font_heading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/button_full"
         android:layout_marginTop="@dimen/space_64dp"
         android:background="@drawable/bg_rounded_dark_secondary"
         android:text="Simpan"

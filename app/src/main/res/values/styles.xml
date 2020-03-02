@@ -55,8 +55,15 @@
         <item name="android:background">@color/yellow</item>
         <item name="android:textColor">@color/dark_primary</item>
     </style>
-    <!--  Chip styles  -->
 
+    <style name="button_full">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:textSize">@dimen/text_18sp</item>
+    </style>
+
+    <!--  Chip styles  -->
     <style name="chip">
         <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Choice</item>
         <item name="android:layout_width">wrap_content</item>
@@ -92,14 +99,10 @@
         <item name="chipStrokeWidth">2.5dp</item>
     </style>
 
-    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
-        <!-- active thumb & track color (30% transparency) -->
+    <!--  Switch style  -->
+    <style name="switch_green" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/green</item>
-
-        <!-- inactive thumb color -->
         <item name="colorSwitchThumbNormal">@color/light_primary</item>
-
-        <!-- inactive track color (30% transparency) -->
         <item name="android:colorForeground">#C8221F1F</item>
     </style>
 </resources>

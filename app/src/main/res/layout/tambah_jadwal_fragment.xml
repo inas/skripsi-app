@@ -310,16 +310,14 @@
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/SCBSwitch"
+            android:theme="@style/switch_green"
             app:layout_constraintBottom_toBottomOf="@id/textview_execution_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/textview_execution_time"
             tools:checked="true" />
 
         <androidx.appcompat.widget.AppCompatButton
-            style="@style/font_heading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/button_full"
             android:layout_marginTop="@dimen/space_32dp"
             android:background="@drawable/bg_rounded_dark_secondary"
             android:text="Simpan"
