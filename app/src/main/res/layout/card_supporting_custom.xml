@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageview_target_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/light_secondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_target_1"
+        style="@style/font_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_16dp"
+        android:layout_marginBottom="@dimen/space_4dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/light_primary"
+        app:layout_constraintBottom_toTopOf="@id/textview_target_description_1"
+        app:layout_constraintStart_toStartOf="@id/textview_target_description_1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Mendapat peringkat 3 besar di kelas" />
+
+    <TextView
+        android:id="@+id/textview_target_description_1"
+        style="@style/font_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_16dp"
+        android:layout_marginTop="@dimen/space_24dp"
+        android:layout_marginEnd="@dimen/space_16dp"
+        android:layout_marginBottom="@dimen/space_16dp"
+        android:drawableStart="@drawable/ic_clock"
+        android:drawablePadding="@dimen/space_8dp"
+        android:drawableTint="@color/light_primary"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/light_primary"
+        app:layout_constraintBottom_toBottomOf="@id/imageview_target_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Juli 2018" />
+</androidx.constraintlayout.widget.ConstraintLayout>

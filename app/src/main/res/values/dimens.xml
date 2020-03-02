@@ -22,4 +22,8 @@
 
     <dimen name="radius_xsmall">4dp</dimen>
     <dimen name="radius_small">6dp</dimen>
+    <dimen name="radius_xbig">36dp</dimen>
+
+    <dimen name="page_padding">16dp</dimen>
+    <dimen name="card_height">110dp</dimen>
 </resources>
