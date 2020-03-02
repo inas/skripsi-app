@@ -20,5 +20,6 @@
     <dimen name="common_32dp">32dp</dimen>
     <dimen name="common_48dp">48dp</dimen>
 
+    <dimen name="radius_xsmall">4dp</dimen>
     <dimen name="radius_small">6dp</dimen>
 </resources>

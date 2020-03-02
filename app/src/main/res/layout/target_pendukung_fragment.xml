@@ -38,13 +38,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_description" />
 
-        <view
+        <include
+            layout="@layout/common_divider"
             android:id="@+id/divider"
-            android:layout_width="match_parent"
             android:layout_height="@dimen/common_1dp"
+            android:layout_width="match_parent"
             android:layout_marginTop="@dimen/space_24dp"
-            android:alpha="0.2"
-            android:background="@color/dark_secondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_add_target" />
 
