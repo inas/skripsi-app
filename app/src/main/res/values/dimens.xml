@@ -17,11 +17,14 @@
     <dimen name="common_1dp">1dp</dimen>
     <dimen name="common_2dp">2dp</dimen>
     <dimen name="common_4dp">4dp</dimen>
+    <dimen name="common_24dp">24dp</dimen>
     <dimen name="common_32dp">32dp</dimen>
     <dimen name="common_48dp">48dp</dimen>
 
     <dimen name="radius_xsmall">4dp</dimen>
     <dimen name="radius_small">6dp</dimen>
+    <dimen name="radius_medium">8dp</dimen>
+    <dimen name="radius_big">16dp</dimen>
     <dimen name="radius_xbig">36dp</dimen>
 
     <dimen name="page_padding">16dp</dimen>
