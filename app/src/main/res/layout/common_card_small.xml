@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/space_8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageview_target_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_height_small"
+        android:background="@color/light_secondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_target_1"
+        style="@style/font_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_24dp"
+        android:layout_marginBottom="@dimen/space_4dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/light_primary"
+        app:layout_constraintBottom_toTopOf="@id/textview_target_description_1"
+        app:layout_constraintStart_toStartOf="@id/textview_target_description_1"
+        tools:text="Rutin belajar mandiri" />
+
+    <TextView
+        android:id="@+id/textview_target_description_1"
+        style="@style/font_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_16dp"
+        android:layout_marginTop="@dimen/space_24dp"
+        android:layout_marginEnd="@dimen/space_16dp"
+        android:layout_marginBottom="@dimen/space_16dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/light_primary"
+        app:layout_constraintBottom_toBottomOf="@id/imageview_target_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Buat sesi khusus untuk belajar mandiri" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/space_16dp">
+
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_title_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Perbarui Target"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_targetutama_label"
+            style="@style/font_heading_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text="Target Utama"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_edit_target"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ubah"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/textview_targetutama_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_targetutama_label" />
+
+        <LinearLayout
+            android:id="@+id/layout_targetutama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_targetutama_label">
+
+            <include layout="@layout/common_card_big" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textview_siklus"
+            style="@style/font_heading_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:text="Cycle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_targetutama" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_edit_siklus"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ubah"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/textview_siklus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_siklus" />
+
+        <TextView
+            android:id="@+id/textview_siklus_evaluation"
+            style="@style/font_normal.bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_siklus"
+            tools:text="Mingguan" />
+
+        <TextView
+            android:id="@+id/textview_siklus_evaluationdetail"
+            style="@style/font_small.secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_siklus_evaluation"
+            tools:text="Evaluasi: setiap hari minggu" />
+
+
+        <TextView
+            android:id="@+id/textview_targetpendukung_label"
+            style="@style/font_heading_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:text="Target Pendukung"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_siklus_evaluationdetail" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_edit_targetpendukung"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ubah"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/textview_targetpendukung_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_targetpendukung_label" />
+
+        <LinearLayout
+            android:id="@+id/layout_targetpendukung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_targetpendukung_label">
+
+            <include layout="@layout/common_card_small" />
+
+            <include layout="@layout/common_card_small" />
+
+            <include layout="@layout/common_card_big" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/button_full"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:background="@drawable/bg_rounded_green"
+            android:text="Mulai siklus baru"
+            android:textColor="@color/light_primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_targetpendukung" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
