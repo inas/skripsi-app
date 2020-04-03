@@ -28,11 +28,19 @@
         <item name="android:textSize">@dimen/text_18sp</item>
     </style>
 
+    <style name="font_heading_bold" parent="font_heading">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="font_normal">
         <item name="android:textColor">@color/dark_primary</item>
         <item name="android:fontFamily">@font/rubik_regular</item>
         <item name="android:textSize">@dimen/text_14sp</item>
         <item name="lineHeight">@dimen/text_22sp</item>
+    </style>
+
+    <style name="font_normal.bold">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="font_small">
