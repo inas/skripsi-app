@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_16dp">
+
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_title_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text="Home"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/button_rounded"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:drawableRight="@drawable/ic_add_18dp"
+            android:text="Tambah"
+            app:layout_constraintBottom_toBottomOf="@id/textview_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_title" />
+
+        <View
+            android:id="@+id/view_banner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:background="@color/green_light"
+            app:layout_constraintBottom_toBottomOf="@id/button_banner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+        <TextView
+            android:id="@+id/textview_banner_label"
+            style="@style/font_heading_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:text="Masukkan nilai-nilai terdahulumu"
+            app:layout_constraintEnd_toStartOf="@id/imageview_banner"
+            app:layout_constraintStart_toStartOf="@id/view_banner"
+            app:layout_constraintTop_toTopOf="@id/view_banner" />
+
+        <TextView
+            android:id="@+id/textview_banner_description"
+            style="@style/font_normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:text="Lihat grafik naik turun nilaimu dengan memasukkan nilai-nilai terdahulumu."
+            app:layout_constraintEnd_toStartOf="@id/imageview_banner"
+            app:layout_constraintStart_toStartOf="@id/view_banner"
+            app:layout_constraintTop_toBottomOf="@id/textview_banner_label" />
+
+        <ImageView
+            android:id="@+id/imageview_banner"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:background="@color/pink"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="@id/textview_banner_description"
+            app:layout_constraintEnd_toStartOf="@id/imageview_close"
+            app:layout_constraintTop_toTopOf="@id/textview_banner_label" />
+
+        <ImageView
+            android:id="@+id/imageview_close"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:layout_margin="@dimen/space_4dp"
+            android:padding="@dimen/size_button_padding"
+            android:src="@drawable/ic_close_dark"
+            android:tint="@color/dark_secondary"
+            app:layout_constraintEnd_toEndOf="@id/view_banner"
+            app:layout_constraintTop_toTopOf="@id/view_banner" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_banner"
+            style="@style/button_text"
+            android:layout_marginStart="@dimen/space_4dp"
+            android:text="Masukkan di sini"
+            app:layout_constraintStart_toStartOf="@id/view_banner"
+            app:layout_constraintTop_toBottomOf="@id/textview_banner_description" />
+
+        <TextView
+            android:id="@+id/textview_jadwal"
+            style="@style/font_heading_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:text="Jadwal Hari Ini"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_banner" />
+
+        <TextView
+            style="@style/font_normal.bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_16dp"
+            app:layout_constraintBottom_toBottomOf="@id/textview_jadwal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_jadwal"
+            tools:text="Senin, 4 May" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_jadwal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/space_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_jadwal" />
+
+        <TextView
+            android:id="@+id/textview_penting"
+            style="@style/font_heading_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerview_jadwal"
+            tools:text="Penting Hari Ini" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_penting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_penting"
+            tools:itemCount="2"
+            tools:listitem="@layout/penting_hari_ini_item" />
+
+        <TextView
+            android:id="@+id/textview_besok"
+            style="@style/font_heading_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerview_penting"
+            tools:text="Besok" />
+
+        <LinearLayout
+            android:id="@+id/layout_besokitem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_besok">
+
+            <include layout="@layout/besok_item" />
+
+            <include layout="@layout/besok_item" />
+
+            <include layout="@layout/besok_item" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textview_progress"
+            style="@style/font_heading_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_besokitem"
+            tools:text="Progress Siklus" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:progress="50"
+            android:progressDrawable="@drawable/bg_progress_bar_rounded"
+            android:scaleY="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_progress" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            app:layout_constraintEnd_toEndOf="@id/progressbar"
+            app:layout_constraintStart_toStartOf="@id/progressbar"
+            app:layout_constraintTop_toBottomOf="@id/progressbar"
+            tools:text="6999/100000 tugas terselesaikan di siklus ini " />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

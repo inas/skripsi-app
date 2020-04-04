@@ -53,6 +53,10 @@
         <item name="android:textColor">@color/dark_secondary</item>
     </style>
 
+    <style name="font_small.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!--  Button styles  -->
     <style name="button_dash">
         <item name="android:textColor">@color/dark_primary</item>
@@ -99,6 +103,13 @@
         <item name="android:textSize">@dimen/text_14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="cornerRadius">@dimen/radius_big</item>
+    </style>
+
+    <style name="button_text" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <!--  Chip styles  -->
 

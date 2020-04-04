@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <View
-        android:id="@+id/view_line"
+        android:id="@+id/view_line_middle"
         android:layout_width="@dimen/common_2dp"
         android:layout_height="@dimen/common_24dp"
         android:background="@color/yellow"
@@ -44,5 +44,5 @@
         android:background="@drawable/ic_graduation_cap"
         android:elevation="1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_line" />
+        app:layout_constraintTop_toBottomOf="@id/view_line_middle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
