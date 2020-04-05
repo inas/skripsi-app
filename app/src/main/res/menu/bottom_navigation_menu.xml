@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/action_jadwal"
+        android:enabled="true"
+        android:icon="@drawable/ic_calendar"
+        android:title="Jadwal" />
+    <item
+        android:id="@+id/action_target"
+        android:enabled="true"
+        android:icon="@drawable/ic_flag"
+        android:title="Target" />
+    <item
+        android:id="@+id/action_perjalanan"
+        android:enabled="true"
+        android:icon="@drawable/ic_map"
+        android:title="Perjalanan" />
+</menu>

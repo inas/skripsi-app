@@ -6,15 +6,15 @@
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/dark_primary</item>
         <item name="colorAccent">@color/pink</item>
-        <item name="android:typeface">@font/rubik_regular</item>
-        <item name="fontFamily">@font/rubik_regular</item>
+        <!--        <item name="android:typeface">@font/rubik_regular</item>-->
+        <!--        <item name="fontFamily">@font/rubik_regular</item>-->
         <item name="android:textColor">@color/dark_primary</item>
     </style>
 
     <!--  Font styles  -->
     <style name="font_title">
         <item name="android:textColor">@color/dark_primary</item>
-        <item name="android:fontFamily">@font/rubik_medium</item>
+        <!--        <item name="android:fontFamily">@font/rubik_medium</item>-->
         <item name="android:textSize">@dimen/text_26sp</item>
     </style>
 
@@ -24,7 +24,7 @@
 
     <style name="font_heading">
         <item name="android:textColor">@color/dark_primary</item>
-        <item name="android:fontFamily">@font/rubik_medium</item>
+        <!--        <item name="android:fontFamily">@font/rubik_medium</item>-->
         <item name="android:textSize">@dimen/text_18sp</item>
     </style>
 
@@ -34,7 +34,7 @@
 
     <style name="font_normal">
         <item name="android:textColor">@color/dark_primary</item>
-        <item name="android:fontFamily">@font/rubik_regular</item>
+        <!--        <item name="android:fontFamily">@font/rubik_regular</item>-->
         <item name="android:textSize">@dimen/text_14sp</item>
         <item name="lineHeight">@dimen/text_22sp</item>
     </style>
@@ -45,7 +45,7 @@
 
     <style name="font_small">
         <item name="android:textColor">@color/dark_primary</item>
-        <item name="android:fontFamily">@font/rubik_regular</item>
+        <!--        <item name="android:fontFamily">@font/rubik_regular</item>-->
         <item name="android:textSize">@dimen/text_12sp</item>
     </style>
 
@@ -60,7 +60,7 @@
     <!--  Button styles  -->
     <style name="button_dash">
         <item name="android:textColor">@color/dark_primary</item>
-        <item name="android:fontFamily">@font/rubik_medium</item>
+        <!--        <item name="android:fontFamily">@font/rubik_medium</item>-->
         <item name="android:textSize">@dimen/text_18sp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -74,13 +74,13 @@
         <item name="textAllCaps">false</item>
         <item name="android:background">@color/yellow</item>
         <item name="android:textColor">@color/dark_primary</item>
-        <item name="android:fontFamily">@font/rubik_medium</item>
+        <!--        <item name="android:fontFamily">@font/rubik_medium</item>-->
     </style>
 
     <style name="button_full">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="fontFamily">@font/rubik_regular</item>
+        <!--        <item name="fontFamily">@font/rubik_regular</item>-->
         <item name="android:textSize">@dimen/text_18sp</item>
     </style>
 
@@ -89,7 +89,7 @@
         <item name="android:layout_height">65dp</item>
         <item name="backgroundTint">@color/light_primary</item>
         <item name="android:textColor">@color/dark_primary</item>
-        <item name="fontFamily">@font/rubik_regular</item>
+        <!--        <item name="fontFamily">@font/rubik_regular</item>-->
         <item name="android:textSize">@dimen/text_18sp</item>
         <item name="textAllCaps">false</item>
     </style>
@@ -99,7 +99,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="backgroundTint">@color/light_primary</item>
         <item name="android:textColor">@color/green</item>
-        <item name="fontFamily">@font/rubik_regular</item>
+        <!--        <item name="fontFamily">@font/rubik_regular</item>-->
         <item name="android:textSize">@dimen/text_14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="cornerRadius">@dimen/radius_big</item>

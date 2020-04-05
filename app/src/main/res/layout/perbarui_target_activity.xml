@@ -45,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_targetutama_label">
 
-            <include layout="@layout/common_card_big" />
+            <include layout="@layout/item_card_big" />
 
         </LinearLayout>
 
@@ -116,11 +116,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_targetpendukung_label">
 
-            <include layout="@layout/common_card_small" />
+            <include layout="@layout/item_card_small" />
 
-            <include layout="@layout/common_card_small" />
+            <include layout="@layout/item_card_small" />
 
-            <include layout="@layout/common_card_big" />
+            <include layout="@layout/item_card_big" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton

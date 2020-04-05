@@ -145,7 +145,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_penting"
             tools:itemCount="2"
-            tools:listitem="@layout/penting_hari_ini_item" />
+            tools:listitem="@layout/item_penting_hari_ini" />
 
         <TextView
             android:id="@+id/textview_besok"
@@ -166,11 +166,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_besok">
 
-            <include layout="@layout/besok_item" />
+            <include layout="@layout/item_besok" />
 
-            <include layout="@layout/besok_item" />
+            <include layout="@layout/item_besok" />
 
-            <include layout="@layout/besok_item" />
+            <include layout="@layout/item_besok" />
         </LinearLayout>
 
         <TextView

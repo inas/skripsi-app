@@ -65,9 +65,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_target">
 
-            <include layout="@layout/target_item" />
+            <include layout="@layout/item_target" />
 
-            <include layout="@layout/target_item" />
+            <include layout="@layout/item_target" />
 
         </LinearLayout>
 
@@ -114,9 +114,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_jadwal">
 
-            <include layout="@layout/target_item" />
+            <include layout="@layout/item_target" />
 
-            <include layout="@layout/target_item" />
+            <include layout="@layout/item_target" />
 
 
         </LinearLayout>

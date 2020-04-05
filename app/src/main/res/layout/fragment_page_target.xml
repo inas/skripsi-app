@@ -127,7 +127,7 @@
             android:layout_width="@dimen/common_1dp"
             android:layout_height="@dimen/space_8dp" />
 
-        <include layout="@layout/card_supporting_custom" />
+        <include layout="@layout/item_card_small_with_time" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
