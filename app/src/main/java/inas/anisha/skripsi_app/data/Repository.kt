@@ -12,8 +12,10 @@ class Repository(application: Application) {
 
     // region shared preferencee
     fun shouldShowOnBoarding() = sharedPreference.shouldShowOnboarding
-
     fun setShouldNotShowOnBoarding() = sharedPreference.setShouldNotShowOnboarding()
+
+    fun shouldShowKelolaPembelajaran() = sharedPreference.shouldShowKelolaPembelajaran
+    fun setShouldNotShowKelolaPembelajaran() = sharedPreference.setShouldNotShowKelolaPembelajaran()
 
     companion object {
         // For Singleton instantiation

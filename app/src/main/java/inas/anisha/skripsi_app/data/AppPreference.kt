@@ -10,6 +10,11 @@ class AppPreference(mContext: Context) {
     val shouldShowOnboarding: Boolean = mSharedPreferences.getBoolean(SHOULD_SHOW_ONBOARDING, true)
     fun setShouldNotShowOnboarding() = setBoolean(SHOULD_SHOW_ONBOARDING, false)
 
+    val shouldShowKelolaPembelajaran: Boolean =
+        mSharedPreferences.getBoolean(SHOULD_SHOW_KELOLA_PEMBELAJARAN, true)
+
+    fun setShouldNotShowKelolaPembelajaran() = setBoolean(SHOULD_SHOW_KELOLA_PEMBELAJARAN, false)
+
     fun removeKey(key: String) {
         this.mSharedPreferences.edit().remove(key).apply()
     }
@@ -24,6 +29,7 @@ class AppPreference(mContext: Context) {
 
     companion object {
         private const val SHOULD_SHOW_ONBOARDING = "SHOULD_SHOW_ONBOARDING"
+        private const val SHOULD_SHOW_KELOLA_PEMBELAJARAN = "SHOULD_SHOW_KELOLA_PEMBELAJARAN"
 
         @Volatile
         private var instance: AppPreference? = null

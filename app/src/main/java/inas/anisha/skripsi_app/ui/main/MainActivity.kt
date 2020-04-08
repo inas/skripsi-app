@@ -1,5 +1,6 @@
 package inas.anisha.skripsi_app.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ActivityMainBinding
 import inas.anisha.skripsi_app.ui.onboarding.OnboardingActivity
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +26,13 @@ class MainActivity : AppCompatActivity() {
         if (mViewModel.shouldShowOnboardingScreen()) {
             val intent = Intent(this, OnboardingActivity::class.java)
             startActivity(intent)
+        } else if (mViewModel.shouldShowKelolaPembelajaran()) {
+            val intent = Intent(this, OnboardingActivity::class.java)
+            startActivity(intent)
         }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
     }
 }
