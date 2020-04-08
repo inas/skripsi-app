@@ -17,7 +17,6 @@
     <!--  Font styles  -->
     <style name="font_title">
         <item name="android:textColor">@color/dark_primary</item>
-        <!--        <item name="android:fontFamily">@font/rubik_medium</item>-->
         <item name="fontPath">fonts/rubikMedium.ttf</item>
         <item name="android:textSize">@dimen/text_26sp</item>
     </style>
@@ -84,7 +83,7 @@
     <style name="button_full">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="fontPath">fonts/rubikRegular.ttf</item>
+        <item name="fontPath">fonts/rubikMedium.ttf</item>
         <item name="android:textSize">@dimen/text_18sp</item>
     </style>
 
@@ -93,9 +92,18 @@
         <item name="android:layout_height">65dp</item>
         <item name="backgroundTint">@color/light_primary</item>
         <item name="android:textColor">@color/dark_primary</item>
-        <item name="fontPath">fonts/rubikRegular.ttf</item>
+        <item name="fontPath">fonts/rubikMedium.ttf</item>
         <item name="android:textSize">@dimen/text_18sp</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="button_rounded_slightly">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/green</item>
+        <item name="android:textColor">@color/light_primary</item>
+        <item name="fontPath">fonts/rubikMedium.ttf</item>
+        <item name="cornerRadius">@dimen/radius_small</item>
     </style>
 
     <style name="button_rounded">
@@ -103,13 +111,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="backgroundTint">@color/light_primary</item>
         <item name="android:textColor">@color/green</item>
-        <item name="fontPath">fonts/rubikRegular.ttf</item>
+        <item name="fontPath">fonts/rubikMedium.ttf</item>
         <item name="android:textSize">@dimen/text_14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="cornerRadius">@dimen/radius_big</item>
     </style>
 
     <style name="button_text" parent="Widget.AppCompat.Button.Borderless">
+        <item name="fontPath">fonts/rubikMedium.ttf</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/green</item>

@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.onboarding
+package inas.anisha.skripsi_app.ui.kelolapembelajaran
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import inas.anisha.skripsi_app.R
 
 
-class OnboardingPagerAdapter(
+class KelolaPembelajaranPagerAdapter(
     fragmentManager: FragmentManager,
     val listener: OnboardingPagerFragment.ButtonClickListener
 ) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

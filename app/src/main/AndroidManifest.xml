@@ -17,5 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.onboarding.OnboardingActivity" />
+        <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranIntroActivity" />
     </application>
 </manifest>

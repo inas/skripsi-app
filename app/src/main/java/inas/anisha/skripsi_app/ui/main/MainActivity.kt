@@ -23,12 +23,10 @@ class MainActivity : AppCompatActivity() {
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this // todo remove?
 
-        if (mViewModel.shouldShowOnboardingScreen()) {
+        if (mViewModel.shouldShowKelolaPembelajaran()) {
             val intent = Intent(this, OnboardingActivity::class.java)
             startActivity(intent)
-        } else if (mViewModel.shouldShowKelolaPembelajaran()) {
-            val intent = Intent(this, OnboardingActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 

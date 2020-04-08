@@ -7,9 +7,6 @@ class AppPreference(mContext: Context) {
     private val mSharedPreferences: SharedPreferences =
         mContext.getSharedPreferences("inas.anisha.skripsi_app", Context.MODE_PRIVATE)
 
-    val shouldShowOnboarding: Boolean = mSharedPreferences.getBoolean(SHOULD_SHOW_ONBOARDING, true)
-    fun setShouldNotShowOnboarding() = setBoolean(SHOULD_SHOW_ONBOARDING, false)
-
     val shouldShowKelolaPembelajaran: Boolean =
         mSharedPreferences.getBoolean(SHOULD_SHOW_KELOLA_PEMBELAJARAN, true)
 
@@ -28,7 +25,6 @@ class AppPreference(mContext: Context) {
     }
 
     companion object {
-        private const val SHOULD_SHOW_ONBOARDING = "SHOULD_SHOW_ONBOARDING"
         private const val SHOULD_SHOW_KELOLA_PEMBELAJARAN = "SHOULD_SHOW_KELOLA_PEMBELAJARAN"
 
         @Volatile

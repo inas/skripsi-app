@@ -7,6 +7,5 @@ import inas.anisha.skripsi_app.data.Repository
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     var mRepository: Repository = Repository.getInstance(application)
 
-    fun shouldShowOnboardingScreen() = mRepository.shouldShowOnBoarding()
     fun shouldShowKelolaPembelajaran() = mRepository.shouldShowKelolaPembelajaran()
 }

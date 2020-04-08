@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="@dimen/space_24dp"
-            android:background="@color/light_secondary"
+            android:src="@drawable/img_kelola_pembelajaran_intro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_kelola_pembelajaran" />
@@ -34,29 +34,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            android:text="Untuk mulai mengatur kegiatan belajarmu, kamu perlu mengatur target, siklus dan strategi belajar. Pengaturan ini merupakan tahap pertama untuk membuat kegiatan belajar kamu lebih efektif dan efisien"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageview_kelola_pembelajaran" />
 
-        <TextView
-            android:id="@+id/textview_link"
-            style="@style/font_normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_4dp"
-            android:text="Pelajari lebih lanjut"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_description" />
-
         <androidx.appcompat.widget.AppCompatButton
+            style="@style/button_rounded_slightly"
             android:id="@+id/button_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_32dp"
-            android:background="@color/green"
             android:text="MULAI"
             android:textColor="@color/light_primary"
             app:layout_constraintBottom_toBottomOf="parent"

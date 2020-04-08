@@ -93,7 +93,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_skip"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="@style/button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="lewati"
@@ -121,6 +121,7 @@
             android:text="mulai sekarang"
             android:textColor="@color/light_primary"
             android:visibility="gone"
+            fontPath="fonts/rubikMedium.ttf"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
