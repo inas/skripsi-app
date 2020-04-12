@@ -20,6 +20,7 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
         mViewModel = ViewModelProviders.of(this).get(KelolaPembelajaranViewModel::class.java)
 //        mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this // todo remove?
+        mBinding.viewpager.adapter = KelolaPembelajaranPagerAdapter(supportFragmentManager)
     }
 
     override fun attachBaseContext(newBase: Context?) {

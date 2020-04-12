@@ -6,6 +6,7 @@ import inas.anisha.skripsi_app.data.Repository
 
 class KelolaPembelajaranViewModel(application: Application) : AndroidViewModel(application) {
     var mRepository: Repository = Repository.getInstance(application)
+    var isMainTargetAdded: Boolean = false
 
     fun setShouldNotShowKelolaPembelajaran() {
         mRepository.setShouldNotShowKelolaPembelajaran()

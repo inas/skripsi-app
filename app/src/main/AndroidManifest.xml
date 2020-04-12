@@ -18,5 +18,6 @@
         </activity>
         <activity android:name=".ui.onboarding.OnboardingActivity" />
         <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranIntroActivity" />
+        <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranActivity" />
     </application>
 </manifest>

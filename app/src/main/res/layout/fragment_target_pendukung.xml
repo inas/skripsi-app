@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@id/divider" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageview_target_1"
+            android:id="@+id/imageview_target"
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_height"
             android:layout_marginTop="@dimen/space_24dp"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toBottomOf="@id/textview_add_target" />
 
         <TextView
-            android:id="@+id/textview_target_1"
+            android:id="@+id/textview_target"
             style="@style/font_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,11 +78,11 @@
             android:singleLine="true"
             android:text="Rutin belajar mandiri"
             android:textColor="@color/light_primary"
-            app:layout_constraintBottom_toTopOf="@id/textview_target_description_1"
-            app:layout_constraintStart_toStartOf="@id/textview_target_description_1" />
+            app:layout_constraintBottom_toTopOf="@id/textview_target_description"
+            app:layout_constraintStart_toStartOf="@id/textview_target_description" />
 
         <TextView
-            android:id="@+id/textview_target_description_1"
+            android:id="@+id/textview_target_description"
             style="@style/font_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
             android:singleLine="true"
             android:text="Buat sesi khusus untuk belajar mandiri"
             android:textColor="@color/light_primary"
-            app:layout_constraintBottom_toBottomOf="@id/imageview_target_1"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_target"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,7 +106,7 @@
             android:background="@color/light_secondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageview_target_1" />
+            app:layout_constraintTop_toBottomOf="@id/imageview_target" />
 
         <TextView
             android:id="@+id/textview_target_2"
