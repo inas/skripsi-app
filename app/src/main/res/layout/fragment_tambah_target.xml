@@ -18,6 +18,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/imageview_close"
             android:layout_width="@dimen/size_button"
             android:layout_height="@dimen/size_button"
             android:padding="@dimen/size_button_padding"
@@ -34,64 +35,82 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textlayout_target"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/InputLayout"
                 android:hint="Nama target"
-                app:boxBackgroundColor="@color/light_primary"
                 app:helperText="Contoh: menjadi juara kelas"
                 app:helperTextEnabled="true"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:startIconDrawable="@drawable/ic_text_fields">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:id="@+id/edittext_target"
+                    style="@style/EditText"
                     tools:text="" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textlayout_note"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/InputLayout"
                 android:layout_marginTop="@dimen/space_16dp"
                 android:hint="Catatan"
-                app:boxBackgroundColor="@color/light_primary"
-                app:hintEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textlayout_target"
                 app:startIconDrawable="@drawable/ic_note">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/edittext_note"
+                    style="@style/EditText"
                     android:inputType="text"
                     tools:text="" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/textview_estimation"
-                style="@style/font_normal"
+                android:id="@+id/textview_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16dp"
-                android:text="Apakah target memiliki estimasi waktu pencapaian?"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Waktu pencapaian"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textlayout_note" />
 
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/switch_green"
+                app:layout_constraintBottom_toBottomOf="@id/textview_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textview_time"
+                tools:checked="true" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_date"
+                style="@style/InputLayout"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:hint="Tanggal pengerjaan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/switch_date"
+                app:startIconDrawable="@drawable/ic_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittext_date"
+                    style="@style/EditText"
+                    tools:text="20 Juli 2018" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_add"
                 style="@style/button_full"
-                android:layout_marginTop="@dimen/space_64dp"
-                android:background="@drawable/bg_rounded_dark_secondary"
+                android:layout_marginTop="@dimen/space_32dp"
+                android:background="@drawable/bg_rounded_green"
                 android:text="Simpan"
                 android:textColor="@color/light_primary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_estimation" />
+                app:layout_constraintTop_toBottomOf="@id/textlayout_date" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

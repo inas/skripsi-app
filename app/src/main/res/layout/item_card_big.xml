@@ -8,8 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="isSelected"
-            type="Boolean" />
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.common.addTarget.TargetViewModel" />
 
     </data>
 
@@ -29,6 +29,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            style="@style/font_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.dateString}"
+            android:textColor="@color/light_primary"
+            app:layout_constraintBottom_toTopOf="@id/textview_target"
+            app:layout_constraintStart_toStartOf="@id/textview_target"
+            tools:text="2020" />
+
+        <TextView
             android:id="@+id/textview_target"
             style="@style/font_heading"
             android:layout_width="wrap_content"
@@ -38,6 +48,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/light_primary"
+            android:text="@{viewModel.name}"
             app:layout_constraintBottom_toTopOf="@id/textview_target_description"
             app:layout_constraintStart_toStartOf="@id/textview_target_description"
             tools:text="Rutin belajar mandiri" />
@@ -54,6 +65,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/light_primary"
+            android:text="@{viewModel.note}"
             app:layout_constraintBottom_toBottomOf="@id/imageview_target"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +76,7 @@
             android:layout_height="0dp"
             android:alpha="0.5"
             android:background="@color/light_secondary"
-            android:visibility="@{isSelected? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.isSelected? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/imageview_target"
             app:layout_constraintEnd_toEndOf="@id/imageview_target"
             app:layout_constraintStart_toStartOf="@id/imageview_target"
@@ -75,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16dp"
             android:background="@drawable/ic_check"
-            android:visibility="@{isSelected? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.isSelected? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

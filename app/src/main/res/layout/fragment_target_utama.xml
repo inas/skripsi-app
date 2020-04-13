@@ -10,17 +10,6 @@
             name="viewModel"
             type="inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel" />
 
-        <variable
-            name="addedTargetIsSelected"
-            type="Boolean" />
-
-        <variable
-            name="recTarget0IsSelected"
-            type="Boolean" />
-
-        <variable
-            name="recTarget1IsSelected"
-            type="Boolean" />
     </data>
 
     <ScrollView
@@ -57,7 +46,6 @@
                 style="@style/button_dash"
                 android:layout_marginTop="@dimen/space_16dp"
                 android:text="+ tambah target"
-                android:visibility="@{viewModel.mainTargetAdded? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_description" />
@@ -65,10 +53,10 @@
             <include
                 android:id="@+id/layout_target_added"
                 layout="@layout/item_card_big"
+                android:layout_marginTop="@dimen/space_16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.mainTargetAdded? View.VISIBLE : View.GONE}"
-                app:isSelected="@{addedTargetIsSelected}"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_add_target" />
 
@@ -98,7 +86,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16dp"
-                app:isSelected="@{recTarget0IsSelected}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_add_target" />
 
@@ -108,7 +95,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16dp"
-                app:isSelected="@{recTarget1IsSelected}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_target_recommendation0" />
 

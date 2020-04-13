@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8dp"
-            android:hint="Mata Pelajaran"
+            android:hint="Mata pelajaran"
             app:boxBackgroundColor="@color/light_primary"
             app:hintEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -308,6 +308,7 @@
             app:layout_constraintTop_toBottomOf="@id/textview_rewards" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:theme="@style/switch_green"
@@ -316,6 +317,26 @@
             app:layout_constraintTop_toTopOf="@id/textview_execution_time"
             tools:checked="true" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:hint="Tanggal pengerjaan"
+            app:boxBackgroundColor="@color/light_primary"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/switch_date"
+            app:startIconDrawable="@drawable/ic_calendar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="datetime"
+                tools:text="20 Juli 2018" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             style="@style/button_full"
             android:layout_marginTop="@dimen/space_32dp"
@@ -323,7 +344,8 @@
             android:text="Simpan"
             android:textColor="@color/light_primary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_execution_time" />
+            app:layout_constraintTop_toBottomOf="@id/textlayout_date" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
