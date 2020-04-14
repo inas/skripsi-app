@@ -25,9 +25,11 @@ class OnboardingActivity : AppCompatActivity() {
             object : OnboardingPagerFragment.ButtonClickListener {
                 override fun onButtonClick(buttonType: Int) {
                     when (buttonType) {
-                        CLICK_SKIP -> mBinding.viewpager.currentItem = 2
-                        CLICK_NEXT -> mBinding.viewpager.currentItem =
-                            mBinding.viewpager.currentItem + 1
+                        CLICK_SKIP -> mBinding.viewpager.setCurrentItem(2, true)
+                        CLICK_NEXT -> mBinding.viewpager.setCurrentItem(
+                            mBinding.viewpager.currentItem + 1,
+                            true
+                        )
                         CLICK_START -> {
                             val intent = Intent(
                                 this@OnboardingActivity,
@@ -42,5 +44,14 @@ class OnboardingActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
+    }
+
+    override fun onBackPressed() {
+        val currentItem = mBinding.viewpager.currentItem
+        if (currentItem > 0) {
+            mBinding.viewpager.setCurrentItem(currentItem - 1, true)
+        } else {
+            finish()
+        }
     }
 }
