@@ -1,102 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/textview_title"
-        style="@style/font_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Atur Siklus Belajar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/textview_description"
-        style="@style/font_normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_8dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_title" />
+        <variable
+            name="isCycle0Selected"
+            type="Boolean" />
 
-    <TextView
-        android:id="@+id/textview_choose_cycle"
-        style="@style/font_normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_32dp"
-        android:text="Pilih jangka waktu siklus"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_description" />
+        <variable
+            name="isCycle1Selected"
+            type="Boolean" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_cycle_1"
-        style="@style/button_selected"
-        android:layout_marginTop="@dimen/space_16dp"
-        android:layout_marginBottom="@dimen/common_4dp"
-        android:text="Mingguan"
-        app:layout_constraintEnd_toStartOf="@id/button_cycle_2"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_choose_cycle" />
+        <variable
+            name="isCycle2Selected"
+            type="Boolean" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_cycle_2"
-        style="@style/font_normal"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_16dp"
-        android:background="@drawable/bg_border_solid_dark"
-        android:text="2 Mingguan"
-        android:textAllCaps="false"
-        android:textColor="@color/dark_primary"
-        app:layout_constraintBottom_toBottomOf="@id/button_cycle_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/button_cycle_1"
-        app:layout_constraintTop_toTopOf="@id/button_cycle_1" />
+        <variable
+            name="isCycle3Selected"
+            type="Boolean" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_cycle_3"
-        style="@style/font_normal"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_16dp"
-        android:background="@drawable/bg_border_solid_dark"
-        android:text="Mingguan"
-        android:textAllCaps="false"
-        android:textColor="@color/dark_primary"
-        app:layout_constraintEnd_toEndOf="@id/button_cycle_1"
-        app:layout_constraintStart_toStartOf="@id/button_cycle_1"
-        app:layout_constraintTop_toBottomOf="@id/button_cycle_1" />
+        <variable
+            name="isCycle4Selected"
+            type="Boolean" />
+    </data>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_cycle_4"
-        style="@style/font_normal"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_border_solid_dark"
-        android:text="Mingguan"
-        android:textAllCaps="false"
-        android:textColor="@color/dark_primary"
-        app:layout_constraintEnd_toEndOf="@id/button_cycle_2"
-        app:layout_constraintStart_toStartOf="@id/button_cycle_2"
-        app:layout_constraintTop_toTopOf="@id/button_cycle_3" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        style="@style/font_normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_16dp"
-        android:text="Atur waktu sendiri"
-        android:textColor="@color/green"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_cycle_3" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:text="Atur Siklus Belajar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_description"
+            style="@style/font_normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:text="Siklus belajar menentukan kapan kamu akan mengevaluasi kegiatan belajarmu."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+        <TextView
+            android:id="@+id/textview_choose_cycle"
+            style="@style/font_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_32dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:text="Pilih jangka waktu siklus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_description" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cycle_0"
+            style="@style/button_siklus"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/common_4dp"
+            android:background="@{isCycle0Selected == true? @drawable/bg_rounded_yellow : @drawable/bg_border_solid_dark}"
+            android:text="Mingguan"
+            android:textColor="@color/dark_primary"
+            app:layout_constraintEnd_toStartOf="@id/button_cycle_1"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_choose_cycle" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cycle_1"
+            style="@style/button_siklus"
+            android:layout_marginLeft="@dimen/space_16dp"
+            android:background="@{isCycle1Selected == true? @drawable/bg_rounded_yellow : @drawable/bg_border_solid_dark}"
+            android:text="2 Mingguan"
+            app:layout_constraintBottom_toBottomOf="@id/button_cycle_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/button_cycle_0"
+            app:layout_constraintTop_toTopOf="@id/button_cycle_0" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cycle_2"
+            style="@style/button_siklus"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:background="@{isCycle2Selected == true? @drawable/bg_rounded_yellow : @drawable/bg_border_solid_dark}"
+            android:text="Bulanan"
+            app:layout_constraintEnd_toEndOf="@id/button_cycle_0"
+            app:layout_constraintStart_toStartOf="@id/button_cycle_0"
+            app:layout_constraintTop_toBottomOf="@id/button_cycle_0" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cycle_3"
+            style="@style/button_siklus"
+            android:background="@{isCycle3Selected == true? @drawable/bg_rounded_yellow : @drawable/bg_border_solid_dark}"
+            android:text="2 Bulanan"
+            app:layout_constraintEnd_toEndOf="@id/button_cycle_1"
+            app:layout_constraintStart_toStartOf="@id/button_cycle_1"
+            app:layout_constraintTop_toTopOf="@id/button_cycle_2" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cycle_custom"
+            style="@style/button_siklus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:background="@{isCycle4Selected == true? @drawable/bg_rounded_yellow : @drawable/bg_border_solid_dark}"
+            android:minWidth="160dp"
+            android:text="Harian"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/button_cycle_3"
+            app:layout_constraintStart_toStartOf="@id/button_cycle_2"
+            app:layout_constraintTop_toBottomOf="@id/button_cycle_3" />
+
+        <TextView
+            style="@style/font_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4dp"
+            android:padding="@dimen/size_button_padding"
+            android:text="@string/siklus_belajar_atur_waktu"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_cycle_custom" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
 

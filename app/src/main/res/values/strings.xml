@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">skripsi-app</string>
+    <string name="siklus_belajar_atur_waktu"><u>Atur waktu sendiri</u></string>
 </resources>

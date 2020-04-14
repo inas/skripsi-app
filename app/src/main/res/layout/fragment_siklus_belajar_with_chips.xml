@@ -35,40 +35,40 @@
         app:layout_constraintTop_toBottomOf="@id/textview_description" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/button_cycle_1"
+        android:id="@+id/button_cycle_0"
         style="@style/chip_selected_wide"
         android:layout_marginTop="@dimen/space_8dp"
         android:text="Mingguan"
-        app:layout_constraintEnd_toStartOf="@id/button_cycle_2"
+        app:layout_constraintEnd_toStartOf="@id/button_cycle_1"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_choose_cycle" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/button_cycle_2"
+        android:id="@+id/button_cycle_1"
         style="@style/chip_not_selected_wide"
         android:layout_marginLeft="@dimen/space_16dp"
         android:text="2 Mingguan"
-        app:layout_constraintBottom_toBottomOf="@id/button_cycle_1"
+        app:layout_constraintBottom_toBottomOf="@id/button_cycle_0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/button_cycle_1"
-        app:layout_constraintTop_toTopOf="@id/button_cycle_1" />
+        app:layout_constraintStart_toEndOf="@id/button_cycle_0"
+        app:layout_constraintTop_toTopOf="@id/button_cycle_0" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/button_cycle_2"
+        style="@style/chip_not_selected_wide"
+        android:text="Bulanan"
+        app:layout_constraintEnd_toEndOf="@id/button_cycle_0"
+        app:layout_constraintStart_toStartOf="@id/button_cycle_0"
+        app:layout_constraintTop_toBottomOf="@id/button_cycle_0" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/button_cycle_3"
         style="@style/chip_not_selected_wide"
-        android:text="Bulanan"
+        android:text="2 Bulanan"
         app:layout_constraintEnd_toEndOf="@id/button_cycle_1"
         app:layout_constraintStart_toStartOf="@id/button_cycle_1"
-        app:layout_constraintTop_toBottomOf="@id/button_cycle_1" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/button_cycle_4"
-        style="@style/chip_not_selected_wide"
-        android:text="2 Bulanan"
-        app:layout_constraintEnd_toEndOf="@id/button_cycle_2"
-        app:layout_constraintStart_toStartOf="@id/button_cycle_2"
-        app:layout_constraintTop_toTopOf="@id/button_cycle_3" />
+        app:layout_constraintTop_toTopOf="@id/button_cycle_2" />
 
     <TextView
         style="@style/font_normal"
@@ -80,7 +80,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_cycle_3" />
+        app:layout_constraintTop_toBottomOf="@id/button_cycle_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
