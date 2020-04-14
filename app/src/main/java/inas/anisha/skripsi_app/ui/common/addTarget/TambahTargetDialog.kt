@@ -35,8 +35,9 @@ class TambahTargetDialog : DialogFragment() {
         mBinding.buttonAdd.setOnClickListener { addTarget() }
         mBinding.imageviewClose.setOnClickListener { dismiss() }
 
-        mBinding.switchDate.setOnCheckedChangeListener { _, isChecked ->
-            mBinding.textlayoutDate.visibility = if (isChecked) View.VISIBLE else View.GONE
+        mBinding.imageviewRemove.setOnClickListener {
+            targetDate = null
+            mBinding.edittextDate.setText("")
         }
 
         mBinding.edittextDate.apply {
@@ -61,8 +62,6 @@ class TambahTargetDialog : DialogFragment() {
             if (year != null && month != null && day != null) {
                 mBinding.edittextDate.setText(day.toString() + "-" + (month + 1) + "-" + year)
             }
-
-            mBinding.switchDate.isChecked = true
         }
 
         return mBinding.root
@@ -76,7 +75,7 @@ class TambahTargetDialog : DialogFragment() {
         val target = TargetUtamaViewModel().apply {
             name = targetName
             note = targetNote
-            date = if (mBinding.switchDate.isChecked) targetDate else null
+            date = targetDate
             isEditable = true
         }
 
