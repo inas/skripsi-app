@@ -77,7 +77,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="Rutin belajar mandiri"
-            android:textColor="@color/light_primary"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/textview_target_description"
             app:layout_constraintStart_toStartOf="@id/textview_target_description" />
 
@@ -93,7 +93,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="Buat sesi khusus untuk belajar mandiri"
-            android:textColor="@color/light_primary"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/imageview_target"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -118,7 +118,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="Rutin berlatih"
-            android:textColor="@color/light_primary"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/textview_target_description_2"
             app:layout_constraintStart_toStartOf="@id/textview_target_description_2" />
 
@@ -134,7 +134,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="Buat sesi khusus untuk berlatih"
-            android:textColor="@color/light_primary"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/imageview_target_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -159,7 +159,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="Bentuk keahlian baru"
-            android:textColor="@color/light_primary"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/textview_target_description_3"
             app:layout_constraintStart_toStartOf="@id/textview_target_description_3" />
 
@@ -175,7 +175,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="Kuasai keahlian baru yang narik bagimu"
-            android:textColor="@color/light_primary"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/imageview_target_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -185,7 +185,7 @@
             android:layout_marginTop="@dimen/space_16dp"
             android:background="@drawable/bg_rounded_dark_secondary"
             android:text="Simpan"
-            android:textColor="@color/light_primary"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageview_target_3" />
 

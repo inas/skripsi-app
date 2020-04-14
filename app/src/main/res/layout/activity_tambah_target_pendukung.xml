@@ -23,7 +23,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_arrow_back"
-                    android:backgroundTint="@color/light_primary"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_circle"
-                    android:backgroundTint="@color/light_primary"
+                    android:backgroundTint="@color/white"
                     android:gravity="center"
                     android:text="1"
                     android:textColor="@color/dark_primary"
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16dp"
             android:src="@drawable/ic_arrow_next_white"
-            app:backgroundTint="@color/light_primary"
+            app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

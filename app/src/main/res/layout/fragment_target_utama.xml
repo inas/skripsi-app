@@ -27,15 +27,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Atur Target Utama"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textview_description"
                 style="@style/font_normal"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 android:text="Target utama merupakan target terbesarmu, bersifat jangka panjang, dan menjadi tujuan akhir belajarmu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +49,8 @@
                 android:id="@+id/button_add_target"
                 style="@style/button_dash"
                 android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 android:text="+ tambah target"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +82,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_24dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 android:text="Tambah dari rekomendasi"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -86,6 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_add_target" />
 
@@ -95,6 +105,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_target_recommendation0" />
 

@@ -24,7 +24,7 @@
         android:layout_marginBottom="@dimen/space_4dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="@color/light_primary"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/textview_target_description"
         app:layout_constraintStart_toStartOf="@id/textview_target_description"
         tools:text="Rutin belajar mandiri" />
@@ -40,7 +40,7 @@
         android:layout_marginBottom="@dimen/space_16dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="@color/light_primary"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageview_target"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

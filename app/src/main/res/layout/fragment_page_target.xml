@@ -63,7 +63,7 @@
         android:layout_marginEnd="@dimen/space_16dp"
         android:layout_marginBottom="@dimen/space_16dp"
         android:ellipsize="end"
-        android:textColor="@color/light_primary"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageview_target"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

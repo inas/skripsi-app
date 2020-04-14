@@ -200,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4dp"
             android:hint="Catatan"
-            app:boxBackgroundColor="@color/light_primary"
+            app:boxBackgroundColor="@color/white"
             app:hintEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -219,7 +219,7 @@
             android:layout_marginTop="@dimen/space_24dp"
             android:background="@drawable/bg_rounded_green"
             android:text="Perbarui Target"
-            android:textColor="@color/light_primary"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textlayout_catatan" />
     </androidx.constraintlayout.widget.ConstraintLayout>

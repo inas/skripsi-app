@@ -17,6 +17,6 @@ class KelolaPembelajaranPagerAdapter(fragmentManager: FragmentManager) :
     override fun getCount(): Int = NUM_ITEMS
 
     companion object {
-        private const val NUM_ITEMS = 3
+        const val NUM_ITEMS = 3
     }
 }

@@ -39,7 +39,7 @@
                 android:layout_height="@dimen/common_32dp"
                 android:layout_marginEnd="@dimen/space_16dp"
                 android:background="@drawable/ic_chevron_next"
-                android:backgroundTint="@color/light_primary"
+                android:backgroundTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/imageview_header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/imageview_header" />
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
-                android:textColor="@color/light_primary"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/imageview_chevron"
                 app:layout_constraintStart_toEndOf="@id/imageview_profile"
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_16dp"
-                app:cardBackgroundColor="@color/light_primary"
+                app:cardBackgroundColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_achievement">
 

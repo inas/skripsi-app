@@ -3,5 +3,5 @@
         android:width="2.5dp"
         android:color="@color/dark_secondary" />
     <corners android:radius="6dp" />
-    <solid android:color="@color/light_primary" />
+    <solid android:color="@color/white" />
 </shape>
