@@ -7,6 +7,7 @@ interface TargetViewModel {
     var name: String
     var note: String
     var date: Calendar?
+    var isEditable: Boolean
     var isSelected: MutableLiveData<Boolean>
 
     fun dateString(): String

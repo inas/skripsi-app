@@ -78,10 +78,18 @@ class TargetUtamaFragment : Fragment() {
                 true
             )
         }
+
+        mBinding.layoutTargetAdded.imageviewEdit.setOnClickListener { openTambahTargetDialog() }
     }
 
     fun openTambahTargetDialog() {
-        val tambahTargetDialog = TambahTargetDialog()
+        val tambahTargetDialog = TambahTargetDialog().apply {
+            arguments = Bundle().apply {
+                putString("name", addedTargetVm.name)
+                putString("note", addedTargetVm.note)
+                addedTargetVm.date?.timeInMillis?.let { putLong("date", it) }
+            }
+        }
         tambahTargetDialog.setOnTargetAddedListener(object :
             TambahTargetDialog.OnTargetAddedListener {
             override fun onTargetAdded(target: TargetUtamaViewModel) {

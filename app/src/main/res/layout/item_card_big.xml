@@ -16,14 +16,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/space_8dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageview_target"
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_height"
-            android:background="@color/pink"
+            android:background="@drawable/bg_rounded_pink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,22 +41,24 @@
         <TextView
             android:id="@+id/textview_target"
             style="@style/font_heading"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24dp"
             android:layout_marginBottom="@dimen/space_4dp"
+            android:layout_marginEnd="@dimen/space_16dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/light_primary"
             android:text="@{viewModel.name}"
             app:layout_constraintBottom_toTopOf="@id/textview_target_description"
             app:layout_constraintStart_toStartOf="@id/textview_target_description"
-            tools:text="Rutin belajar mandiri" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Rutin belajar mandiri shhshs shhshs hshsh shhhs shhs" />
 
         <TextView
             android:id="@+id/textview_target_description"
             style="@style/font_normal"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_24dp"
@@ -67,9 +69,9 @@
             android:textColor="@color/light_primary"
             android:text="@{viewModel.note}"
             app:layout_constraintBottom_toBottomOf="@id/imageview_target"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imageview_selected"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Buat sesi khusus untuk belajar mandiri" />
+            tools:text="Buat sesi khusus untuk belajar mandir shhshs shhshs shsh" />
 
         <View
             android:layout_width="0dp"
@@ -83,12 +85,25 @@
             app:layout_constraintTop_toTopOf="@id/imageview_target" />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
+            android:layout_margin="@dimen/space_12dp"
             android:background="@drawable/ic_check"
             android:visibility="@{viewModel.isSelected? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_12dp"
+            android:src="@drawable/ic_edit"
+            android:tint="@color/light_primary"
+            android:visibility="@{viewModel.isEditable? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

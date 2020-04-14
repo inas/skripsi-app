@@ -51,6 +51,20 @@ class TambahTargetDialog : DialogFragment() {
             }
         }
 
+        mBinding.edittextTarget.setText(arguments?.getString("name") ?: "")
+        mBinding.edittextNote.setText(arguments?.getString("note") ?: "")
+        arguments?.getLong("date")?.takeIf { it != 0L }?.let {
+            targetDate = Calendar.getInstance().apply { timeInMillis = it }
+            val year = targetDate?.get(Calendar.YEAR)
+            val month = targetDate?.get(Calendar.MONTH)
+            val day = targetDate?.get(Calendar.DAY_OF_MONTH)
+            if (year != null && month != null && day != null) {
+                mBinding.edittextDate.setText(day.toString() + "-" + (month + 1) + "-" + year)
+            }
+
+            mBinding.switchDate.isChecked = true
+        }
+
         return mBinding.root
     }
 
@@ -63,6 +77,7 @@ class TambahTargetDialog : DialogFragment() {
             name = targetName
             note = targetNote
             date = if (mBinding.switchDate.isChecked) targetDate else null
+            isEditable = true
         }
 
         mCallback?.let {

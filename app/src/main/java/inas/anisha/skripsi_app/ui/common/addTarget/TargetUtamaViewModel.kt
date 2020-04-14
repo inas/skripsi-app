@@ -8,6 +8,7 @@ class TargetUtamaViewModel : ViewModel(), TargetViewModel {
     override var name: String = ""
     override var note: String = ""
     override var date: Calendar? = null
+    override var isEditable: Boolean = false
     override var isSelected: MutableLiveData<Boolean> = MutableLiveData(false)
 
     override fun dateString(): String {
