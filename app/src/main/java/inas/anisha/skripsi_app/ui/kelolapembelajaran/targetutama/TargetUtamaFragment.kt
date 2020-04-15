@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTargetUtamaBinding
-import inas.anisha.skripsi_app.ui.common.addTarget.TambahTargetDialog
-import inas.anisha.skripsi_app.ui.common.addTarget.TargetUtamaViewModel
+import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetDialog
+import inas.anisha.skripsi_app.ui.common.tambahTarget.TargetUtamaViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel
 
 class TargetUtamaFragment : Fragment() {

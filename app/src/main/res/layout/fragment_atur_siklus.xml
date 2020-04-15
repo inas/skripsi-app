@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_heading_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:text="Atur jangka waktu siklus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/button_close"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:layout_marginStart="@dimen/space_32dp"
+            android:layout_marginEnd="@dimen/space_4dp"
+            android:padding="@dimen/size_button_padding"
+            android:src="@drawable/ic_close_dark"
+            app:layout_constraintBottom_toBottomOf="@id/textview_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textview_title"
+            app:layout_constraintTop_toTopOf="@id/textview_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputlayout_frequency"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_32dp"
+            android:layout_marginEnd="@dimen/space_12dp"
+            android:hint="Frekuensi"
+            app:layout_constraintEnd_toEndOf="@id/button_close"
+            app:layout_constraintStart_toStartOf="@id/textview_title"
+            app:layout_constraintTop_toBottomOf="@id/textview_title">
+
+            <AutoCompleteTextView
+                android:id="@+id/dropdown_frequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputlayout_every"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:layout_marginEnd="@dimen/space_12dp"
+            android:hint="Setiap"
+            app:layout_constraintEnd_toEndOf="@id/button_close"
+            app:layout_constraintStart_toStartOf="@id/textview_title"
+            app:layout_constraintTop_toBottomOf="@id/inputlayout_frequency">
+
+            <AutoCompleteTextView
+                android:id="@+id/dropdown_every"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/button_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_32dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:text="Atur waktu siklus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/inputlayout_every"
+            app:layout_constraintStart_toStartOf="@id/inputlayout_every"
+            app:layout_constraintTop_toBottomOf="@id/inputlayout_every" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

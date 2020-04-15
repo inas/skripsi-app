@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.common.addTarget
+package inas.anisha.skripsi_app.ui.common.tambahTarget
 
 import androidx.lifecycle.MutableLiveData
 import java.util.*

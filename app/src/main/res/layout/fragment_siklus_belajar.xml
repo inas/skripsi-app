@@ -81,7 +81,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_cycle_1"
             style="@style/button_siklus"
-            android:layout_marginLeft="@dimen/space_16dp"
+            android:layout_marginLeft="@dimen/space_24dp"
             android:background="@{isCycle1Selected == true? @drawable/bg_rounded_yellow : @drawable/bg_border_solid_dark}"
             android:text="2 Mingguan"
             app:layout_constraintBottom_toBottomOf="@id/button_cycle_0"
@@ -92,7 +92,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_cycle_2"
             style="@style/button_siklus"
-            android:layout_marginTop="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_24dp"
             android:background="@{isCycle2Selected == true? @drawable/bg_rounded_yellow : @drawable/bg_border_solid_dark}"
             android:text="Bulanan"
             app:layout_constraintEnd_toEndOf="@id/button_cycle_0"
@@ -123,6 +123,7 @@
             app:layout_constraintTop_toBottomOf="@id/button_cycle_3" />
 
         <TextView
+            android:id="@+id/textview_custom"
             style="@style/font_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

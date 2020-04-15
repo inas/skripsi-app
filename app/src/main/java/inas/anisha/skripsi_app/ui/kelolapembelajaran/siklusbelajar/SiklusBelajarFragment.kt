@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentSiklusBelajarBinding
+import inas.anisha.skripsi_app.ui.common.atursiklus.AturSiklusDialogFragment
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel
 
 class SiklusBelajarFragment : Fragment() {
@@ -52,6 +53,8 @@ class SiklusBelajarFragment : Fragment() {
                 true
             )
         }
+
+        mBinding.textviewCustom.setOnClickListener { openAturSiklusDialog() }
     }
 
 
@@ -67,6 +70,11 @@ class SiklusBelajarFragment : Fragment() {
         mBinding.isCycle2Selected = isCycle2Selected
         mBinding.isCycle3Selected = isCycle3Selected
         mBinding.isCycle4Selected = isCycle4Selected
+    }
+
+    fun openAturSiklusDialog() {
+        val aturSiklusDialog = AturSiklusDialogFragment()
+        aturSiklusDialog.show(childFragmentManager, AturSiklusDialogFragment.TAG)
     }
 
     companion object {
