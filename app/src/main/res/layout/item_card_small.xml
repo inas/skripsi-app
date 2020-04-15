@@ -1,48 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/space_8dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageview_target"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/card_height_small"
-        android:background="@color/light_secondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textview_target"
-        style="@style/font_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_24dp"
-        android:layout_marginBottom="@dimen/space_4dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/textview_target_description"
-        app:layout_constraintStart_toStartOf="@id/textview_target_description"
-        tools:text="Rutin belajar mandiri" />
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@{viewModel.isSelected}"
+            android:clickable="false"
+            android:visibility="@{viewModel.shouldShowSelection? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_target"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageview_target" />
 
-    <TextView
-        android:id="@+id/textview_target_description"
-        style="@style/font_normal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_16dp"
-        android:layout_marginTop="@dimen/space_24dp"
-        android:layout_marginEnd="@dimen/space_16dp"
-        android:layout_marginBottom="@dimen/space_16dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/imageview_target"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Buat sesi khusus untuk belajar mandiri" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_target"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/card_height_small"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:background="@drawable/bg_rounded_pink"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/checkbox"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_target"
+            style="@style/font_heading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginBottom="@dimen/space_4dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{viewModel.name}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/textview_target_description"
+            app:layout_constraintEnd_toStartOf="@id/imageview_edit"
+            app:layout_constraintStart_toStartOf="@id/textview_target_description"
+            tools:text="Rutin belajar mandiri shhsh shhs shhshshs shshsh" />
+
+        <TextView
+            android:id="@+id/textview_target_description"
+            style="@style/font_normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{viewModel.note}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_target"
+            app:layout_constraintEnd_toEndOf="@id/imageview_target"
+            app:layout_constraintStart_toStartOf="@id/imageview_target"
+            tools:text="Buat sesi khusus untuk belajar mandiri dhhhd hdhdhd dhdhhd" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_12dp"
+            android:src="@drawable/ic_edit"
+            android:tint="@color/white"
+            android:visibility="@{viewModel.isEditable? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.siklusbelajar.SiklusBelajarFragment
+import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungFragment
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaFragment
 
 
@@ -13,9 +14,9 @@ class KelolaPembelajaranPagerAdapter(fragmentManager: FragmentManager) :
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            1 -> TargetUtamaFragment()
-            2 -> SiklusBelajarFragment()
-            else -> TargetUtamaFragment()
+            0 -> TargetUtamaFragment()
+            1 -> SiklusBelajarFragment()
+            else -> TargetPendukungFragment()
         }
     }
 

@@ -42,6 +42,8 @@
                 app:layout_constraintTop_toBottomOf="@id/textview_description" />
 
             <LinearLayout
+                android:id="@+id/layout_added"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16dp"
@@ -67,9 +69,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider" />
 
-            <include
-                android:id="@+id/layout_target_recommendation0"
-                layout="@layout/item_card_small"
+            <LinearLayout
+                android:id="@+id/layout_recommended"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16dp"
