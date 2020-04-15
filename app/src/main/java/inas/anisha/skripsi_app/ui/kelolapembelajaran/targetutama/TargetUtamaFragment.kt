@@ -22,6 +22,7 @@ class TargetUtamaFragment : Fragment() {
             .apply {
             name = "Melanjutkan pendidikan"
             note = "Setelah lulus saya ingin melanjutkan sekolah ke universitas impian"
+                shouldShowSelection = true
         }
 
     private val recTarget1Vm =
@@ -29,6 +30,7 @@ class TargetUtamaFragment : Fragment() {
             .apply {
             name = "Mewujudkan cita-cita saya"
             note = "Saya ingin memiliki pekerjaan yang saya impikan"
+                shouldShowSelection = true
         }
 
     private var addedTargetVm: TargetUtamaViewModel =

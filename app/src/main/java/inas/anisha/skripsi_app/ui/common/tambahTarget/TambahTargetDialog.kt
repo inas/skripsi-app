@@ -79,6 +79,7 @@ class TambahTargetDialog : DialogFragment() {
             note = targetNote
             date = targetDate
             isEditable = true
+                shouldShowSelection = true
         }
 
         mCallback?.let {

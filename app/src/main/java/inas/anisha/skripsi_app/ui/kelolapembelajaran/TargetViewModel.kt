@@ -9,6 +9,7 @@ interface TargetViewModel {
     var date: Calendar?
     var isEditable: Boolean
     var isSelected: MutableLiveData<Boolean>
+    var shouldShowSelection: Boolean
 
     fun dateString(): String
 }

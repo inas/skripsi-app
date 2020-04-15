@@ -33,13 +33,10 @@ class SiklusBelajarFragment : Fragment() {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_siklus_belajar, container, false)
 
-        initViews()
         setClickListener()
+        selectTarget(true, false, false, false, false)
 
         return mBinding.root
-    }
-
-    fun initViews() {
     }
 
     fun setClickListener() {
