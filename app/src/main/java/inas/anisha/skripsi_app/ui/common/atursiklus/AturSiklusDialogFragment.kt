@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import inas.anisha.skripsi_app.R
+import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.databinding.FragmentAturSiklusBinding
-
 
 class AturSiklusDialogFragment : DialogFragment() {
     private lateinit var mBinding: FragmentAturSiklusBinding
@@ -24,6 +24,7 @@ class AturSiklusDialogFragment : DialogFragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_atur_siklus, container, false)
 
         mBinding.buttonClose.setOnClickListener { dismiss() }
+        mBinding.buttonAtur.setOnClickListener { setCycleTime() }
 
         requireContext().let { context ->
             val frequencyAdapter: ArrayAdapter<String> =
@@ -41,11 +42,26 @@ class AturSiklusDialogFragment : DialogFragment() {
 
         }
 
+        arguments?.getString(ARG_FREQUENCY, FREQUENCY[0])
+            .let { mBinding.dropdownFrequency.setText(it, false) }
+        arguments?.getString(ARG_DURATION, "1").let { mBinding.dropdownDuration.setText(it, false) }
+
         return mBinding.root
     }
 
     fun setOnSiklusChosenListener(callback: OnSiklusChosenListener) {
         mCallback = callback
+    }
+
+    fun setCycleTime() {
+        val frequency = when (mBinding.dropdownFrequency.text.toString()) {
+            FREQUENCY[0] -> SkripsiConstant.CYCLE_FRQUENCY_DAILY
+            FREQUENCY[1] -> SkripsiConstant.CYCLE_FRQUENCY_WEEKLY
+            else -> SkripsiConstant.CYCLE_FRQUENCY_MONTHLY
+        }
+
+        mCallback?.onTargetAdded(Pair(frequency, mBinding.dropdownDuration.text.toString().toInt()))
+        dismiss()
     }
 
     interface OnSiklusChosenListener {
@@ -55,6 +71,9 @@ class AturSiklusDialogFragment : DialogFragment() {
     companion object {
         const val TAG = "ATUR_SIKLUS_DIALOG"
 
-        private val FREQUENCY = mutableListOf("Harian", "Mingguan", "Bulanan")
+        const val ARG_DURATION = "ARG_DURATION"
+        const val ARG_FREQUENCY = "ARG_FREQUENCY"
+
+        val FREQUENCY = mutableListOf("Harian", "Mingguan", "Bulanan")
     }
 }

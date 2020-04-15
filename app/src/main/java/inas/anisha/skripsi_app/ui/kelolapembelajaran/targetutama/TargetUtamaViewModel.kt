@@ -1,10 +1,12 @@
-package inas.anisha.skripsi_app.ui.common.tambahTarget
+package inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import inas.anisha.skripsi_app.ui.kelolapembelajaran.TargetViewModel
 import java.util.*
 
-class TargetUtamaViewModel : ViewModel(), TargetViewModel {
+class TargetUtamaViewModel : ViewModel(),
+    TargetViewModel {
     override var name: String = ""
     override var note: String = ""
     override var date: Calendar? = null

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
+import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.databinding.FragmentSiklusBelajarBinding
 import inas.anisha.skripsi_app.ui.common.atursiklus.AturSiklusDialogFragment
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel
@@ -16,6 +17,8 @@ class SiklusBelajarFragment : Fragment() {
 
     private lateinit var mBinding: FragmentSiklusBelajarBinding
     private lateinit var mViewModel: KelolaPembelajaranViewModel
+
+    private var customCycleTime: Pair<Int, Int>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,8 +76,37 @@ class SiklusBelajarFragment : Fragment() {
     }
 
     fun openAturSiklusDialog() {
-        val aturSiklusDialog = AturSiklusDialogFragment()
+        val aturSiklusDialog = AturSiklusDialogFragment().apply {
+            arguments = Bundle().apply {
+                customCycleTime?.let {
+                    putString(AturSiklusDialogFragment.ARG_FREQUENCY, getFrequencyText(it.first))
+                    putString(AturSiklusDialogFragment.ARG_DURATION, it.second.toString())
+                }
+
+            }
+
+            setOnSiklusChosenListener(object : AturSiklusDialogFragment.OnSiklusChosenListener {
+                override fun onTargetAdded(cycleTime: Pair<Int, Int>) {
+                    customCycleTime = cycleTime
+                    mViewModel.cycleTime = cycleTime
+
+                    mBinding.buttonCycleCustom.visibility = View.VISIBLE
+                    mBinding.buttonCycleCustom.text =
+                        cycleTime.second.toString() + " " + getFrequencyText(cycleTime.first)
+
+                    selectTarget(false, false, false, false, true)
+                }
+            })
+        }
         aturSiklusDialog.show(childFragmentManager, AturSiklusDialogFragment.TAG)
+    }
+
+    fun getFrequencyText(cycleFrequency: Int): String {
+        return when (cycleFrequency) {
+            SkripsiConstant.CYCLE_FRQUENCY_DAILY -> AturSiklusDialogFragment.FREQUENCY[0]
+            SkripsiConstant.CYCLE_FRQUENCY_WEEKLY -> AturSiklusDialogFragment.FREQUENCY[1]
+            else -> AturSiklusDialogFragment.FREQUENCY[2]
+        }
     }
 
     companion object {

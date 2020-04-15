@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTargetUtamaBinding
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetDialog
-import inas.anisha.skripsi_app.ui.common.tambahTarget.TargetUtamaViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel
 
 class TargetUtamaFragment : Fragment() {
@@ -19,18 +18,21 @@ class TargetUtamaFragment : Fragment() {
     private lateinit var mViewModel: KelolaPembelajaranViewModel
 
     private val recTarget0Vm =
-        TargetUtamaViewModel().apply {
+        TargetUtamaViewModel()
+            .apply {
             name = "Melanjutkan pendidikan"
             note = "Setelah lulus saya ingin melanjutkan sekolah ke universitas impian"
         }
 
     private val recTarget1Vm =
-        TargetUtamaViewModel().apply {
+        TargetUtamaViewModel()
+            .apply {
             name = "Mewujudkan cita-cita saya"
             note = "Saya ingin memiliki pekerjaan yang saya impikan"
         }
 
-    private var addedTargetVm: TargetUtamaViewModel = TargetUtamaViewModel()
+    private var addedTargetVm: TargetUtamaViewModel =
+        TargetUtamaViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,10 +112,10 @@ class TargetUtamaFragment : Fragment() {
         recTarget1Vm.isSelected.value = secondRecTarget
 
         when {
-            addedTarget -> mViewModel.setMainTarget(addedTargetVm)
-            firstRecTarget -> mViewModel.setMainTarget(recTarget0Vm)
-            secondRecTarget -> mViewModel.setMainTarget(recTarget1Vm)
-            else -> mViewModel.setMainTarget(null)
+            addedTarget -> mViewModel.mainTarget = addedTargetVm
+            firstRecTarget -> mViewModel.mainTarget = recTarget0Vm
+            secondRecTarget -> mViewModel.mainTarget = recTarget1Vm
+            else -> mViewModel.mainTarget = null
         }
     }
 

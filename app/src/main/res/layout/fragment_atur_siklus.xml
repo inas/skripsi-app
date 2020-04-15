@@ -79,6 +79,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_atur"
             style="@style/button_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

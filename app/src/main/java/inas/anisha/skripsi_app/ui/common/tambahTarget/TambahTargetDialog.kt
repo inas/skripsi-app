@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTambahTargetBinding
+import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
 import java.util.*
 
 
@@ -72,7 +73,8 @@ class TambahTargetDialog : DialogFragment() {
         val targetNote = mBinding.edittextNote.text.toString()
         val targetDate = targetDate
 
-        val target = TargetUtamaViewModel().apply {
+        val target = TargetUtamaViewModel()
+            .apply {
             name = targetName
             note = targetNote
             date = targetDate
