@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:checked="@{viewModel.isSelected}"
             android:visibility="@{viewModel.shouldShowSelection? View.VISIBLE : View.GONE}"
+            android:clickable="false"
             app:layout_constraintBottom_toBottomOf="@id/layout_card"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/layout_card" />

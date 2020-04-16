@@ -21,25 +21,28 @@ class TargetUtamaFragment : Fragment() {
     private val recTarget0Vm =
         TargetUtamaViewModel()
             .apply {
-            name = "Melanjutkan pendidikan"
-            note = "Setelah lulus saya ingin melanjutkan sekolah ke universitas impian"
+                name = "Melanjutkan pendidikan"
+                note = "Setelah lulus saya ingin melanjutkan sekolah ke universitas impian"
                 shouldShowSelection = true
-        }
+                isSelected.value = true
+            }
 
     private val recTarget1Vm =
         TargetUtamaViewModel()
             .apply {
-            name = "Mewujudkan cita-cita saya"
-            note = "Saya ingin memiliki pekerjaan yang saya impikan"
+                name = "Mewujudkan cita-cita saya"
+                note = "Saya ingin memiliki pekerjaan yang saya impikan"
                 shouldShowSelection = true
-        }
+            }
 
     private var addedTargetVm: TargetUtamaViewModel =
         TargetUtamaViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(KelolaPembelajaranViewModel::class.java)
+        requireActivity().let {
+            mViewModel = ViewModelProviders.of(it).get(KelolaPembelajaranViewModel::class.java)
+        }
     }
 
     override fun onCreateView(
@@ -50,6 +53,7 @@ class TargetUtamaFragment : Fragment() {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_target_utama, container, false)
         mBinding.viewModel = mViewModel
+        mViewModel.mainTarget = recTarget0Vm
 
         initViews()
         setClickListener()

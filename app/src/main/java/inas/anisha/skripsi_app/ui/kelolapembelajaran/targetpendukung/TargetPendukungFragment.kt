@@ -48,7 +48,9 @@ class TargetPendukungFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(KelolaPembelajaranViewModel::class.java)
+        requireActivity().let {
+            mViewModel = ViewModelProviders.of(it).get(KelolaPembelajaranViewModel::class.java)
+        }
     }
 
     override fun onCreateView(
@@ -146,12 +148,18 @@ class TargetPendukungFragment : Fragment() {
             TambahTargetPendukungDialog.OnTargetModifiedListener {
             override fun onTargetModified(target: TargetPendukungViewModel) {
                 targetVm.replaceValues(target)
+                targetVm.isSelected.value = true
                 clickedBinding.viewModel = targetVm
-//                mViewModel.mainTarget = target
             }
         })
 
         tambahTargetDialog.show(childFragmentManager, TambahTargetPendukungDialog.TAG)
+    }
+
+    fun getSelectedTargets() {
+        mViewModel.supportingTargets =
+            displayedSupportingTargets.values.filter { it.isSelected.value ?: false }
+                .toMutableList()
     }
 
     companion object {

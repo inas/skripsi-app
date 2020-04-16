@@ -11,16 +11,23 @@ import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaFrag
 class KelolaPembelajaranPagerAdapter(fragmentManager: FragmentManager) :
     FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
+    private val mTargetUtamaFragment = TargetUtamaFragment()
+    private val mSiklusBelajarFragment = SiklusBelajarFragment()
+    private val mTargetPendukungFragment = TargetPendukungFragment()
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> TargetUtamaFragment()
-            1 -> SiklusBelajarFragment()
-            else -> TargetPendukungFragment()
+            0 -> mTargetUtamaFragment
+            1 -> mSiklusBelajarFragment
+            else -> mTargetPendukungFragment
         }
     }
 
     override fun getCount(): Int = NUM_ITEMS
+
+    fun completeKelolaPembelajaran() {
+        mTargetPendukungFragment.getSelectedTargets()
+    }
 
     companion object {
         const val NUM_ITEMS = 3

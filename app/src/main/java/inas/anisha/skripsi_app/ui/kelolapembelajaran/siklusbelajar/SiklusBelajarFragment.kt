@@ -19,10 +19,17 @@ class SiklusBelajarFragment : Fragment() {
     private lateinit var mViewModel: KelolaPembelajaranViewModel
 
     private var customCycleTime: Pair<Int, Int>? = null
+    private var recCycleTime0 = Pair(SkripsiConstant.CYCLE_FRQUENCY_WEEKLY, 1)
+    private var recCycleTime1 = Pair(SkripsiConstant.CYCLE_FRQUENCY_WEEKLY, 2)
+    private var recCycleTime2 = Pair(SkripsiConstant.CYCLE_FRQUENCY_MONTHLY, 1)
+    private var recCycleTime3 = Pair(SkripsiConstant.CYCLE_FRQUENCY_MONTHLY, 2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(KelolaPembelajaranViewModel::class.java)
+        requireActivity().let {
+            mViewModel = ViewModelProviders.of(it).get(KelolaPembelajaranViewModel::class.java)
+        }
+        mViewModel.cycleTime = recCycleTime0
     }
 
     override fun onCreateView(
@@ -70,6 +77,14 @@ class SiklusBelajarFragment : Fragment() {
         mBinding.isCycle2Selected = isCycle2Selected
         mBinding.isCycle3Selected = isCycle3Selected
         mBinding.isCycle4Selected = isCycle4Selected
+
+        when {
+            isCycle0Selected -> mViewModel.cycleTime = recCycleTime0
+            isCycle1Selected -> mViewModel.cycleTime = recCycleTime1
+            isCycle2Selected -> mViewModel.cycleTime = recCycleTime2
+            isCycle3Selected -> mViewModel.cycleTime = recCycleTime3
+            else -> customCycleTime?.let { mViewModel.cycleTime = it }
+        }
     }
 
     fun openAturSiklusDialog() {
@@ -85,7 +100,6 @@ class SiklusBelajarFragment : Fragment() {
             setOnSiklusChosenListener(object : AturSiklusDialogFragment.OnSiklusChosenListener {
                 override fun onTargetAdded(cycleTime: Pair<Int, Int>) {
                     customCycleTime = cycleTime
-                    mViewModel.cycleTime = cycleTime
 
                     mBinding.buttonCycleCustom.visibility = View.VISIBLE
                     mBinding.buttonCycleCustom.text =

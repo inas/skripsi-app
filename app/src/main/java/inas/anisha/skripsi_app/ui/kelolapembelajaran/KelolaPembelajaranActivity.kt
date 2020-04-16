@@ -34,9 +34,7 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-//                mBinding.fabNext.visibility = if (position < KelolaPembelajaranPagerAdapter.NUM_ITEMS - 1) View.VISIBLE else View.GONE
                 mViewModel.page.value = position
-                updateBreadCrumbColor(position)
             }
         })
 
@@ -57,11 +55,26 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
         }
     }
 
-    fun nextPage() = mBinding.viewpager.setCurrentItem(mBinding.viewpager.currentItem + 1, true)
+    fun nextPage() {
+        val currentItem = mBinding.viewpager.currentItem
+        if (currentItem + 1 == KelolaPembelajaranPagerAdapter.NUM_ITEMS) {
+            (mBinding.viewpager.adapter as KelolaPembelajaranPagerAdapter).completeKelolaPembelajaran()
+            completeKelolaPembelajaran()
+        } else {
+            mBinding.viewpager.setCurrentItem(mBinding.viewpager.currentItem + 1, true)
+        }
+    }
 
-    fun updateBreadCrumbColor(position: Int) {
-        when (position) {
-//            0 -> updateBreadCrumbColor()
+    private fun completeKelolaPembelajaran() {
+        if (mViewModel.supportingTargets.size > 0) {
+            mViewModel.saveDataToRepository()
+
+//            val intent = Intent(this, MainActivity::class.java).apply {
+//                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            }
+//            startActivity(intent)
         }
     }
 
