@@ -95,28 +95,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_delete"
-            style="@style/button_text"
-            android:layout_width="0dp"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_32dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:text="Hapus"
-            android:textColor="@color/red"
-            app:layout_constraintEnd_toStartOf="@id/button_save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_time" />
-
-        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_save"
-            style="@style/button_fill"
+            style="@style/button_full"
             android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_32dp"
             android:layout_marginEnd="@dimen/space_16dp"
             android:backgroundTint="@color/green"
             android:text="Simpan"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/button_delete"
             app:layout_constraintTop_toBottomOf="@id/textlayout_time" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

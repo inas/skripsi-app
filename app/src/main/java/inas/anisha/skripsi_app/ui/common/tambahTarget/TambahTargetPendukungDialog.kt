@@ -10,14 +10,13 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTambahTargetPendukungBinding
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
-import java.util.*
 
 
 class TambahTargetPendukungDialog : DialogFragment() {
 
     private lateinit var mBinding: FragmentTambahTargetPendukungBinding
     private lateinit var mViewModel: TargetPendukungViewModel
-    private var mCallback: OnTargetAddedListener? = null
+    private var mCallback: OnTargetModifiedListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,98 +38,49 @@ class TambahTargetPendukungDialog : DialogFragment() {
             )
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this
-//        mBinding.buttonAdd.setOnClickListener { addTarget() }
-//        mBinding.imageviewClose.setOnClickListener { dismiss() }
-//
-//        mBinding.imageviewRemove.setOnClickListener {
-//            targetDate = null
-//            mBinding.edittextDate.setText("")
-//        }
-//
-//        mBinding.edittextDate.apply {
-//            setOnClickListener {
-//                showDatePicker()
-//            }
-//            setOnFocusChangeListener { view, hasFocus ->
-//                if (hasFocus) {
-//                    showDatePicker()
-//                    view.clearFocus()
-//                }
-//            }
-//        }
 
-        mBinding.edittextTarget.setText(arguments?.getString("name") ?: "")
-        mBinding.edittextNote.setText(arguments?.getString("note") ?: "")
-//        arguments?.getLong("date")?.takeIf { it != 0L }?.let {
-//            targetDate = Calendar.getInstance().apply { timeInMillis = it }
-//            val year = targetDate?.get(Calendar.YEAR)
-//            val month = targetDate?.get(Calendar.MONTH)
-//            val day = targetDate?.get(Calendar.DAY_OF_MONTH)
-//            if (year != null && month != null && day != null) {
-//                mBinding.edittextDate.setText(day.toString() + "-" + (month + 1) + "-" + year)
-//            }
-//        }
+        mBinding.buttonSave.setOnClickListener { modifyTarget() }
+        mBinding.imageviewClose.setOnClickListener { dismiss() }
+
+        mBinding.edittextTarget.setText(arguments?.getString(ARG_NAME) ?: "")
+        mBinding.edittextNote.setText(arguments?.getString(ARG_NOTE) ?: "")
+        mBinding.edittextTime.setText(arguments?.getString(ARG_TIME) ?: "")
 
         return mBinding.root
     }
 
-    fun addTarget() {
+    fun modifyTarget() {
         val targetName = mBinding.edittextTarget.text.toString()
         val targetNote = mBinding.edittextNote.text.toString()
-//        val targetDate = targetDate
+        val targetTime = mBinding.edittextTime.text.toString()
 
         val target = TargetPendukungViewModel()
             .apply {
                 name = targetName
                 note = targetNote
-                shouldShowSelection = true
+                time = targetTime
             }
 
         mCallback?.let {
-            it.onTargetAdded(target)
+            it.onTargetModified(target)
             dismiss()
         }
 
     }
 
-    fun showDatePicker() {
-//        val builder = MaterialDatePicker.Builder.datePicker()
-//        val constraintsBuilder = CalendarConstraints.Builder()
-//        constraintsBuilder.setStart(Calendar.getInstance().timeInMillis)
-//        builder.setCalendarConstraints(constraintsBuilder.build())
-//
-//        builder.build().show(childFragmentManager, "")
-
-        val currentDate = Calendar.getInstance()
-        val year = currentDate.get(Calendar.YEAR)
-        val month = currentDate.get(Calendar.MONTH)
-        val day = currentDate.get(Calendar.DAY_OF_MONTH)
-
-//        requireContext().let {
-//            val datePickerDialog = DatePickerDialog(
-//                it,
-//                OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-//                    targetDate = currentDate.apply { set(year, monthOfYear, dayOfMonth) }
-//                    mBinding.edittextDate.setText(dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
-//                },
-//                year,
-//                month,
-//                day
-//            )
-//            datePickerDialog.show()
-//        }
-
-    }
-
-    fun setOnTargetAddedListener(callback: OnTargetAddedListener) {
+    fun setOnTargetAddedListener(callback: OnTargetModifiedListener) {
         mCallback = callback
     }
 
-    interface OnTargetAddedListener {
-        fun onTargetAdded(target: TargetPendukungViewModel)
+    interface OnTargetModifiedListener {
+        fun onTargetModified(target: TargetPendukungViewModel)
     }
 
     companion object {
         const val TAG = "TAMBAH_TARGET_PENDUKUNG_DIALOG"
+
+        const val ARG_NAME = "ARG_NAME"
+        const val ARG_NOTE = "ARG_NOTE"
+        const val ARG_TIME = "ARG_TIME"
     }
 }

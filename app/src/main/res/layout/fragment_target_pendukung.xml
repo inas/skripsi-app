@@ -10,7 +10,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_64dp"
-            android:padding="@dimen/space_16dp">
+            android:paddingStart="@dimen/space_16dp"
+            android:paddingTop="@dimen/space_16dp"
+            android:paddingEnd="@dimen/space_16dp"
+            android:paddingBottom="80dp">
 
             <TextView
                 android:id="@+id/textview_title"
@@ -55,9 +58,9 @@
                 layout="@layout/common_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_1dp"
-                android:layout_marginTop="@dimen/space_24dp"
+                android:layout_marginTop="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_add_target" />
+                app:layout_constraintTop_toBottomOf="@id/layout_added" />
 
             <TextView
                 android:id="@+id/textview_add_target"

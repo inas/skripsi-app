@@ -42,7 +42,9 @@ class TargetPendukungFragment : Fragment() {
                 shouldShowSelection = true
             }
 
-    private var displayedSupportingTargets = mutableListOf<TargetPendukungViewModel>()
+    private var displayedSupportingTargets: MutableMap<String, TargetPendukungViewModel> =
+        mutableMapOf()
+    private var idCounter = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,8 +68,15 @@ class TargetPendukungFragment : Fragment() {
     }
 
     fun initViews() {
-        displayedSupportingTargets = mutableListOf(recTarget0Vm, recTarget1Vm, recTarget2Vm)
-        displayedSupportingTargets.forEach { vm ->
+        mBinding.buttonAddTarget.setOnClickListener { openAddTargetDialog() }
+
+        displayedSupportingTargets = mutableMapOf(
+            Pair("recommended0", recTarget0Vm),
+            Pair("recommended1", recTarget1Vm),
+            Pair("recommended2", recTarget2Vm)
+        )
+
+        displayedSupportingTargets.values.forEachIndexed { index, vm ->
             val inflater = LayoutInflater.from(context)
             val card: ItemTargetPendukungBinding =
                 DataBindingUtil.inflate(inflater, R.layout.item_target_pendukung, null, false)
@@ -84,26 +93,41 @@ class TargetPendukungFragment : Fragment() {
         }
     }
 
-    fun openTambahTargetDialog() {
-//        val tambahTargetDialog = TambahTargetDialog().apply {
-//            arguments = Bundle().apply {
-//                putString("name", addedTargetVm.name)
-//                putString("note", addedTargetVm.note)
-//                addedTargetVm.date?.timeInMillis?.let { putLong("date", it) }
-//            }
-//        }
-//        tambahTargetDialog.setOnTargetAddedListener(object :
-//            TambahTargetDialog.OnTargetAddedListener {
-//            override fun onTargetAdded(target: TargetUtamaViewModel) {
-//                addedTargetVm = target
-//                mBinding.layoutTargetAdded.viewModel = target
-//                mBinding.buttonAddTarget.visibility = View.GONE
-//                mBinding.layoutTargetAdded.layout.visibility = View.VISIBLE
-//
-//                selectTarget(true, false, false)
-//            }
-//        })
-//        tambahTargetDialog.show(childFragmentManager, TambahTargetDialog.TAG)
+    fun openAddTargetDialog() {
+        val tambahTargetDialog = TambahTargetPendukungDialog()
+        tambahTargetDialog.setOnTargetAddedListener(object :
+            TambahTargetPendukungDialog.OnTargetModifiedListener {
+            override fun onTargetModified(target: TargetPendukungViewModel) {
+                target.shouldShowSelection = true
+                target.isSelected.value = true
+                target.isRemovable = true
+
+                val inflater = LayoutInflater.from(context)
+                val card: ItemTargetPendukungBinding =
+                    DataBindingUtil.inflate(inflater, R.layout.item_target_pendukung, null, false)
+                card.viewModel = target
+                card.lifecycleOwner = this@TargetPendukungFragment
+
+                val view = card.layoutContainer.apply {
+                    setOnClickListener {
+                        target.isSelected.value = !(target.isSelected.value ?: false)
+                    }
+
+                    tag = "added" + idCounter++
+                }
+
+                card.layoutCard.setOnClickListener { openModifyTargetDialog(target, card) }
+                card.imageviewDelete.setOnClickListener {
+                    mBinding.layoutAdded.removeView(view)
+                    displayedSupportingTargets.remove(view.tag)
+                }
+
+                displayedSupportingTargets[view.tag.toString()] = target
+                mBinding.layoutAdded.addView(view)
+            }
+        })
+
+        tambahTargetDialog.show(childFragmentManager, TambahTargetPendukungDialog.TAG)
     }
 
     fun openModifyTargetDialog(
@@ -112,15 +136,15 @@ class TargetPendukungFragment : Fragment() {
     ) {
         val tambahTargetDialog = TambahTargetPendukungDialog().apply {
             arguments = Bundle().apply {
-                putString("name", targetVm.name)
-                putString("note", targetVm.note)
-                putString("time", targetVm.time)
+                putString(TambahTargetPendukungDialog.ARG_NAME, targetVm.name)
+                putString(TambahTargetPendukungDialog.ARG_NOTE, targetVm.note)
+                putString(TambahTargetPendukungDialog.ARG_TIME, targetVm.time)
             }
         }
 
         tambahTargetDialog.setOnTargetAddedListener(object :
-            TambahTargetPendukungDialog.OnTargetAddedListener {
-            override fun onTargetAdded(target: TargetPendukungViewModel) {
+            TambahTargetPendukungDialog.OnTargetModifiedListener {
+            override fun onTargetModified(target: TargetPendukungViewModel) {
                 targetVm.replaceValues(target)
                 clickedBinding.viewModel = targetVm
 //                mViewModel.mainTarget = target
@@ -128,18 +152,6 @@ class TargetPendukungFragment : Fragment() {
         })
 
         tambahTargetDialog.show(childFragmentManager, TambahTargetPendukungDialog.TAG)
-    }
-    fun selectTarget(addedTarget: Boolean, firstRecTarget: Boolean, secondRecTarget: Boolean) {
-//        addedTargetVm.isSelected.value = addedTarget
-//        recTarget0Vm.isSelected.value = firstRecTarget
-//        recTarget1Vm.isSelected.value = secondRecTarget
-//
-//        when {
-//            addedTarget -> mViewModel.mainTarget = addedTargetVm
-//            firstRecTarget -> mViewModel.mainTarget = recTarget0Vm
-//            secondRecTarget -> mViewModel.mainTarget = recTarget1Vm
-//            else -> mViewModel.mainTarget = null
-//        }
     }
 
     companion object {
