@@ -83,8 +83,8 @@ class TambahTargetUtamaDialog : DialogFragment() {
             name = targetName
             note = targetNote
             date = targetDate
-            isEditable = true
                 shouldShowSelection = true
+                isSelected.value = true
         }
 
         mCallback?.let {

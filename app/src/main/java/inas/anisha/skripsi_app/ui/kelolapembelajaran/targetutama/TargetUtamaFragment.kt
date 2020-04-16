@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTargetUtamaBinding
+import inas.anisha.skripsi_app.databinding.ItemCardBigBinding
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetUtamaDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel
 
@@ -67,6 +68,22 @@ class TargetUtamaFragment : Fragment() {
 
     fun setClickListener() {
         mBinding.buttonAddTarget.setOnClickListener { openTambahTargetDialog() }
+
+        mBinding.layoutTargetAdded.layoutCard.setOnClickListener {
+            selectTarget(true, false, false)
+            modifyTargetDialog(addedTargetVm, mBinding.layoutTargetAdded)
+        }
+
+        mBinding.layoutTargetRecommendation0.layoutCard.setOnClickListener {
+            selectTarget(false, true, false)
+            modifyTargetDialog(recTarget0Vm, mBinding.layoutTargetRecommendation0)
+        }
+
+        mBinding.layoutTargetRecommendation1.layoutCard.setOnClickListener {
+            selectTarget(false, false, true)
+            modifyTargetDialog(recTarget1Vm, mBinding.layoutTargetRecommendation1)
+        }
+
         mBinding.layoutTargetAdded.layout.setOnClickListener { selectTarget(true, false, false) }
         mBinding.layoutTargetRecommendation0.layout.setOnClickListener {
             selectTarget(
@@ -83,17 +100,10 @@ class TargetUtamaFragment : Fragment() {
             )
         }
 
-        mBinding.layoutTargetAdded.imageviewEdit.setOnClickListener { openTambahTargetDialog() }
     }
 
     fun openTambahTargetDialog() {
-        val tambahTargetDialog = TambahTargetUtamaDialog().apply {
-            arguments = Bundle().apply {
-                putString("name", addedTargetVm.name)
-                putString("note", addedTargetVm.note)
-                addedTargetVm.date?.timeInMillis?.let { putLong("date", it) }
-            }
-        }
+        val tambahTargetDialog = TambahTargetUtamaDialog()
         tambahTargetDialog.setOnTargetAddedListener(object :
             TambahTargetUtamaDialog.OnTargetAddedListener {
             override fun onTargetAdded(target: TargetUtamaViewModel) {
@@ -108,17 +118,32 @@ class TargetUtamaFragment : Fragment() {
         tambahTargetDialog.show(childFragmentManager, TambahTargetUtamaDialog.TAG)
     }
 
+
+    fun modifyTargetDialog(targetVm: TargetUtamaViewModel, clickedBinding: ItemCardBigBinding) {
+        val tambahTargetDialog = TambahTargetUtamaDialog().apply {
+            arguments = Bundle().apply {
+                putString("name", targetVm.name)
+                putString("note", targetVm.note)
+                targetVm.date?.timeInMillis?.let { putLong("date", it) }
+            }
+        }
+
+        tambahTargetDialog.setOnTargetAddedListener(object :
+            TambahTargetUtamaDialog.OnTargetAddedListener {
+            override fun onTargetAdded(target: TargetUtamaViewModel) {
+                targetVm.replaceValues(target)
+                clickedBinding.viewModel = targetVm
+                mViewModel.mainTarget = target
+            }
+        })
+
+        tambahTargetDialog.show(childFragmentManager, TambahTargetUtamaDialog.TAG)
+    }
+
     fun selectTarget(addedTarget: Boolean, firstRecTarget: Boolean, secondRecTarget: Boolean) {
         addedTargetVm.isSelected.value = addedTarget
         recTarget0Vm.isSelected.value = firstRecTarget
         recTarget1Vm.isSelected.value = secondRecTarget
-
-        when {
-            addedTarget -> mViewModel.mainTarget = addedTargetVm
-            firstRecTarget -> mViewModel.mainTarget = recTarget0Vm
-            secondRecTarget -> mViewModel.mainTarget = recTarget1Vm
-            else -> mViewModel.mainTarget = null
-        }
     }
 
     companion object {
