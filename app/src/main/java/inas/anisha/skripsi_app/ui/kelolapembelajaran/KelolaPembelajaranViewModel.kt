@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import inas.anisha.skripsi_app.data.Repository
-import inas.anisha.skripsi_app.data.datamodel.TargetPendukungDataModel
-import inas.anisha.skripsi_app.data.datamodel.TargetUtamaDataModel
+import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
+import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
 
@@ -20,26 +20,18 @@ class KelolaPembelajaranViewModel(application: Application) : AndroidViewModel(a
     var page: MutableLiveData<Int> = MutableLiveData(0)
 
     fun saveDataToRepository() {
-        val mainTargetDataModel = TargetUtamaDataModel().apply {
-            name = mainTarget.name
-            note = mainTarget.note
-            date = mainTarget.date
-        }
+        val mainTargetDataModel =
+            TargetUtamaEntity(0, mainTarget.name, mainTarget.note, mainTarget.date)
 
-        val supportingTargetDataModels = mutableListOf<TargetPendukungDataModel>()
+        val supportingTargetDataModels = mutableListOf<TargetPendukungEntity>()
         supportingTargets.forEach {
-            val dataModel = TargetPendukungDataModel().apply {
-                name = it.name
-                note = it.note
-                time = it.time
-            }
-            supportingTargetDataModels.add(dataModel)
+            supportingTargetDataModels.add(TargetPendukungEntity(0, it.name, it.note, it.time))
         }
 
-        mainTargetDataModel
-        supportingTargetDataModels
-        cycleTime
-
+        mRepository.setMainTarget(mainTargetDataModel)
+        mRepository.setSupportingTargets(supportingTargetDataModels)
+        mRepository.setCycleTime(cycleTime)
+        mRepository.setShouldNotShowKelolaPembelajaran()
     }
 
 }

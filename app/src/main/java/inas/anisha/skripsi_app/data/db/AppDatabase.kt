@@ -1,11 +1,22 @@
 package inas.anisha.skripsi_app.data.db
 
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import inas.anisha.skripsi_app.data.db.converter.CalendarConverter
+import inas.anisha.skripsi_app.data.db.dao.TargetPendukungDao
+import inas.anisha.skripsi_app.data.db.dao.TargetUtamaDao
+import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
+import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 
-//@Database(entities = [], version = 1)
+@Database(entities = [TargetUtamaEntity::class, TargetPendukungEntity::class], version = 1)
+@TypeConverters(CalendarConverter::class)
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun targetUtamaDao(): TargetUtamaDao
+    abstract fun targetPendukungDao(): TargetPendukungDao
 
     companion object {
         @Volatile
