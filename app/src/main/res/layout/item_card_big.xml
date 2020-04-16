@@ -72,13 +72,13 @@
                 android:singleLine="true"
                 android:text="@{viewModel.name}"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@id/textview_target_description"
+                app:layout_constraintBottom_toTopOf="@id/textview_target_time"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/textview_target_description"
+                app:layout_constraintStart_toStartOf="@id/textview_target_time"
                 tools:text="Rutin belajar mandiri shhshs shhshs hshsh shhhs shhs" />
 
             <TextView
-                android:id="@+id/textview_target_description"
+                android:id="@+id/textview_target_time"
                 style="@style/font_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -49,13 +49,13 @@
             android:singleLine="true"
             android:text="@{viewModel.name}"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/textview_target_description"
+            app:layout_constraintBottom_toTopOf="@id/textview_target_time"
             app:layout_constraintEnd_toStartOf="@id/imageview_edit"
-            app:layout_constraintStart_toStartOf="@id/textview_target_description"
+            app:layout_constraintStart_toStartOf="@id/textview_target_time"
             tools:text="Rutin belajar mandiri shhsh shhs shhshshs shshsh" />
 
         <TextView
-            android:id="@+id/textview_target_description"
+            android:id="@+id/textview_target_time"
             style="@style/font_normal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

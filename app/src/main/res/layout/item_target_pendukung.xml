@@ -13,9 +13,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_8dp">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/checkbox"
@@ -23,61 +23,106 @@
             android:layout_height="wrap_content"
             android:checked="@{viewModel.isSelected}"
             android:visibility="@{viewModel.shouldShowSelection? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="@id/imageview_target"
+            app:layout_constraintBottom_toBottomOf="@id/layout_card"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageview_target" />
+            app:layout_constraintTop_toTopOf="@id/layout_card" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageview_target"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_card"
             android:layout_width="0dp"
             android:layout_height="@dimen/card_height_small"
-            android:background="@drawable/bg_rounded_pink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/checkbox"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textview_target"
-            style="@style/font_heading"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24dp"
-            android:layout_marginBottom="@dimen/space_4dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/textview_target_description"
-            app:layout_constraintEnd_toStartOf="@id/imageview_edit"
-            app:layout_constraintStart_toStartOf="@id/textview_target_description"
-            tools:text="Rutin belajar mandiri shhsh shhs shhshshs shshsh" />
-
-        <TextView
-            android:id="@+id/textview_target_description"
-            style="@style/font_normal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_24dp"
-            android:layout_marginEnd="@dimen/space_16dp"
             android:layout_marginBottom="@dimen/space_16dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/imageview_target"
-            app:layout_constraintEnd_toEndOf="@id/imageview_target"
-            app:layout_constraintStart_toStartOf="@id/imageview_target"
-            tools:text="Buat sesi khusus untuk belajar mandiri dhhhd hdhdhd dhdhhd" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageview_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/space_12dp"
-            android:src="@drawable/ic_edit"
-            android:tint="@color/white"
-            android:visibility="@{viewModel.isEditable? View.VISIBLE : View.GONE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_target"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_height_small"
+                android:background="@drawable/bg_rounded_pink"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_target"
+                style="@style/font_heading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_24dp"
+                android:layout_marginBottom="@dimen/space_4dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.name}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@id/textview_target_time"
+                app:layout_constraintEnd_toStartOf="@id/imageview_delete"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Rutin belajar mandiri shhsh shhs shhshshs shshsh" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_clock"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="@dimen/space_16dp"
+                android:src="@drawable/ic_clock"
+                android:tint="@color/white"
+                android:visibility="@{viewModel.shouldShowTime? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <TextView
+                android:id="@+id/textview_target_time"
+                style="@style/font_normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.time}"
+                android:textColor="@color/white"
+                android:visibility="@{viewModel.shouldShowTime? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/imageview_clock"
+                app:layout_constraintEnd_toEndOf="@id/imageview_target"
+                app:layout_constraintStart_toEndOf="@id/imageview_clock"
+                app:layout_constraintTop_toTopOf="@id/imageview_clock"
+                tools:text="Buat sesi khusus untuk belajar mandiri dhhhd hdhdhd dhdhhd" />
+
+            <TextView
+                android:id="@+id/textview_target_note"
+                style="@style/font_normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.note}"
+                android:textColor="@color/white"
+                android:visibility="@{viewModel.shouldShowTime? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/imageview_clock"
+                app:layout_constraintEnd_toEndOf="@id/imageview_target"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageview_clock"
+                tools:text="Buat sesi khusus untuk belajar mandiri dhhhd hdhdhd dhdhhd" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_12dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/white"
+                android:visibility="@{viewModel.isRemovable? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
