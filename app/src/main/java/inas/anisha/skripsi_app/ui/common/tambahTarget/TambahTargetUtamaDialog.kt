@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import inas.anisha.skripsi_app.R
-import inas.anisha.skripsi_app.databinding.FragmentTambahTargetBinding
+import inas.anisha.skripsi_app.databinding.FragmentTambahTargetUtamaBinding
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
 import java.util.*
 
 
-class TambahTargetDialog : DialogFragment() {
+class TambahTargetUtamaDialog : DialogFragment() {
 
-    private lateinit var mBinding: FragmentTambahTargetBinding
+    private lateinit var mBinding: FragmentTambahTargetUtamaBinding
     private var mCallback: OnTargetAddedListener? = null
 
     private var targetDate: Calendar? = null
@@ -32,7 +32,12 @@ class TambahTargetDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_tambah_target, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_tambah_target_utama,
+                container,
+                false
+            )
         mBinding.buttonAdd.setOnClickListener { addTarget() }
         mBinding.imageviewClose.setOnClickListener { dismiss() }
 

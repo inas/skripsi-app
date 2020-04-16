@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTargetUtamaBinding
-import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetDialog
+import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetUtamaDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel
 
 class TargetUtamaFragment : Fragment() {
@@ -87,7 +87,7 @@ class TargetUtamaFragment : Fragment() {
     }
 
     fun openTambahTargetDialog() {
-        val tambahTargetDialog = TambahTargetDialog().apply {
+        val tambahTargetDialog = TambahTargetUtamaDialog().apply {
             arguments = Bundle().apply {
                 putString("name", addedTargetVm.name)
                 putString("note", addedTargetVm.note)
@@ -95,7 +95,7 @@ class TargetUtamaFragment : Fragment() {
             }
         }
         tambahTargetDialog.setOnTargetAddedListener(object :
-            TambahTargetDialog.OnTargetAddedListener {
+            TambahTargetUtamaDialog.OnTargetAddedListener {
             override fun onTargetAdded(target: TargetUtamaViewModel) {
                 addedTargetVm = target
                 mBinding.layoutTargetAdded.viewModel = target
@@ -105,7 +105,7 @@ class TargetUtamaFragment : Fragment() {
                 selectTarget(true, false, false)
             }
         })
-        tambahTargetDialog.show(childFragmentManager, TambahTargetDialog.TAG)
+        tambahTargetDialog.show(childFragmentManager, TambahTargetUtamaDialog.TAG)
     }
 
     fun selectTarget(addedTarget: Boolean, firstRecTarget: Boolean, secondRecTarget: Boolean) {

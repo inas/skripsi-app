@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16dp"
-            android:text="Tambah Target"
+            android:text="Tambah Target Utama"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +32,7 @@
             style="@style/InputLayout"
             android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
             android:hint="Nama target"
             app:helperText="Contoh: menjadi juara kelas"
             app:helperTextEnabled="true"
