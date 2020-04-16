@@ -71,17 +71,17 @@ class TargetUtamaFragment : Fragment() {
 
         mBinding.layoutTargetAdded.layoutCard.setOnClickListener {
             selectTarget(true, false, false)
-            modifyTargetDialog(addedTargetVm, mBinding.layoutTargetAdded)
+            openModifyTargetDialog(addedTargetVm, mBinding.layoutTargetAdded)
         }
 
         mBinding.layoutTargetRecommendation0.layoutCard.setOnClickListener {
             selectTarget(false, true, false)
-            modifyTargetDialog(recTarget0Vm, mBinding.layoutTargetRecommendation0)
+            openModifyTargetDialog(recTarget0Vm, mBinding.layoutTargetRecommendation0)
         }
 
         mBinding.layoutTargetRecommendation1.layoutCard.setOnClickListener {
             selectTarget(false, false, true)
-            modifyTargetDialog(recTarget1Vm, mBinding.layoutTargetRecommendation1)
+            openModifyTargetDialog(recTarget1Vm, mBinding.layoutTargetRecommendation1)
         }
 
         mBinding.layoutTargetAdded.layout.setOnClickListener { selectTarget(true, false, false) }
@@ -104,10 +104,10 @@ class TargetUtamaFragment : Fragment() {
 
     fun openTambahTargetDialog() {
         val tambahTargetDialog = TambahTargetUtamaDialog()
-        tambahTargetDialog.setOnTargetAddedListener(object :
-            TambahTargetUtamaDialog.OnTargetAddedListener {
-            override fun onTargetAdded(target: TargetUtamaViewModel) {
-                addedTargetVm = target
+        tambahTargetDialog.setOnTargetModifiedListener(object :
+            TambahTargetUtamaDialog.OnTargetModifiedListener {
+            override fun onTargetModified(target: TargetUtamaViewModel) {
+                addedTargetVm = target.apply { shouldShowSelection = true }
                 mBinding.layoutTargetAdded.viewModel = target
                 mBinding.buttonAddTarget.visibility = View.GONE
                 mBinding.layoutTargetAdded.layout.visibility = View.VISIBLE
@@ -119,7 +119,7 @@ class TargetUtamaFragment : Fragment() {
     }
 
 
-    fun modifyTargetDialog(targetVm: TargetUtamaViewModel, clickedBinding: ItemCardBigBinding) {
+    fun openModifyTargetDialog(targetVm: TargetUtamaViewModel, clickedBinding: ItemCardBigBinding) {
         val tambahTargetDialog = TambahTargetUtamaDialog().apply {
             arguments = Bundle().apply {
                 putString("name", targetVm.name)
@@ -128,9 +128,9 @@ class TargetUtamaFragment : Fragment() {
             }
         }
 
-        tambahTargetDialog.setOnTargetAddedListener(object :
-            TambahTargetUtamaDialog.OnTargetAddedListener {
-            override fun onTargetAdded(target: TargetUtamaViewModel) {
+        tambahTargetDialog.setOnTargetModifiedListener(object :
+            TambahTargetUtamaDialog.OnTargetModifiedListener {
+            override fun onTargetModified(target: TargetUtamaViewModel) {
                 targetVm.replaceValues(target)
                 clickedBinding.viewModel = targetVm
                 mViewModel.mainTarget = target

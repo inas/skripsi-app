@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTambahTargetPendukungBinding
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
-import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
 import java.util.*
 
 
@@ -80,7 +79,7 @@ class TambahTargetPendukungDialog : DialogFragment() {
         val targetNote = mBinding.edittextNote.text.toString()
 //        val targetDate = targetDate
 
-        val target = TargetUtamaViewModel()
+        val target = TargetPendukungViewModel()
             .apply {
                 name = targetName
                 note = targetNote
@@ -128,10 +127,10 @@ class TambahTargetPendukungDialog : DialogFragment() {
     }
 
     interface OnTargetAddedListener {
-        fun onTargetAdded(target: TargetUtamaViewModel)
+        fun onTargetAdded(target: TargetPendukungViewModel)
     }
 
     companion object {
-        const val TAG = "TAMBAH_TARGET_UTAMA_DIALOG"
+        const val TAG = "TAMBAH_TARGET_PENDUKUNG_DIALOG"
     }
 }

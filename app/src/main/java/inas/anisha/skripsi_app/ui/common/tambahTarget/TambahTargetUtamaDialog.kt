@@ -17,7 +17,7 @@ import java.util.*
 class TambahTargetUtamaDialog : DialogFragment() {
 
     private lateinit var mBinding: FragmentTambahTargetUtamaBinding
-    private var mCallback: OnTargetAddedListener? = null
+    private var mCallback: OnTargetModifiedListener? = null
 
     private var targetDate: Calendar? = null
 
@@ -80,15 +80,13 @@ class TambahTargetUtamaDialog : DialogFragment() {
 
         val target = TargetUtamaViewModel()
             .apply {
-            name = targetName
-            note = targetNote
-            date = targetDate
-                shouldShowSelection = true
-                isSelected.value = true
-        }
+                name = targetName
+                note = targetNote
+                date = targetDate
+            }
 
         mCallback?.let {
-            it.onTargetAdded(target)
+            it.onTargetModified(target)
             dismiss()
         }
 
@@ -123,12 +121,12 @@ class TambahTargetUtamaDialog : DialogFragment() {
 
     }
 
-    fun setOnTargetAddedListener(callback: OnTargetAddedListener) {
+    fun setOnTargetModifiedListener(callback: OnTargetModifiedListener) {
         mCallback = callback
     }
 
-    interface OnTargetAddedListener {
-        fun onTargetAdded(target: TargetUtamaViewModel)
+    interface OnTargetModifiedListener {
+        fun onTargetModified(target: TargetUtamaViewModel)
     }
 
     companion object {

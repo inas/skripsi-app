@@ -13,4 +13,10 @@ class TargetPendukungViewModel : ViewModel() {
     var isSelected: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun shouldShowTime(): Boolean = time != ""
+
+    fun replaceValues(newTarget: TargetPendukungViewModel) {
+        name = newTarget.name
+        note = newTarget.note
+        time = newTarget.time
+    }
 }

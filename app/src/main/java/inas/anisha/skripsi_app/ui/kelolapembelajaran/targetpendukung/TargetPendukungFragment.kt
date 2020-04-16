@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTargetPendukungBinding
 import inas.anisha.skripsi_app.databinding.ItemTargetPendukungBinding
+import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel
 
 class TargetPendukungFragment : Fragment() {
@@ -56,8 +57,6 @@ class TargetPendukungFragment : Fragment() {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_target_pendukung, container, false)
 
-        setClickListener()
-
         return mBinding.root
     }
 
@@ -74,34 +73,15 @@ class TargetPendukungFragment : Fragment() {
                 DataBindingUtil.inflate(inflater, R.layout.item_target_pendukung, null, false)
             card.viewModel = vm
             card.lifecycleOwner = this
+            card.layoutCard.setOnClickListener { openModifyTargetDialog(vm, card) }
 
-            val view = card.root.apply {
+            val view = card.layoutContainer.apply {
                 setOnClickListener {
                     vm.isSelected.value = !(vm.isSelected.value ?: false)
                 }
             }
             mBinding.layoutRecommended.addView(view)
         }
-    }
-
-    fun setClickListener() {
-//        mBinding.buttonAddTarget.setOnClickListener { openTambahTargetDialog() }
-//        mBinding.layoutTargetRecommendation0.layout.setOnClickListener {
-//            selectTarget(
-//                false,
-//                true,
-//                false
-//            )
-//        }
-//        mBinding.layoutTargetRecommendation1.layout.setOnClickListener {
-//            selectTarget(
-//                false,
-//                false,
-//                true
-//            )
-//        }
-//
-//        mBinding.layoutTargetAdded.imageviewEdit.setOnClickListener { openTambahTargetDialog() }
     }
 
     fun openTambahTargetDialog() {
@@ -126,6 +106,29 @@ class TargetPendukungFragment : Fragment() {
 //        tambahTargetDialog.show(childFragmentManager, TambahTargetDialog.TAG)
     }
 
+    fun openModifyTargetDialog(
+        targetVm: TargetPendukungViewModel,
+        clickedBinding: ItemTargetPendukungBinding
+    ) {
+        val tambahTargetDialog = TambahTargetPendukungDialog().apply {
+            arguments = Bundle().apply {
+                putString("name", targetVm.name)
+                putString("note", targetVm.note)
+                putString("time", targetVm.time)
+            }
+        }
+
+        tambahTargetDialog.setOnTargetAddedListener(object :
+            TambahTargetPendukungDialog.OnTargetAddedListener {
+            override fun onTargetAdded(target: TargetPendukungViewModel) {
+                targetVm.replaceValues(target)
+                clickedBinding.viewModel = targetVm
+//                mViewModel.mainTarget = target
+            }
+        })
+
+        tambahTargetDialog.show(childFragmentManager, TambahTargetPendukungDialog.TAG)
+    }
     fun selectTarget(addedTarget: Boolean, firstRecTarget: Boolean, secondRecTarget: Boolean) {
 //        addedTargetVm.isSelected.value = addedTarget
 //        recTarget0Vm.isSelected.value = firstRecTarget
