@@ -2,6 +2,7 @@ package inas.anisha.skripsi_app.ui.main.target
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -26,13 +27,32 @@ class TargetPendukungRecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.viewModel = targets[position]
-        holder.binding.imageviewDelete.setOnClickListener { listener?.onItemDeleted(targets[position]) }
-        holder.itemView.setOnClickListener { listener?.onItemClick(targets[position]) }
+        val viewModel = targets[position]
+        holder.binding.viewModel = viewModel
+//        holder.binding.textviewTarget.text = viewModel.name
+//        holder.binding.textviewTargetNote.text = viewModel.note
+//        holder.binding.textviewTargetTime.text = viewModel.time
+//
+        holder.binding.imageviewClock.visibility =
+            if (viewModel.shouldShowTime()) View.VISIBLE else View.GONE
+        holder.binding.textviewTargetTime.visibility =
+            if (viewModel.shouldShowTime()) View.VISIBLE else View.GONE
+        holder.binding.imageviewDelete.visibility =
+            if (viewModel.isRemovable) View.VISIBLE else View.GONE
+        holder.binding.checkbox.visibility =
+            if (viewModel.shouldShowSelection) View.VISIBLE else View.GONE
+        holder.binding.checkbox.isChecked = viewModel.isSelected.value ?: false
+
+        holder.binding.imageviewDelete.setOnClickListener { listener?.onItemDeleted(viewModel) }
+        holder.itemView.setOnClickListener { listener?.onItemClick(viewModel) }
     }
 
     inner class ViewHolder(val binding: ItemTargetPendukungBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    override fun getItemId(position: Int): Long {
+        return targets[position].id
+    }
 
     override fun getItemCount(): Int {
         return targets.size

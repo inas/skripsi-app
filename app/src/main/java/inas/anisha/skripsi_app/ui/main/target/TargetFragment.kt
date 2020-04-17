@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,13 +16,11 @@ import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialo
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetUtamaDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
-import io.reactivex.disposables.CompositeDisposable
 
 class TargetFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPageTargetBinding
     private lateinit var mViewModel: TargetViewModel
-    private lateinit var mCompositeDisposable: CompositeDisposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +40,21 @@ class TargetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mBinding.buttonAdd.setOnClickListener { openAddTargetPendukungDialog() }
         mBinding.layoutTargetUtama.layout.setOnClickListener { openModifyMainTargetDialog() }
+
+        mBinding.textviewSupportingTarget.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                requireContext().let {
+                    mBinding.scrollview.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    val rvHeight = mBinding.scrollview.height - mBinding.recyclerviewTarget.top
+                    mBinding.recyclerviewTarget.minimumHeight = rvHeight
+                }
+            }
+        })
+
 
         initMainTarget()
         initCycleTime()
@@ -77,14 +90,28 @@ class TargetFragment : Fragment() {
                     deleteTarget(target)
                 }
             })
+            setHasStableIds(true)
         }
         mBinding.recyclerviewTarget.adapter = adapter
 
         mViewModel.getSupportingTargets().observe(this, Observer { targets ->
             mBinding.textviewSupportingTarget.visibility =
                 if (targets.isNotEmpty()) View.VISIBLE else View.GONE
-            adapter.setTargets(targets)
+            adapter.setTargets(targets.reversed())
         })
+    }
+
+    fun openAddTargetPendukungDialog() {
+        val tambahTargetDialog = TambahTargetPendukungDialog()
+        tambahTargetDialog.setOnTargetAddedListener(object :
+            TambahTargetPendukungDialog.OnTargetModifiedListener {
+            override fun onTargetModified(target: TargetPendukungViewModel) {
+                target.shouldShowSelection
+                mViewModel.addOrUpdateSupportingTarget(target)
+            }
+        })
+
+        tambahTargetDialog.show(childFragmentManager, TambahTargetPendukungDialog.TAG)
     }
 
     fun openModifyMainTargetDialog() {
@@ -119,7 +146,7 @@ class TargetFragment : Fragment() {
         tambahTargetDialog.setOnTargetAddedListener(object :
             TambahTargetPendukungDialog.OnTargetModifiedListener {
             override fun onTargetModified(target: TargetPendukungViewModel) {
-                mViewModel.updateSupportingTarget(target)
+                mViewModel.addOrUpdateSupportingTarget(target)
             }
         })
 

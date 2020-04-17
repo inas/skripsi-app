@@ -1,7 +1,6 @@
 package inas.anisha.skripsi_app.ui.main.target
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -28,6 +27,7 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
             name = target.name
             note = target.note
             date = target.date
+            shouldShowSelection = false
         }
 
         return mainTarget
@@ -45,14 +45,12 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
                     time = it.time
                     isRemovable = true
                     id = it.id
-                    Log.d("debugskripsi", "id: " + it.id + "  name: " + it.name)
                 }
             }
         }
     }
 
-    fun updateSupportingTarget(target: TargetPendukungViewModel) {
-        Log.d("debugskripsi", "UPDATE: " + target.id + " " + target.name)
+    fun addOrUpdateSupportingTarget(target: TargetPendukungViewModel) {
         mRepository.addSupportingTarget(
             TargetPendukungEntity(
                 target.id,

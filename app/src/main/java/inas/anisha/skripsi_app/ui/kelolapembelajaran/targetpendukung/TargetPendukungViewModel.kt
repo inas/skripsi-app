@@ -7,7 +7,6 @@ class TargetPendukungViewModel : ViewModel() {
     var name: String = ""
     var note: String = ""
     var time: String = ""
-    var isEditable: Boolean = false
     var isRemovable: Boolean = false
     var shouldShowSelection: Boolean = false
     var isSelected: MutableLiveData<Boolean> = MutableLiveData(false)

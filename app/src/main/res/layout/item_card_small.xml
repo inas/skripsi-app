@@ -79,7 +79,6 @@
             android:padding="@dimen/space_12dp"
             android:src="@drawable/ic_edit"
             android:tint="@color/white"
-            android:visibility="@{viewModel.isEditable? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
