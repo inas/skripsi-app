@@ -28,10 +28,12 @@ class KelolaPembelajaranViewModel(application: Application) : AndroidViewModel(a
             supportingTargetDataModels.add(TargetPendukungEntity(0, it.name, it.note, it.time))
         }
 
+        mRepository.setShouldNotShowKelolaPembelajaran()
         mRepository.setMainTarget(mainTargetDataModel)
         mRepository.setSupportingTargets(supportingTargetDataModels)
         mRepository.setCycleTime(cycleTime)
-        mRepository.setShouldNotShowKelolaPembelajaran()
     }
+
+    fun shouldShowKelolaPembelajaran() = mRepository.shouldShowKelolaPembelajaran()
 
 }

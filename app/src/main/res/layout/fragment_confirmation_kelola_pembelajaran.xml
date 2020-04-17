@@ -44,12 +44,19 @@
             app:layout_constraintStart_toStartOf="@id/textview_title"
             app:layout_constraintTop_toBottomOf="@id/textview_title" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/space_16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
         <TextView
             android:id="@+id/textview_confirmation"
             style="@style/font_normal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4dp"
+            app:layout_goneMarginTop="@dimen/space_16dp"
             android:layout_marginEnd="@dimen/space_12dp"
             android:text="Kamu masih bisa mengubah target setelah siklus dimulai"
             app:layout_constraintEnd_toEndOf="@id/button_close"

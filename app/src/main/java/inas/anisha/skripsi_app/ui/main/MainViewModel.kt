@@ -8,4 +8,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var mRepository: Repository = Repository.getInstance(application)
 
     fun shouldShowKelolaPembelajaran() = mRepository.shouldShowKelolaPembelajaran()
+    fun getTimeCycle() {
+        val first = mRepository.getCycleTime().first
+        val second = mRepository.getCycleTime().second
+        val yes = shouldShowKelolaPembelajaran()
+        first
+        second
+    }
 }

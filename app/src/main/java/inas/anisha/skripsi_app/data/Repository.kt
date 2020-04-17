@@ -6,6 +6,8 @@ import inas.anisha.skripsi_app.data.db.dao.TargetPendukungDao
 import inas.anisha.skripsi_app.data.db.dao.TargetUtamaDao
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 
 class Repository(application: Application) {
 
@@ -21,18 +23,22 @@ class Repository(application: Application) {
         targetPendukungDao = db.targetPendukungDao()
     }
 
-    // region shared preferencee
-    fun shouldShowKelolaPembelajaran() = sharedPreference.shouldShowKelolaPembelajaran
-    fun setShouldNotShowKelolaPembelajaran() = sharedPreference.setShouldNotShowKelolaPembelajaran()
+    // region shared preferenceex
+    fun shouldShowKelolaPembelajaran() = sharedPreference.shouldShowKelolaPembelajaran()
+    fun setShouldNotShowKelolaPembelajaran(): Boolean =
+        sharedPreference.setShouldNotShowKelolaPembelajaran()
 
     fun setMainTarget(target: TargetUtamaEntity) {
-        targetUtamaDao.add(target)
+        Observable.fromCallable { targetUtamaDao.add(target) }
+            .subscribeOn(Schedulers.io()).subscribe()
     }
 
     fun setSupportingTargets(target: MutableList<TargetPendukungEntity>) {
-        targetPendukungDao.add(*target.toTypedArray())
+        Observable.fromCallable { targetPendukungDao.add(*target.toTypedArray()) }
+            .subscribeOn(Schedulers.io()).subscribe()
     }
 
+    fun getCycleTime() = sharedPreference.getCycleTime()
     fun setCycleTime(cycleTime: Pair<Int, Int>) {
         sharedPreference.setCycleTime(cycleTime)
     }

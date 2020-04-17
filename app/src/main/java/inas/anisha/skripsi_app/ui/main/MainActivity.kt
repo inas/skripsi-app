@@ -1,14 +1,12 @@
 package inas.anisha.skripsi_app.ui.main
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ActivityMainBinding
-import inas.anisha.skripsi_app.ui.onboarding.OnboardingActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class MainActivity : AppCompatActivity() {
@@ -22,12 +20,7 @@ class MainActivity : AppCompatActivity() {
         mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this // todo remove?
-
-        if (mViewModel.shouldShowKelolaPembelajaran()) {
-            val intent = Intent(this, OnboardingActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        mViewModel.getTimeCycle()
     }
 
     override fun attachBaseContext(newBase: Context?) {

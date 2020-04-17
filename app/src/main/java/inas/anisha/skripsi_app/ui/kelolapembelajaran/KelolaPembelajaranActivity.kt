@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ActivityKelolaPembelajaranBinding
+import inas.anisha.skripsi_app.ui.common.ConfirmationDialog
 import inas.anisha.skripsi_app.ui.main.MainActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
@@ -53,7 +54,23 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
         if (currentItem > 0) {
             mBinding.viewpager.setCurrentItem(currentItem - 1, true)
         } else {
-            finish()
+            ConfirmationDialog().apply {
+                arguments = Bundle().apply {
+                    putString(ConfirmationDialog.ARG_TITLE, "Batalkan perubahan?")
+                    putString(
+                        ConfirmationDialog.ARG_MESSAGE,
+                        "Target dan waktu siklus yang sudah dipilih tidak akan disimpan."
+                    )
+                    putString(ConfirmationDialog.ARG_BUTTON, "Batalkan")
+                }
+
+                setConfirmationDialogListener(object :
+                    ConfirmationDialog.ConfirmationDialogListener {
+                    override fun onConfirmed() {
+                        finish()
+                    }
+                })
+            }.show(supportFragmentManager, ConfirmationDialog.TAG)
         }
     }
 
@@ -88,6 +105,7 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     }
                 startActivity(intent)
+
             }
         })
 

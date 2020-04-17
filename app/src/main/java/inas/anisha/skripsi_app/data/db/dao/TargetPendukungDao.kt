@@ -1,6 +1,6 @@
 package inas.anisha.skripsi_app.data.db.dao
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 
@@ -16,5 +16,5 @@ interface TargetPendukungDao {
     fun deleteAll()
 
     @Query("SELECT * from target_pendukung")
-    fun getAll(): MutableLiveData<MutableList<TargetPendukungEntity>>
+    fun getAll(): LiveData<MutableList<TargetPendukungEntity>>
 }

@@ -20,7 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_64dp"
-            android:padding="@dimen/space_16dp">
+            android:paddingStart="@dimen/space_16dp"
+            android:paddingTop="@dimen/space_8dp"
+            android:paddingEnd="@dimen/space_16dp"
+            android:paddingBottom="@dimen/space_16dp">
 
             <TextView
                 android:id="@+id/textview_title"

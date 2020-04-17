@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
             android:text="Atur Siklus Belajar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

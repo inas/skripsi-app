@@ -7,10 +7,12 @@ class AppPreference(mContext: Context) {
     private val mSharedPreferences: SharedPreferences =
         mContext.getSharedPreferences("inas.anisha.skripsi_app", Context.MODE_PRIVATE)
 
-    val shouldShowKelolaPembelajaran: Boolean =
+    fun shouldShowKelolaPembelajaran(): Boolean =
         mSharedPreferences.getBoolean(SHOULD_SHOW_KELOLA_PEMBELAJARAN, true)
 
-    fun setShouldNotShowKelolaPembelajaran() = setBoolean(SHOULD_SHOW_KELOLA_PEMBELAJARAN, false)
+    fun setShouldNotShowKelolaPembelajaran(): Boolean = mSharedPreferences.edit().putBoolean(
+        SHOULD_SHOW_KELOLA_PEMBELAJARAN, false
+    ).commit()
 
     fun getCycleTime(): Pair<Int, Int> {
         val frequency = mSharedPreferences.getInt(CYCLE_FREQUENCY, -1)

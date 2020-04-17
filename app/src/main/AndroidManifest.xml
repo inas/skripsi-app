@@ -9,13 +9,14 @@
         android:supportsRtl="true"
         android:name=".SkripsiApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.splashscreen.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.onboarding.OnboardingActivity" />
         <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranIntroActivity" />
         <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranActivity" />
