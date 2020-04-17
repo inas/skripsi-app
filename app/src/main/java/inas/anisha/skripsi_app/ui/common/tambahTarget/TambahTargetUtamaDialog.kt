@@ -93,14 +93,8 @@ class TambahTargetUtamaDialog : DialogFragment() {
     }
 
     fun showDatePicker() {
-//        val builder = MaterialDatePicker.Builder.datePicker()
-//        val constraintsBuilder = CalendarConstraints.Builder()
-//        constraintsBuilder.setStart(Calendar.getInstance().timeInMillis)
-//        builder.setCalendarConstraints(constraintsBuilder.build())
-//
-//        builder.build().show(childFragmentManager, "")
 
-        val currentDate = Calendar.getInstance()
+        val currentDate = targetDate ?: Calendar.getInstance()
         val year = currentDate.get(Calendar.YEAR)
         val month = currentDate.get(Calendar.MONTH)
         val day = currentDate.get(Calendar.DAY_OF_MONTH)

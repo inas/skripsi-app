@@ -9,14 +9,18 @@
         android:supportsRtl="true"
         android:name=".SkripsiApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.splashscreen.SplashScreenActivity">
+        <activity
+            android:name=".ui.splashscreen.SplashScreenActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.MainActivity" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".ui.onboarding.OnboardingActivity" />
         <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranIntroActivity" />
         <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranActivity" />

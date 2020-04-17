@@ -55,9 +55,9 @@ class AturSiklusDialogFragment : DialogFragment() {
 
     fun setCycleTime() {
         val frequency = when (mBinding.dropdownFrequency.text.toString()) {
-            FREQUENCY[0] -> SkripsiConstant.CYCLE_FRQUENCY_DAILY
-            FREQUENCY[1] -> SkripsiConstant.CYCLE_FRQUENCY_WEEKLY
-            else -> SkripsiConstant.CYCLE_FRQUENCY_MONTHLY
+            FREQUENCY[0] -> SkripsiConstant.CYCLE_FREQUENCY_DAILY
+            FREQUENCY[1] -> SkripsiConstant.CYCLE_FREQUENCY_WEEKLY
+            else -> SkripsiConstant.CYCLE_FREQUENCY_MONTHLY
         }
 
         mCallback?.onTargetAdded(Pair(frequency, mBinding.dropdownDuration.text.toString().toInt()))

@@ -17,6 +17,7 @@ class TambahTargetPendukungDialog : DialogFragment() {
     private lateinit var mBinding: FragmentTambahTargetPendukungBinding
     private lateinit var mViewModel: TargetPendukungViewModel
     private var mCallback: OnTargetModifiedListener? = null
+    private var targetId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,7 @@ class TambahTargetPendukungDialog : DialogFragment() {
         mBinding.buttonSave.setOnClickListener { modifyTarget() }
         mBinding.imageviewClose.setOnClickListener { dismiss() }
 
+        targetId = arguments?.getLong(ARG_ID) ?: 0
         mBinding.edittextTarget.setText(arguments?.getString(ARG_NAME) ?: "")
         mBinding.edittextNote.setText(arguments?.getString(ARG_NOTE) ?: "")
         mBinding.edittextTime.setText(arguments?.getString(ARG_TIME) ?: "")
@@ -56,6 +58,7 @@ class TambahTargetPendukungDialog : DialogFragment() {
 
         val target = TargetPendukungViewModel()
             .apply {
+                id = targetId
                 name = targetName
                 note = targetNote
                 time = targetTime
@@ -79,6 +82,7 @@ class TambahTargetPendukungDialog : DialogFragment() {
     companion object {
         const val TAG = "TAMBAH_TARGET_PENDUKUNG_DIALOG"
 
+        const val ARG_ID = "ARG_ID"
         const val ARG_NAME = "ARG_NAME"
         const val ARG_NOTE = "ARG_NOTE"
         const val ARG_TIME = "ARG_TIME"

@@ -30,7 +30,7 @@ class KelolaPembelajaranViewModel(application: Application) : AndroidViewModel(a
 
         mRepository.setShouldNotShowKelolaPembelajaran()
         mRepository.setMainTarget(mainTargetDataModel)
-        mRepository.setSupportingTargets(supportingTargetDataModels)
+        mRepository.addSupportingTarget(*supportingTargetDataModels.toTypedArray())
         mRepository.setCycleTime(cycleTime)
     }
 

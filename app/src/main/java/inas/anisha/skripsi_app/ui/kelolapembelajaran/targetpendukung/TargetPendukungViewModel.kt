@@ -11,6 +11,7 @@ class TargetPendukungViewModel : ViewModel() {
     var isRemovable: Boolean = false
     var shouldShowSelection: Boolean = false
     var isSelected: MutableLiveData<Boolean> = MutableLiveData(false)
+    var id: Long = 0
 
     fun shouldShowTime(): Boolean = time != ""
 

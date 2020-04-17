@@ -1,5 +1,6 @@
 package inas.anisha.skripsi_app.data.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 
@@ -15,5 +16,5 @@ interface TargetUtamaDao {
     fun deleteOldTarget()
 
     @Query("SELECT * from target_utama")
-    fun getTarget(): TargetUtamaEntity
+    fun getTarget(): LiveData<TargetUtamaEntity>
 }

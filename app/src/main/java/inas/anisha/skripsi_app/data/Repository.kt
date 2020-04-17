@@ -1,6 +1,7 @@
 package inas.anisha.skripsi_app.data
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.TargetPendukungDao
 import inas.anisha.skripsi_app.data.db.dao.TargetUtamaDao
@@ -28,13 +29,24 @@ class Repository(application: Application) {
     fun setShouldNotShowKelolaPembelajaran(): Boolean =
         sharedPreference.setShouldNotShowKelolaPembelajaran()
 
+    fun getMainTarget() = targetUtamaDao.getTarget()
+
     fun setMainTarget(target: TargetUtamaEntity) {
-        Observable.fromCallable { targetUtamaDao.add(target) }
+        Observable.fromCallable {
+            targetUtamaDao.deleteOldTarget()
+            targetUtamaDao.add(target)
+        }.subscribeOn(Schedulers.io()).subscribe()
+    }
+
+    fun getSupportingTargets(): LiveData<List<TargetPendukungEntity>> = targetPendukungDao.getAll()
+
+    fun deleteSupportingTargets(targetId: Long) {
+        Observable.fromCallable { targetPendukungDao.delete(targetId) }
             .subscribeOn(Schedulers.io()).subscribe()
     }
 
-    fun setSupportingTargets(target: MutableList<TargetPendukungEntity>) {
-        Observable.fromCallable { targetPendukungDao.add(*target.toTypedArray()) }
+    fun addSupportingTarget(vararg target: TargetPendukungEntity) {
+        Observable.fromCallable { targetPendukungDao.add(*target) }
             .subscribeOn(Schedulers.io()).subscribe()
     }
 

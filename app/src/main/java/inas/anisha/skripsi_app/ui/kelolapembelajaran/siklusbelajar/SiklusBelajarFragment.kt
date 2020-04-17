@@ -19,10 +19,10 @@ class SiklusBelajarFragment : Fragment() {
     private lateinit var mViewModel: KelolaPembelajaranViewModel
 
     private var customCycleTime: Pair<Int, Int>? = null
-    private var recCycleTime0 = Pair(SkripsiConstant.CYCLE_FRQUENCY_WEEKLY, 1)
-    private var recCycleTime1 = Pair(SkripsiConstant.CYCLE_FRQUENCY_WEEKLY, 2)
-    private var recCycleTime2 = Pair(SkripsiConstant.CYCLE_FRQUENCY_MONTHLY, 1)
-    private var recCycleTime3 = Pair(SkripsiConstant.CYCLE_FRQUENCY_MONTHLY, 2)
+    private var recCycleTime0 = Pair(SkripsiConstant.CYCLE_FREQUENCY_WEEKLY, 1)
+    private var recCycleTime1 = Pair(SkripsiConstant.CYCLE_FREQUENCY_WEEKLY, 2)
+    private var recCycleTime2 = Pair(SkripsiConstant.CYCLE_FREQUENCY_MONTHLY, 1)
+    private var recCycleTime3 = Pair(SkripsiConstant.CYCLE_FREQUENCY_MONTHLY, 2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,8 +114,8 @@ class SiklusBelajarFragment : Fragment() {
 
     fun getFrequencyText(cycleFrequency: Int): String {
         return when (cycleFrequency) {
-            SkripsiConstant.CYCLE_FRQUENCY_DAILY -> AturSiklusDialogFragment.FREQUENCY[0]
-            SkripsiConstant.CYCLE_FRQUENCY_WEEKLY -> AturSiklusDialogFragment.FREQUENCY[1]
+            SkripsiConstant.CYCLE_FREQUENCY_DAILY -> AturSiklusDialogFragment.FREQUENCY[0]
+            SkripsiConstant.CYCLE_FREQUENCY_WEEKLY -> AturSiklusDialogFragment.FREQUENCY[1]
             else -> AturSiklusDialogFragment.FREQUENCY[2]
         }
     }

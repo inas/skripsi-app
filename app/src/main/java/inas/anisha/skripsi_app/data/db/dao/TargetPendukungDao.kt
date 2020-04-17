@@ -9,12 +9,15 @@ interface TargetPendukungDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(vararg targetEntity: TargetPendukungEntity)
 
-    @Delete
-    fun delete(targetEntity: TargetPendukungEntity)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update(targetEntity: TargetPendukungEntity): Int
+
+    @Query("DELETE FROM target_pendukung WHERE id = :targetId")
+    fun delete(targetId: Long)
 
     @Query("DELETE FROM target_pendukung")
     fun deleteAll()
 
     @Query("SELECT * from target_pendukung")
-    fun getAll(): LiveData<MutableList<TargetPendukungEntity>>
+    fun getAll(): LiveData<List<TargetPendukungEntity>>
 }
