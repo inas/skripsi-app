@@ -65,4 +65,6 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
         mRepository.deleteSupportingTargets(targetId)
     }
 
+    fun getEvaluationDate(): Long = mRepository.getEvaluationDate()
+
 }

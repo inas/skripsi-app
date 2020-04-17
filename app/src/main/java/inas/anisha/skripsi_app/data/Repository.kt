@@ -26,8 +26,7 @@ class Repository(application: Application) {
 
     // region shared preferenceex
     fun shouldShowKelolaPembelajaran() = sharedPreference.shouldShowKelolaPembelajaran()
-    fun setShouldNotShowKelolaPembelajaran(): Boolean =
-        sharedPreference.setShouldNotShowKelolaPembelajaran()
+    fun setShouldNotShowKelolaPembelajaran() = sharedPreference.setShouldNotShowKelolaPembelajaran()
 
     fun getMainTarget() = targetUtamaDao.getTarget()
 
@@ -54,6 +53,9 @@ class Repository(application: Application) {
     fun setCycleTime(cycleTime: Pair<Int, Int>) {
         sharedPreference.setCycleTime(cycleTime)
     }
+
+    fun getEvaluationDate() = sharedPreference.getEvaluationDate()
+    fun setEvaluationDate(evaluationDate: Long) = sharedPreference.setEvaluationDate(evaluationDate)
 
     companion object {
         // For Singleton instantiation

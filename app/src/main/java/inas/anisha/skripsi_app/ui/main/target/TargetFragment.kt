@@ -16,6 +16,8 @@ import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialo
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetUtamaDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TargetFragment : Fragment() {
 
@@ -69,8 +71,15 @@ class TargetFragment : Fragment() {
 
     fun initCycleTime() {
         val cycleTime = mViewModel.getCycleTime()
+        val dateFormat = SimpleDateFormat("d LLLL yyyy", Locale.getDefault())
+        val evaluationDate = mViewModel.getEvaluationDate()
+        if (evaluationDate == -1L) {
+            mBinding.textviewCycleDescription.visibility = View.GONE
+        } else {
+            mBinding.textviewCycleDescription.text =
+                "Evaluasi berikutnya: " + dateFormat.format(mViewModel.getEvaluationDate())
+        }
 
-        mBinding.textviewCycleDescription.text = "Evaluasi berikutnya: " + "TODO tanggal berapa"
         mBinding.textviewCycle.text = "" + cycleTime.second + " " +
                 when (cycleTime.first) {
                     SkripsiConstant.CYCLE_FREQUENCY_DAILY -> "Harian"
@@ -82,12 +91,12 @@ class TargetFragment : Fragment() {
     fun initSupportingTarget() {
         val adapter = TargetPendukungRecyclerViewAdapter().apply {
             setItemListener(object : TargetPendukungRecyclerViewAdapter.ItemListener {
-                override fun onItemClick(target: TargetPendukungViewModel) {
-                    openModifySupportingTargetDialog(target)
+                override fun onItemClick(viewModel: TargetPendukungViewModel) {
+                    openModifySupportingTargetDialog(viewModel)
                 }
 
-                override fun onItemDeleted(target: TargetPendukungViewModel) {
-                    deleteTarget(target)
+                override fun onItemDeleted(viewModel: TargetPendukungViewModel) {
+                    deleteTarget(viewModel)
                 }
             })
             setHasStableIds(true)
