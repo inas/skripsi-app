@@ -81,7 +81,10 @@ class TargetPendukungFragment : Fragment() {
                 DataBindingUtil.inflate(inflater, R.layout.item_target_pendukung, null, false)
             card.viewModel = vm
             card.lifecycleOwner = this
-            card.layoutCard.setOnClickListener { openModifyTargetDialog(vm, card) }
+            card.layoutCard.setOnClickListener {
+                vm.isSelected.value = true
+                openModifyTargetDialog(vm, card)
+            }
 
             val view = card.layoutContainer.apply {
                 setOnClickListener {
@@ -115,7 +118,11 @@ class TargetPendukungFragment : Fragment() {
                     tag = "added" + idCounter++
                 }
 
-                card.layoutCard.setOnClickListener { openModifyTargetDialog(target, card) }
+                card.layoutCard.setOnClickListener {
+                    target.isSelected.value = true
+                    openModifyTargetDialog(target, card)
+                }
+
                 card.imageviewDelete.setOnClickListener {
                     mBinding.layoutAdded.removeView(view)
                     displayedSupportingTargets.remove(view.tag)
@@ -159,10 +166,4 @@ class TargetPendukungFragment : Fragment() {
                 .toMutableList()
     }
 
-    companion object {
-        const val ADD_TARGET = 1313
-        private const val ADDED_TARGET = "ADDED_TARGET"
-        private const val REC_TARGET_0 = "REC_TARGET_0"
-        private const val REC_TARGET_1 = "REC_TARGET_1"
-    }
 }

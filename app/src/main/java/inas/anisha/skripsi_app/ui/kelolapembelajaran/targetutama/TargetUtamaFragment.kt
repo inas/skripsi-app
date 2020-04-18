@@ -88,20 +88,18 @@ class TargetUtamaFragment : Fragment() {
             openModifyTargetDialog(recTarget1Vm, mBinding.layoutTargetRecommendation1)
         }
 
-        mBinding.layoutTargetAdded.layout.setOnClickListener { selectTarget(true, false, false) }
+        mBinding.layoutTargetAdded.layout.setOnClickListener {
+            mViewModel.mainTarget = addedTargetVm
+            selectTarget(true, false, false)
+        }
+
         mBinding.layoutTargetRecommendation0.layout.setOnClickListener {
-            selectTarget(
-                false,
-                true,
-                false
-            )
+            mViewModel.mainTarget = recTarget0Vm
+            selectTarget(false, true, false)
         }
         mBinding.layoutTargetRecommendation1.layout.setOnClickListener {
-            selectTarget(
-                false,
-                false,
-                true
-            )
+            mViewModel.mainTarget = recTarget1Vm
+            selectTarget(false, false, true)
         }
 
     }
@@ -116,6 +114,7 @@ class TargetUtamaFragment : Fragment() {
                 mBinding.buttonAddTarget.visibility = View.GONE
                 mBinding.layoutTargetAdded.layout.visibility = View.VISIBLE
 
+                mViewModel.mainTarget = addedTargetVm
                 selectTarget(true, false, false)
             }
         })
@@ -150,10 +149,4 @@ class TargetUtamaFragment : Fragment() {
         recTarget1Vm.isSelected.value = secondRecTarget
     }
 
-    companion object {
-        const val ADD_TARGET = 1313
-        private const val ADDED_TARGET = "ADDED_TARGET"
-        private const val REC_TARGET_0 = "REC_TARGET_0"
-        private const val REC_TARGET_1 = "REC_TARGET_1"
-    }
 }
