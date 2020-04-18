@@ -36,13 +36,11 @@ class TargetFragment : Fragment() {
     ): View? {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_target, container, false)
-
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         mBinding.buttonAdd.setOnClickListener { openAddTargetPendukungDialog() }
         mBinding.layoutTargetUtama.layout.setOnClickListener { openModifyMainTargetDialog() }
 
@@ -164,5 +162,13 @@ class TargetFragment : Fragment() {
 
     fun deleteTarget(target: TargetPendukungViewModel) {
         mViewModel.deleteSupportingTarget(target.id)
+    }
+
+    fun reInitData() {
+        initCycleTime()
+    }
+
+    companion object {
+        const val TAG = "TARGET_FRAGMENT"
     }
 }

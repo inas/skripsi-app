@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ActivityMainBinding
+import inas.anisha.skripsi_app.ui.main.perjalanan.PerjalananFragment
 import inas.anisha.skripsi_app.ui.main.target.TargetFragment
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mViewModel: MainViewModel
 
     private val targetFragment: TargetFragment = TargetFragment()
+    private val perjalananFragment: PerjalananFragment = PerjalananFragment()
     lateinit var activeFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +32,11 @@ class MainActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this // todo remove?
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.layout_fragment_container, targetFragment, "1").commit()
+            .add(R.id.layout_fragment_container, perjalananFragment, "3").hide(perjalananFragment)
+            .commit()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.layout_fragment_container, targetFragment, "2").commit()
+
         activeFragment = targetFragment
         mBinding.bottomnavigation.setOnNavigationItemSelectedListener(
             mOnNavigationItemSelectedListener
@@ -50,23 +56,20 @@ class MainActivity : AppCompatActivity() {
                     R.id.action_home -> {
 //                        supportFragmentManager.beginTransaction().hide(activeFragment).show(fragment1).commit()
 //                        activeFragment = fragment1
-                        return true
                     }
                     R.id.action_jadwal -> {
 //                        supportFragmentManager.beginTransaction().hide(activeFragment).show(fragment2).commit()
 //                        activeFragment = fragment2
-                        return true
                     }
                     R.id.action_target -> {
                         supportFragmentManager.beginTransaction().hide(activeFragment)
-                            .show(targetFragment).commit()
+                            .show(targetFragment.apply { reInitData() }).commit()
                         activeFragment = targetFragment
-                        return true
                     }
                     R.id.action_perjalanan -> {
-//                        supportFragmentManager.beginTransaction().hide(activeFragment).show(fragment4).commit()
-//                        activeFragment = fragment4
-                        return true
+                        supportFragmentManager.beginTransaction().hide(activeFragment)
+                            .show(perjalananFragment.apply { reInitData() }).commit()
+                        activeFragment = perjalananFragment
                     }
                 }
                 return false

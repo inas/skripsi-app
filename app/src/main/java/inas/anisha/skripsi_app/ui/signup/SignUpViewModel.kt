@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import inas.anisha.skripsi_app.data.Repository
 
 class SignUpViewModel(application: Application) : AndroidViewModel(application) {
-    val mRepository = Repository(application)
+    private val mRepository = Repository.getInstance(application)
 
     fun saveData(name: String, grade: String, study: String) {
         mRepository.setUserName(name)

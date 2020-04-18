@@ -28,12 +28,14 @@
         app:layout_constraintWidth_default="wrap">
 
         <TextView
-            style="@style/font_heading"
+            android:id="@+id/textview_content"
+            style="@style/font_heading.regular"
+            android:paddingEnd="@dimen/space_16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/space_16dp"
             android:paddingTop="@dimen/space_4dp"
-            android:paddingEnd="@dimen/space_8dp"
+            android:textStyle="bold"
             android:paddingBottom="@dimen/space_4dp"
             tools:text="Siklus 1 - 100%" />
     </com.google.android.material.card.MaterialCardView>
