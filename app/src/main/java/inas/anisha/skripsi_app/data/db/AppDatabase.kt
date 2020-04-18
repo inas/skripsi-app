@@ -6,17 +6,23 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import inas.anisha.skripsi_app.data.db.converter.CalendarConverter
+import inas.anisha.skripsi_app.data.db.dao.CycleDao
 import inas.anisha.skripsi_app.data.db.dao.TargetPendukungDao
 import inas.anisha.skripsi_app.data.db.dao.TargetUtamaDao
+import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 
-@Database(entities = [TargetUtamaEntity::class, TargetPendukungEntity::class], version = 1)
+@Database(
+    entities = [TargetUtamaEntity::class, TargetPendukungEntity::class, CycleEntity::class],
+    version = 1
+)
 @TypeConverters(CalendarConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun targetUtamaDao(): TargetUtamaDao
     abstract fun targetPendukungDao(): TargetPendukungDao
+    abstract fun cycleDao(): CycleDao
 
     companion object {
         @Volatile

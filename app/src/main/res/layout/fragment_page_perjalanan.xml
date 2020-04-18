@@ -206,6 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview_perjalanan_label"
                     tools:itemCount="3"
@@ -214,7 +215,7 @@
                 <ImageView
                     android:id="@+id/imageview_dash"
                     android:layout_width="4dp"
-                    android:layout_height="72dp"
+                    android:layout_height="56dp"
                     android:layout_marginStart="25.7dp"
                     android:layerType="software"
                     android:src="@drawable/line_dash_vertical"

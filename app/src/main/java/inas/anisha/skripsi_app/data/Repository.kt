@@ -3,8 +3,10 @@ package inas.anisha.skripsi_app.data
 import android.app.Application
 import androidx.lifecycle.LiveData
 import inas.anisha.skripsi_app.data.db.AppDatabase
+import inas.anisha.skripsi_app.data.db.dao.CycleDao
 import inas.anisha.skripsi_app.data.db.dao.TargetPendukungDao
 import inas.anisha.skripsi_app.data.db.dao.TargetUtamaDao
+import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 import io.reactivex.Observable
@@ -15,6 +17,7 @@ class Repository(application: Application) {
     var sharedPreference: AppPreference
     var targetUtamaDao: TargetUtamaDao
     var targetPendukungDao: TargetPendukungDao
+    var cycleDao: CycleDao
 
     init {
         sharedPreference = AppPreference.getInstance(application)
@@ -22,6 +25,7 @@ class Repository(application: Application) {
         val db = AppDatabase.getDatabase(application)
         targetUtamaDao = db.targetUtamaDao()
         targetPendukungDao = db.targetPendukungDao()
+        cycleDao = db.cycleDao()
     }
 
     // region shared preferenceex
@@ -48,6 +52,11 @@ class Repository(application: Application) {
         Observable.fromCallable { targetPendukungDao.add(*target) }
             .subscribeOn(Schedulers.io()).subscribe()
     }
+
+    fun getCurrentCycle(): LiveData<CycleEntity> = cycleDao.getLatest()
+    fun getAllCycle(): LiveData<List<CycleEntity>> = cycleDao.getAll()
+    fun addCycle(cycle: CycleEntity) =
+        Observable.fromCallable { cycleDao.add(cycle) }.subscribeOn(Schedulers.io()).subscribe()
 
     fun getCycleTime() = sharedPreference.getCycleTime()
     fun setCycleTime(cycleTime: Pair<Int, Int>) {

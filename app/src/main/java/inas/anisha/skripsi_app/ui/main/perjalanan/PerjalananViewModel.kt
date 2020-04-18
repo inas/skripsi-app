@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import inas.anisha.skripsi_app.data.Repository
+import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 
 class PerjalananViewModel(application: Application) : AndroidViewModel(application) {
@@ -15,4 +16,6 @@ class PerjalananViewModel(application: Application) : AndroidViewModel(applicati
     fun getUserName(): String = mRepository.getUserName()
     fun getUserGrade(): String = mRepository.getUserGrade()
     fun getUserStudy(): String = mRepository.getUserStudy()
+
+    fun getAllCycle(): LiveData<List<CycleEntity>> = mRepository.getAllCycle()
 }

@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <View
-        android:id="@+id/view_line_middle"
-        android:layout_width="@dimen/common_2dp"
-        android:layout_height="@dimen/common_24dp"
-        android:background="@color/yellow"
-        app:layout_constraintEnd_toEndOf="@id/imageview_item"
-        app:layout_constraintStart_toStartOf="@id/imageview_item"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/common_48dp"
-        app:cardCornerRadius="@dimen/radius_medium"
-        app:cardBackgroundColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/imageview_item"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imageview_item"
-        app:layout_constraintWidth_default="wrap">
+        <View
+            android:id="@+id/view_line_middle"
+            android:layout_width="@dimen/common_2dp"
+            android:layout_height="@dimen/common_24dp"
+            android:background="@color/yellow"
+            app:layout_constraintEnd_toEndOf="@id/imageview_item"
+            app:layout_constraintStart_toStartOf="@id/imageview_item"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textview_content"
-            style="@style/font_heading.regular"
-            android:paddingEnd="@dimen/space_16dp"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/space_16dp"
-            android:paddingTop="@dimen/space_4dp"
-            android:textStyle="bold"
-            android:paddingBottom="@dimen/space_4dp"
-            tools:text="Siklus 1 - 100%" />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_marginStart="@dimen/common_48dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/radius_medium"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageview_item"
+            app:layout_constraintWidth_default="wrap">
 
-    <ImageView
-        android:id="@+id/imageview_item"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:src="@drawable/bg_target"
-        android:elevation="1dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_line_middle" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textview_content"
+                style="@style/font_heading.regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/space_16dp"
+                android:paddingTop="@dimen/space_4dp"
+                android:paddingEnd="@dimen/space_16dp"
+                android:paddingBottom="@dimen/space_4dp"
+                android:textStyle="bold"
+                tools:text="Siklus 1 - 100%" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/imageview_item"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:elevation="1dp"
+            android:src="@drawable/bg_target"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_line_middle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

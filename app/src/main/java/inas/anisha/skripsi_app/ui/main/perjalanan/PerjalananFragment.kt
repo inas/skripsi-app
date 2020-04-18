@@ -1,6 +1,7 @@
 package inas.anisha.skripsi_app.ui.main.perjalanan
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentPagePerjalananBinding
-import kotlinx.android.synthetic.main.item_perjalanan.view.*
 
 
 class PerjalananFragment : Fragment() {
@@ -35,24 +35,41 @@ class PerjalananFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUserData()
 
-        mBinding.layoutMainTarget.view_line_middle.visibility = View.GONE
-        mBinding.layoutMainTarget.imageview_item.setImageDrawable(
-            resources.getDrawable(
-                R.drawable.bg_main_target,
-                null
-            )
-        )
-        mViewModel.getMainTarget().observe(this, Observer {
-            mBinding.layoutMainTarget.textview_content.text = it.name
-        })
+        initUserData()
+        initCycleHistory()
+        initMainTarget()
     }
 
     private fun initUserData() {
         mBinding.textviewName.text = mViewModel.getUserName()
         mBinding.textviewGradeAndStudy.text =
             mViewModel.getUserGrade() + " " + mViewModel.getUserStudy()
+    }
+
+    private fun initCycleHistory() {
+        val adapter = PerjalananRecyclerViewAdapter()
+        mBinding.recyclerviewPerjalanan.adapter = adapter
+
+        mViewModel.getAllCycle().observe(this, Observer { cycles ->
+            Log.d("debugskripsi", "cycles: " + cycles.size)
+            val cycleHistoryText =
+                cycles.map { entity -> entity.name + " - " + entity.completion + "%" }
+            adapter.setContent(cycleHistoryText)
+        })
+    }
+
+    private fun initMainTarget() {
+        mBinding.layoutMainTarget.viewLineMiddle.visibility = View.GONE
+        mBinding.layoutMainTarget.imageviewItem.setImageDrawable(
+            resources.getDrawable(
+                R.drawable.bg_main_target,
+                null
+            )
+        )
+        mViewModel.getMainTarget().observe(this, Observer {
+            mBinding.layoutMainTarget.textviewContent.text = it.name
+        })
     }
 
     fun reInitData() {

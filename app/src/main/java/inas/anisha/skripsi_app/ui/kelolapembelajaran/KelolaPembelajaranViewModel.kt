@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.Repository
+import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
@@ -37,6 +38,9 @@ class KelolaPembelajaranViewModel(application: Application) : AndroidViewModel(a
 
         val evaluationDate = calculateDate(cycleTime).timeInMillis
         mRepository.setEvaluationDate(evaluationDate)
+
+        val targetCompletion = if (supportingTargetDataModels.size == 0) -1L else 0L
+        mRepository.addCycle(CycleEntity(0, "Siklus 1", targetCompletion))
     }
 
     fun calculateDate(cycleTime: Pair<Int, Int>): Calendar {

@@ -1,16 +1,16 @@
 package inas.anisha.skripsi_app.data.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 
 @Dao
 interface TargetPendukungDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(vararg targetEntity: TargetPendukungEntity)
-
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update(targetEntity: TargetPendukungEntity): Int
 
     @Query("DELETE FROM target_pendukung WHERE id = :targetId")
     fun delete(targetId: Long)
