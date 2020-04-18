@@ -178,7 +178,11 @@
     <!--  Dialog style  -->
     <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/dark_primary</item>
+        <item name="colorAccent">@color/pink</item>
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
+        <item name="android:textColor">@color/dark_primary</item>
 
         <!-- Set this to true if you want Full Screen without status bar -->
         <item name="android:windowFullscreen">false</item>

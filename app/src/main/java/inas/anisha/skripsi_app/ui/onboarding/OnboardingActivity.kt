@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ActivityOnboardingBinding
-import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranIntroActivity
 import inas.anisha.skripsi_app.ui.onboarding.OnboardingPagerFragment.Companion.CLICK_NEXT
 import inas.anisha.skripsi_app.ui.onboarding.OnboardingPagerFragment.Companion.CLICK_SKIP
 import inas.anisha.skripsi_app.ui.onboarding.OnboardingPagerFragment.Companion.CLICK_START
+import inas.anisha.skripsi_app.ui.signup.SignUpActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class OnboardingActivity : AppCompatActivity() {
@@ -33,7 +33,7 @@ class OnboardingActivity : AppCompatActivity() {
                         CLICK_START -> {
                             val intent = Intent(
                                 this@OnboardingActivity,
-                                KelolaPembelajaranIntroActivity::class.java
+                                SignUpActivity::class.java
                             )
                             startActivity(intent)
                         }

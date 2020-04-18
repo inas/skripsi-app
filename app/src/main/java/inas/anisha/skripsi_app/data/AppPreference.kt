@@ -24,29 +24,38 @@ class AppPreference(mContext: Context) {
         setInt(CYCLE_DURATION, cycleTime.second)
     }
 
+    fun getUserName(): String = getString(USER_NAME, "")
+    fun setUserName(name: String) = setString(USER_NAME, name)
+
+    fun getUserGrade(): String = getString(USER_GRADE, "")
+    fun setUserGrade(grade: String) = setString(USER_GRADE, grade)
+
+    fun getUserStudy(): String = getString(USER_STUDY, "")
+    fun setUserStudy(study: String) = setString(USER_STUDY, study)
+
     fun removeKey(key: String) {
         this.mSharedPreferences.edit().remove(key).apply()
     }
 
-    private fun getString(key: String, defaultValue: String) =
-        mSharedPreferences.getString(key, defaultValue)
+    private fun getString(key: String, defaultValue: String): String =
+        mSharedPreferences.getString(key, defaultValue) ?: ""
 
     private fun setString(key: String, value: String) =
         mSharedPreferences.edit().putString(key, value).apply()
 
-    private fun getInt(key: String, defaultValue: Int) =
+    private fun getInt(key: String, defaultValue: Int): Int =
         mSharedPreferences.getInt(key, defaultValue)
 
     private fun setInt(key: String, value: Int) =
         mSharedPreferences.edit().putInt(key, value).apply()
 
-    private fun getBoolean(key: String, defaultValue: Boolean) =
+    private fun getBoolean(key: String, defaultValue: Boolean): Boolean =
         mSharedPreferences.getBoolean(key, defaultValue)
 
     private fun setBoolean(key: String, value: Boolean) =
         mSharedPreferences.edit().putBoolean(key, value).apply()
 
-    private fun getLong(key: String, defaultValue: Long) =
+    private fun getLong(key: String, defaultValue: Long): Long =
         mSharedPreferences.getLong(key, defaultValue)
 
     private fun setLong(key: String, value: Long) =
@@ -57,6 +66,10 @@ class AppPreference(mContext: Context) {
         private const val CYCLE_FREQUENCY = "CYCLE_FREQUENCY"
         private const val CYCLE_DURATION = "CYCLE_DURATION"
         private const val EVALUATION_DATE = "EVALUATION_DATE"
+
+        private const val USER_NAME = "USER_NAME"
+        private const val USER_GRADE = "USER_GRADE"
+        private const val USER_STUDY = "USER_STUDY"
 
         @Volatile
         private var instance: AppPreference? = null

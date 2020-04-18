@@ -44,6 +44,7 @@ class TambahTargetUtamaDialog : DialogFragment() {
         mBinding.imageviewRemove.setOnClickListener {
             targetDate = null
             mBinding.edittextDate.setText("")
+            if (mBinding.edittextDate.hasFocus()) mBinding.edittextDate.clearFocus()
         }
 
         mBinding.edittextDate.apply {
@@ -51,10 +52,7 @@ class TambahTargetUtamaDialog : DialogFragment() {
                 showDatePicker()
             }
             setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) {
-                    showDatePicker()
-                    view.clearFocus()
-                }
+                if (hasFocus) showDatePicker()
             }
         }
 

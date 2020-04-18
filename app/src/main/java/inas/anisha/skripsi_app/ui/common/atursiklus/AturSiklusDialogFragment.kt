@@ -9,10 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
-import inas.anisha.skripsi_app.databinding.FragmentAturSiklusBinding
+import inas.anisha.skripsi_app.databinding.FragmentSiklusAturBinding
 
 class AturSiklusDialogFragment : DialogFragment() {
-    private lateinit var mBinding: FragmentAturSiklusBinding
+    private lateinit var mBinding: FragmentSiklusAturBinding
     private var mCallback: OnSiklusChosenListener? = null
 
     override fun onCreateView(
@@ -21,14 +21,14 @@ class AturSiklusDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_atur_siklus, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_siklus_atur, container, false)
 
         mBinding.buttonClose.setOnClickListener { dismiss() }
         mBinding.buttonAtur.setOnClickListener { setCycleTime() }
 
         requireContext().let { context ->
             val frequencyAdapter: ArrayAdapter<String> =
-                ArrayAdapter<String>(context, R.layout.dropdown_atur_siklus, FREQUENCY)
+                ArrayAdapter<String>(context, R.layout.item_dropdown, FREQUENCY)
             mBinding.dropdownFrequency.setAdapter(frequencyAdapter)
 
             val oneToThirty = mutableListOf<Int>().apply {
@@ -37,7 +37,7 @@ class AturSiklusDialogFragment : DialogFragment() {
                 }
             }
             val durationAdapter: ArrayAdapter<Int> =
-                ArrayAdapter<Int>(context, R.layout.dropdown_atur_siklus, oneToThirty)
+                ArrayAdapter<Int>(context, R.layout.item_dropdown, oneToThirty)
             mBinding.dropdownDuration.setAdapter(durationAdapter)
 
         }

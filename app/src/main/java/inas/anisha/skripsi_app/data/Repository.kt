@@ -57,6 +57,15 @@ class Repository(application: Application) {
     fun getEvaluationDate() = sharedPreference.getEvaluationDate()
     fun setEvaluationDate(evaluationDate: Long) = sharedPreference.setEvaluationDate(evaluationDate)
 
+    fun getUserName(): String = sharedPreference.getUserName()
+    fun setUserName(name: String) = sharedPreference.setUserName(name)
+
+    fun getUserGrade(): String = sharedPreference.getUserGrade()
+    fun setUserGrade(grade: String) = sharedPreference.setUserGrade(grade)
+
+    fun getUserStudy(): String = sharedPreference.getUserStudy()
+    fun setUserStudy(study: String) = sharedPreference.setUserStudy(study)
+
     companion object {
         // For Singleton instantiation
         @Volatile

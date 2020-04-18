@@ -19,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash_screen)
         mViewModel = ViewModelProviders.of(this).get(SplashScreenViewModel::class.java)
 
-        if (mViewModel.shouldShowKelolaPembelajaran()) {
+        if (true) {
             val intent = Intent(this, OnboardingActivity::class.java)
             startActivity(intent)
             finish()

@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         mBinding.bottomnavigation.setOnNavigationItemSelectedListener(
             mOnNavigationItemSelectedListener
         )
+
+        mViewModel.checkname()
     }
 
     override fun attachBaseContext(newBase: Context?) {
