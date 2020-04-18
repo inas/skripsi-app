@@ -90,14 +90,13 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textlayout_study_other"
             style="@style/InputLayout"
-            android:layout_marginTop="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_8dp"
             android:hint="Nama jurusan"
             android:visibility="gone"
             app:helperText="Contoh: Farmasi"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_study"
-            app:startIconDrawable="@drawable/ic_person">
+            app:layout_constraintTop_toBottomOf="@id/textlayout_study">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_study_other"
