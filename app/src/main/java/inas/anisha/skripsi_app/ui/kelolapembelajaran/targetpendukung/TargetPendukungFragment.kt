@@ -61,12 +61,9 @@ class TargetPendukungFragment : Fragment() {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_target_pendukung, container, false)
 
-        return mBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         initViews()
+
+        return mBinding.root
     }
 
     fun initViews() {
@@ -125,7 +122,7 @@ class TargetPendukungFragment : Fragment() {
                 }
 
                 displayedSupportingTargets[view.tag.toString()] = target
-                mBinding.layoutAdded.addView(view)
+                mBinding.layoutAdded.addView(view, 0)
             }
         })
 

@@ -26,6 +26,7 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this
 
         mBinding.viewpager.adapter = KelolaPembelajaranPagerAdapter(supportFragmentManager)
+        mBinding.viewpager.offscreenPageLimit = 3
         mBinding.viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
@@ -61,7 +62,7 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
                         ConfirmationDialog.ARG_MESSAGE,
                         "Target dan waktu siklus yang sudah dipilih tidak akan disimpan."
                     )
-                    putString(ConfirmationDialog.ARG_BUTTON, "Batalkan")
+                    putString(ConfirmationDialog.ARG_BUTTON, "Batalkan Perubahan")
                 }
 
                 setConfirmationDialogListener(object :
