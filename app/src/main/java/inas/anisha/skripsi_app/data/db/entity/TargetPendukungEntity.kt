@@ -12,5 +12,6 @@ data class TargetPendukungEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "name") val name: String = "",
     @ColumnInfo(name = "note") val note: String = "",
-    @ColumnInfo(name = "time") var time: String = ""
+    @ColumnInfo(name = "time") var time: String = "",
+    @ColumnInfo(name = "isCompleted") var isCompleted: Boolean = false
 ) : Parcelable

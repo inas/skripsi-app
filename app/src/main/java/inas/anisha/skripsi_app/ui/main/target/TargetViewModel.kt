@@ -43,7 +43,6 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
                     name = it.name
                     note = it.note
                     time = it.time
-                    isRemovable = true
                     id = it.id
                 }
             }

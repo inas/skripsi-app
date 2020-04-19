@@ -25,5 +25,6 @@
         <activity android:name=".ui.signup.SignUpActivity" />
         <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranIntroActivity" />
         <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranActivity" />
+        <activity android:name=".ui.main.target.TargetPendukungDetailActivity" />
     </application>
 </manifest>

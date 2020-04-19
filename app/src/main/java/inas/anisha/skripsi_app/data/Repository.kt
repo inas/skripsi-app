@@ -41,6 +41,9 @@ class Repository(application: Application) {
         }.subscribeOn(Schedulers.io()).subscribe()
     }
 
+    fun getSupportingTarget(targetId: Long): LiveData<TargetPendukungEntity> =
+        targetPendukungDao.get(targetId)
+
     fun getSupportingTargets(): LiveData<List<TargetPendukungEntity>> = targetPendukungDao.getAll()
 
     fun deleteSupportingTargets(targetId: Long) {
@@ -51,6 +54,18 @@ class Repository(application: Application) {
     fun addSupportingTarget(vararg target: TargetPendukungEntity) {
         Observable.fromCallable { targetPendukungDao.add(*target) }
             .subscribeOn(Schedulers.io()).subscribe()
+    }
+
+    fun updateSupportingTarget(
+        id: Long,
+        name: String,
+        note: String,
+        time: String,
+        isCompleted: Boolean
+    ) {
+        Observable.fromCallable {
+            targetPendukungDao.update(id, name, note, time, isCompleted)
+        }.subscribeOn(Schedulers.io()).subscribe()
     }
 
     fun getCurrentCycle(): LiveData<CycleEntity> = cycleDao.getLatest()

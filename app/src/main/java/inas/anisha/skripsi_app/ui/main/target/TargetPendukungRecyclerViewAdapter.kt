@@ -37,10 +37,6 @@ class TargetPendukungRecyclerViewAdapter :
             if (viewModel.shouldShowTime()) View.VISIBLE else View.GONE
         holder.binding.textviewTargetTime.visibility =
             if (viewModel.shouldShowTime()) View.VISIBLE else View.GONE
-        holder.binding.imageviewDelete.visibility =
-            if (viewModel.isRemovable) View.VISIBLE else View.GONE
-        holder.binding.checkbox.visibility =
-            if (viewModel.shouldShowSelection) View.VISIBLE else View.GONE
         holder.binding.checkbox.isChecked = viewModel.isSelected.value ?: false
 
         holder.binding.imageviewDelete.setOnClickListener { listener?.onItemDeleted(viewModel) }

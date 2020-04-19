@@ -1,5 +1,6 @@
 package inas.anisha.skripsi_app.ui.main.target
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -90,7 +91,7 @@ class TargetFragment : Fragment() {
         val adapter = TargetPendukungRecyclerViewAdapter().apply {
             setItemListener(object : TargetPendukungRecyclerViewAdapter.ItemListener {
                 override fun onItemClick(viewModel: TargetPendukungViewModel) {
-                    openModifySupportingTargetDialog(viewModel)
+                    openTargetPendukungDetail(viewModel.id)
                 }
 
                 override fun onItemDeleted(viewModel: TargetPendukungViewModel) {
@@ -113,7 +114,6 @@ class TargetFragment : Fragment() {
         tambahTargetDialog.setOnTargetAddedListener(object :
             TambahTargetPendukungDialog.OnTargetModifiedListener {
             override fun onTargetModified(target: TargetPendukungViewModel) {
-                target.shouldShowSelection
                 mViewModel.addOrUpdateSupportingTarget(target)
             }
         })
@@ -158,6 +158,16 @@ class TargetFragment : Fragment() {
         })
 
         tambahTargetDialog.show(childFragmentManager, TambahTargetPendukungDialog.TAG)
+    }
+
+    fun openTargetPendukungDetail(targetId: Long) {
+        val intent = Intent(activity, TargetPendukungDetailActivity::class.java).apply {
+            putExtra(
+                TargetPendukungDetailActivity.EXTRA_ID,
+                targetId
+            )
+        }
+        startActivity(intent)
     }
 
     fun deleteTarget(target: TargetPendukungViewModel) {

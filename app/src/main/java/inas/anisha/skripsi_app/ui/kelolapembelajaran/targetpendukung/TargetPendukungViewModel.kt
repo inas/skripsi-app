@@ -4,13 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class TargetPendukungViewModel : ViewModel() {
+    var id: Long = 0
     var name: String = ""
     var note: String = ""
     var time: String = ""
-    var isRemovable: Boolean = false
-    var shouldShowSelection: Boolean = false
+    var isCompleted: Boolean = false
     var isSelected: MutableLiveData<Boolean> = MutableLiveData(false)
-    var id: Long = 0
 
     fun shouldShowTime(): Boolean = time != ""
 

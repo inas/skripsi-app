@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageview_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size_button_padding"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_edit"
+                style="@style/button_text"
+                android:text="Edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_hapus"
+                style="@style/button_text"
+                android:text="Hapus"
+                android:textColor="@color/warning"
+                app:layout_constraintEnd_toStartOf="@id/button_edit"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textview_target_name"
+            style="@style/font_title_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:text="@{viewModel.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar"
+            tools:text="Mewujudkan cita-cita masuk ke Universitas Indonesia hehhehe ehhee eh" />
+
+        <TextView
+            android:id="@+id/textview_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:drawableStart="@drawable/ic_note"
+            android:drawablePadding="@dimen/space_16dp"
+            android:drawableTint="@color/dark_secondary"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.note}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_target_name"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+
+        <TextView
+            android:id="@+id/textview_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:drawableStart="@drawable/ic_clock"
+            android:drawablePadding="@dimen/space_16dp"
+            android:drawableTint="@color/dark_secondary"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.time}"
+            android:visibility="@{viewModel.shouldShowTime()? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_notes"
+            tools:text="Setiap hari, 3 kali sehari, tiap jarak 5 menit" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_mark_as_incomplete"
+            style="@style/Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:text="Belum Selesai"
+            android:visibility="@{viewModel.isCompleted? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/button_mark_as_complete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginBottom="@dimen/space_16dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_mark_as_complete"
+            style="@style/button_full"
+            android:layout_margin="@dimen/space_16dp"
+            android:text="Tandai Selesai"
+            android:visibility="@{viewModel.isCompleted? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -23,7 +23,6 @@ class TargetPendukungFragment : Fragment() {
             .apply {
                 name = "Rutin belajar mandiri"
                 note = "Buat sesi khusus untuk belajar mandiri"
-                shouldShowSelection = true
             }
 
     private val recTarget1Vm =
@@ -31,7 +30,6 @@ class TargetPendukungFragment : Fragment() {
             .apply {
                 name = "Rutin berlatih"
                 note = "Buat sesi khusus untuk berlatih"
-                shouldShowSelection = true
             }
 
     private val recTarget2Vm =
@@ -39,7 +37,6 @@ class TargetPendukungFragment : Fragment() {
             .apply {
                 name = "Bentuk keahlian baru"
                 note = "Kuasai keahlian baru yang menarik bagimu"
-                shouldShowSelection = true
             }
 
     private var displayedSupportingTargets: MutableMap<String, TargetPendukungViewModel> =
@@ -100,9 +97,7 @@ class TargetPendukungFragment : Fragment() {
         tambahTargetDialog.setOnTargetAddedListener(object :
             TambahTargetPendukungDialog.OnTargetModifiedListener {
             override fun onTargetModified(target: TargetPendukungViewModel) {
-                target.shouldShowSelection = true
                 target.isSelected.value = true
-                target.isRemovable = true
 
                 val inflater = LayoutInflater.from(context)
                 val card: ItemTargetPendukungBinding =

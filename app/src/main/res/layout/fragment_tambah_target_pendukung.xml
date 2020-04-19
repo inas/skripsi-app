@@ -10,100 +10,116 @@
             type="inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textview_title"
-            style="@style/font_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:text="Target Pendukung"
-            app:layout_constraintEnd_toStartOf="@id/imageview_close"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageview_close"
-            android:layout_width="@dimen/size_button"
-            android:layout_height="@dimen/size_button"
-            android:padding="@dimen/size_button_padding"
-            android:src="@drawable/ic_close_dark"
-            app:layout_constraintBottom_toBottomOf="@id/textview_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textview_title" />
+            <TextView
+                android:id="@+id/textview_title"
+                style="@style/font_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text="Target Pendukung"
+                app:layout_constraintEnd_toStartOf="@id/imageview_close"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textlayout_target"
-            style="@style/InputLayout"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:hint="Nama target"
-            app:helperText="Contoh: Mendapat nilai ujian harian minimal 90"
-            app:helperTextEnabled="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_title"
-            app:startIconDrawable="@drawable/ic_text_fields">
+            <ImageView
+                android:id="@+id/imageview_close"
+                android:layout_width="@dimen/size_button"
+                android:layout_height="@dimen/size_button"
+                android:padding="@dimen/size_button_padding"
+                android:src="@drawable/ic_close_dark"
+                app:layout_constraintBottom_toBottomOf="@id/textview_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textview_title" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_target"
-                style="@style/EditText"
-                tools:text="" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_target"
+                style="@style/InputLayout"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:hint="Nama target"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:helperText="Contoh: Mendapat nilai ujian harian minimal 90"
+                app:helperTextEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_title"
+                app:startIconDrawable="@drawable/ic_text_fields">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textlayout_note"
-            style="@style/InputLayout"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:hint="Catatan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_target"
-            app:startIconDrawable="@drawable/ic_note">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittext_target"
+                    style="@style/EditText"
+                    android:inputType="textMultiLine"
+                    tools:text="Diterima di Ilmu Komputer di Universitas Indonesia" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_note"
-                style="@style/EditText"
-                android:inputType="text"
-                tools:text="" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_note"
+                style="@style/InputLayout"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:hint="Catatan"
+                app:counterEnabled="true"
+                app:counterMaxLength="500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textlayout_target"
+                app:startIconDrawable="@drawable/ic_note">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textlayout_time"
-            style="@style/InputLayout"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:hint="Waktu pencapaian (opsional)"
-            app:helperText="Contoh: 3 kali seminggu, malam hari"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_note"
-            app:startIconDrawable="@drawable/ic_clock">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittext_note"
+                    style="@style/EditText"
+                    android:inputType="textMultiLine"
+                    tools:text="Pellentesque sapien odio, suscipit sed quam eu, commodo maximus lacus. Mauris dignissim rhoncus neque, ac fermentum justo. Nulla id arcu condimentum, bibendum nisi et, suscipit libero. Mauris ut leo tellus. Morbi commodo ex in leo feugiat, id tincidunt dolor dignissim. Nullam pretium facilisis mi, maximus porta mauris scelerisque quis. Donec sit amet massa at elit pellentesque tincidunt quis vitae nisl. Sed id ante id ex molestie euismod. Phasellus tristique gravida sem et accumsan." />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_time"
-                style="@style/EditText"
-                android:inputType="text"
-                tools:text="" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_time"
+                style="@style/InputLayout"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:hint="Waktu pencapaian (opsional)"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:helperText="Contoh: 3 kali seminggu, malam hari"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textlayout_note"
+                app:startIconDrawable="@drawable/ic_clock">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_save"
-            style="@style/button_full"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_32dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:backgroundTint="@color/green"
-            android:text="Simpan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_time" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittext_time"
+                    style="@style/EditText"
+                    android:inputType="textMultiLine"
+                    tools:text=" ha aahah ahahaha ahah ahahaha ahahahhaha" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_save"
+                style="@style/button_full"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_32dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:layout_marginBottom="@dimen/space_16dp"
+                android:backgroundTint="@color/green"
+                android:text="Simpan"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textlayout_time"
+                app:layout_goneMarginTop="@dimen/space_32dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </layout>

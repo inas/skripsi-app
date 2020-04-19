@@ -22,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="@{viewModel.isSelected}"
-            android:visibility="@{viewModel.shouldShowSelection? View.VISIBLE : View.GONE}"
             android:clickable="false"
             app:layout_constraintBottom_toBottomOf="@id/layout_card"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +118,6 @@
                 android:padding="@dimen/space_12dp"
                 android:src="@drawable/ic_delete"
                 android:tint="@color/white"
-                android:visibility="@{viewModel.isRemovable? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

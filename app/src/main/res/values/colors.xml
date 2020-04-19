@@ -15,4 +15,6 @@
     <color name="dark_primary">#464646</color>
     <color name="dark_secondary">#7F7F7F</color>
     <color name="light_secondary">#A5A5A5</color>
+
+    <color name="warning">#EF817D</color>
 </resources>
