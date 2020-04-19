@@ -1,9 +1,11 @@
 package inas.anisha.skripsi_app.ui.common.tambahTarget
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
@@ -39,6 +41,16 @@ class TambahTargetPendukungDialog : DialogFragment() {
             )
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this
+
+        mBinding.edittextTarget.apply {
+            imeOptions = EditorInfo.IME_ACTION_NEXT
+            setRawInputType(InputType.TYPE_CLASS_TEXT)
+        }
+
+        mBinding.edittextTime.apply {
+            imeOptions = EditorInfo.IME_ACTION_DONE
+            setRawInputType(InputType.TYPE_CLASS_TEXT)
+        }
 
         mBinding.buttonSave.setOnClickListener { modifyTarget() }
         mBinding.imageviewClose.setOnClickListener { dismiss() }

@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.databinding.ActivityTargetPendukungDetailBinding
+import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
+import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class TargetPendukungDetailActivity : AppCompatActivity() {
@@ -41,22 +43,53 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
         })
 
         mBinding.imageviewBack.setOnClickListener { finish() }
+        mBinding.buttonMarkAsComplete.setOnClickListener { mViewModel.setTargetAsComplete(true) }
+        mBinding.buttonMarkAsIncomplete.setOnClickListener { mViewModel.setTargetAsComplete(false) }
+
+        mBinding.buttonEdit.setOnClickListener {
+            openModifySupportingTargetDialog(
+                TargetPendukungViewModel().apply { fromEntity(mViewModel.target) })
+        }
+
         mBinding.buttonHapus.setOnClickListener {
             mViewModel.deleteSupportingTarget()
             finish()
         }
-        mBinding.buttonMarkAsComplete.setOnClickListener { mViewModel.setTargetAsComplete(true) }
-        mBinding.buttonMarkAsIncomplete.setOnClickListener { mViewModel.setTargetAsComplete(false) }
     }
 
     override fun onStop() {
         super.onStop()
         observable.removeObservers(this)
 
+        mBinding.imageviewBack.setOnClickListener(null)
+        mBinding.buttonMarkAsComplete.setOnClickListener(null)
+        mBinding.buttonMarkAsIncomplete.setOnClickListener(null)
+        mBinding.buttonEdit.setOnClickListener(null)
+        mBinding.buttonHapus.setOnClickListener(null)
     }
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
+    }
+
+    fun openModifySupportingTargetDialog(target: TargetPendukungViewModel) {
+        val tambahTargetDialog = TambahTargetPendukungDialog().apply {
+            arguments = Bundle().apply {
+                putLong(TambahTargetPendukungDialog.ARG_ID, target.id)
+                putString(TambahTargetPendukungDialog.ARG_NAME, target.name)
+                putString(TambahTargetPendukungDialog.ARG_NOTE, target.note)
+                putString(TambahTargetPendukungDialog.ARG_TIME, target.time)
+            }
+        }
+
+        tambahTargetDialog.setOnTargetAddedListener(object :
+            TambahTargetPendukungDialog.OnTargetModifiedListener {
+            override fun onTargetModified(target: TargetPendukungViewModel) {
+                mViewModel.updateSupportingTarget(target)
+            }
+        })
+
+        tambahTargetDialog.show(supportFragmentManager, TambahTargetPendukungDialog.TAG)
     }
 
     private fun TextView.strikeThrough(enable: Boolean) {

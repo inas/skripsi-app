@@ -140,26 +140,6 @@ class TargetFragment : Fragment() {
         tambahTargetDialog.show(childFragmentManager, TambahTargetUtamaDialog.TAG)
     }
 
-    fun openModifySupportingTargetDialog(target: TargetPendukungViewModel) {
-        val tambahTargetDialog = TambahTargetPendukungDialog().apply {
-            arguments = Bundle().apply {
-                putLong(TambahTargetPendukungDialog.ARG_ID, target.id)
-                putString(TambahTargetPendukungDialog.ARG_NAME, target.name)
-                putString(TambahTargetPendukungDialog.ARG_NOTE, target.note)
-                putString(TambahTargetPendukungDialog.ARG_TIME, target.time)
-            }
-        }
-
-        tambahTargetDialog.setOnTargetAddedListener(object :
-            TambahTargetPendukungDialog.OnTargetModifiedListener {
-            override fun onTargetModified(target: TargetPendukungViewModel) {
-                mViewModel.addOrUpdateSupportingTarget(target)
-            }
-        })
-
-        tambahTargetDialog.show(childFragmentManager, TambahTargetPendukungDialog.TAG)
-    }
-
     fun openTargetPendukungDetail(targetId: Long) {
         val intent = Intent(activity, TargetPendukungDetailActivity::class.java).apply {
             putExtra(

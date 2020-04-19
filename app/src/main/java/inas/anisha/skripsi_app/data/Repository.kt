@@ -41,6 +41,7 @@ class Repository(application: Application) {
             targetUtamaDao.deleteOldTarget()
             targetUtamaDao.add(target)
         }.subscribeOn(Schedulers.io()).subscribe()
+
     }
 
     fun getSupportingTarget(targetId: Long): LiveData<TargetPendukungEntity> =
@@ -58,22 +59,15 @@ class Repository(application: Application) {
             .subscribeOn(Schedulers.io()).subscribe()
     }
 
-    fun updateSupportingTarget(
-        id: Long,
-        name: String,
-        note: String,
-        time: String,
-        isCompleted: Boolean
-    ) {
-        Observable.fromCallable {
-            targetPendukungDao.update(id, name, note, time, isCompleted)
-        }.subscribeOn(Schedulers.io()).subscribe()
-    }
+    fun updateSupportingTarget(target: TargetPendukungEntity) =
+        Observable.fromCallable { targetPendukungDao.update(target) }
+            .subscribeOn(Schedulers.io()).subscribe()
 
     fun getCurrentCycle(): LiveData<CycleEntity> = cycleDao.getLatest()
     fun getAllCycle(): LiveData<List<CycleEntity>> = cycleDao.getAll()
     fun addCycle(cycle: CycleEntity) =
-        Observable.fromCallable { cycleDao.add(cycle) }.subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable { cycleDao.add(cycle) }
+            .subscribeOn(Schedulers.io()).subscribe()
 
     fun getCycleTime() = sharedPreference.getCycleTime()
     fun setCycleTime(cycleTime: Pair<Int, Int>) {

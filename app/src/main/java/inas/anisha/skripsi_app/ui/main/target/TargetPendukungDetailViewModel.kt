@@ -12,26 +12,24 @@ class TargetPendukungDetailViewModel(application: Application) : AndroidViewMode
     private val mRepository = Repository.getInstance(application)
     var target: TargetPendukungEntity = TargetPendukungEntity(0, "", "", "")
 
-    fun getSupportingTargetViewModel(target: TargetPendukungEntity): TargetPendukungViewModel {
-        return TargetPendukungViewModel().apply {
-            name = target.name
-            note = target.note
-            time = target.time
-            isCompleted = target.isCompleted
-        }
-    }
-
     fun getSupportingTarget(targetId: Long): LiveData<TargetPendukungEntity> =
         mRepository.getSupportingTarget(targetId)
 
-    fun setTargetAsComplete(isCompleted: Boolean) = mRepository.updateSupportingTarget(
-        target.id,
-        target.name,
-        target.note,
-        target.time,
-        isCompleted
-    )
+    fun getSupportingTargetViewModel(target: TargetPendukungEntity): TargetPendukungViewModel =
+        TargetPendukungViewModel().apply { fromEntity(target) }
 
     fun deleteSupportingTarget() = mRepository.deleteSupportingTargets(target.id)
+
+    fun updateSupportingTarget(target: TargetPendukungViewModel) =
+        mRepository.updateSupportingTarget(target.toEntity())
+
+    fun setTargetAsComplete(isCompleted: Boolean) = mRepository.updateSupportingTarget(
+        TargetPendukungEntity(
+            target.id, target.name,
+            target.note,
+            target.time,
+            isCompleted
+        )
+    )
 
 }
