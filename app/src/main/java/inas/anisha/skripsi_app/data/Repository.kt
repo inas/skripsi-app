@@ -3,9 +3,7 @@ package inas.anisha.skripsi_app.data
 import android.app.Application
 import androidx.lifecycle.LiveData
 import inas.anisha.skripsi_app.data.db.AppDatabase
-import inas.anisha.skripsi_app.data.db.dao.CycleDao
-import inas.anisha.skripsi_app.data.db.dao.TargetPendukungDao
-import inas.anisha.skripsi_app.data.db.dao.TargetUtamaDao
+import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
@@ -18,6 +16,8 @@ class Repository(application: Application) {
     var targetUtamaDao: TargetUtamaDao
     var targetPendukungDao: TargetPendukungDao
     var cycleDao: CycleDao
+    var schoolClassDao: SchoolClassDao
+    var scheduleDao: ScheduleDao
 
     init {
         sharedPreference = AppPreference.getInstance(application)
@@ -26,6 +26,8 @@ class Repository(application: Application) {
         targetUtamaDao = db.targetUtamaDao()
         targetPendukungDao = db.targetPendukungDao()
         cycleDao = db.cycleDao()
+        schoolClassDao = db.schoolClassDao()
+        scheduleDao = db.scheduleDao()
     }
 
     // region shared preferenceex

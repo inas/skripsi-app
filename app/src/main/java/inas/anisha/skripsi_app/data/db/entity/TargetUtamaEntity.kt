@@ -13,5 +13,5 @@ data class TargetUtamaEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "name") val name: String = "",
     @ColumnInfo(name = "note") val note: String = "",
-    @ColumnInfo(name = "date") var date: Calendar? = null
+    @ColumnInfo(name = "date") val date: Calendar? = null
 ) : Parcelable
