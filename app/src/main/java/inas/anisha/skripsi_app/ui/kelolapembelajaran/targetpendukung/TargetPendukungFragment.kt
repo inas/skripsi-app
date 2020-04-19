@@ -137,9 +137,7 @@ class TargetPendukungFragment : Fragment() {
     ) {
         val tambahTargetDialog = TambahTargetPendukungDialog().apply {
             arguments = Bundle().apply {
-                putString(TambahTargetPendukungDialog.ARG_NAME, targetVm.name)
-                putString(TambahTargetPendukungDialog.ARG_NOTE, targetVm.note)
-                putString(TambahTargetPendukungDialog.ARG_TIME, targetVm.time)
+                putParcelable(TambahTargetPendukungDialog.ARG_TARGET, targetVm.toEntity())
             }
         }
 

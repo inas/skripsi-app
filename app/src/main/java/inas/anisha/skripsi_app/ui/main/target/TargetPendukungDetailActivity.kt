@@ -75,10 +75,7 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
     fun openModifySupportingTargetDialog(target: TargetPendukungViewModel) {
         val tambahTargetDialog = TambahTargetPendukungDialog().apply {
             arguments = Bundle().apply {
-                putLong(TambahTargetPendukungDialog.ARG_ID, target.id)
-                putString(TambahTargetPendukungDialog.ARG_NAME, target.name)
-                putString(TambahTargetPendukungDialog.ARG_NOTE, target.note)
-                putString(TambahTargetPendukungDialog.ARG_TIME, target.time)
+                putParcelable(TambahTargetPendukungDialog.ARG_TARGET, target.toEntity())
             }
         }
 
