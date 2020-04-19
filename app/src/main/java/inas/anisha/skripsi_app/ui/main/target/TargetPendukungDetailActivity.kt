@@ -1,7 +1,9 @@
 package inas.anisha.skripsi_app.ui.main.target
 
 import android.content.Context
+import android.graphics.Paint
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -34,9 +36,11 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
             it?.let {
                 mViewModel.target = it
                 mBinding.viewModel = mViewModel.getSupportingTargetViewModel(it)
+                mBinding.textviewTargetName.strikeThrough(it.isCompleted)
             }
         })
 
+        mBinding.imageviewBack.setOnClickListener { finish() }
         mBinding.buttonHapus.setOnClickListener {
             mViewModel.deleteSupportingTarget()
             finish()
@@ -48,10 +52,19 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         observable.removeObservers(this)
+
     }
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
+    }
+
+    private fun TextView.strikeThrough(enable: Boolean) {
+        paintFlags = if (enable) {
+            (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
+        } else {
+            paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+        }
     }
 
     companion object {

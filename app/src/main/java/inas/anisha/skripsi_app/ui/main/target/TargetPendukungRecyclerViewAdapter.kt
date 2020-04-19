@@ -1,13 +1,12 @@
 package inas.anisha.skripsi_app.ui.main.target
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import inas.anisha.skripsi_app.R
-import inas.anisha.skripsi_app.databinding.ItemTargetPendukungBinding
+import inas.anisha.skripsi_app.databinding.ItemCardSmallBinding
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 
 class TargetPendukungRecyclerViewAdapter :
@@ -17,9 +16,9 @@ class TargetPendukungRecyclerViewAdapter :
     private var listener: ItemListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DataBindingUtil.inflate<ItemTargetPendukungBinding>(
+        val binding = DataBindingUtil.inflate<ItemCardSmallBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.item_target_pendukung,
+            R.layout.item_card_small,
             parent,
             false
         )
@@ -29,21 +28,16 @@ class TargetPendukungRecyclerViewAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val viewModel = targets[position]
         holder.binding.viewModel = viewModel
-//        holder.binding.textviewTarget.text = viewModel.name
-//        holder.binding.textviewTargetNote.text = viewModel.note
-//        holder.binding.textviewTargetTime.text = viewModel.time
-//
+
         holder.binding.imageviewClock.visibility =
             if (viewModel.shouldShowTime()) View.VISIBLE else View.GONE
         holder.binding.textviewTargetTime.visibility =
             if (viewModel.shouldShowTime()) View.VISIBLE else View.GONE
-        holder.binding.checkbox.isChecked = viewModel.isSelected.value ?: false
 
-        holder.binding.imageviewDelete.setOnClickListener { listener?.onItemDeleted(viewModel) }
         holder.itemView.setOnClickListener { listener?.onItemClick(viewModel) }
     }
 
-    inner class ViewHolder(val binding: ItemTargetPendukungBinding) :
+    inner class ViewHolder(val binding: ItemCardSmallBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun getItemId(position: Int): Long {
@@ -60,7 +54,6 @@ class TargetPendukungRecyclerViewAdapter :
 
     fun setTargets(newTargets: List<TargetPendukungViewModel>) {
         targets = newTargets
-        Log.d("debugskripsi", "should update")
         notifyDataSetChanged()
     }
 
