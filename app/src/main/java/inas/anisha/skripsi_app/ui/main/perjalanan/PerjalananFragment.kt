@@ -1,7 +1,6 @@
 package inas.anisha.skripsi_app.ui.main.perjalanan
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +51,6 @@ class PerjalananFragment : Fragment() {
         mBinding.recyclerviewPerjalanan.adapter = adapter
 
         mViewModel.getAllCycle().observe(this, Observer { cycles ->
-            Log.d("debugskripsi", "cycles: " + cycles.size)
             val cycleHistoryText =
                 cycles.map { entity -> entity.name + " - " + entity.completion + "%" }
             adapter.setContent(cycleHistoryText)
@@ -61,6 +59,7 @@ class PerjalananFragment : Fragment() {
 
     private fun initMainTarget() {
         mBinding.layoutMainTarget.viewLineMiddle.visibility = View.GONE
+        mBinding.layoutMainTarget.isCurrentCycle = true
         mBinding.layoutMainTarget.imageviewItem.setImageDrawable(
             resources.getDrawable(
                 R.drawable.bg_main_target,

@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="isCurrentCycle"
+            type="Boolean" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -11,7 +18,7 @@
             android:id="@+id/view_line_middle"
             android:layout_width="@dimen/common_2dp"
             android:layout_height="@dimen/common_24dp"
-            android:background="@color/yellow"
+            android:background="@color/light_secondary"
             app:layout_constraintEnd_toEndOf="@id/imageview_item"
             app:layout_constraintStart_toStartOf="@id/imageview_item"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,6 +46,7 @@
                 android:paddingEnd="@dimen/space_16dp"
                 android:paddingBottom="@dimen/space_4dp"
                 android:textStyle="bold"
+                android:textColor="@{isCurrentCycle? @color/dark_primary : @color/dark_secondary}"
                 tools:text="Siklus 1 - 100%" />
         </com.google.android.material.card.MaterialCardView>
 
@@ -47,7 +55,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:elevation="1dp"
-            android:src="@drawable/bg_target"
+            android:background="@{isCurrentCycle? @drawable/bg_cycle_current: @drawable/bg_cycle_past}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_line_middle" />
     </androidx.constraintlayout.widget.ConstraintLayout>

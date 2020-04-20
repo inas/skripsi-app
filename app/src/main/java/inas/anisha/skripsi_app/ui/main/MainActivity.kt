@@ -2,7 +2,6 @@ package inas.anisha.skripsi_app.ui.main
 
 import android.content.Context
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -50,29 +49,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val mOnNavigationItemSelectedListener: BottomNavigationView.OnNavigationItemSelectedListener =
-        object : BottomNavigationView.OnNavigationItemSelectedListener {
-            override fun onNavigationItemSelected(item: MenuItem): Boolean {
-                when (item.itemId) {
-                    R.id.action_home -> {
-//                        supportFragmentManager.beginTransaction().hide(activeFragment).show(fragment1).commit()
-//                        activeFragment = fragment1
-                    }
-                    R.id.action_jadwal -> {
-//                        supportFragmentManager.beginTransaction().hide(activeFragment).show(fragment2).commit()
-//                        activeFragment = fragment2
-                    }
-                    R.id.action_target -> {
-                        supportFragmentManager.beginTransaction().hide(activeFragment)
-                            .show(targetFragment.apply { reInitData() }).commit()
-                        activeFragment = targetFragment
-                    }
-                    R.id.action_perjalanan -> {
-                        supportFragmentManager.beginTransaction().hide(activeFragment)
-                            .show(perjalananFragment.apply { reInitData() }).commit()
-                        activeFragment = perjalananFragment
-                    }
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_home -> {
+                    //                        supportFragmentManager.beginTransaction().hide(activeFragment).show(fragment1).commit()
+                    //                        activeFragment = fragment1
                 }
-                return false
+                R.id.action_jadwal -> {
+                    //                        supportFragmentManager.beginTransaction().hide(activeFragment).show(fragment2).commit()
+                    //                        activeFragment = fragment2
+                }
+                R.id.action_target -> {
+                    supportFragmentManager.beginTransaction().hide(activeFragment)
+                        .show(targetFragment.apply { reInitData() }).commit()
+                    activeFragment = targetFragment
+                }
+                R.id.action_perjalanan -> {
+                    supportFragmentManager.beginTransaction().hide(activeFragment)
+                        .show(perjalananFragment.apply { reInitData() }).commit()
+                    activeFragment = perjalananFragment
+                }
             }
+            true
         }
 }

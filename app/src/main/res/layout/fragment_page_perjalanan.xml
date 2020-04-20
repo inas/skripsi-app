@@ -78,37 +78,6 @@
                     app:layout_constraintTop_toBottomOf="@id/textview_name"
                     tools:text="10 IPA" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button_achievement"
-                    style="@style/button_header"
-                    android:layout_marginStart="@dimen/space_16dp"
-                    android:background="@drawable/bg_rounded_pink"
-                    android:drawableStart="@drawable/ic_trophy"
-                    android:drawableTint="@color/green"
-                    android:paddingStart="@dimen/space_16dp"
-                    android:text="Pencapaian"
-                    app:layout_constraintBottom_toBottomOf="@id/imageview_header"
-                    app:layout_constraintEnd_toStartOf="@id/button_grades"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageview_header" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button_grades"
-                    style="@style/button_header"
-                    android:layout_marginStart="@dimen/space_16dp"
-                    android:layout_marginEnd="@dimen/space_16dp"
-                    android:background="@drawable/bg_rounded_pink"
-                    android:drawableStart="@drawable/ic_graduation_cap"
-                    android:drawableTint="@color/green"
-                    android:paddingStart="@dimen/space_16dp"
-                    android:text="Data Nilai"
-                    app:layout_constraintBottom_toBottomOf="@id/imageview_header"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toEndOf="@id/button_achievement"
-                    app:layout_constraintTop_toBottomOf="@id/imageview_header" />
-
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardview_stats"
                     android:layout_width="match_parent"
@@ -117,7 +86,8 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/radius_xsmall"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/button_achievement">
+                    app:layout_constraintBottom_toBottomOf="@id/imageview_header"
+                    app:layout_constraintTop_toBottomOf="@id/imageview_header">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

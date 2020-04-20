@@ -25,6 +25,7 @@ class PerjalananRecyclerViewAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.textviewContent.text = content[position]
+        holder.binding.isCurrentCycle = (position == itemCount - 1)
         holder.binding.viewLineMiddle.visibility = if (position == 0) View.GONE else View.VISIBLE
     }
 
@@ -36,6 +37,7 @@ class PerjalananRecyclerViewAdapter :
     }
 
     fun setContent(newContent: List<String>) {
+//        content = mutableListOf("siklus 1", "siklus 2", "siklus 3")
         content = newContent
         notifyDataSetChanged()
     }
