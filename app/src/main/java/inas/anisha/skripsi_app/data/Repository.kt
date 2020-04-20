@@ -48,6 +48,8 @@ class Repository(application: Application) {
         targetPendukungDao.get(targetId)
 
     fun getSupportingTargets(): LiveData<List<TargetPendukungEntity>> = targetPendukungDao.getAll()
+    fun getSupportingTargetsByCompleteness(isCompleted: Boolean): LiveData<List<TargetPendukungEntity>> =
+        targetPendukungDao.getByCompleteness(isCompleted)
 
     fun deleteSupportingTargets(targetId: Long) {
         Observable.fromCallable { targetPendukungDao.delete(targetId) }

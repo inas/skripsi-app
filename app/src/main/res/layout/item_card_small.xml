@@ -15,7 +15,7 @@
         android:id="@+id/layout_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_16dp"
+        android:layout_marginBottom="@dimen/space_12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/checkbox"
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/textview_target"
-            style="@style/font_heading_bold"
+            style="@style/font_normal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
@@ -59,24 +59,7 @@
             android:visibility="@{viewModel.shouldShowTime? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_target_note" />
-
-        <TextView
-            android:id="@+id/textview_target_note"
-            style="@style/font_normal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_4dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="@{viewModel.note}"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_target"
-            tools:text="Buat sesi khusus untuk belajar mandiri dhhhd hdhdhd dhdhhd" />
+            app:layout_constraintTop_toBottomOf="@id/textview_target" />
 
         <TextView
             android:id="@+id/textview_target_time"
@@ -89,19 +72,18 @@
             android:singleLine="true"
             android:text="@{viewModel.time}"
             android:textColor="@color/white"
-            android:visibility="@{viewModel.shouldShowTime? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/imageview_clock"
             app:layout_constraintStart_toEndOf="@id/imageview_clock"
             app:layout_constraintTop_toTopOf="@id/imageview_clock"
-            tools:text="Buat sesi khusus untuk belajar mandiri dhhhd hdhdhd dhdhhd" />
+            app:layout_constraintBottom_toBottomOf="@id/imageview_clock"
+            tools:text="Siang malam ku selalu" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_target_note" />
+            app:layout_constraintTop_toBottomOf="@id/textview_target" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

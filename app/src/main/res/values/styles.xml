@@ -48,6 +48,7 @@
 
     <style name="font_normal.bold">
         <item name="android:textStyle">bold</item>
+        <item name="fontPath">fonts/rubikMedium.ttf</item>
     </style>
 
     <style name="font_small">

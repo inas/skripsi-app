@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -37,6 +36,9 @@ class TargetFragment : Fragment() {
     ): View? {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_target, container, false)
+        mBinding.viewModel = mViewModel
+        mBinding.lifecycleOwner = this
+
         return mBinding.root
     }
 
@@ -44,18 +46,6 @@ class TargetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mBinding.buttonAdd.setOnClickListener { openAddTargetPendukungDialog() }
         mBinding.layoutTargetUtama.layout.setOnClickListener { openModifyMainTargetDialog() }
-
-        mBinding.textviewSupportingTarget.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                requireContext().let {
-                    mBinding.scrollview.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    val rvHeight = mBinding.scrollview.height - mBinding.recyclerviewTarget.top
-                    mBinding.recyclerviewTarget.minimumHeight = rvHeight
-                }
-            }
-        })
-
 
         initMainTarget()
         initCycleTime()
@@ -79,34 +69,47 @@ class TargetFragment : Fragment() {
                 "Evaluasi berikutnya: " + dateFormat.format(mViewModel.getEvaluationDate())
         }
 
-        mBinding.textviewCycle.text = "" + cycleTime.second + " " +
-                when (cycleTime.first) {
-                    SkripsiConstant.CYCLE_FREQUENCY_DAILY -> "Harian"
-                    SkripsiConstant.CYCLE_FREQUENCY_WEEKLY -> "Mingguan"
-                    else -> "Bulanan"
-                }
+        val frequency = when (cycleTime.first) {
+            SkripsiConstant.CYCLE_FREQUENCY_DAILY -> "Harian"
+            SkripsiConstant.CYCLE_FREQUENCY_WEEKLY -> "Mingguan"
+            else -> "Bulanan"
+        }
+
+        mBinding.textviewCycle.text =
+            "" + (if (cycleTime.second == 1) "" else (" " + cycleTime.second + " ")) + frequency
     }
 
     fun initSupportingTarget() {
-        val adapter = TargetPendukungRecyclerViewAdapter().apply {
+        val adapterIncompleteTarget = TargetPendukungRecyclerViewAdapter().apply {
             setItemListener(object : TargetPendukungRecyclerViewAdapter.ItemListener {
                 override fun onItemClick(viewModel: TargetPendukungViewModel) {
                     openTargetPendukungDetail(viewModel.id)
                 }
+            })
+            setHasStableIds(true)
+        }
+        mBinding.recyclerviewTargetIncomplete.adapter = adapterIncompleteTarget
 
-                override fun onItemDeleted(viewModel: TargetPendukungViewModel) {
-                    deleteTarget(viewModel)
+        mViewModel.getIncompleteSupportingTargets().observe(this, Observer { targets ->
+            mBinding.hasIncompleteSupportingTargets = targets.isNotEmpty()
+            adapterIncompleteTarget.setTargets(targets.reversed())
+        })
+
+        val adapterCompletedTarget = TargetPendukungRecyclerViewAdapter().apply {
+            setItemListener(object : TargetPendukungRecyclerViewAdapter.ItemListener {
+                override fun onItemClick(viewModel: TargetPendukungViewModel) {
+                    openTargetPendukungDetail(viewModel.id)
                 }
             })
             setHasStableIds(true)
         }
-        mBinding.recyclerviewTarget.adapter = adapter
+        mBinding.recyclerviewTargetCompleted.adapter = adapterCompletedTarget
 
-        mViewModel.getSupportingTargets().observe(this, Observer { targets ->
-            mBinding.textviewSupportingTarget.visibility =
-                if (targets.isNotEmpty()) View.VISIBLE else View.GONE
-            adapter.setTargets(targets.reversed())
+        mViewModel.getCompletedSupportingTargets().observe(this, Observer { targets ->
+            mBinding.hasCompletedSupportingTargets = targets.isNotEmpty()
+            adapterCompletedTarget.setTargets(targets.reversed())
         })
+
     }
 
     fun openAddTargetPendukungDialog() {

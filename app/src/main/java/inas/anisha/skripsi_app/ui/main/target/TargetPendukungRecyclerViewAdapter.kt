@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ItemCardSmallBinding
+import inas.anisha.skripsi_app.ui.common.utils.ViewUtil.Companion.strikeThrough
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 
 class TargetPendukungRecyclerViewAdapter :
@@ -28,6 +29,9 @@ class TargetPendukungRecyclerViewAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val viewModel = targets[position]
         holder.binding.viewModel = viewModel
+
+        holder.binding.textviewTarget.strikeThrough(viewModel.isCompleted)
+        holder.binding.textviewTargetTime.strikeThrough(viewModel.isCompleted)
 
         holder.binding.imageviewClock.visibility =
             if (viewModel.shouldShowTime()) View.VISIBLE else View.GONE
@@ -59,6 +63,5 @@ class TargetPendukungRecyclerViewAdapter :
 
     interface ItemListener {
         fun onItemClick(viewModel: TargetPendukungViewModel)
-        fun onItemDeleted(viewModel: TargetPendukungViewModel)
     }
 }

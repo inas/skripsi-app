@@ -18,9 +18,12 @@ interface TargetPendukungDao {
     @Query("DELETE FROM target_pendukung")
     fun deleteAll()
 
-    @Query("SELECT * FROM target_pendukung WHERE id= :targetId ")
+    @Query("SELECT * FROM target_pendukung WHERE id = :targetId ")
     fun get(targetId: Long): LiveData<TargetPendukungEntity>
 
     @Query("SELECT * from target_pendukung")
     fun getAll(): LiveData<List<TargetPendukungEntity>>
+
+    @Query("SELECT * from target_pendukung WHERE isCompleted = :isCompleted")
+    fun getByCompleteness(isCompleted: Boolean): LiveData<List<TargetPendukungEntity>>
 }

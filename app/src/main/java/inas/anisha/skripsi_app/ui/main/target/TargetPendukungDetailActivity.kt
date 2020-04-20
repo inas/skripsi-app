@@ -1,9 +1,7 @@
 package inas.anisha.skripsi_app.ui.main.target
 
 import android.content.Context
-import android.graphics.Paint
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -13,6 +11,7 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.databinding.ActivityTargetPendukungDetailBinding
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
+import inas.anisha.skripsi_app.ui.common.utils.ViewUtil.Companion.strikeThrough
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
@@ -87,14 +86,6 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
         })
 
         tambahTargetDialog.show(supportFragmentManager, TambahTargetPendukungDialog.TAG)
-    }
-
-    private fun TextView.strikeThrough(enable: Boolean) {
-        paintFlags = if (enable) {
-            (paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
-        } else {
-            paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-        }
     }
 
     companion object {

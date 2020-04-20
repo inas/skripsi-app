@@ -3,6 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.main.target.TargetViewModel" />
+
+        <variable
+            name="hasIncompleteSupportingTargets"
+            type="Boolean" />
+
+        <variable
+            name="hasCompletedSupportingTargets"
+            type="Boolean" />
+    </data>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
@@ -76,11 +93,10 @@
 
             <TextView
                 android:id="@+id/textview_cycle"
-                style="@style/font_normal"
+                style="@style/font_normal.bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8dp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_cycle_label"
                 tools:text="Mingguan" />
@@ -104,19 +120,65 @@
                 android:layout_marginTop="@dimen/space_24dp"
                 android:text="Target Pendukung"
                 android:textStyle="bold"
+                android:visibility="@{hasCompletedSupportingTargets | hasIncompleteSupportingTargets? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_cycle_description" />
 
+            <TextView
+                android:id="@+id/textview_supporting_target_incomplete"
+                style="@style/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:text="Belum tercapai"
+                android:visibility="@{hasIncompleteSupportingTargets? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_supporting_target" />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_target"
+                android:id="@+id/recyclerview_target_incomplete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_8dp"
                 android:orientation="vertical"
-                android:minHeight="320dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_supporting_target" />
+                app:layout_constraintTop_toBottomOf="@+id/textview_supporting_target_incomplete"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_card_small" />
+
+            <include
+                android:id="@+id/divider"
+                layout="@layout/common_divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:visibility="@{hasCompletedSupportingTargets &amp; hasIncompleteSupportingTargets? View.VISIBLE : View.GONE}"
+                app:layout_constraintTop_toBottomOf="@id/recyclerview_target_incomplete" />
+
+            <TextView
+                android:id="@+id/textview_supporting_target_completed"
+                style="@style/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text="Sudah tercapai"
+                android:visibility="@{hasCompletedSupportingTargets? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_goneMarginTop="@dimen/space_8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_target_completed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textview_supporting_target_completed"
+                tools:itemCount="2"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:listitem="@layout/item_card_small" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

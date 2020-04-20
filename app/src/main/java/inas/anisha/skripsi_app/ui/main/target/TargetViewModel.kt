@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import inas.anisha.skripsi_app.data.Repository
-import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
@@ -14,7 +13,6 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
 
     private val mRepository = Repository.getInstance(application)
     var mainTarget = TargetUtamaViewModel()
-    private lateinit var supportingTargets: LiveData<List<TargetPendukungEntity>>
 
     fun getMainTarget(): LiveData<TargetUtamaEntity> = mRepository.getMainTarget()
 
@@ -35,35 +33,26 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getCycleTime(): Pair<Int, Int> = mRepository.getCycleTime()
 
-    fun getSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
-        supportingTargets = mRepository.getSupportingTargets()
-        return Transformations.map(supportingTargets) { data ->
+    fun getCompletedSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
+        return Transformations.map(mRepository.getSupportingTargetsByCompleteness(true)) { data ->
             data.map {
-                TargetPendukungViewModel().apply {
-                    name = it.name
-                    note = it.note
-                    time = it.time
-                    id = it.id
-                }
+                TargetPendukungViewModel().apply { fromEntity(it) }
             }
         }
     }
 
-    fun addOrUpdateSupportingTarget(target: TargetPendukungViewModel) {
-        mRepository.addSupportingTarget(
-            TargetPendukungEntity(
-                target.id,
-                target.name,
-                target.note,
-                target.time
-            )
-        )
+    fun getIncompleteSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
+        return Transformations.map(mRepository.getSupportingTargetsByCompleteness(false)) { data ->
+            data.map {
+                TargetPendukungViewModel().apply { fromEntity(it) }
+            }
+        }
     }
 
-    fun deleteSupportingTarget(targetId: Long) {
-        mRepository.deleteSupportingTargets(targetId)
-    }
+    fun addOrUpdateSupportingTarget(target: TargetPendukungViewModel) =
+        mRepository.addSupportingTarget(target.toEntity())
+
+    fun deleteSupportingTarget(targetId: Long) = mRepository.deleteSupportingTargets(targetId)
 
     fun getEvaluationDate(): Long = mRepository.getEvaluationDate()
-
 }
