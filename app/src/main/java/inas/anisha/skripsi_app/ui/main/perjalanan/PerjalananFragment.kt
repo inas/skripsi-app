@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
-import inas.anisha.skripsi_app.data.MockData
 import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.databinding.FragmentPagePerjalananBinding
 import inas.anisha.skripsi_app.ui.common.ConfirmationDialog
@@ -58,7 +57,7 @@ class PerjalananFragment : Fragment() {
             mBinding.textviewTaskValue.text = completenessValue
 
             val currentTime = Calendar.getInstance()
-            val pastTasks = tasks.filter { it.deadline < currentTime }
+            val pastTasks = tasks.filter { it.endDate < currentTime }
             val onTimeTasks = pastTasks.filter { it.isOnTime }
             if (pastTasks.isNotEmpty()) {
                 val percentage = onTimeTasks.size / pastTasks.size * 100
@@ -91,10 +90,9 @@ class PerjalananFragment : Fragment() {
         mBinding.recyclerviewPerjalanan.adapter = adapter
 
         mViewModel.getAllCycle().observe(this, Observer { cycles ->
-            val yes = MockData.getCycles()
-            mViewModel.cycleHistory = yes
+            mViewModel.cycleHistory = cycles
             val cycleHistoryText =
-                yes.map { entity -> "Siklus " + entity.number + " - " + entity.completion + "%" }
+                cycles.map { entity -> "Siklus " + entity.number + " - " + entity.completion + "%" }
             adapter.setContent(cycleHistoryText)
         })
     }

@@ -14,5 +14,5 @@ data class SchoolClassEntity(
     @ColumnInfo(name = "name") val name: String = "",
     @ColumnInfo(name = "start_time") val startTime: Calendar = Calendar.getInstance(),
     @ColumnInfo(name = "end_time") val endTime: Calendar = Calendar.getInstance(),
-    @ColumnInfo(name = "day") val day: Long = 0L
+    @ColumnInfo(name = "day") val day: Int = 0
 ) : Parcelable

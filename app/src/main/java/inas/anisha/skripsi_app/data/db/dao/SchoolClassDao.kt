@@ -11,7 +11,7 @@ import java.util.*
 @Dao
 interface SchoolClassDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(schoolClass: SchoolClassEntity)
+    fun add(vararg schoolClass: SchoolClassEntity)
 
     @Query("UPDATE school_class SET name = :name, start_time = :startTime, end_time = :endTime, day = :day WHERE id = :classId")
     fun update(classId: Long, name: String, startTime: Calendar, endTime: Calendar, day: String)

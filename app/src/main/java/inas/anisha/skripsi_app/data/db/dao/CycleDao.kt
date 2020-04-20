@@ -10,7 +10,7 @@ import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 @Dao
 interface CycleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(cycle: CycleEntity)
+    fun add(vararg cycle: CycleEntity)
 
     @Query("DELETE FROM cycle")
     fun deleteAll()

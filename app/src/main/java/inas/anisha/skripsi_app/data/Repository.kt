@@ -93,14 +93,13 @@ class Repository(application: Application) {
     fun setUserStudy(study: String) = sharedPreference.setUserStudy(study)
 
     fun getAllTasks(): LiveData<List<ScheduleEntity>> =
-        scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASKS)
+        scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASK)
 
     fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAll(
-            SkripsiConstant.SCHEDULE_TYPE_TASKS,
+            SkripsiConstant.SCHEDULE_TYPE_TASK,
             Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toNextMidnight()
         )
-
 
     companion object {
         // For Singleton instantiation
@@ -111,5 +110,49 @@ class Repository(application: Application) {
             instance ?: synchronized(this) {
                 instance ?: Repository(app).also { instance = it }
             }
+    }
+
+    // DEBUG ONLY
+    fun prepopulate() {
+        Observable.fromCallable { scheduleDao.deleteAll() }
+            .subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable { schoolClassDao.deleteAll() }
+            .subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable { cycleDao.deleteAll() }
+            .subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable { targetUtamaDao.deleteOldTarget() }
+            .subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable { targetPendukungDao.deleteAll() }
+            .subscribeOn(Schedulers.io()).subscribe()
+
+        sharedPreference.setShouldNotShowKelolaPembelajaran()
+        sharedPreference.setEvaluationDate(
+            Calendar.getInstance().apply { add(Calendar.DATE, 3) }.timeInMillis
+        )
+        sharedPreference.setCycleTime(Pair(SkripsiConstant.CYCLE_FREQUENCY_DAILY, 3))
+        sharedPreference.setUserName("Inas")
+        sharedPreference.setUserGrade("11")
+        sharedPreference.setUserStudy("Ilmu Komputer")
+
+        Observable.fromCallable { schoolClassDao.add(*MockData.getSchoolClasses().toTypedArray()) }
+            .subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable { scheduleDao.add(*MockData.getSchedules().toTypedArray()) }
+            .subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable {
+            targetPendukungDao.add(
+                *MockData.getSupportingTargets().toTypedArray()
+            )
+        }.subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable {
+            targetUtamaDao.add(
+                TargetUtamaEntity(
+                    0,
+                    "Masuk ke fasilkom ui yang terbaik",
+                    "hehehhe senengnyaa kalo bisa masuk uwuwuwuwuwuwu",
+                    Calendar.getInstance().apply { set(2020, 6, 5) })
+            )
+        }.subscribeOn(Schedulers.io()).subscribe()
+        Observable.fromCallable { cycleDao.add(*MockData.getCycles().toTypedArray()) }
+            .subscribeOn(Schedulers.io()).subscribe()
     }
 }

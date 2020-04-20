@@ -8,26 +8,26 @@ import java.util.*
 @Dao
 interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(schedule: ScheduleEntity)
+    fun add(vararg schedule: ScheduleEntity)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(schedule: ScheduleEntity)
 
     @Query("DELETE FROM schedule WHERE id = :scheduleId")
-    fun delete(scheduleId: Long)
+    fun delete(scheduleId: Int)
 
     @Query("DELETE FROM schedule")
     fun deleteAll()
 
     @Query("SELECT * FROM schedule WHERE id = :scheduleId")
-    fun get(scheduleId: Long): LiveData<ScheduleEntity>
+    fun get(scheduleId: Int): LiveData<ScheduleEntity>
 
     @Query("SELECT * from schedule")
     fun getAll(): LiveData<List<ScheduleEntity>>
 
     @Query("SELECT * from schedule WHERE type = :type")
-    fun getAll(type: Long): LiveData<List<ScheduleEntity>>
+    fun getAll(type: Int): LiveData<List<ScheduleEntity>>
 
-    @Query("SELECT * from schedule WHERE type = :type AND deadline >= :dateLimit")
-    fun getAll(type: Long, dateLimit: Calendar): LiveData<List<ScheduleEntity>>
+    @Query("SELECT * from schedule WHERE type = :type AND end_date >= :dateLimit")
+    fun getAll(type: Int, dateLimit: Calendar): LiveData<List<ScheduleEntity>>
 }

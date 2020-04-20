@@ -11,9 +11,10 @@ import java.util.*
 @Parcelize
 data class ScheduleEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long,
-    @ColumnInfo(name = "type") val type: Long = 0L,
+    @ColumnInfo(name = "type") val type: Int = 0,
     @ColumnInfo(name = "name") val name: String = "",
-    @ColumnInfo(name = "deadline") val deadline: Calendar = Calendar.getInstance(),
+    @ColumnInfo(name = "start_date") val startDate: Calendar? = null,
+    @ColumnInfo(name = "end_date") val endDate: Calendar = Calendar.getInstance(),
     @ColumnInfo(name = "note") val note: String = "",
     @ColumnInfo(name = "priority") val priority: Int = 0,
     @ColumnInfo(name = "reward") val reward: String = "",
