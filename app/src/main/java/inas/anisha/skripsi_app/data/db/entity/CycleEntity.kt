@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CycleEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long,
-    @ColumnInfo(name = "name") val name: String = "",
+    @ColumnInfo(name = "number") val number: Int = 0,
     @ColumnInfo(name = "completion") val completion: Long = 0,
     @ColumnInfo(name = "reflection") val reflection: String = ""
 ) : Parcelable

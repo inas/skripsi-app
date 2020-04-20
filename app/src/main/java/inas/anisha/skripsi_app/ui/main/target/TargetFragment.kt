@@ -54,7 +54,8 @@ class TargetFragment : Fragment() {
 
     fun initMainTarget() {
         mViewModel.getMainTarget().observe(this, Observer {
-            mBinding.layoutTargetUtama.viewModel = mViewModel.getMainTargetViewModel(it)
+            if (it != null) mBinding.layoutTargetUtama.viewModel =
+                mViewModel.getMainTargetViewModel(it)
         })
     }
 

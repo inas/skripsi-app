@@ -2,13 +2,17 @@ package inas.anisha.skripsi_app.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.CycleEntity
+import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
+import inas.anisha.skripsi_app.ui.common.utils.CalendarUtil.Companion.toNextMidnight
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class Repository(application: Application) {
 
@@ -76,7 +80,7 @@ class Repository(application: Application) {
         sharedPreference.setCycleTime(cycleTime)
     }
 
-    fun getEvaluationDate() = sharedPreference.getEvaluationDate()
+    fun getEvaluationDate(): Long = sharedPreference.getEvaluationDate()
     fun setEvaluationDate(evaluationDate: Long) = sharedPreference.setEvaluationDate(evaluationDate)
 
     fun getUserName(): String = sharedPreference.getUserName()
@@ -87,6 +91,16 @@ class Repository(application: Application) {
 
     fun getUserStudy(): String = sharedPreference.getUserStudy()
     fun setUserStudy(study: String) = sharedPreference.setUserStudy(study)
+
+    fun getAllTasks(): LiveData<List<ScheduleEntity>> =
+        scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASKS)
+
+    fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
+        scheduleDao.getAll(
+            SkripsiConstant.SCHEDULE_TYPE_TASKS,
+            Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toNextMidnight()
+        )
+
 
     companion object {
         // For Singleton instantiation

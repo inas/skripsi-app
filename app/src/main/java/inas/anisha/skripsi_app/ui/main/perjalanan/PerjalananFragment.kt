@@ -9,7 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
+import inas.anisha.skripsi_app.data.MockData
+import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.databinding.FragmentPagePerjalananBinding
+import inas.anisha.skripsi_app.ui.common.ConfirmationDialog
+import java.util.*
 
 
 class PerjalananFragment : Fragment() {
@@ -36,6 +40,7 @@ class PerjalananFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initUserData()
+        initCycleStats()
         initCycleHistory()
         initMainTarget()
     }
@@ -46,15 +51,72 @@ class PerjalananFragment : Fragment() {
             mViewModel.getUserGrade() + " " + mViewModel.getUserStudy()
     }
 
+    private fun initCycleStats() {
+        mViewModel.getCurrentCycleTasks().observe(this, Observer { tasks ->
+            val completedTasks = tasks.filter { it.isCompleted }
+            val completenessValue = "" + completedTasks.size + "/" + tasks.size
+            mBinding.textviewTaskValue.text = completenessValue
+
+            val currentTime = Calendar.getInstance()
+            val pastTasks = tasks.filter { it.deadline < currentTime }
+            val onTimeTasks = pastTasks.filter { it.isOnTime }
+            if (pastTasks.isNotEmpty()) {
+                val percentage = onTimeTasks.size / pastTasks.size * 100
+                mBinding.textviewTimeValue.text = "" + percentage + "%"
+            } else {
+                mBinding.textviewTimeValue.text = "100%"
+            }
+
+        })
+
+        mViewModel.getSupportingTargets().observe(this, Observer { targets ->
+            val completedTargets = targets.filter { it.isCompleted }
+            if (targets.isNotEmpty()) {
+                val percentage = completedTargets.size / targets.size * 100
+                mBinding.textviewTargetValue.text = "" + percentage + "%"
+            } else {
+                mBinding.textviewTargetValue.text = "0%"
+            }
+        })
+    }
+
     private fun initCycleHistory() {
-        val adapter = PerjalananRecyclerViewAdapter()
+        val adapter = PerjalananRecyclerViewAdapter().apply {
+            setItemListener(object : PerjalananRecyclerViewAdapter.ItemListener {
+                override fun onItemClick(position: Int) {
+                    showCycleReflection(mViewModel.cycleHistory[position])
+                }
+            })
+        }
         mBinding.recyclerviewPerjalanan.adapter = adapter
 
         mViewModel.getAllCycle().observe(this, Observer { cycles ->
+            val yes = MockData.getCycles()
+            mViewModel.cycleHistory = yes
             val cycleHistoryText =
-                cycles.map { entity -> entity.name + " - " + entity.completion + "%" }
+                yes.map { entity -> "Siklus " + entity.number + " - " + entity.completion + "%" }
             adapter.setContent(cycleHistoryText)
         })
+    }
+
+    private fun showCycleReflection(cycle: CycleEntity) {
+        ConfirmationDialog().apply {
+            arguments = Bundle().apply {
+                putString(ConfirmationDialog.ARG_TITLE, "Refleksi Siklus " + cycle.number)
+                putString(
+                    ConfirmationDialog.ARG_MESSAGE,
+                    cycle.reflection
+                )
+                putString(ConfirmationDialog.ARG_BUTTON, "OK")
+            }
+
+            setConfirmationDialogListener(object :
+                ConfirmationDialog.ConfirmationDialogListener {
+                override fun onConfirmed() {
+                    dismiss()
+                }
+            })
+        }.show(childFragmentManager, ConfirmationDialog.TAG)
     }
 
     private fun initMainTarget() {
@@ -67,7 +129,9 @@ class PerjalananFragment : Fragment() {
             )
         )
         mViewModel.getMainTarget().observe(this, Observer {
-            mBinding.layoutMainTarget.textviewContent.text = it.name
+            if (it != null) {
+                mBinding.layoutMainTarget.textviewContent.text = it.name
+            }
         })
     }
 

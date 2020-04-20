@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/textview_targetutama_label"
-            style="@style/font_heading_bold"
+            style="@style/font_heading.bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16dp"
@@ -52,7 +52,7 @@
 
         <TextView
             android:id="@+id/textview_siklus"
-            style="@style/font_heading_bold"
+            style="@style/font_heading.bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24dp"
@@ -91,7 +91,7 @@
 
         <TextView
             android:id="@+id/textview_targetpendukung_label"
-            style="@style/font_heading_bold"
+            style="@style/font_heading.bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24dp"

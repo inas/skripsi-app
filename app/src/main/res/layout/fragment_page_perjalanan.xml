@@ -134,6 +134,7 @@
                             style="@style/font_heading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8dp"
                             app:layout_constraintStart_toStartOf="@id/textview_task"
                             app:layout_constraintTop_toBottomOf="@id/textview_task"
                             tools:text="20/22" />
@@ -143,6 +144,7 @@
                             style="@style/font_heading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8dp"
                             app:layout_constraintStart_toStartOf="@id/textview_time"
                             app:layout_constraintTop_toBottomOf="@id/textview_time"
                             tools:text="80%" />
@@ -152,6 +154,7 @@
                             style="@style/font_heading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8dp"
                             app:layout_constraintStart_toStartOf="@id/textview_target"
                             app:layout_constraintTop_toBottomOf="@id/textview_target"
                             tools:text="80%" />
@@ -161,13 +164,12 @@
 
                 <TextView
                     android:id="@+id/textview_perjalanan_label"
-                    style="@style/font_heading"
+                    style="@style/font_heading.bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_16dp"
                     android:layout_marginTop="@dimen/space_16dp"
                     android:text="Jalan meraih target"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cardview_stats" />
 

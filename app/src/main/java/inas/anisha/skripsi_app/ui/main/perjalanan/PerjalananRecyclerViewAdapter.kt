@@ -11,6 +11,8 @@ import inas.anisha.skripsi_app.databinding.ItemPerjalananBinding
 class PerjalananRecyclerViewAdapter :
     RecyclerView.Adapter<PerjalananRecyclerViewAdapter.ViewHolder>() {
 
+    private var mListener: ItemListener? = null
+
     private var content: List<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,16 +27,27 @@ class PerjalananRecyclerViewAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.textviewContent.text = content[position]
-        holder.binding.isCurrentCycle = (position == itemCount - 1)
         holder.binding.viewLineMiddle.visibility = if (position == 0) View.GONE else View.VISIBLE
+
+        val isCurrentCycle = (position == itemCount - 1)
+        if (!isCurrentCycle) {
+            holder.binding.cardviewCycle.setOnClickListener { mListener?.onItemClick(position) }
+        }
+
+        holder.binding.isCurrentCycle = isCurrentCycle
+    }
+
+    override fun getItemCount(): Int {
+        return content.size
     }
 
     inner class ViewHolder(val binding: ItemPerjalananBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun getItemCount(): Int {
-        return content.size
+    fun setItemListener(listener: ItemListener) {
+        mListener = listener
     }
+
 
     fun setContent(newContent: List<String>) {
 //        content = mutableListOf("siklus 1", "siklus 2", "siklus 3")
@@ -42,4 +55,7 @@ class PerjalananRecyclerViewAdapter :
         notifyDataSetChanged()
     }
 
+    interface ItemListener {
+        fun onItemClick(position: Int)
+    }
 }

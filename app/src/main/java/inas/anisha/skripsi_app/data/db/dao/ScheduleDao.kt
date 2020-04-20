@@ -3,6 +3,7 @@ package inas.anisha.skripsi_app.data.db.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
+import java.util.*
 
 @Dao
 interface ScheduleDao {
@@ -18,12 +19,15 @@ interface ScheduleDao {
     @Query("DELETE FROM schedule")
     fun deleteAll()
 
-    @Query("SELECT * FROM schedule WHERE id= :scheduleId")
+    @Query("SELECT * FROM schedule WHERE id = :scheduleId")
     fun get(scheduleId: Long): LiveData<ScheduleEntity>
 
     @Query("SELECT * from schedule")
     fun getAll(): LiveData<List<ScheduleEntity>>
 
-    @Query("SELECT * from schedule WHERE type= :type")
-    fun getAllOfType(type: Long): LiveData<List<ScheduleEntity>>
+    @Query("SELECT * from schedule WHERE type = :type")
+    fun getAll(type: Long): LiveData<List<ScheduleEntity>>
+
+    @Query("SELECT * from schedule WHERE type = :type AND deadline >= :dateLimit")
+    fun getAll(type: Long, dateLimit: Calendar): LiveData<List<ScheduleEntity>>
 }

@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/textview_banner_label"
-            style="@style/font_heading_bold"
+            style="@style/font_heading.bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16dp"
@@ -95,7 +95,7 @@
 
         <TextView
             android:id="@+id/textview_jadwal"
-            style="@style/font_heading_bold"
+            style="@style/font_heading.bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
@@ -128,7 +128,7 @@
 
         <TextView
             android:id="@+id/textview_penting"
-            style="@style/font_heading_bold"
+            style="@style/font_heading.bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
@@ -149,7 +149,7 @@
 
         <TextView
             android:id="@+id/textview_besok"
-            style="@style/font_heading_bold"
+            style="@style/font_heading.bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
@@ -175,7 +175,7 @@
 
         <TextView
             android:id="@+id/textview_progress"
-            style="@style/font_heading_bold"
+            style="@style/font_heading.bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"

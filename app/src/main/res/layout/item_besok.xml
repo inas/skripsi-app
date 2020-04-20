@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/textview_count"
-        style="@style/font_heading_bold"
+        style="@style/font_heading.bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_8dp"
