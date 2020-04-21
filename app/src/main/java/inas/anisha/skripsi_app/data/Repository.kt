@@ -75,10 +75,12 @@ class Repository(application: Application) {
         Observable.fromCallable { cycleDao.add(cycle) }
             .subscribeOn(Schedulers.io()).subscribe()
 
+    fun updateCurrentCycleCompleteness(percentage: Int) =
+        Observable.fromCallable { cycleDao.updateCurrentCycleCompleteness(percentage) }
+            .subscribeOn(Schedulers.io()).subscribe()
+
     fun getCycleTime() = sharedPreference.getCycleTime()
-    fun setCycleTime(cycleTime: Pair<Int, Int>) {
-        sharedPreference.setCycleTime(cycleTime)
-    }
+    fun setCycleTime(cycleTime: Pair<Int, Int>) = sharedPreference.setCycleTime(cycleTime)
 
     fun getEvaluationDate(): Long = sharedPreference.getEvaluationDate()
     fun setEvaluationDate(evaluationDate: Long) = sharedPreference.setEvaluationDate(evaluationDate)
@@ -167,4 +169,5 @@ class Repository(application: Application) {
         sharedPreference.setUserGrade("11")
         sharedPreference.setUserStudy("Ilmu Komputer")
     }
+
 }

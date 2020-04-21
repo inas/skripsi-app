@@ -91,10 +91,6 @@ class TargetFragment : Fragment() {
         }
         mBinding.recyclerviewTargetIncomplete.adapter = adapterIncompleteTarget
 
-        mViewModel.getIncompleteSupportingTargets().observe(this, Observer { targets ->
-            mBinding.hasIncompleteSupportingTargets = targets.isNotEmpty()
-            adapterIncompleteTarget.setTargets(targets.reversed())
-        })
 
         val adapterCompletedTarget = TargetPendukungRecyclerViewAdapter().apply {
             setItemListener(object : TargetPendukungRecyclerViewAdapter.ItemListener {
@@ -106,9 +102,26 @@ class TargetFragment : Fragment() {
         }
         mBinding.recyclerviewTargetCompleted.adapter = adapterCompletedTarget
 
-        mViewModel.getCompletedSupportingTargets().observe(this, Observer { targets ->
-            mBinding.hasCompletedSupportingTargets = targets.isNotEmpty()
-            adapterCompletedTarget.setTargets(targets.reversed())
+
+        mViewModel.getSupportingTargets().observe(this, Observer { targets ->
+            val completedTargets = mutableListOf<TargetPendukungViewModel>()
+            val incompleteTargets = mutableListOf<TargetPendukungViewModel>()
+            targets.forEach {
+                if (it.isCompleted) completedTargets.add(it) else incompleteTargets.add(
+                    it
+                )
+            }
+
+            mBinding.hasIncompleteSupportingTargets = incompleteTargets.isNotEmpty()
+            adapterIncompleteTarget.setTargets(incompleteTargets.reversed())
+
+            mBinding.hasCompletedSupportingTargets = completedTargets.isNotEmpty()
+            adapterCompletedTarget.setTargets(completedTargets.reversed())
+
+            if (targets.isNotEmpty()) {
+                val percentage = completedTargets.size * 100 / targets.size
+                mViewModel.updateCurrentCycleCompleteness(percentage)
+            }
         })
 
     }

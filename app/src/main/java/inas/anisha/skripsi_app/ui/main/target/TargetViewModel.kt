@@ -33,16 +33,8 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getCycleTime(): Pair<Int, Int> = mRepository.getCycleTime()
 
-    fun getCompletedSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
-        return Transformations.map(mRepository.getSupportingTargetsByCompleteness(true)) { data ->
-            data.map {
-                TargetPendukungViewModel().apply { fromEntity(it) }
-            }
-        }
-    }
-
-    fun getIncompleteSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
-        return Transformations.map(mRepository.getSupportingTargetsByCompleteness(false)) { data ->
+    fun getSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
+        return Transformations.map(mRepository.getSupportingTargets()) { data ->
             data.map {
                 TargetPendukungViewModel().apply { fromEntity(it) }
             }
@@ -55,4 +47,7 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
     fun deleteSupportingTarget(targetId: Long) = mRepository.deleteSupportingTargets(targetId)
 
     fun getEvaluationDate(): Long = mRepository.getEvaluationDate()
+
+    fun updateCurrentCycleCompleteness(percentage: Int) =
+        mRepository.updateCurrentCycleCompleteness(percentage)
 }
