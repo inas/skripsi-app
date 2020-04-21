@@ -12,4 +12,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val grade = mRepository.getUserGrade()
         val yes = mRepository.getUserStudy()
     }
+
+    fun prepopulate() = mRepository.prepopulate()
+
 }

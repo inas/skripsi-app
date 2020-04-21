@@ -60,7 +60,7 @@ class PerjalananFragment : Fragment() {
             val pastTasks = tasks.filter { it.endDate < currentTime }
             val onTimeTasks = pastTasks.filter { it.isOnTime }
             if (pastTasks.isNotEmpty()) {
-                val percentage = onTimeTasks.size / pastTasks.size * 100
+                val percentage = onTimeTasks.size * 100 / pastTasks.size
                 mBinding.textviewTimeValue.text = "" + percentage + "%"
             } else {
                 mBinding.textviewTimeValue.text = "100%"
@@ -71,7 +71,7 @@ class PerjalananFragment : Fragment() {
         mViewModel.getSupportingTargets().observe(this, Observer { targets ->
             val completedTargets = targets.filter { it.isCompleted }
             if (targets.isNotEmpty()) {
-                val percentage = completedTargets.size / targets.size * 100
+                val percentage = completedTargets.size * 100 / targets.size
                 mBinding.textviewTargetValue.text = "" + percentage + "%"
             } else {
                 mBinding.textviewTargetValue.text = "0%"

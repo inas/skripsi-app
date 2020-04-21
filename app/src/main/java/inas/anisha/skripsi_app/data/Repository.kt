@@ -115,15 +115,48 @@ class Repository(application: Application) {
     // DEBUG ONLY
     fun prepopulate() {
         Observable.fromCallable { scheduleDao.deleteAll() }
-            .subscribeOn(Schedulers.io()).subscribe()
+            .subscribeOn(Schedulers.io()).subscribe {
+                Observable.fromCallable { scheduleDao.add(*MockData.getSchedules().toTypedArray()) }
+                    .subscribeOn(Schedulers.io()).subscribe()
+            }
+
         Observable.fromCallable { schoolClassDao.deleteAll() }
-            .subscribeOn(Schedulers.io()).subscribe()
+            .subscribeOn(Schedulers.io()).subscribe {
+                Observable.fromCallable {
+                    schoolClassDao.add(
+                        *MockData.getSchoolClasses().toTypedArray()
+                    )
+                }
+                    .subscribeOn(Schedulers.io()).subscribe()
+            }
+
         Observable.fromCallable { cycleDao.deleteAll() }
-            .subscribeOn(Schedulers.io()).subscribe()
+            .subscribeOn(Schedulers.io()).subscribe {
+                Observable.fromCallable { cycleDao.add(*MockData.getCycles().toTypedArray()) }
+                    .subscribeOn(Schedulers.io()).subscribe()
+            }
+
         Observable.fromCallable { targetUtamaDao.deleteOldTarget() }
-            .subscribeOn(Schedulers.io()).subscribe()
+            .subscribeOn(Schedulers.io()).subscribe {
+                Observable.fromCallable {
+                    targetUtamaDao.add(
+                        TargetUtamaEntity(
+                            0,
+                            "Masuk ke fasilkom ui yang terbaik",
+                            "hehehhe senengnyaa kalo bisa masuk uwuwuwuwuwuwu",
+                            Calendar.getInstance().apply { set(2020, 6, 5) })
+                    )
+                }.subscribeOn(Schedulers.io()).subscribe()
+            }
+
         Observable.fromCallable { targetPendukungDao.deleteAll() }
-            .subscribeOn(Schedulers.io()).subscribe()
+            .subscribeOn(Schedulers.io()).subscribe {
+                Observable.fromCallable {
+                    targetPendukungDao.add(
+                        *MockData.getSupportingTargets().toTypedArray()
+                    )
+                }.subscribeOn(Schedulers.io()).subscribe()
+            }
 
         sharedPreference.setShouldNotShowKelolaPembelajaran()
         sharedPreference.setEvaluationDate(
@@ -133,26 +166,5 @@ class Repository(application: Application) {
         sharedPreference.setUserName("Inas")
         sharedPreference.setUserGrade("11")
         sharedPreference.setUserStudy("Ilmu Komputer")
-
-        Observable.fromCallable { schoolClassDao.add(*MockData.getSchoolClasses().toTypedArray()) }
-            .subscribeOn(Schedulers.io()).subscribe()
-        Observable.fromCallable { scheduleDao.add(*MockData.getSchedules().toTypedArray()) }
-            .subscribeOn(Schedulers.io()).subscribe()
-        Observable.fromCallable {
-            targetPendukungDao.add(
-                *MockData.getSupportingTargets().toTypedArray()
-            )
-        }.subscribeOn(Schedulers.io()).subscribe()
-        Observable.fromCallable {
-            targetUtamaDao.add(
-                TargetUtamaEntity(
-                    0,
-                    "Masuk ke fasilkom ui yang terbaik",
-                    "hehehhe senengnyaa kalo bisa masuk uwuwuwuwuwuwu",
-                    Calendar.getInstance().apply { set(2020, 6, 5) })
-            )
-        }.subscribeOn(Schedulers.io()).subscribe()
-        Observable.fromCallable { cycleDao.add(*MockData.getCycles().toTypedArray()) }
-            .subscribeOn(Schedulers.io()).subscribe()
     }
 }

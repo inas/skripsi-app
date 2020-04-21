@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
-import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.databinding.ActivitySplashScreenBinding
 import inas.anisha.skripsi_app.ui.main.MainActivity
 import inas.anisha.skripsi_app.ui.onboarding.OnboardingActivity
@@ -21,8 +20,7 @@ class SplashScreenActivity : AppCompatActivity() {
         mViewModel = ViewModelProviders.of(this).get(SplashScreenViewModel::class.java)
 
         // DEBUG AND SET IF TO FALSE
-        Repository(application).prepopulate()
-        if (false) {
+        if (mViewModel.shouldShowKelolaPembelajaran()) {
             val intent = Intent(this, OnboardingActivity::class.java)
             startActivity(intent)
             finish()

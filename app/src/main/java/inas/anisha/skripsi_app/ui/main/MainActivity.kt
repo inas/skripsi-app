@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             mOnNavigationItemSelectedListener
         )
 
-        mViewModel.checkname()
+        mViewModel.prepopulate()
     }
 
     override fun attachBaseContext(newBase: Context?) {
