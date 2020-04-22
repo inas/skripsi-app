@@ -22,7 +22,7 @@ class PerjalananViewModel(application: Application) : AndroidViewModel(applicati
     fun getUserGrade(): String = mRepository.getUserGrade()
     fun getUserStudy(): String = mRepository.getUserStudy()
 
-    fun getAllCycle(): LiveData<List<CycleEntity>> = mRepository.getAllCycle()
+    fun getAllCycle(): LiveData<List<CycleEntity>> = mRepository.getCycles()
 
     fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> = mRepository.getCurrentCycleTasks()
 

@@ -20,5 +20,7 @@ data class ScheduleEntity(
     @ColumnInfo(name = "reward") val reward: String = "",
     @ColumnInfo(name = "execution_time") val executionTime: Calendar? = null,
     @ColumnInfo(name = "is_completed") val isCompleted: Boolean = false,
-    @ColumnInfo(name = "is_on_time") val isOnTime: Boolean = false
+    @ColumnInfo(name = "is_on_time") val isOnTime: Boolean = false,
+    @ColumnInfo(name = "week_of_year") val weekOfYear: Int = endDate.get(Calendar.WEEK_OF_YEAR),
+    @ColumnInfo(name = "year") val year: Int = endDate.get(Calendar.YEAR)
 ) : Parcelable

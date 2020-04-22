@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.common.utils
+package inas.anisha.skripsi_app.utils
 
 class NumberUtil {
     companion object {

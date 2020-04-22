@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ItemCardSmallBinding
-import inas.anisha.skripsi_app.ui.common.utils.ViewUtil.Companion.strikeThrough
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
+import inas.anisha.skripsi_app.utils.ViewUtil.Companion.strikeThrough
 
 class TargetPendukungRecyclerViewAdapter :
     RecyclerView.Adapter<TargetPendukungRecyclerViewAdapter.ViewHolder>() {

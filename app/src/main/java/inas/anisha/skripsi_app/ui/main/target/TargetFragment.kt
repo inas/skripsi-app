@@ -36,9 +36,6 @@ class TargetFragment : Fragment() {
     ): View? {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_target, container, false)
-        mBinding.viewModel = mViewModel
-        mBinding.lifecycleOwner = this
-
         return mBinding.root
     }
 

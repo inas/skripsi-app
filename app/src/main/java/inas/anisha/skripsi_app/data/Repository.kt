@@ -5,11 +5,8 @@ import androidx.lifecycle.LiveData
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
-import inas.anisha.skripsi_app.data.db.entity.CycleEntity
-import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
-import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
-import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
-import inas.anisha.skripsi_app.ui.common.utils.CalendarUtil.Companion.toNextMidnight
+import inas.anisha.skripsi_app.data.db.entity.*
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toNextMidnight
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
@@ -70,7 +67,7 @@ class Repository(application: Application) {
             .subscribeOn(Schedulers.io()).subscribe()
 
     fun getCurrentCycle(): LiveData<CycleEntity> = cycleDao.getLatest()
-    fun getAllCycle(): LiveData<List<CycleEntity>> = cycleDao.getAll()
+    fun getCycles(): LiveData<List<CycleEntity>> = cycleDao.getAll()
     fun addCycle(cycle: CycleEntity) =
         Observable.fromCallable { cycleDao.add(cycle) }
             .subscribeOn(Schedulers.io()).subscribe()
@@ -94,7 +91,7 @@ class Repository(application: Application) {
     fun getUserStudy(): String = sharedPreference.getUserStudy()
     fun setUserStudy(study: String) = sharedPreference.setUserStudy(study)
 
-    fun getAllTasks(): LiveData<List<ScheduleEntity>> =
+    fun getTasks(): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASK)
 
     fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
@@ -102,6 +99,17 @@ class Repository(application: Application) {
             SkripsiConstant.SCHEDULE_TYPE_TASK,
             Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toNextMidnight()
         )
+
+    fun getSchoolClasses(dayOfWeek: Int): LiveData<List<SchoolClassEntity>> =
+        schoolClassDao.getAll(dayOfWeek)
+
+    fun getSchoolCount(dayOfWeek: Int): LiveData<Int> = schoolClassDao.getCount(dayOfWeek)
+
+    fun getSchedule(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>> =
+        scheduleDao.getAll(start, end)
+
+    fun getScheduleCount(start: Calendar, end: Calendar, type: Int): LiveData<Int> =
+        scheduleDao.getCount(start, end, type)
 
     companion object {
         // For Singleton instantiation

@@ -1,5 +1,6 @@
-package inas.anisha.skripsi_app.ui.common.utils
+package inas.anisha.skripsi_app.utils
 
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarUtil {
@@ -20,6 +21,11 @@ class CalendarUtil {
             set(Calendar.MILLISECOND, 0)
             add(Calendar.DAY_OF_MONTH, 1)
             return this
+        }
+
+        fun getDateDisplay(date: Calendar): String {
+            val dateFormat = SimpleDateFormat("EEEE, dd LLLL", Locale.getDefault())
+            return dateFormat.format(date.timeInMillis)
         }
     }
 }

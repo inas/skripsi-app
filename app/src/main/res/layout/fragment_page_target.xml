@@ -8,10 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="viewModel"
-            type="inas.anisha.skripsi_app.ui.main.target.TargetViewModel" />
-
-        <variable
             name="hasIncompleteSupportingTargets"
             type="Boolean" />
 

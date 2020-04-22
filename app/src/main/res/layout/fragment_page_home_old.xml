@@ -3,24 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="viewModel"
-            type="inas.anisha.skripsi_app.ui.main.home.HomeViewModel" />
-
-        <variable
-            name="hasTodaysTasks"
-            type="Boolean" />
-
-        <variable
-            name="hasTodaysTests"
-            type="Boolean" />
-    </data>
-
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -49,6 +32,69 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/textview_title" />
 
+            <View
+                android:id="@+id/view_banner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/space_24dp"
+                android:background="@color/green_light"
+                app:layout_constraintBottom_toBottomOf="@id/button_banner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+            <TextView
+                android:id="@+id/textview_banner_label"
+                style="@style/font_heading.bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_16dp"
+                android:text="Masukkan nilai-nilai terdahulumu"
+                app:layout_constraintEnd_toStartOf="@id/imageview_banner"
+                app:layout_constraintStart_toStartOf="@id/view_banner"
+                app:layout_constraintTop_toTopOf="@id/view_banner" />
+
+            <TextView
+                android:id="@+id/textview_banner_description"
+                style="@style/font_normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:text="Lihat grafik naik turun nilaimu dengan memasukkan nilai-nilai terdahulumu."
+                app:layout_constraintEnd_toStartOf="@id/imageview_banner"
+                app:layout_constraintStart_toStartOf="@id/view_banner"
+                app:layout_constraintTop_toBottomOf="@id/textview_banner_label" />
+
+            <ImageView
+                android:id="@+id/imageview_banner"
+                android:layout_width="60dp"
+                android:layout_height="80dp"
+                android:background="@color/pink"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="@id/textview_banner_description"
+                app:layout_constraintEnd_toStartOf="@id/imageview_close"
+                app:layout_constraintTop_toTopOf="@id/textview_banner_label" />
+
+            <ImageView
+                android:id="@+id/imageview_close"
+                android:layout_width="@dimen/size_button"
+                android:layout_height="@dimen/size_button"
+                android:layout_margin="@dimen/space_4dp"
+                android:padding="@dimen/size_button_padding"
+                android:src="@drawable/ic_close_dark"
+                android:tint="@color/dark_secondary"
+                app:layout_constraintEnd_toEndOf="@id/view_banner"
+                app:layout_constraintTop_toTopOf="@id/view_banner" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_banner"
+                style="@style/button_text"
+                android:layout_marginStart="@dimen/space_4dp"
+                android:text="Masukkan di sini"
+                app:layout_constraintStart_toStartOf="@id/view_banner"
+                app:layout_constraintTop_toBottomOf="@id/textview_banner_description" />
+
             <TextView
                 android:id="@+id/textview_jadwal"
                 style="@style/font_heading.bold"
@@ -58,10 +104,9 @@
                 android:layout_marginTop="@dimen/space_24dp"
                 android:text="Jadwal Hari Ini"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_title" />
+                app:layout_constraintTop_toBottomOf="@id/view_banner" />
 
             <TextView
-                android:id="@id/textview_date"
                 style="@style/font_normal.bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,63 +139,13 @@
                 app:layout_constraintTop_toBottomOf="@id/recyclerview_jadwal"
                 tools:text="Penting Hari Ini" />
 
-            <TextView
-                android:id="@+id/textview_task"
-                style="@style/font_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16dp"
-                android:layout_marginTop="@dimen/space_8dp"
-                android:text="Tugas"
-                android:visibility="@{hasTodaysTasks? View.VISIBLE : View.GONE}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_important" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_important_tasks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16dp"
-                android:layout_marginTop="@dimen/space_8dp"
-                android:layout_marginEnd="@dimen/space_16dp"
+                android:layout_margin="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_task"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_penting_hari_ini" />
-
-            <include
-                android:id="@+id/divider"
-                layout="@layout/common_divider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16dp"
-                android:layout_marginTop="@dimen/space_12dp"
-                android:layout_marginEnd="@dimen/space_16dp"
-                android:visibility="@{hasTodaysTasks &amp; hasTodaysTests? View.VISIBLE : View.GONE}"
-                app:layout_constraintTop_toBottomOf="@id/recyclerview_important_tasks" />
-
-            <TextView
-                android:id="@+id/textview_test"
-                style="@style/font_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16dp"
-                android:layout_marginTop="@dimen/space_16dp"
-                android:text="Ujian"
-                android:visibility="@{hasTodaysTests? View.VISIBLE : View.GONE}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider"
-                app:layout_goneMarginTop="@dimen/space_8dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_important_tests"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16dp"
-                android:layout_marginTop="@dimen/space_8dp"
-                android:layout_marginEnd="@dimen/space_16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_test"
+                app:layout_constraintTop_toBottomOf="@id/textview_important"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_penting_hari_ini" />
 
@@ -162,8 +157,7 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerview_important_tests"
-                app:layout_goneMarginTop="@dimen/space_16dp"
+                app:layout_constraintTop_toBottomOf="@id/recyclerview_important_tasks"
                 tools:text="Besok" />
 
             <LinearLayout
@@ -174,21 +168,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_besok">
 
-                <include
-                    android:id="@+id/layout_item_task"
-                    layout="@layout/item_besok" />
+                <include layout="@layout/item_besok" />
 
-                <include
-                    android:id="@+id/layout_item_test"
-                    layout="@layout/item_besok" />
+                <include layout="@layout/item_besok" />
 
-                <include
-                    android:id="@+id/layout_item_class"
-                    layout="@layout/item_besok" />
-
-                <include
-                    android:id="@+id/layout_item_activities"
-                    layout="@layout/item_besok" />
+                <include layout="@layout/item_besok" />
             </LinearLayout>
 
             <TextView
@@ -215,7 +199,6 @@
                 app:layout_constraintTop_toBottomOf="@id/textview_progress" />
 
             <TextView
-                android:id="@+id/textview_progress_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8dp"
@@ -224,5 +207,5 @@
                 app:layout_constraintTop_toBottomOf="@id/progressbar"
                 tools:text="6999/100000 tugas terselesaikan di siklus ini " />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </layout>

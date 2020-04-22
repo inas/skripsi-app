@@ -66,7 +66,8 @@
         android:layout_width="120dp"
         android:layout_height="52dp"
         android:layout_marginTop="@dimen/space_2dp"
-        android:background="@color/yellow"
+        android:background="@drawable/bg_rounded_pink"
+        android:backgroundTint="@color/yellow"
         app:layout_constraintStart_toStartOf="@id/view_line_middle"
         app:layout_constraintTop_toBottomOf="@id/textview_time_start" />
 
