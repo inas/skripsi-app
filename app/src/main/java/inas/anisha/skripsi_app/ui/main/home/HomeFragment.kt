@@ -140,6 +140,9 @@ class HomeFragment : Fragment() {
                 mBinding.layoutItemTest.textview_count,
                 tests.size
             )
+
+            mBinding.textviewTomorrowEmpty.visibility =
+                if (activities.size + tasks.size + tests.size == 0) View.VISIBLE else View.GONE
         })
 
         mViewModel.getCycleTasks().observe(this, Observer { tasks ->
@@ -152,11 +155,17 @@ class HomeFragment : Fragment() {
     }
 
     fun updateSchedule() {
+        mBinding.hasTodaysActivities = mViewModel.todaysActivities.isNotEmpty()
+        mBinding.hasTodaysClass = mViewModel.todaysClasses.isNotEmpty()
+
         val scheduleViewModels = mViewModel.getTodaysScheduleViewModels()
         // TODO map into viewmodel and show on recyclerview
     }
 
     fun updateImportantSchedule() {
+        mBinding.hasTodaysTasks = mViewModel.todaysTasks.isNotEmpty()
+        mBinding.hasTodaysTests = mViewModel.todaysTests.isNotEmpty()
+
         val importantTaskViewModels =
             mViewModel.getImportantScheduleViewModels(mViewModel.todaysTasks)
         val importantTestsViewModels =

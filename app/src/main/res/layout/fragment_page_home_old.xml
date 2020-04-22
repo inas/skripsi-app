@@ -150,7 +150,7 @@
                 tools:listitem="@layout/item_penting_hari_ini" />
 
             <TextView
-                android:id="@+id/textview_besok"
+                android:id="@+id/textview_tomorrow"
                 style="@style/font_heading.bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -161,12 +161,12 @@
                 tools:text="Besok" />
 
             <LinearLayout
-                android:id="@+id/layout_besokitem"
+                android:id="@+id/layout_tomorrow_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_besok">
+                app:layout_constraintTop_toBottomOf="@id/textview_tomorrow">
 
                 <include layout="@layout/item_besok" />
 
@@ -183,7 +183,7 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_besokitem"
+                app:layout_constraintTop_toBottomOf="@id/layout_tomorrow_items"
                 tools:text="Progress Siklus" />
 
             <ProgressBar

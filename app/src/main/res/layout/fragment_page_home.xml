@@ -12,6 +12,14 @@
             type="inas.anisha.skripsi_app.ui.main.home.HomeViewModel" />
 
         <variable
+            name="hasTodaysClass"
+            type="Boolean" />
+
+        <variable
+            name="hasTodaysActivities"
+            type="Boolean" />
+
+        <variable
             name="hasTodaysTasks"
             type="Boolean" />
 
@@ -84,6 +92,27 @@
                 app:layout_constraintTop_toBottomOf="@id/textview_jadwal" />
 
             <TextView
+                android:id="@+id/textview_jadwal_empty"
+                style="@style/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:paddingBottom="@dimen/space_32dp"
+                android:text="Tidak ada jadwal hari untuk ini"
+                android:textColor="@color/dark_secondary"
+                android:visibility="@{hasTodaysClass | hasTodaysActivities? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jadwal" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_jadwal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="recyclerview_jadwal,textview_jadwal_empty" />
+
+            <TextView
                 android:id="@+id/textview_important"
                 style="@style/font_heading.bold"
                 android:layout_width="wrap_content"
@@ -91,8 +120,29 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerview_jadwal"
-                tools:text="Penting Hari Ini" />
+                android:text="Penting Hari Ini"
+                app:layout_constraintTop_toBottomOf="@id/barrier_jadwal" />
+
+            <TextView
+                android:id="@+id/textview_important_empty"
+                style="@style/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:paddingBottom="@dimen/space_32dp"
+                android:text="Tidak ada tugas atau ujian untuk hari ini"
+                android:textColor="@color/dark_secondary"
+                android:visibility="@{hasTodaysTasks | hasTodaysTests? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_important" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_important"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="recyclerview_important_tests,textview_important_empty" />
 
             <TextView
                 android:id="@+id/textview_task"
@@ -155,24 +205,25 @@
                 tools:listitem="@layout/item_penting_hari_ini" />
 
             <TextView
-                android:id="@+id/textview_besok"
+                android:id="@+id/textview_tomorrow"
                 style="@style/font_heading.bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerview_important_tests"
+                android:text="Besok"
                 app:layout_goneMarginTop="@dimen/space_16dp"
-                tools:text="Besok" />
+                app:layout_constraintTop_toBottomOf="@id/barrier_important" />
 
             <LinearLayout
-                android:id="@+id/layout_besokitem"
+                android:id="@+id/layout_tomorrow_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_16dp"
+                app:layout_constraintTop_toBottomOf="@id/textview_tomorrow"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_besok">
+                tools:visibility="gone">
 
                 <include
                     android:id="@+id/layout_item_task"
@@ -192,6 +243,26 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/textview_tomorrow_empty"
+                style="@style/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:paddingBottom="@dimen/space_32dp"
+                android:text="Tidak ada jadwal untuk besok"
+                android:textColor="@color/dark_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_tomorrow" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_tomorrow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="textview_tomorrow_empty, layout_tomorrow_items" />
+
+            <TextView
                 android:id="@+id/textview_progress"
                 style="@style/font_heading.bold"
                 android:layout_width="wrap_content"
@@ -199,8 +270,8 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_besokitem"
-                tools:text="Progress Siklus" />
+                android:text="Progress Siklus"
+                app:layout_constraintTop_toBottomOf="@id/barrier_tomorrow" />
 
             <ProgressBar
                 android:id="@+id/progressbar"
