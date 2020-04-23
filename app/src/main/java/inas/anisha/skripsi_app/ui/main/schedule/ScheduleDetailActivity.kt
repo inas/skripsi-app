@@ -12,6 +12,7 @@ import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.ActivityScheduleDetailBinding
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
+import inas.anisha.skripsi_app.utils.ViewUtil.Companion.strikeThrough
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class ScheduleDetailActivity : AppCompatActivity() {
@@ -37,6 +38,7 @@ class ScheduleDetailActivity : AppCompatActivity() {
             it?.let {
                 mViewModel.schedule = it
                 mBinding.viewModel = ScheduleViewModel().fromEntity(it)
+                mBinding.textviewTitle.strikeThrough(it.isCompleted)
             }
         })
 

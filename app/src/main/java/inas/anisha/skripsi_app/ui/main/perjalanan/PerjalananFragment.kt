@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.CycleEntity
+import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentPagePerjalananBinding
 import inas.anisha.skripsi_app.ui.common.ConfirmationDialog
 import java.util.*
@@ -52,20 +53,8 @@ class PerjalananFragment : Fragment() {
 
     private fun initCycleStats() {
         mViewModel.getCurrentCycleTasks().observe(this, Observer { tasks ->
-            val completedTasks = tasks.filter { it.isCompleted }
-            val completenessValue = "" + completedTasks.size + "/" + tasks.size
-            mBinding.textviewTaskValue.text = completenessValue
-
-            val currentTime = Calendar.getInstance()
-            val pastTasks = tasks.filter { it.endDate < currentTime }
-            val onTimeTasks = pastTasks.filter { it.isOnTime }
-            if (pastTasks.isNotEmpty()) {
-                val percentage = onTimeTasks.size * 100 / pastTasks.size
-                mBinding.textviewTimeValue.text = "" + percentage + "%"
-            } else {
-                mBinding.textviewTimeValue.text = "100%"
-            }
-
+            mViewModel.currentTasks = tasks
+            updateOntimeStat()
         })
 
         mViewModel.getSupportingTargets().observe(this, Observer { targets ->
@@ -133,8 +122,26 @@ class PerjalananFragment : Fragment() {
         })
     }
 
+    fun updateOntimeStat() {
+        val tasks: List<ScheduleEntity> = mViewModel.currentTasks
+        val completedTasks = tasks.filter { it.isCompleted }
+        val completenessValue = "" + completedTasks.size + "/" + tasks.size
+        mBinding.textviewTaskValue.text = completenessValue
+
+        val currentTime = Calendar.getInstance()
+        val pastTasks = tasks.filter { it.endDate < currentTime }
+        val onTimeTasks = pastTasks.filter { it.isOnTime }
+        if (pastTasks.isNotEmpty()) {
+            val percentage = onTimeTasks.size * 100 / pastTasks.size
+            mBinding.textviewTimeValue.text = "" + percentage + "%"
+        } else {
+            mBinding.textviewTimeValue.text = "100%"
+        }
+    }
+
     fun reInitData() {
         initUserData()
+        updateOntimeStat()
     }
 
     companion object {

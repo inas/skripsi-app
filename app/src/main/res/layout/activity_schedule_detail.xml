@@ -194,7 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_16dp"
-                    android:text="Belum Tercapai"
+                    android:text="Belum Selesai"
                     android:visibility="@{viewModel.isCompleted &amp; viewModel.type == SkripsiConstant.SCHEDULE_TYPE_TASK? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toTopOf="@id/button_mark_as_complete"
                     app:layout_constraintStart_toStartOf="parent"
@@ -204,7 +204,7 @@
                     android:id="@+id/button_mark_as_complete"
                     style="@style/button_full"
                     android:layout_margin="@dimen/space_16dp"
-                    android:text="Tandai Tercapai"
+                    android:text="Tandai Selesai"
                     android:visibility="@{viewModel.isCompleted | viewModel.type != SkripsiConstant.SCHEDULE_TYPE_TASK? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

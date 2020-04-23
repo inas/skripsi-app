@@ -13,6 +13,9 @@ interface ScheduleDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(schedule: ScheduleEntity)
 
+    @Query("UPDATE schedule SET is_on_time = :isOntime WHERE id = :scheduleId")
+    fun updateOnTimeStatus(scheduleId: Long, isOntime: Boolean)
+
     @Query("UPDATE schedule SET is_completed = :isCompleted WHERE id = :scheduleId")
     fun updateCompleteness(scheduleId: Long, isCompleted: Boolean)
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
+import java.util.*
 
 class ScheduleDetailViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -14,7 +15,11 @@ class ScheduleDetailViewModel(application: Application) : AndroidViewModel(appli
     fun getSchedule(scheduleId: Long): LiveData<ScheduleEntity> =
         mRepository.getSchedule(scheduleId)
 
-    fun updateScheduleAsComplete(isComplete: Boolean) =
+    fun updateScheduleAsComplete(isComplete: Boolean) {
+        val isOnTime = Calendar.getInstance() <= schedule.endDate
         mRepository.updateScheduleAsComplete(schedule.id, isComplete)
+        mRepository.updateScheduleOnTimeStatus(schedule.id, isOnTime)
+    }
+
 
 }

@@ -151,7 +151,7 @@ class MockData {
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 3",
                     null,
-                    Calendar.getInstance().apply { set(2020, 3, 23, 22, 10) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 21, 40) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     4
                 ),

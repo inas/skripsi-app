@@ -13,6 +13,7 @@ class PerjalananViewModel(application: Application) : AndroidViewModel(applicati
 
     val mRepository: Repository = Repository.getInstance(application)
     var cycleHistory: List<CycleEntity> = mutableListOf()
+    var currentTasks: List<ScheduleEntity> = mutableListOf()
 
     fun getMainTarget(): LiveData<TargetUtamaEntity> = mRepository.getMainTarget()
     fun getSupportingTargets(): LiveData<List<TargetPendukungEntity>> =

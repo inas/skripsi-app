@@ -43,7 +43,7 @@ class ScheduleViewModel : ViewModel() {
         return when (type) {
             SkripsiConstant.SCHEDULE_TYPE_ACTIVITY -> "Kegiatan"
             SkripsiConstant.SCHEDULE_TYPE_TASK -> "Tugas"
-            else -> "Kegiatan"
+            else -> "Ujian"
         }
     }
 
