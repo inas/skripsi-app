@@ -36,14 +36,17 @@ class ScheduleDetailActivity : AppCompatActivity() {
         observable.observe(this, Observer {
             it?.let {
                 mViewModel.schedule = it
-                mViewModel.fromEntity(it)
-                mBinding.viewModel = mViewModel
+                mBinding.viewModel = ScheduleViewModel().fromEntity(it)
             }
         })
 
         mBinding.imageviewBack.setOnClickListener { finish() }
-//        mBinding.buttonMarkAsComplete.setOnClickListener { mViewModel.setTargetAsComplete(true) }
-//        mBinding.buttonMarkAsIncomplete.setOnClickListener { mViewModel.setTargetAsComplete(false) }
+        mBinding.buttonMarkAsComplete.setOnClickListener { mViewModel.updateScheduleAsComplete(true) }
+        mBinding.buttonMarkAsIncomplete.setOnClickListener {
+            mViewModel.updateScheduleAsComplete(
+                false
+            )
+        }
 
         mBinding.buttonEdit.setOnClickListener {
 //            openModifySupportingTargetDialog(TargetPendukungViewModel().fromEntity(mViewModel.target))
@@ -60,8 +63,8 @@ class ScheduleDetailActivity : AppCompatActivity() {
         observable.removeObservers(this)
 
         mBinding.imageviewBack.setOnClickListener(null)
-//        mBinding.buttonMarkAsComplete.setOnClickListener(null)
-//        mBinding.buttonMarkAsIncomplete.setOnClickListener(null)
+        mBinding.buttonMarkAsComplete.setOnClickListener(null)
+        mBinding.buttonMarkAsIncomplete.setOnClickListener(null)
         mBinding.buttonEdit.setOnClickListener(null)
         mBinding.buttonHapus.setOnClickListener(null)
     }

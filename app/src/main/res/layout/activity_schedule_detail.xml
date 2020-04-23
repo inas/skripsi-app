@@ -5,9 +5,13 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="inas.anisha.skripsi_app.constant.SkripsiConstant" />
+
         <variable
             name="viewModel"
-            type="inas.anisha.skripsi_app.ui.main.schedule.ScheduleDetailViewModel" />
+            type="inas.anisha.skripsi_app.ui.main.schedule.ScheduleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,122 +54,164 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textview_title"
-            style="@style/font_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_4dp"
-            android:text="@{viewModel.name}"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textview_task_type"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_toolbar"
-            tools:text="PR Bahasa Inggris ahahha ahhaha ahhaha ahahah ahahah" />
-
-        <TextView
-            android:id="@+id/textview_task_type"
-            style="@style/font_normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:background="@drawable/bg_rounded_pink"
-            android:paddingStart="14dp"
-            android:paddingTop="@dimen/space_4dp"
-            android:paddingEnd="14dp"
-            android:paddingBottom="6dp"
-            android:text="@{viewModel.getTypeText()}"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textview_title"
-            tools:text="Kegiatan" />
-
-        <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/rating"
-            style="@style/Widget.AppCompat.RatingBar.Indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_4dp"
-            android:rating="@{viewModel.priority}"
-            android:scaleX="0.6"
-            android:scaleY="0.6"
-            android:transformPivotX="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_title" />
-
-        <include
-            android:id="@+id/divider"
-            layout="@layout/common_divider"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common_1dp"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rating" />
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
 
-        <TextView
-            android:id="@+id/textview_due_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:drawableStart="@drawable/ic_calendar"
-            android:drawablePadding="@dimen/space_16dp"
-            android:drawableTint="@color/dark_secondary"
-            android:gravity="center_vertical"
-            android:text="@{viewModel.getDate()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider"
-            tools:text="28 Juli 2018; 11.00" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textview_execution_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_4dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:drawableStart="@drawable/ic_calendar"
-            android:drawablePadding="@dimen/space_16dp"
-            android:drawableTint="@color/white"
-            android:gravity="center_vertical"
-            android:text="@{viewModel.getExecutionTimeDisplay()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_due_date"
-            tools:text="Rencana pengerjaan: 24 Juli 2018; 18.00" />
+                <TextView
+                    android:id="@+id/textview_title"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_16dp"
+                    android:layout_marginEnd="@dimen/space_4dp"
+                    android:text="@{viewModel.name}"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/textview_task_type"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="PR Bahasa Inggris ahahha ahhaha ahhaha ahahah ahahah" />
 
-        <TextView
-            android:id="@+id/textview_notes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:drawableStart="@drawable/ic_note"
-            android:drawablePadding="@dimen/space_16dp"
-            android:drawableTint="@color/dark_secondary"
-            android:text="@{viewModel.note}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_execution_date"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+                <TextView
+                    android:id="@+id/textview_task_type"
+                    style="@style/font_normal.bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_16dp"
+                    android:background="@drawable/bg_rounded_pink"
+                    android:paddingStart="@dimen/space_12dp"
+                    android:paddingTop="@dimen/space_8dp"
+                    android:paddingEnd="@dimen/space_12dp"
+                    android:paddingBottom="@dimen/space_8dp"
+                    android:text="@{viewModel.getTypeText()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textview_title"
+                    tools:text="Kegiatan" />
 
-        <TextView
-            android:id="@+id/textview_rewards"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:drawableStart="@drawable/ic_trophy"
-            android:drawablePadding="@dimen/space_16dp"
-            android:drawableTint="@color/dark_secondary"
-            android:gravity="center_vertical"
-            android:text="@{viewModel.reward}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_notes"
-            tools:text="Makan ayce kintan atau shaburi" />
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rating"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_4dp"
+                    android:progressTint="@color/yellow"
+                    android:rating="@{viewModel.priority}"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
+                    android:transformPivotX="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_title"
+                    tools:rating="4" />
+
+                <include
+                    android:id="@+id/divider"
+                    layout="@layout/common_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_1dp"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:layout_marginEnd="@dimen/space_16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rating" />
+
+                <TextView
+                    android:id="@+id/textview_due_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_16dp"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/space_16dp"
+                    android:drawableTint="@color/dark_secondary"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.getDate()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    tools:text="28 Juli 2018; 11.00" />
+
+                <TextView
+                    android:id="@+id/textview_execution_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_4dp"
+                    android:layout_marginEnd="@dimen/space_16dp"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/space_16dp"
+                    android:drawableTint="@color/white"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.getExecutionTimeDisplay()}"
+                    android:visibility="@{viewModel.getExecutionTimeDisplay().isEmpty()? View.GONE : View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_due_date"
+                    tools:text="Rencana pengerjaan: 24 Juli 2018; 18.00" />
+
+                <TextView
+                    android:id="@+id/textview_notes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_16dp"
+                    android:drawableStart="@drawable/ic_note"
+                    android:drawablePadding="@dimen/space_16dp"
+                    android:drawableTint="@color/dark_secondary"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.note}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_execution_date"
+                    app:layout_goneMarginTop="@dimen/space_16dp"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+
+                <TextView
+                    android:id="@+id/textview_rewards"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_16dp"
+                    android:drawableStart="@drawable/ic_trophy"
+                    android:drawablePadding="@dimen/space_16dp"
+                    android:drawableTint="@color/dark_secondary"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.reward}"
+                    android:visibility="@{viewModel.reward.isEmpty()? View.GONE : View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_notes"
+                    tools:text="Makan ayce kintan atau shaburi" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_mark_as_incomplete"
+                    style="@style/Button.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_16dp"
+                    android:text="Belum Tercapai"
+                    android:visibility="@{viewModel.isCompleted &amp; viewModel.type == SkripsiConstant.SCHEDULE_TYPE_TASK? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toTopOf="@id/button_mark_as_complete"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_goneMarginBottom="@dimen/space_16dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_mark_as_complete"
+                    style="@style/button_full"
+                    android:layout_margin="@dimen/space_16dp"
+                    android:text="Tandai Tercapai"
+                    android:visibility="@{viewModel.isCompleted | viewModel.type != SkripsiConstant.SCHEDULE_TYPE_TASK? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

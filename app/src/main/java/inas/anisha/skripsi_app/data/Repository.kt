@@ -91,15 +91,6 @@ class Repository(application: Application) {
     fun getUserStudy(): String = sharedPreference.getUserStudy()
     fun setUserStudy(study: String) = sharedPreference.setUserStudy(study)
 
-    fun getTasks(): LiveData<List<ScheduleEntity>> =
-        scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASK)
-
-    fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
-        scheduleDao.getAll(
-            SkripsiConstant.SCHEDULE_TYPE_TASK,
-            Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toPreviousMidnight()
-        )
-
     fun getSchoolClasses(dayOfWeek: Int): LiveData<List<SchoolClassEntity>> =
         schoolClassDao.getAll(dayOfWeek)
 
@@ -108,6 +99,15 @@ class Repository(application: Application) {
 
     fun getSchoolCount(dayOfWeek: Int): LiveData<Int> = schoolClassDao.getCount(dayOfWeek)
 
+
+    fun getTasks(): LiveData<List<ScheduleEntity>> =
+        scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASK)
+
+    fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
+        scheduleDao.getAll(
+            SkripsiConstant.SCHEDULE_TYPE_TASK,
+            Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toPreviousMidnight()
+        )
 
     fun getSchedule(scheduleId: Long): LiveData<ScheduleEntity> =
         scheduleDao.get(scheduleId)
@@ -118,8 +118,9 @@ class Repository(application: Application) {
     fun getScheduleSorted(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAllSorted(start, end)
 
-    fun getScheduleCount(start: Calendar, end: Calendar, type: Int): LiveData<Int> =
-        scheduleDao.getCount(start, end, type)
+    fun updateScheduleAsComplete(scheduleId: Long, isCompleted: Boolean) =
+        Observable.fromCallable { scheduleDao.updateCompleteness(scheduleId, isCompleted) }
+            .subscribeOn(Schedulers.io()).subscribe()
 
     companion object {
         // For Singleton instantiation

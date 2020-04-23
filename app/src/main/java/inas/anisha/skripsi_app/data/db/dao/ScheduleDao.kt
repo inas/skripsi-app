@@ -13,8 +13,11 @@ interface ScheduleDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(schedule: ScheduleEntity)
 
+    @Query("UPDATE schedule SET is_completed = :isCompleted WHERE id = :scheduleId")
+    fun updateCompleteness(scheduleId: Long, isCompleted: Boolean)
+
     @Query("DELETE FROM schedule WHERE id = :scheduleId")
-    fun delete(scheduleId: Int)
+    fun delete(scheduleId: Long)
 
     @Query("DELETE FROM schedule")
     fun deleteAll()
