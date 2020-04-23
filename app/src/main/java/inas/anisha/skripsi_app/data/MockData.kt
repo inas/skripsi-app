@@ -138,7 +138,7 @@ class MockData {
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 2",
                     null,
-                    Calendar.getInstance().apply { set(2020, 3, 23, 11, 0) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 21, 0) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     5,
                     "main harvest moon",
@@ -151,7 +151,7 @@ class MockData {
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 3",
                     null,
-                    Calendar.getInstance().apply { set(2020, 3, 23, 11, 10) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 22, 10) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     4
                 ),
@@ -170,7 +170,7 @@ class MockData {
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 5",
                     null,
-                    Calendar.getInstance().apply { set(2020, 3, 24, 11, 10) },
+                    Calendar.getInstance().apply { set(2020, 3, 27, 11, 10) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     0
                 )

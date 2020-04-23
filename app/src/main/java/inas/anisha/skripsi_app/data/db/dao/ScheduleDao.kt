@@ -28,7 +28,7 @@ interface ScheduleDao {
     @Query("SELECT * from schedule WHERE type = :type")
     fun getAll(type: Int): LiveData<List<ScheduleEntity>>
 
-    @Query("SELECT * from schedule WHERE type = :type AND end_date >= :dateLimit")
+    @Query("SELECT * from schedule WHERE type = :type AND end_date < :dateLimit")
     fun getAll(type: Int, dateLimit: Calendar): LiveData<List<ScheduleEntity>>
 
     @Query("SELECT * from schedule WHERE end_date BETWEEN :start AND :end")
