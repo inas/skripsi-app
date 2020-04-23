@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.main.home.ImportantScheduleViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_8dp"
+        app:cardCornerRadius="@dimen/radius_small">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_16dp">
+
+            <TextView
+                android:id="@+id/textview_jadwal"
+                style="@style/font_normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@{viewModel.name}"
+                app:layout_constraintEnd_toStartOf="@id/rating"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="PR Bahasa Inggris sjjsjjs sjsjjs sjsjjs sjsjsj sjsjsj jsjsjs sjjsj aaa a a a as" />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/rating"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4dp"
+                android:progressTint="@color/yellow"
+                android:rating="@{viewModel.rating}"
+                app:layout_constraintBottom_toBottomOf="@id/textview_jadwal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:rating="5" />
+
+            <ImageView
+                android:id="@+id/imageview_duedate"
+                android:layout_width="@dimen/common_16dp"
+                android:layout_height="@dimen/common_16dp"
+                android:background="@drawable/ic_clock"
+                android:backgroundTint="@color/dark_secondary"
+                app:layout_constraintBottom_toBottomOf="@id/textview_duedate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textview_duedate" />
+
+            <TextView
+                android:id="@+id/textview_duedate"
+                style="@style/font_small.secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8dp"
+                android:layout_marginTop="@dimen/space_4dp"
+                android:text="@{viewModel.time}"
+                app:layout_constraintStart_toEndOf="@id/imageview_duedate"
+                app:layout_constraintTop_toBottomOf="@id/textview_jadwal"
+                tools:text="Hari ini, 11.00" />
+
+            <View
+                android:id="@+id/view_status"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:background="@drawable/bg_rounded_green"
+                android:backgroundTint="@color/green_light"
+                app:layout_constraintBottom_toBottomOf="@id/textview_status"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textview_status"
+                app:layout_constraintTop_toBottomOf="@id/rating" />
+
+            <TextView
+                android:id="@+id/textview_status"
+                style="@style/font_small.bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/space_8dp"
+                android:paddingEnd="@dimen/space_8dp"
+                android:text="Selesai"
+                android:textColor="@color/green"
+                android:visibility="@{viewModel.isCompleted? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view_status" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

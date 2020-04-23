@@ -147,7 +147,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_important"
                 tools:itemCount="2"
-                tools:listitem="@layout/item_penting_hari_ini" />
+                tools:listitem="@layout/item_important_schedule" />
 
             <TextView
                 android:id="@+id/textview_tomorrow"

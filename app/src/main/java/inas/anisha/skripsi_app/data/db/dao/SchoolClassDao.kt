@@ -31,6 +31,9 @@ interface SchoolClassDao {
     @Query("SELECT * from school_class WHERE day = :dayOfWeek")
     fun getAll(dayOfWeek: Int): LiveData<List<SchoolClassEntity>>
 
+    @Query("SELECT * from school_class WHERE day = :dayOfWeek ORDER BY start_minute_of_day")
+    fun getAllSorted(dayOfWeek: Int): LiveData<List<SchoolClassEntity>>
+
     @Query("SELECT COUNT(*) FROM school_class WHERE day = :dayOfWeek")
     fun getCount(dayOfWeek: Int): LiveData<Int>
 }

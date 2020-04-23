@@ -27,5 +27,26 @@ class CalendarUtil {
             val dateFormat = SimpleDateFormat("EEEE, dd LLLL", Locale.getDefault())
             return dateFormat.format(date.timeInMillis)
         }
+
+        fun Calendar.toTimeString(): String {
+            val dateFormat = SimpleDateFormat("HH.mm", Locale.getDefault())
+            return dateFormat.format(timeInMillis)
+        }
+
+        fun Calendar.toMinuteOfDay(): Int {
+            val hour = get(Calendar.HOUR_OF_DAY)
+            val minute = get(Calendar.MINUTE)
+            return ((hour * 60) + minute)
+        }
+
+        fun fromMinuteToTimeString(minutes: Int): String {
+            val hour = minutes / 60
+            val minute = minutes % 60
+
+            return Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, hour)
+                set(Calendar.MINUTE, minute)
+            }.toTimeString()
+        }
     }
 }

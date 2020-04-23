@@ -34,6 +34,9 @@ interface ScheduleDao {
     @Query("SELECT * from schedule WHERE end_date BETWEEN :start AND :end")
     fun getAll(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>>
 
+    @Query("SELECT * from schedule WHERE end_date BETWEEN :start AND :end ORDER BY start_minute_of_day")
+    fun getAllSorted(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>>
+
     @Query("SELECT COUNT(*) FROM schedule WHERE end_date BETWEEN :start AND :end AND type = :type")
     fun getCount(start: Calendar, end: Calendar, type: Int): LiveData<Int>
 }

@@ -22,6 +22,10 @@ class HomeFragment : Fragment() {
     lateinit var mBinding: FragmentPageHomeBinding
     lateinit var mViewModel: HomeViewModel
 
+    lateinit var scheduleTimelineAdapter: ScheduleTimelineAdapter
+//    lateinit var importantTasksAdapter: ImportantScheduleAdapter
+//    lateinit var importantTestsAdapter: ImportantScheduleAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
@@ -52,7 +56,7 @@ class HomeFragment : Fragment() {
 
     fun initSchedule() {
         setTodaysDate()
-        // TODO init adapter for todays schedule
+
     }
 
     fun initImportantSchedule() {
@@ -69,7 +73,10 @@ class HomeFragment : Fragment() {
     fun setTodaysDate() {
         Calendar.getInstance().let { today ->
             val oldDate = mViewModel.currentDate.value
-            if (oldDate?.get(Calendar.DAY_OF_YEAR) != today.get(Calendar.DAY_OF_YEAR)) {
+            if (oldDate?.get(Calendar.HOUR_OF_DAY) != today.get(Calendar.HOUR_OF_DAY) && oldDate?.get(
+                    Calendar.MINUTE
+                ) != today.get(Calendar.MINUTE)
+            ) {
                 mViewModel.currentDate.value = today
                 mBinding.textviewDate.text = CalendarUtil.getDateDisplay(today)
             }
@@ -148,9 +155,15 @@ class HomeFragment : Fragment() {
         mViewModel.getCycleTasks().observe(this, Observer { tasks ->
             val completedTasks = tasks.filter { it.isCompleted }
             val completenessValue = "" + completedTasks.size + "/" + tasks.size
-            mBinding.progressbar.progress = completedTasks.size * 100 / tasks.size
+
             mBinding.textviewProgressDescription.text =
                 completenessValue + " tugas terselesaikan di siklus ini"
+            if (tasks.isNotEmpty()) {
+                mBinding.progressbar.progress = completedTasks.size * 100 / tasks.size
+            } else {
+                mBinding.progressbar.progress = 100
+            }
+
         })
     }
 
