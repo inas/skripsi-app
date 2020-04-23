@@ -80,8 +80,8 @@ class PerjalananFragment : Fragment() {
     }
 
     private fun initCycleHistory() {
-        val adapter = PerjalananRecyclerViewAdapter().apply {
-            setItemListener(object : PerjalananRecyclerViewAdapter.ItemListener {
+        val adapter = PerjalananAdapter().apply {
+            setItemListener(object : PerjalananAdapter.ItemListener {
                 override fun onItemClick(position: Int) {
                     showCycleReflection(mViewModel.cycleHistory[position])
                 }

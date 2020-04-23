@@ -23,6 +23,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var todaysTasks: List<ScheduleEntity> = mutableListOf()
     var todaysTests: List<ScheduleEntity> = mutableListOf()
 
+    var currentClassIndex = -1
+
     fun getTodaysClasses(): LiveData<List<SchoolClassEntity>> =
         Transformations.switchMap(currentDate) { today ->
             mRepository.getSchoolClassesSorted(today.get(Calendar.DAY_OF_WEEK))
@@ -35,13 +37,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getTodaysSchedule(): LiveData<List<ScheduleEntity>> =
         Transformations.switchMap(currentDate) { today ->
-            mRepository.getScheduleSorted(today.toPreviousMidnight(), today.toNextMidnight())
+            val prev = Calendar.getInstance().apply { time = today.time }
+            val next = Calendar.getInstance().apply { time = today.time }
+            mRepository.getScheduleSorted(prev.toPreviousMidnight(), next.toNextMidnight())
         }
 
     fun getTomorrowsSchedule(): LiveData<List<ScheduleEntity>> =
         Transformations.switchMap(currentDate) { today ->
             val tomorrow = today.apply { add(Calendar.DAY_OF_MONTH, 1) }
-            mRepository.getSchedule(tomorrow.toPreviousMidnight(), tomorrow.toNextMidnight())
+            val prev = Calendar.getInstance().apply { time = tomorrow.time }
+            val next = Calendar.getInstance().apply { time = tomorrow.time }
+            mRepository.getSchedule(prev.toPreviousMidnight(), next.toNextMidnight())
         }
 
     fun getCycleTasks(): LiveData<List<ScheduleEntity>> = mRepository.getCurrentCycleTasks()
@@ -71,27 +77,29 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         val currentMinuteOfDay = currentDate.value?.toMinuteOfDay() ?: 0
 
+        currentClassIndex = -1
         var previousSchedule: ScheduleTimelineViewModel? = null
-        viewModels
-            .sortedBy { it.startMinute }
-            .forEach {
-                if (it.startMinute <= currentMinuteOfDay && currentMinuteOfDay <= it.endMinute) {
-                    it.isStartIncludeCurrentSchedule.value = true
-                    it.isEndIncludeCurrentSchedule.value = true
-                }
+        viewModels.sortBy { it.startMinute }
+        viewModels.forEachIndexed { index, it ->
 
-                previousSchedule?.let { prev ->
-                    if (prev.endMinute == it.startMinute) {
-                        prev.hasImmediateSchedule.value = true
-                        it.isEndIncludeCurrentSchedule.value =
-                            prev.isStartIncludeCurrentSchedule.value
-                    }
+            previousSchedule?.let { prev ->
+                if (prev.endMinute == it.startMinute) {
+                    prev.hasImmediateSchedule.value = true
+                    it.isStartIncludeCurrentSchedule.value =
+                        prev.isStartIncludeCurrentSchedule.value
                 }
-
-                previousSchedule = it
             }
 
-        viewModels.last().isLastSchedule.value = true
+            if (it.startMinute <= currentMinuteOfDay && currentMinuteOfDay <= it.endMinute) {
+                it.isStartIncludeCurrentSchedule.value = true
+                it.isEndIncludeCurrentSchedule.value = true
+                currentClassIndex = index
+            }
+
+            previousSchedule = it
+        }
+
+        if (viewModels.isNotEmpty()) viewModels.last().isLastSchedule.value = true
 
         return viewModels
     }

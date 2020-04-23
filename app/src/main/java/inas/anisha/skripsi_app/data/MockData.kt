@@ -43,23 +43,23 @@ class MockData {
                 SchoolClassEntity(
                     0,
                     "kelas 1",
-                    Calendar.getInstance().apply { set(2020, 5, 6, 8, 0) },
-                    Calendar.getInstance().apply { set(2020, 5, 6, 9, 30) },
-                    Calendar.MONDAY
+                    Calendar.getInstance().apply { set(2020, 3, 23, 8, 0) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 9, 30) },
+                    Calendar.THURSDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 2",
-                    Calendar.getInstance().apply { set(2020, 5, 6, 9, 30) },
-                    Calendar.getInstance().apply { set(2020, 5, 6, 11, 0) },
-                    Calendar.MONDAY
+                    Calendar.getInstance().apply { set(2020, 3, 23, 9, 30) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 11, 0) },
+                    Calendar.THURSDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 3",
-                    Calendar.getInstance().apply { set(2020, 5, 6, 12, 0) },
-                    Calendar.getInstance().apply { set(2020, 5, 6, 13, 30) },
-                    Calendar.MONDAY
+                    Calendar.getInstance().apply { set(2020, 3, 23, 11, 50) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 13, 30) },
+                    Calendar.THURSDAY
                 ),
                 SchoolClassEntity(
                     0,
@@ -84,16 +84,16 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_ACTIVITY,
                     "Kegiatan 1",
-                    Calendar.getInstance().apply { set(2020, 5, 6, 11, 10) },
-                    Calendar.getInstance().apply { set(2020, 5, 6, 11, 50) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 11, 10) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 11, 50) },
                     "makan siang bawa bekel yang sehat"
                 ),
                 ScheduleEntity(
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_ACTIVITY,
                     "Kegiatan 2",
-                    Calendar.getInstance().apply { set(2020, 5, 6, 14, 10) },
-                    Calendar.getInstance().apply { set(2020, 5, 6, 14, 40) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 14, 10) },
+                    Calendar.getInstance().apply { set(2020, 3, 23, 14, 40) },
                     "ngaji bentar"
                 ),
                 ScheduleEntity(

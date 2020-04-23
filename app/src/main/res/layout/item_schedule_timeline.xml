@@ -13,9 +13,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/space_24dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <View
             android:id="@+id/view_circle_start"
@@ -39,7 +38,8 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:background="@{viewModel.isEndIncludeCurrentSchedule? @drawable/bg_circle_outlined_yellow : @drawable/bg_circle_solid_yellow }"
-            android:visibility="@{viewModel.hasImmediateSchedule | viewModel.isLastSchedule? View.VISIBLE : View.GONE}"
+            android:visibility="@{!viewModel.hasImmediateSchedule | viewModel.isLastSchedule? View.VISIBLE : View.GONE}"
+            tools:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/view_line_middle"
             app:layout_constraintTop_toTopOf="@id/view_circle_start" />
 
@@ -59,7 +59,8 @@
             android:layout_width="36dp"
             android:layout_height="@dimen/common_4dp"
             android:background="@color/yellow"
-            android:visibility="@{viewModel.hasImmediateSchedule | viewModel.isLastSchedule? View.VISIBLE : View.GONE}"
+            android:visibility="@{!viewModel.hasImmediateSchedule | viewModel.isLastSchedule? View.VISIBLE : View.GONE}"
+            tools:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/view_circle_end"
             app:layout_constraintStart_toEndOf="@id/view_circle_end"
             app:layout_constraintTop_toTopOf="@id/view_circle_end" />
@@ -70,11 +71,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_4dp"
-            android:layout_marginTop="@dimen/space_2dp"
             android:text="@{viewModel.endTimeText}"
-            android:visibility="@{viewModel.hasImmediateSchedule | viewModel.isLastSchedule? View.VISIBLE : View.GONE}"
+            android:visibility="@{!viewModel.hasImmediateSchedule | viewModel.isLastSchedule? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="@id/view_circle_end"
-            app:layout_constraintTop_toBottomOf="@id/view_circle_end"
+            app:layout_constraintTop_toTopOf="@id/textview_time_start"
             tools:text="11.00" />
 
         <View

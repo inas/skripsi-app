@@ -44,19 +44,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeData()
         initSchedule()
         initImportantSchedule()
         initTomorrowsSchedule()
+        observeData()
     }
 
     fun reInitData() {
         setTodaysDate()
+//        if (mViewModel.currentClassIndex != -1) mBinding.recyclerviewJadwal.smoothScrollToPosition(mViewModel.currentClassIndex)
     }
 
     fun initSchedule() {
         setTodaysDate()
 
+        scheduleTimelineAdapter = ScheduleTimelineAdapter()
+        mBinding.recyclerviewJadwal.adapter = scheduleTimelineAdapter
     }
 
     fun initImportantSchedule() {
@@ -172,7 +175,9 @@ class HomeFragment : Fragment() {
         mBinding.hasTodaysClass = mViewModel.todaysClasses.isNotEmpty()
 
         val scheduleViewModels = mViewModel.getTodaysScheduleViewModels()
-        // TODO map into viewmodel and show on recyclerview
+        scheduleTimelineAdapter.setList(scheduleViewModels)
+
+//        if (mViewModel.currentClassIndex != -1) mBinding.recyclerviewJadwal.smoothScrollToPosition(mViewModel.currentClassIndex)
     }
 
     fun updateImportantSchedule() {

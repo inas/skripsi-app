@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ItemPerjalananBinding
 
-class PerjalananRecyclerViewAdapter :
-    RecyclerView.Adapter<PerjalananRecyclerViewAdapter.ViewHolder>() {
+class PerjalananAdapter :
+    RecyclerView.Adapter<PerjalananAdapter.ViewHolder>() {
 
     private var mListener: ItemListener? = null
 

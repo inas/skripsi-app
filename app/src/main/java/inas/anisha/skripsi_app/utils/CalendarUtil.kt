@@ -7,20 +7,39 @@ class CalendarUtil {
 
     companion object {
         fun Calendar.toPreviousMidnight(): Calendar {
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-            return this
+            val newCalendar = Calendar.getInstance().also { it.timeInMillis = timeInMillis }
+            newCalendar.set(Calendar.HOUR_OF_DAY, 0)
+            newCalendar.set(Calendar.MINUTE, 0)
+            newCalendar.set(Calendar.SECOND, 0)
+            newCalendar.set(Calendar.MILLISECOND, 0)
+            return newCalendar
         }
 
         fun Calendar.toNextMidnight(): Calendar {
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-            add(Calendar.DAY_OF_MONTH, 1)
-            return this
+            val newCalendar = Calendar.getInstance().also { it.timeInMillis = timeInMillis }
+            newCalendar.set(Calendar.HOUR_OF_DAY, 0)
+            newCalendar.set(Calendar.MINUTE, 0)
+            newCalendar.set(Calendar.SECOND, 0)
+            newCalendar.set(Calendar.MILLISECOND, 0)
+            newCalendar.add(Calendar.DAY_OF_MONTH, 1)
+            return newCalendar
+        }
+
+        fun getPrevousMidnight(date: Calendar): Calendar {
+            date.set(Calendar.HOUR_OF_DAY, 0)
+            date.set(Calendar.MINUTE, 0)
+            date.set(Calendar.SECOND, 0)
+            date.set(Calendar.MILLISECOND, 0)
+            return date
+        }
+
+        fun getNextMidnight(date: Calendar): Calendar {
+            date.set(Calendar.HOUR_OF_DAY, 0)
+            date.set(Calendar.MINUTE, 0)
+            date.set(Calendar.SECOND, 0)
+            date.set(Calendar.MILLISECOND, 0)
+            date.add(Calendar.DAY_OF_MONTH, 1)
+            return date
         }
 
         fun getDateDisplay(date: Calendar): String {
