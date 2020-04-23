@@ -20,7 +20,7 @@ interface ScheduleDao {
     fun deleteAll()
 
     @Query("SELECT * FROM schedule WHERE id = :scheduleId")
-    fun get(scheduleId: Int): LiveData<ScheduleEntity>
+    fun get(scheduleId: Long): LiveData<ScheduleEntity>
 
     @Query("SELECT * from schedule")
     fun getAll(): LiveData<List<ScheduleEntity>>

@@ -25,7 +25,13 @@ class ImportantScheduleAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.viewModel = viewModels[position]
+        val vm = viewModels[position]
+        holder.binding.viewModel = vm
+        holder.binding.cardview.setOnClickListener { mListener?.onItemClick(vm.id) }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return viewModels[position].id
     }
 
     override fun getItemCount(): Int {
@@ -46,6 +52,6 @@ class ImportantScheduleAdapter :
     }
 
     interface ItemListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(scheduleId: Long)
     }
 }

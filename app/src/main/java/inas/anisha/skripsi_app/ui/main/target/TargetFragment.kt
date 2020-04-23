@@ -16,8 +16,7 @@ import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialo
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetUtamaDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
-import java.text.SimpleDateFormat
-import java.util.*
+import inas.anisha.skripsi_app.utils.CalendarUtil
 
 class TargetFragment : Fragment() {
 
@@ -58,13 +57,12 @@ class TargetFragment : Fragment() {
 
     fun initCycleTime() {
         val cycleTime = mViewModel.getCycleTime()
-        val dateFormat = SimpleDateFormat("d LLLL yyyy", Locale.getDefault())
         val evaluationDate = mViewModel.getEvaluationDate()
         if (evaluationDate == -1L) {
             mBinding.textviewCycleDescription.visibility = View.GONE
         } else {
             mBinding.textviewCycleDescription.text =
-                "Evaluasi berikutnya: " + dateFormat.format(mViewModel.getEvaluationDate())
+                "Evaluasi berikutnya: " + CalendarUtil.getDateDisplayDate(mViewModel.getEvaluationDate())
         }
 
         val frequency = when (cycleTime.first) {
@@ -78,8 +76,8 @@ class TargetFragment : Fragment() {
     }
 
     fun initSupportingTarget() {
-        val adapterIncompleteTarget = TargetPendukungRecyclerViewAdapter().apply {
-            setItemListener(object : TargetPendukungRecyclerViewAdapter.ItemListener {
+        val adapterIncompleteTarget = TargetPendukungAdapter().apply {
+            setItemListener(object : TargetPendukungAdapter.ItemListener {
                 override fun onItemClick(viewModel: TargetPendukungViewModel) {
                     openTargetPendukungDetail(viewModel.id)
                 }
@@ -89,8 +87,8 @@ class TargetFragment : Fragment() {
         mBinding.recyclerviewTargetIncomplete.adapter = adapterIncompleteTarget
 
 
-        val adapterCompletedTarget = TargetPendukungRecyclerViewAdapter().apply {
-            setItemListener(object : TargetPendukungRecyclerViewAdapter.ItemListener {
+        val adapterCompletedTarget = TargetPendukungAdapter().apply {
+            setItemListener(object : TargetPendukungAdapter.ItemListener {
                 override fun onItemClick(viewModel: TargetPendukungViewModel) {
                     openTargetPendukungDetail(viewModel.id)
                 }

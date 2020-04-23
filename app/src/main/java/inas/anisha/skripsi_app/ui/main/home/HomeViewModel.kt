@@ -109,6 +109,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         schedules.forEach {
             viewModels.add(ImportantScheduleViewModel().apply {
+                id = it.id
                 name = it.name
                 time = CalendarUtil.fromMinuteToTimeString(it.endMinuteOfDay)
                 rating = it.priority

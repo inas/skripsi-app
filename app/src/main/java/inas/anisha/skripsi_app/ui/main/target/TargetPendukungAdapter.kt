@@ -10,8 +10,8 @@ import inas.anisha.skripsi_app.databinding.ItemCardSmallBinding
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.utils.ViewUtil.Companion.strikeThrough
 
-class TargetPendukungRecyclerViewAdapter :
-    RecyclerView.Adapter<TargetPendukungRecyclerViewAdapter.ViewHolder>() {
+class TargetPendukungAdapter :
+    RecyclerView.Adapter<TargetPendukungAdapter.ViewHolder>() {
 
     private var targets: List<TargetPendukungViewModel> = mutableListOf()
     private var listener: ItemListener? = null

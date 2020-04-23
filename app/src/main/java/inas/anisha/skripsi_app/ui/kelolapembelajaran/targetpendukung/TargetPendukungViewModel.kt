@@ -20,12 +20,13 @@ class TargetPendukungViewModel : ViewModel() {
         time = newTarget.time
     }
 
-    fun fromEntity(targetEntity: TargetPendukungEntity) {
+    fun fromEntity(targetEntity: TargetPendukungEntity): TargetPendukungViewModel {
         id = targetEntity.id
         name = targetEntity.name
         note = targetEntity.note
         time = targetEntity.time
         isCompleted = targetEntity.isCompleted
+        return this
     }
 
     fun toEntity(): TargetPendukungEntity = TargetPendukungEntity(id, name, note, time, isCompleted)

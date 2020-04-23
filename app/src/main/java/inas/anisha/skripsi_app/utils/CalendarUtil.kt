@@ -42,9 +42,19 @@ class CalendarUtil {
             return date
         }
 
-        fun getDateDisplay(date: Calendar): String {
-            val dateFormat = SimpleDateFormat("EEEE, dd LLLL", Locale.getDefault())
+        fun getDateDisplayDayDate(date: Calendar): String {
+            val dateFormat = SimpleDateFormat("EEEE, d LLLL", Locale.getDefault())
             return dateFormat.format(date.timeInMillis)
+        }
+
+        fun getDateDisplayDate(date: Calendar): String {
+            val dateFormat = SimpleDateFormat("d LLLL yyyy", Locale.getDefault())
+            return dateFormat.format(date.timeInMillis)
+        }
+
+        fun getDateDisplayDate(millis: Long): String {
+            val dateFormat = SimpleDateFormat("d LLLL yyyy", Locale.getDefault())
+            return dateFormat.format(millis)
         }
 
         fun Calendar.toTimeString(): String {

@@ -1,5 +1,6 @@
 package inas.anisha.skripsi_app.ui.main.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentPageHomeBinding
+import inas.anisha.skripsi_app.ui.main.schedule.ScheduleDetailActivity
 import inas.anisha.skripsi_app.utils.CalendarUtil
 import kotlinx.android.synthetic.main.item_besok.view.*
 import java.util.*
@@ -52,7 +54,6 @@ class HomeFragment : Fragment() {
 
     fun reInitData() {
         setTodaysDate()
-//        if (mViewModel.currentClassIndex != -1) mBinding.recyclerviewJadwal.smoothScrollToPosition(mViewModel.currentClassIndex)
     }
 
     fun initSchedule() {
@@ -63,10 +64,24 @@ class HomeFragment : Fragment() {
     }
 
     fun initImportantSchedule() {
-        importantTasksAdapter = ImportantScheduleAdapter()
+        importantTasksAdapter = ImportantScheduleAdapter().apply {
+            setHasStableIds(true)
+            setItemListener(object : ImportantScheduleAdapter.ItemListener {
+                override fun onItemClick(scheduleId: Long) {
+                    openScheduleDetail(scheduleId)
+                }
+            })
+        }
         mBinding.recyclerviewImportantTasks.adapter = importantTasksAdapter
 
-        importantTestsAdapter = ImportantScheduleAdapter()
+        importantTestsAdapter = ImportantScheduleAdapter().apply {
+            setHasStableIds(true)
+            setItemListener(object : ImportantScheduleAdapter.ItemListener {
+                override fun onItemClick(scheduleId: Long) {
+                    openScheduleDetail(scheduleId)
+                }
+            })
+        }
         mBinding.recyclerviewImportantTests.adapter = importantTestsAdapter
     }
 
@@ -85,7 +100,7 @@ class HomeFragment : Fragment() {
                 ) != today.get(Calendar.MINUTE)
             ) {
                 mViewModel.currentDate.value = today
-                mBinding.textviewDate.text = CalendarUtil.getDateDisplay(today)
+                mBinding.textviewDate.text = CalendarUtil.getDateDisplayDayDate(today)
             }
         }
     }
@@ -180,8 +195,6 @@ class HomeFragment : Fragment() {
 
         val scheduleViewModels = mViewModel.getTodaysScheduleViewModels()
         scheduleTimelineAdapter.setList(scheduleViewModels)
-
-//        if (mViewModel.currentClassIndex != -1) mBinding.recyclerviewJadwal.smoothScrollToPosition(mViewModel.currentClassIndex)
     }
 
     fun updateImportantSchedule() {
@@ -204,5 +217,15 @@ class HomeFragment : Fragment() {
         } else {
             view.visibility = View.GONE
         }
+    }
+
+    fun openScheduleDetail(scheduleId: Long) {
+        val intent = Intent(activity, ScheduleDetailActivity::class.java).apply {
+            putExtra(
+                ScheduleDetailActivity.EXTRA_ID,
+                scheduleId
+            )
+        }
+        startActivity(intent)
     }
 }

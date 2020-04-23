@@ -9,6 +9,7 @@ class ScheduleTimelineViewModel : ViewModel() {
     var isLastSchedule: MutableLiveData<Boolean> = MutableLiveData(false)
     var hasImmediateSchedule: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    var id: Long = 0
     var name: String = ""
     var startMinute: Int = 0
     var endMinute: Int = 0

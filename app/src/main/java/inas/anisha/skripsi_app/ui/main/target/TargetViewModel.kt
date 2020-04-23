@@ -35,9 +35,7 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
         return Transformations.map(mRepository.getSupportingTargets()) { data ->
-            data.map {
-                TargetPendukungViewModel().apply { fromEntity(it) }
-            }
+            data.map { TargetPendukungViewModel().fromEntity(it) }
         }
     }
 

@@ -108,6 +108,10 @@ class Repository(application: Application) {
 
     fun getSchoolCount(dayOfWeek: Int): LiveData<Int> = schoolClassDao.getCount(dayOfWeek)
 
+
+    fun getSchedule(scheduleId: Long): LiveData<ScheduleEntity> =
+        scheduleDao.get(scheduleId)
+
     fun getSchedule(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAll(start, end)
 

@@ -16,7 +16,7 @@ class TargetPendukungDetailViewModel(application: Application) : AndroidViewMode
         mRepository.getSupportingTarget(targetId)
 
     fun getSupportingTargetViewModel(target: TargetPendukungEntity): TargetPendukungViewModel =
-        TargetPendukungViewModel().apply { fromEntity(target) }
+        TargetPendukungViewModel().fromEntity(target)
 
     fun deleteSupportingTarget() = mRepository.deleteSupportingTargets(target.id)
 
