@@ -23,8 +23,8 @@ class HomeFragment : Fragment() {
     lateinit var mViewModel: HomeViewModel
 
     lateinit var scheduleTimelineAdapter: ScheduleTimelineAdapter
-//    lateinit var importantTasksAdapter: ImportantScheduleAdapter
-//    lateinit var importantTestsAdapter: ImportantScheduleAdapter
+    lateinit var importantTasksAdapter: ImportantScheduleAdapter
+    lateinit var importantTestsAdapter: ImportantScheduleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +63,11 @@ class HomeFragment : Fragment() {
     }
 
     fun initImportantSchedule() {
-        // TODO init adapter for todays important tasks and tests
+        importantTasksAdapter = ImportantScheduleAdapter()
+        mBinding.recyclerviewImportantTasks.adapter = importantTasksAdapter
+
+        importantTestsAdapter = ImportantScheduleAdapter()
+        mBinding.recyclerviewImportantTests.adapter = importantTestsAdapter
     }
 
     fun initTomorrowsSchedule() {
@@ -188,7 +192,9 @@ class HomeFragment : Fragment() {
             mViewModel.getImportantScheduleViewModels(mViewModel.todaysTasks)
         val importantTestsViewModels =
             mViewModel.getImportantScheduleViewModels(mViewModel.todaysTests)
-        // TODO map into viewmodel and show on recyclerview
+
+        importantTasksAdapter.setList(importantTaskViewModels)
+        importantTestsAdapter.setList(importantTestsViewModels)
     }
 
     fun updateTomorrowsItem(view: View, textView: TextView, count: Int) {
