@@ -6,7 +6,7 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toNextMidnight
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toPreviousMidnight
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
@@ -97,7 +97,7 @@ class Repository(application: Application) {
     fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAll(
             SkripsiConstant.SCHEDULE_TYPE_TASK,
-            Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toNextMidnight()
+            Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toPreviousMidnight()
         )
 
     fun getSchoolClasses(dayOfWeek: Int): LiveData<List<SchoolClassEntity>> =
