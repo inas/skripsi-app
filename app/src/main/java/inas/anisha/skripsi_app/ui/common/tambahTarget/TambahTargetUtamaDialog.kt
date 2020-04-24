@@ -91,7 +91,6 @@ class TambahTargetUtamaDialog : DialogFragment() {
     }
 
     fun showDatePicker() {
-
         val currentDate = targetDate ?: Calendar.getInstance()
         val year = currentDate.get(Calendar.YEAR)
         val month = currentDate.get(Calendar.MONTH)
@@ -110,7 +109,6 @@ class TambahTargetUtamaDialog : DialogFragment() {
             )
             datePickerDialog.show()
         }
-
     }
 
     fun setOnTargetModifiedListener(callback: OnTargetModifiedListener) {

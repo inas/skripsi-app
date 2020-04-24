@@ -73,31 +73,37 @@
                     app:singleLine="true"
                     app:singleSelection="true">
 
-                    ​
-
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_task"
                         style="@style/chip"
                         android:checked="true"
                         android:minWidth="@dimen/size_chip"
-                        android:text="Tugas"
+                        android:checkable="true"
+                        android:text="@string/fragment_add_schedule_chip_task"
+                        app:chipBackgroundColor="@color/chip_bg_states"
+                        app:chipStrokeColor="@color/chip_stroke_states"
                         android:textAlignment="center" />
 
-                    ​
-
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_test"
                         style="@style/chip"
                         android:checked="false"
+                        android:checkable="true"
+                        android:text="@string/fragment_add_schedule_chip_test"
                         android:minWidth="@dimen/size_chip"
-                        android:text="Ujian"
+                        app:chipBackgroundColor="@color/chip_bg_states"
+                        app:chipStrokeColor="@color/chip_stroke_states"
                         android:textAlignment="center" />
 
-                    ​
-
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_activity"
                         style="@style/chip"
                         android:checked="false"
+                        android:checkable="true"
+                        android:text="@string/fragment_add_schedule_chip_activity"
                         android:minWidth="@dimen/size_chip"
-                        android:text="Kegiatan"
+                        app:chipBackgroundColor="@color/chip_bg_states"
+                        app:chipStrokeColor="@color/chip_stroke_states"
                         android:textAlignment="center" />
                 </com.google.android.material.chip.ChipGroup>
 
@@ -112,19 +118,91 @@
                     app:counterMaxLength="50"
                     app:helperText="Contoh: PR Bahasa Inggris"
                     app:hintEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/textlayout_deadline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/chipgroup"
                     app:startIconDrawable="@drawable/ic_text_fields">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edittext_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/EditText"
                         android:imeOptions="actionNext"
                         android:inputType="textMultiLine|textNoSuggestions"
                         tools:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textlayout_due_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8dp"
+                    android:hint="Tanggal"
+                    app:boxBackgroundColor="@color/white"
+                    app:hintEnabled="true"
+                    app:layout_constraintEnd_toStartOf="@id/textlayout_deadline"
+                    app:layout_constraintHorizontal_weight="3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textlayout_name"
+                    app:startIconDrawable="@drawable/ic_calendar">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edittext_date"
+                        style="@style/EditText"
+                        android:cursorVisible="false"
+                        android:editable="false"
+                        android:inputType="none"
+                        tools:text="20 Juli 2018" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textlayout_deadline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:hint="Waktu"
+                    app:boxBackgroundColor="@color/white"
+                    app:hintEnabled="true"
+                    app:layout_constraintBottom_toBottomOf="@id/textlayout_due_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toEndOf="@id/textlayout_due_date"
+                    app:startIconDrawable="@drawable/ic_clock"
+                    tools:visibility="gone">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edittext_deadline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:editable="false"
+                        android:inputType="none"
+                        android:paddingStart="0dp"
+                        android:textColor="@drawable/edit_text_selector"
+                        android:textSize="14sp"
+                        tools:text="09.00" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_activity_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="imageview_clock,textlayout_start_time,textlayout_end_time"
+                    tools:visibility="visible" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_non_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="textlayout_deadline,textlayout_execution_time,imageview_remove,rating" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_non_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="textlayout_execution_time,imageview_remove" />
 
                 <ImageView
                     android:id="@+id/imageview_clock"
@@ -142,7 +220,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/space_8dp"
                     android:hint="Dari"
                     app:boxBackgroundColor="@color/white"
                     app:hintEnabled="true"
@@ -153,9 +231,13 @@
                     app:layout_constraintWidth_max="150dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edittext_start_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="time"
+                        android:cursorVisible="false"
+                        android:editable="false"
+                        android:inputType="none"
+                        android:textColor="@drawable/edit_text_selector"
                         android:paddingStart="0dp"
                         android:textSize="14sp"
                         tools:text="09.00" />
@@ -175,54 +257,17 @@
                     app:layout_constraintWidth_max="150dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edittextt_end_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="time"
+                        android:cursorVisible="false"
+                        android:editable="false"
+                        android:inputType="none"
+                        android:textColor="@drawable/edit_text_selector"
                         android:paddingStart="0dp"
                         android:textSize="14sp"
                         tools:text="09.00" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textlayout_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8dp"
-                    android:hint="Judul"
-                    app:boxBackgroundColor="@color/white"
-                    app:hintEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textlayout_start_time"
-                    app:startIconDrawable="@drawable/ic_text_fields">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        tools:text="" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textlayout_due_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8dp"
-                    android:hint="Tanggal"
-                    app:boxBackgroundColor="@color/white"
-                    app:hintEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textlayout_name"
-                    app:startIconDrawable="@drawable/ic_calendar">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="datetime"
-                        tools:text="20 Juli 2018" />
-                </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textlayout_note"
@@ -240,9 +285,8 @@
                     app:startIconDrawable="@drawable/ic_note">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ediittext_note"
                         style="@style/EditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:inputType="textMultiLine|textNoSuggestions"
                         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -257,6 +301,7 @@
                     app:layout_constraintTop_toBottomOf="@id/textlayout_note" />
 
                 <RatingBar
+                    android:id="@+id/rating"
                     style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -264,6 +309,9 @@
                     android:scaleY="0.8"
                     android:stepSize="1"
                     android:transformPivotX="190dp"
+                    android:isIndicator="false"
+                    android:progressBackgroundTint="@color/dark_secondary"
+                    android:progressTint="@color/yellow"
                     app:layout_constraintBottom_toBottomOf="@id/textview_rating"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textview_rating" />
@@ -307,44 +355,39 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textview_rewards" />
 
-                <TextView
-                    android:id="@+id/textview_execution_time"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textlayout_execution_time"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16dp"
-                    android:text="Rencana Pengerjaan"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textview_rewards" />
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/imageview_remove"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/switch_green"
-                    app:layout_constraintBottom_toBottomOf="@id/textview_execution_time"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textview_execution_time"
-                    tools:checked="true" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textlayout_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8dp"
-                    android:hint="Tanggal pengerjaan"
+                    android:layout_marginEnd="@dimen/space_16dp"
+                    android:hint="Rencana pengerjaan (Opsional)"
                     app:boxBackgroundColor="@color/white"
                     app:hintEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageview_remove"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageview_remove"
+                    app:layout_constraintTop_toBottomOf="@id/textview_rewards"
                     app:startIconDrawable="@drawable/ic_calendar">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="datetime"
+                        android:id="@+id/edittext_execution_time"
+                        style="@style/EditText"
+                        android:cursorVisible="false"
+                        android:editable="false"
+                        android:inputType="none"
                         tools:text="20 Juli 2018" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/imageview_remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_button_padding"
+                    android:src="@drawable/ic_close_round"
+                    app:layout_constraintBottom_toBottomOf="@id/textlayout_execution_time"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textlayout_execution_time"
+                    tools:checked="true" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     style="@style/button_full"
@@ -353,7 +396,7 @@
                     android:text="Simpan"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textlayout_date" />
+                    app:layout_constraintTop_toBottomOf="@id/textlayout_execution_time" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

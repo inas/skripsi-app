@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.ActivityScheduleDetailBinding
+import inas.anisha.skripsi_app.utils.ViewUtil.Companion.strikeThrough
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class ScheduleDetailActivity : AppCompatActivity() {

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">skripsi-app</string>
     <string name="siklus_belajar_atur_waktu"><b><u>Atur waktu sendiri</u></b></string>
+    <string name="fragment_add_schedule_chip_task">Tugas</string>
+    <string name="fragment_add_schedule_chip_test">Ujian</string>
+    <string name="fragment_add_schedule_chip_activity">Kegiatan</string>
 </resources>
