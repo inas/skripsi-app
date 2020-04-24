@@ -9,5 +9,8 @@ class SkripsiConstant {
         const val SCHEDULE_TYPE_TASK = 111010
         const val SCHEDULE_TYPE_TEST = 111011
         const val SCHEDULE_TYPE_ACTIVITY = 111012
+
+        const val SCHEDULE_TIMELINE_TYPE_ACTIVITY = 111020
+        const val SCHEDULE_TIMELINE_TYPE_CLASS = 111021
     }
 }

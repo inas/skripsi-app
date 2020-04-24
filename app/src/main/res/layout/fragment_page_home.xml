@@ -50,6 +50,7 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/button_rounded"
+                android:letterSpacing="0"
                 android:layout_marginEnd="@dimen/space_16dp"
                 android:drawableRight="@drawable/ic_add_18dp"
                 android:text="Tambah"

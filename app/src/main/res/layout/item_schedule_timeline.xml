@@ -39,13 +39,13 @@
             android:layout_height="12dp"
             android:background="@{viewModel.isEndIncludeCurrentSchedule? @drawable/bg_circle_outlined_yellow : @drawable/bg_circle_solid_yellow }"
             android:visibility="@{!viewModel.hasImmediateSchedule | viewModel.isLastSchedule? View.VISIBLE : View.GONE}"
-            tools:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintStart_toEndOf="@id/view_line_middle"
             app:layout_constraintTop_toTopOf="@id/view_circle_start" />
 
         <TextView
             android:id="@+id/textview_time_start"
-            style="@style/font_normal"
+            style="@style/font_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_2dp"
@@ -56,18 +56,18 @@
 
         <View
             android:id="@+id/view_line_end"
-            android:layout_width="36dp"
+            android:layout_width="28dp"
             android:layout_height="@dimen/common_4dp"
             android:background="@color/yellow"
             android:visibility="@{!viewModel.hasImmediateSchedule | viewModel.isLastSchedule? View.VISIBLE : View.GONE}"
-            tools:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/view_circle_end"
             app:layout_constraintStart_toEndOf="@id/view_circle_end"
             app:layout_constraintTop_toTopOf="@id/view_circle_end" />
 
         <TextView
             android:id="@+id/textview_time_end"
-            style="@style/font_normal"
+            style="@style/font_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_4dp"
@@ -82,8 +82,7 @@
             android:layout_width="120dp"
             android:layout_height="52dp"
             android:layout_marginTop="@dimen/space_2dp"
-            android:background="@drawable/bg_rounded_pink"
-            android:backgroundTint="@color/yellow"
+            android:background="@drawable/bg_schedule_class"
             app:layout_constraintStart_toStartOf="@id/view_line_middle"
             app:layout_constraintTop_toBottomOf="@id/textview_time_start" />
 

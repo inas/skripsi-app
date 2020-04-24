@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import inas.anisha.skripsi_app.constant.SkripsiConstant
+import inas.anisha.skripsi_app.constant.SkripsiConstant.Companion.SCHEDULE_TIMELINE_TYPE_ACTIVITY
+import inas.anisha.skripsi_app.constant.SkripsiConstant.Companion.SCHEDULE_TIMELINE_TYPE_CLASS
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.SchoolClassEntity
@@ -59,6 +61,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         todaysClasses.forEach {
             viewModels.add(ScheduleTimelineViewModel().apply {
+                type = SCHEDULE_TIMELINE_TYPE_CLASS
                 name = it.name
                 startMinute = it.startMinuteOfDay
                 endMinute = it.endMinuteOfDay
@@ -69,6 +72,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         todaysActivities.forEach {
             viewModels.add(ScheduleTimelineViewModel().apply {
+                type = SCHEDULE_TIMELINE_TYPE_ACTIVITY
                 name = it.name
                 startMinute = it.startMinuteOfDay
                 endMinute = it.endMinuteOfDay

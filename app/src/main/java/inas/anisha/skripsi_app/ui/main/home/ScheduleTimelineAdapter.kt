@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import inas.anisha.skripsi_app.R
+import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.databinding.ItemScheduleTimelineBinding
 
 class ScheduleTimelineAdapter :
@@ -26,6 +27,11 @@ class ScheduleTimelineAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.viewModel = viewModels[position]
+        if (viewModels[position].type == SkripsiConstant.SCHEDULE_TIMELINE_TYPE_ACTIVITY) {
+            holder.binding.viewJadwal.setBackgroundResource(R.drawable.bg_schedule_activity)
+        } else {
+            holder.binding.viewJadwal.setBackgroundResource(R.drawable.bg_schedule_class)
+        }
     }
 
     override fun getItemCount(): Int {
