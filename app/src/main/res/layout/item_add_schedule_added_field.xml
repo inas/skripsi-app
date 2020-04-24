@@ -28,7 +28,7 @@
             android:id="@+id/imageview_icon"
             android:layout_width="@dimen/common_16dp"
             android:layout_height="@dimen/common_16dp"
-            android:tint="@color/white"
+            android:backgroundTint="@color/dark_primary"
             app:layout_constraintBottom_toBottomOf="@id/textview_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/textview_title"

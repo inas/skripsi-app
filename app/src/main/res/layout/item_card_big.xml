@@ -56,8 +56,10 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.dateString}"
                 android:textColor="@color/white"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 app:layout_constraintBottom_toTopOf="@id/textview_target"
-                app:layout_constraintStart_toStartOf="@id/textview_target"
+                app:layout_constraintStart_toStartOf="parent"
                 tools:text="2020" />
 
             <TextView
@@ -68,13 +70,15 @@
                 android:layout_marginTop="@dimen/space_24dp"
                 android:layout_marginEnd="@dimen/space_16dp"
                 android:layout_marginBottom="@dimen/space_4dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                app:layout_constraintStart_toStartOf="parent"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@{viewModel.name}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@id/textview_target_time"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/textview_target_time"
+                app:layout_goneMarginBottom="@dimen/space_16dp"
                 tools:text="Rutin belajar mandiri shhshs shhshs hshsh shhhs shhs" />
 
             <TextView
@@ -89,6 +93,8 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@{viewModel.note}"
+                android:visibility="@{viewModel.note.empty? View.GONE : View.VISIBLE}"
+                tools:visibility="gone"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -3,6 +3,7 @@ package inas.anisha.skripsi_app.ui.main.schedule
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
@@ -57,6 +59,7 @@ class AddScheduleDialog : DialogFragment() {
         }
 
         mBinding.imageviewClose.setOnClickListener { dismiss() }
+        mBinding.buttonSave.setOnClickListener { saveSchedule() }
 
         setChipGroupListener()
         setEditText()
@@ -93,7 +96,7 @@ class AddScheduleDialog : DialogFragment() {
 
         mViewModel.reward.takeIf { it.isNotBlank() }?.let {
             mBinding.layoutRewards.layout.visibility = View.VISIBLE
-            mBinding.textviewRewardsButton.text = "Tambahkan"
+            mBinding.textviewRewardsButton.text = "Edit"
             mBinding.layoutRewards.textviewTitle.text = it
         }
 
@@ -199,6 +202,17 @@ class AddScheduleDialog : DialogFragment() {
         }
     }
 
+    fun saveSchedule() {
+        if (mViewModel.type == SkripsiConstant.SCHEDULE_TYPE_ACTIVITY) {
+            Snackbar.make(
+                mBinding.buttonSave,
+                "Tidak boleh ada kegiatan atau kelas dengan waktu yang sama",
+                Snackbar.LENGTH_LONG
+            )
+                .setAnchorView(mBinding.buttonSave).show()
+        }
+    }
+
     fun showDatePicker(textView: TextView, isExecutionDate: Boolean) {
         val currentDate = (if (isExecutionDate) mViewModel.executionTime else mViewModel.endDate)
             ?: Calendar.getInstance()
@@ -296,6 +310,12 @@ class AddScheduleDialog : DialogFragment() {
         })
 
         addRewardsDialog.show(childFragmentManager, AddScheduleRewardsDialog.TAG)
+    }
+
+    private fun isSaveButtonVisible(): Boolean {
+        val scrollBounds = Rect()
+        mBinding.scrollview.getHitRect(scrollBounds)
+        return mBinding.buttonSave.getLocalVisibleRect(scrollBounds)
     }
 
     fun setOnTargetAddedListener(callback: AddScheduleDialogListener) {

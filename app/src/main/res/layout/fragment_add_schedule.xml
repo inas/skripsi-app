@@ -37,6 +37,7 @@
             app:layout_constraintTop_toTopOf="@id/textview_title" />
 
         <ScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/space_16dp"
@@ -268,7 +269,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16dp"
-                    android:hint="Catatan"
+                    android:hint="Catatan (opsional)"
                     app:boxBackgroundColor="@color/white"
                     app:counterEnabled="true"
                     app:counterMaxLength="500"
@@ -289,7 +290,7 @@
                     android:id="@+id/textview_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_24dp"
                     android:text="Prioritas"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textlayout_note" />
@@ -314,7 +315,7 @@
                     android:id="@+id/textview_reminder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_24dp"
                     android:text="Pengingat"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview_rating" />
@@ -336,8 +337,8 @@
                     android:text="Tambahkan"
                     android:textColor="@color/green"
                     android:paddingStart="@dimen/space_8dp"
-                    android:paddingTop="@dimen/space_8dp"
-                    android:paddingBottom="@dimen/space_8dp"
+                    android:paddingTop="@dimen/space_12dp"
+                    android:paddingBottom="@dimen/space_12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/textview_reminder"
                     app:layout_constraintTop_toTopOf="@id/textview_reminder" />
@@ -346,7 +347,7 @@
                     android:id="@+id/textview_rewards"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_24dp"
                     android:drawableTint="@color/dark_secondary"
                     android:text="Penghargaan"
                     app:layout_constraintStart_toStartOf="parent"
@@ -369,8 +370,8 @@
                     android:text="Tambahkan"
                     android:textColor="@color/green"
                     android:paddingStart="@dimen/space_8dp"
-                    android:paddingTop="@dimen/space_8dp"
-                    android:paddingBottom="@dimen/space_8dp"
+                    android:paddingTop="@dimen/space_12dp"
+                    android:paddingBottom="@dimen/space_12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/textview_rewards"
                     app:layout_constraintTop_toTopOf="@id/textview_rewards" />
@@ -381,7 +382,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16dp"
                     android:layout_marginEnd="@dimen/space_16dp"
-                    android:hint="Tanggal pengerjaan (Opsional)"
+                    android:hint="Tanggal pengerjaan (opsional)"
                     app:boxBackgroundColor="@color/white"
                     app:hintEnabled="true"
                     app:layout_constraintEnd_toStartOf="@id/imageview_remove"
@@ -410,6 +411,7 @@
                     tools:checked="true" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_save"
                     style="@style/button_full"
                     android:layout_marginTop="@dimen/space_32dp"
                     android:background="@drawable/bg_rounded_dark_secondary"

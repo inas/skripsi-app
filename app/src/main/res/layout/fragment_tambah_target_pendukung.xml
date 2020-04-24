@@ -70,7 +70,7 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
-                android:hint="Catatan"
+                android:hint="Catatan (opsional)"
                 app:counterEnabled="true"
                 app:counterMaxLength="500"
                 app:layout_constraintEnd_toEndOf="parent"

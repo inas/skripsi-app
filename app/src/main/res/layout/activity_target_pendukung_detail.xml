@@ -75,6 +75,7 @@
             android:drawableTint="@color/dark_secondary"
             android:gravity="center_vertical"
             android:text="@{viewModel.note}"
+            android:visibility="@{viewModel.note.empty? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_target_name"
