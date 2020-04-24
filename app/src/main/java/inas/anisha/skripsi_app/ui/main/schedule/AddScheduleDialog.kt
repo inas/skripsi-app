@@ -29,6 +29,10 @@ class AddScheduleDialog : DialogFragment() {
     private var mCallback: AddScheduleDialogListener? = null
     private var mSchedule: ScheduleEntity? = null
 
+    private var startTime: Calendar? = null
+    private var endTime: Calendar? = null
+    private var deadlineTime: Calendar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.FullScreenDialogStyle)
@@ -50,12 +54,29 @@ class AddScheduleDialog : DialogFragment() {
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this
         mSchedule = arguments?.getParcelable(ARG_SCHEDULE)
+        mSchedule?.let { mViewModel.fromEntity(it) }
 
         mBinding.imageviewClose.setOnClickListener { dismiss() }
         mBinding.imageviewRemove.setOnClickListener {
             mViewModel.executionTime = null
             mBinding.edittextExecutionTime.setText("")
             if (mBinding.edittextExecutionTime.hasFocus()) mBinding.edittextExecutionTime.clearFocus()
+        }
+
+        mBinding.textviewRewardsButton.setOnClickListener {
+            showAddRewardsDialog()
+        }
+
+        mBinding.layoutRewards.imageviewIcon.setBackgroundDrawable(
+            resources.getDrawable(
+                R.drawable.ic_trophy,
+                null
+            )
+        )
+        mBinding.layoutRewards.textviewRemoveButton.setOnClickListener {
+            mViewModel.reward = ""
+            mBinding.layoutRewards.layout.visibility = View.GONE
+            mBinding.textviewRewardsButton.text = "Tambahkan"
         }
 
         setChipGroupListener()
@@ -138,19 +159,28 @@ class AddScheduleDialog : DialogFragment() {
 
         mBinding.edittextStartTime.apply {
             setOnClickListener {
-                showTimePicker(it as TextView, true)
+                showTimePicker(true)
             }
             setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) showTimePicker(view as TextView, true)
+                if (hasFocus) showTimePicker(true)
             }
         }
 
         mBinding.edittexttEndTime.apply {
             setOnClickListener {
-                showTimePicker(it as TextView, false)
+                showTimePicker(false)
             }
             setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) showTimePicker(view as TextView, false)
+                if (hasFocus) showTimePicker(false)
+            }
+        }
+
+        mBinding.edittextDeadline.apply {
+            setOnClickListener {
+                showTimePicker(false)
+            }
+            setOnFocusChangeListener { view, hasFocus ->
+                if (hasFocus) showTimePicker(false)
             }
         }
 
@@ -186,7 +216,7 @@ class AddScheduleDialog : DialogFragment() {
         }
     }
 
-    fun showTimePicker(textView: TextView, isStartTime: Boolean) {
+    fun showTimePicker(isStartTime: Boolean) {
         val currentDate =
             if (isStartTime) mViewModel.startDate ?: mViewModel.endDate else mViewModel.endDate
         val hour = currentDate[Calendar.HOUR_OF_DAY]
@@ -202,9 +232,14 @@ class AddScheduleDialog : DialogFragment() {
                         set(Calendar.SECOND, 0)
                     }
 
-                    if (isStartTime) mViewModel.startDate = currentDate else mViewModel.endDate =
-                        currentDate
-                    textView.text = currentDate.toTimeString()
+                    if (isStartTime) {
+                        mViewModel.startDate = currentDate
+                        mBinding.edittextStartTime.setText(currentDate.toTimeString())
+                    } else {
+                        mViewModel.endDate = currentDate
+                        mBinding.edittexttEndTime.setText(currentDate.toTimeString())
+                        mBinding.edittextDeadline.setText(currentDate.toTimeString())
+                    }
                 },
                 hour,
                 minutes,
@@ -223,6 +258,31 @@ class AddScheduleDialog : DialogFragment() {
             mBinding.textlayoutDeadline.visibility = View.VISIBLE
             mBinding.groupActivityTime.visibility = View.GONE
         }
+    }
+
+    fun showAddRewardsDialog() {
+        val addRewardsDialog = AddScheduleRewardsDialog().apply {
+            arguments = Bundle().apply {
+                putString(
+                    AddScheduleRewardsDialog.ARG_REWARDS,
+                    mViewModel.reward
+                )
+            }
+        }
+
+        addRewardsDialog.setConfirmationDialogListener(object :
+            AddScheduleRewardsDialog.ConfirmationDialogListener {
+            override fun onConfirmed(rewards: String) {
+                if (rewards.isNotEmpty()) {
+                    mViewModel.reward = rewards
+                    mBinding.layoutRewards.layout.visibility = View.VISIBLE
+                    mBinding.layoutRewards.textviewTitle.text = rewards
+                    mBinding.textviewRewardsButton.text = "Edit"
+                }
+            }
+        })
+
+        addRewardsDialog.show(childFragmentManager, AddScheduleRewardsDialog.TAG)
     }
 
     fun setOnTargetAddedListener(callback: AddScheduleDialogListener) {

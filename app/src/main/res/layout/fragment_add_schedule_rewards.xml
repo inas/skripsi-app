@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_heading.bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="Tambah penghargaan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/button_close"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="@dimen/space_4dp"
+            android:padding="@dimen/size_button_padding"
+            android:src="@drawable/ic_close_dark"
+            app:layout_constraintBottom_toBottomOf="@id/textview_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textview_title"
+            app:layout_constraintTop_toTopOf="@id/textview_title" />
+
+        <TextView
+            android:id="@+id/textview_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:layout_marginEnd="@dimen/space_12dp"
+            android:text="Berikan penghargaan untuk dirimu sendiri bila telah berhasil menyelesaikan jadwal"
+            app:layout_constraintEnd_toEndOf="@id/button_close"
+            app:layout_constraintStart_toStartOf="@id/textview_title"
+            app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_rewards"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:layout_marginEnd="@dimen/space_12dp"
+            android:hint="Penghargaan"
+            app:boxBackgroundColor="@color/white"
+            app:counterEnabled="true"
+            app:counterMaxLength="100"
+            app:helperText="Contoh: Beli Pizza"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="@id/button_close"
+            app:layout_constraintStart_toStartOf="@id/textview_title"
+            app:layout_constraintTop_toBottomOf="@id/textview_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_rewards"
+                style="@style/EditText"
+                android:imeOptions="actionNext"
+                android:inputType="textMultiLine|textNoSuggestions" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_confirm"
+            style="@style/button_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_32dp"
+            android:layout_marginEnd="@dimen/space_12dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:text="Simpan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/button_close"
+            app:layout_constraintStart_toStartOf="@id/textview_title"
+            app:layout_constraintTop_toBottomOf="@id/textlayout_rewards" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

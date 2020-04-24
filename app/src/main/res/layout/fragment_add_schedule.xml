@@ -52,6 +52,26 @@
                 android:paddingEnd="@dimen/page_padding"
                 android:paddingBottom="@dimen/page_padding">
 
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_activity_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:constraint_referenced_ids="imageview_clock,textlayout_start_time,textlayout_end_time"
+                    tools:visibility="visible" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_non_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="textlayout_deadline,textlayout_execution_time,imageview_remove" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_non_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="textlayout_execution_time,imageview_remove" />
+
                 <TextView
                     android:id="@+id/textview_type"
                     style="@style/font_small.bold"
@@ -184,26 +204,6 @@
                         tools:text="09.00" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/group_activity_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:constraint_referenced_ids="imageview_clock,textlayout_start_time,textlayout_end_time"
-                    tools:visibility="visible" />
-
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/group_non_activity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="textlayout_deadline,textlayout_execution_time,imageview_remove,rating" />
-
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/group_non_test"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="textlayout_execution_time,imageview_remove" />
-
                 <ImageView
                     android:id="@+id/imageview_clock"
                     android:layout_width="wrap_content"
@@ -325,13 +325,27 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview_rating" />
 
+                <include
+                    android:id="@+id/layout_reminder"
+                    layout="@layout/item_add_schedule_added_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_reminder" />
+
                 <TextView
                     android:id="@+id/textview_reminder_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tambahkan"
                     android:textColor="@color/green"
+                    android:paddingStart="@dimen/space_8dp"
+                    android:paddingTop="@dimen/space_8dp"
+                    android:paddingBottom="@dimen/space_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/textview_reminder"
                     app:layout_constraintTop_toTopOf="@id/textview_reminder" />
 
                 <TextView
@@ -339,12 +353,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16dp"
-                    android:drawableEnd="@drawable/ic_info_small"
-                    android:drawablePadding="@dimen/space_8dp"
                     android:drawableTint="@color/dark_secondary"
                     android:text="Penghargaan"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textview_reminder" />
+                    app:layout_constraintTop_toBottomOf="@id/layout_reminder" />
+
+                <include
+                    android:id="@+id/layout_rewards"
+                    layout="@layout/item_add_schedule_added_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_rewards" />
 
                 <TextView
                     android:id="@+id/textview_rewards_button"
@@ -352,7 +374,11 @@
                     android:layout_height="wrap_content"
                     android:text="Tambahkan"
                     android:textColor="@color/green"
+                    android:paddingStart="@dimen/space_8dp"
+                    android:paddingTop="@dimen/space_8dp"
+                    android:paddingBottom="@dimen/space_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/textview_rewards"
                     app:layout_constraintTop_toTopOf="@id/textview_rewards" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -361,12 +387,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16dp"
                     android:layout_marginEnd="@dimen/space_16dp"
-                    android:hint="Rencana pengerjaan (Opsional)"
+                    android:hint="Tanggal pengerjaan (Opsional)"
                     app:boxBackgroundColor="@color/white"
                     app:hintEnabled="true"
                     app:layout_constraintEnd_toStartOf="@id/imageview_remove"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textview_rewards"
+                    app:layout_constraintTop_toBottomOf="@id/layout_rewards"
                     app:startIconDrawable="@drawable/ic_calendar">
 
                     <com.google.android.material.textfield.TextInputEditText

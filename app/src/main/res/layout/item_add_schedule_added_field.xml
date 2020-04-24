@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isNotificationItem"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/divider_top"
+            layout="@layout/common_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_icon"
+            android:layout_width="@dimen/common_16dp"
+            android:layout_height="@dimen/common_16dp"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/textview_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_title"
+            tools:background="@drawable/ic_trophy" />
+
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_12dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@id/textview_description"
+            app:layout_constraintEnd_toStartOf="@id/textview_remove_button"
+            app:layout_constraintStart_toEndOf="@id/imageview_icon"
+            app:layout_constraintTop_toBottomOf="@id/divider_top"
+            app:layout_goneMarginBottom="@dimen/space_16dp"
+            tools:text="haha ahahah ahhaha ahahaha ahahha ahahahah ahahah aha" />
+
+        <TextView
+            android:id="@+id/textview_description"
+            style="@style/font_normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_4dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_12dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/dark_secondary"
+            android:visibility="@{isNotificationItem? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/divider_bottom"
+            app:layout_constraintEnd_toStartOf="@id/textview_remove_button"
+            app:layout_constraintStart_toEndOf="@id/imageview_icon"
+            app:layout_constraintTop_toBottomOf="@id/textview_title"
+            tools:text="Suara, getaran, ulangi"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textview_remove_button"
+            style="@style/font_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4dp"
+            android:paddingStart="@dimen/space_8dp"
+            android:paddingTop="@dimen/space_8dp"
+            android:paddingBottom="@dimen/space_8dp"
+            android:text="Hapus"
+            android:textColor="@color/pink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/divider_top" />
+
+        <include
+            android:id="@+id/divider_bottom"
+            layout="@layout/common_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

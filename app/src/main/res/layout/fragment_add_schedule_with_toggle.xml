@@ -294,7 +294,11 @@
                     android:layout_height="wrap_content"
                     android:text="Tambahkan"
                     android:textColor="@color/green"
+                    android:paddingStart="@dimen/space_8dp"
+                    android:paddingTop="@dimen/space_8dp"
+                    android:paddingBottom="@dimen/space_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/textview_reminder"
                     app:layout_constraintTop_toTopOf="@id/textview_reminder" />
 
                 <TextView
@@ -302,8 +306,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16dp"
-                    android:drawableEnd="@drawable/ic_info_small"
-                    android:drawablePadding="@dimen/space_8dp"
                     android:drawableTint="@color/dark_secondary"
                     android:text="Penghargaan"
                     app:layout_constraintStart_toStartOf="parent"
@@ -315,7 +317,11 @@
                     android:layout_height="wrap_content"
                     android:text="Tambahkan"
                     android:textColor="@color/green"
+                    android:paddingStart="@dimen/space_8dp"
+                    android:paddingTop="@dimen/space_8dp"
+                    android:paddingBottom="@dimen/space_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/textview_rewards"
                     app:layout_constraintTop_toTopOf="@id/textview_rewards" />
 
                 <TextView
