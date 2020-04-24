@@ -126,6 +126,10 @@ class Repository(application: Application) {
         Observable.fromCallable { scheduleDao.updateOnTimeStatus(scheduleId, isOnTime) }
             .subscribeOn(Schedulers.io()).subscribe()
 
+    fun deleteSchedule(scheduleId: Long) =
+        Observable.fromCallable { scheduleDao.delete(scheduleId) }
+            .subscribeOn(Schedulers.io()).subscribe()
+
     companion object {
         // For Singleton instantiation
         @Volatile

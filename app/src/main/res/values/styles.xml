@@ -138,6 +138,14 @@
         <item name="android:textColor">@color/green</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Button.Outlined.Toggle">
+        <item name="android:textColor">@color/dark_primary</item>
+        <item name="fontPath">fonts/rubikRegular.ttf</item>
+        <item name="android:textSize">@dimen/text_14sp</item>
+        <item name="lineHeight">@dimen/text_22sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
     <!--  Chip styles  -->
 
     <style name="chip">

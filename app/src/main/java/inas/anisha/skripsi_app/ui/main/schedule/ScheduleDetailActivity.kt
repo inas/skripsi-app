@@ -10,9 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.ActivityScheduleDetailBinding
-import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
-import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
-import inas.anisha.skripsi_app.utils.ViewUtil.Companion.strikeThrough
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class ScheduleDetailActivity : AppCompatActivity() {
@@ -51,11 +48,11 @@ class ScheduleDetailActivity : AppCompatActivity() {
         }
 
         mBinding.buttonEdit.setOnClickListener {
-//            openModifySupportingTargetDialog(TargetPendukungViewModel().fromEntity(mViewModel.target))
+            openEditScheduleDialog()
         }
 
         mBinding.buttonHapus.setOnClickListener {
-//            mViewModel.deleteSupportingTarget()
+            mViewModel.deleteTask()
             finish()
         }
     }
@@ -75,21 +72,21 @@ class ScheduleDetailActivity : AppCompatActivity() {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
     }
 
-    fun openModifySupportingTargetDialog(target: TargetPendukungViewModel) {
-        val tambahTargetDialog = TambahTargetPendukungDialog().apply {
+    fun openEditScheduleDialog() {
+        val editScheduleDialog = AddScheduleDialog().apply {
             arguments = Bundle().apply {
-                putParcelable(TambahTargetPendukungDialog.ARG_TARGET, target.toEntity())
+                putParcelable(AddScheduleDialog.ARG_SCHEDULE, mViewModel.schedule)
             }
         }
 
-        tambahTargetDialog.setOnTargetAddedListener(object :
-            TambahTargetPendukungDialog.OnTargetModifiedListener {
-            override fun onTargetModified(target: TargetPendukungViewModel) {
-//                mViewModel.updateSupportingTarget(target)
-            }
-        })
+//        editScheduleDialog.setOnTargetAddedListener(object :
+//            TambahTargetPendukungDialog.OnTargetModifiedListener {
+//            override fun onTargetModified(target: TargetPendukungViewModel) {
+////                mViewModel.updateSupportingTarget(target)
+//            }
+//        })
 
-        tambahTargetDialog.show(supportFragmentManager, TambahTargetPendukungDialog.TAG)
+        editScheduleDialog.show(supportFragmentManager, AddScheduleDialog.TAG)
     }
 
     companion object {
