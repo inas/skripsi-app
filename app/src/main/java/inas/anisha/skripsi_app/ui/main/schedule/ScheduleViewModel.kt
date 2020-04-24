@@ -26,16 +26,15 @@ class ScheduleViewModel : ViewModel() {
 
     fun getDate(): String {
         var date = CalendarUtil.getDateDisplayDate(endDate) + "; "
-        startDate?.let { date += startDate?.toTimeString() ?: " - " }
+        startDate?.takeIf { type != SkripsiConstant.SCHEDULE_TYPE_TASK }
+            ?.let { date += startDate?.toTimeString() + " - " }
         date += endDate.toTimeString()
 
         return date
     }
 
     fun getExecutionTimeDisplay(): String {
-        executionTime?.let {
-            return "Rencana pengerjaan: " + CalendarUtil.getDateDisplayDate(it) + "; " + it.toTimeString()
-        }
+        executionTime?.let { return "Rencana pengerjaan: " + CalendarUtil.getDateDisplayDate(it) }
         return ""
     }
 

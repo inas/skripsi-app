@@ -53,7 +53,7 @@
                 android:paddingBottom="@dimen/page_padding">
 
                 <androidx.constraintlayout.widget.Group
-                    android:id="@+id/group_activity_time"
+                    android:id="@+id/group_non_task"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
@@ -61,16 +61,10 @@
                     tools:visibility="visible" />
 
                 <androidx.constraintlayout.widget.Group
-                    android:id="@+id/group_non_activity"
+                    android:id="@+id/group_task"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:constraint_referenced_ids="textlayout_deadline,textlayout_execution_time,imageview_remove" />
-
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/group_non_test"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="textlayout_execution_time,imageview_remove" />
 
                 <TextView
                     android:id="@+id/textview_type"
