@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.SchoolClassEntity
@@ -12,6 +13,7 @@ import inas.anisha.skripsi_app.utils.CalendarUtil
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toNextMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toPreviousMidnight
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
 import java.util.*
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
@@ -111,7 +113,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             viewModels.add(ImportantScheduleViewModel().apply {
                 id = it.id
                 name = it.name
-                time = CalendarUtil.fromMinuteToTimeString(it.endMinuteOfDay)
+                time = it.startDate.toTimeString()
+                if (it.type != SkripsiConstant.SCHEDULE_TYPE_TASK) time += " - " + it.endDate.toTimeString()
                 rating = it.priority
                 isCompleted = it.isCompleted
             })

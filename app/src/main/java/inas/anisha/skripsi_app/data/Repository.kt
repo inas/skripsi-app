@@ -6,8 +6,10 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toPreviousMidnight
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
@@ -99,7 +101,6 @@ class Repository(application: Application) {
 
     fun getSchoolCount(dayOfWeek: Int): LiveData<Int> = schoolClassDao.getCount(dayOfWeek)
 
-
     fun getTasks(): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASK)
 
@@ -112,11 +113,40 @@ class Repository(application: Application) {
     fun getSchedule(scheduleId: Long): LiveData<ScheduleEntity> =
         scheduleDao.get(scheduleId)
 
+    fun getOverlappingEntity(
+        start: Calendar,
+        end: Calendar
+    ): Observable<Pair<List<ScheduleEntity>, List<SchoolClassEntity>>> {
+        return Observable.zip(
+            Observable.fromCallable {
+                (scheduleDao.getOverlappingEntity(
+                    SkripsiConstant.SCHEDULE_TYPE_ACTIVITY,
+                    start,
+                    end
+                ))
+            }.subscribeOn(Schedulers.io()),
+            Observable.fromCallable {
+                (schoolClassDao.getOverlappingEntity(
+                    start.get(Calendar.DAY_OF_WEEK),
+                    start.toMinuteOfDay(),
+                    end.toMinuteOfDay()
+                ))
+            }.subscribeOn(Schedulers.io()),
+            BiFunction { schedule: List<ScheduleEntity>, schoolClass: List<SchoolClassEntity> ->
+                Pair(schedule, schoolClass)
+            }
+        )
+    }
+
     fun getSchedule(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAll(start, end)
 
     fun getScheduleSorted(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAllSorted(start, end)
+
+    fun updateSchedule(schedule: ScheduleEntity) =
+        Observable.fromCallable { scheduleDao.update(schedule) }
+            .subscribeOn(Schedulers.io()).subscribe()
 
     fun updateScheduleAsComplete(scheduleId: Long, isCompleted: Boolean) =
         Observable.fromCallable { scheduleDao.updateCompleteness(scheduleId, isCompleted) }
@@ -129,6 +159,7 @@ class Repository(application: Application) {
     fun deleteSchedule(scheduleId: Long) =
         Observable.fromCallable { scheduleDao.delete(scheduleId) }
             .subscribeOn(Schedulers.io()).subscribe()
+
 
     companion object {
         // For Singleton instantiation

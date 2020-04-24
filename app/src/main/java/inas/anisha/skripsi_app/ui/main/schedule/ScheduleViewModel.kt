@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.utils.CalendarUtil
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardize
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
 import java.util.*
 
@@ -13,8 +14,8 @@ class ScheduleViewModel : ViewModel() {
     var type: Int = 0
     var name: String = ""
 
-    var startDate: Calendar? = null
-    var endDate: Calendar = Calendar.getInstance()
+    var startDate: Calendar = Calendar.getInstance().standardize()
+    var endDate: Calendar = Calendar.getInstance().standardize()
     var executionTime: Calendar? = null
 
     var note: String = ""
@@ -26,8 +27,9 @@ class ScheduleViewModel : ViewModel() {
 
     fun getDate(): String {
         var date = CalendarUtil.getDateDisplayDate(endDate) + "; "
-        startDate?.takeIf { type != SkripsiConstant.SCHEDULE_TYPE_TASK }
-            ?.let { date += startDate?.toTimeString() + " - " }
+        if (type != SkripsiConstant.SCHEDULE_TYPE_TASK) {
+            date += startDate.toTimeString() + " - "
+        }
         date += endDate.toTimeString()
 
         return date
@@ -50,12 +52,12 @@ class ScheduleViewModel : ViewModel() {
         id,
         type,
         name,
-        startDate,
-        endDate,
+        startDate.standardize(),
+        endDate.standardize(),
         note,
         priority,
         reward,
-        executionTime,
+        executionTime?.standardize(),
         isCompleted,
         isOnTime
     )
@@ -65,9 +67,9 @@ class ScheduleViewModel : ViewModel() {
         type = schedule.type
         name = schedule.name
 
-        startDate = schedule.startDate
-        endDate = schedule.endDate
-        executionTime = schedule.executionTime
+        startDate = schedule.startDate.standardize()
+        endDate = schedule.endDate.standardize()
+        executionTime = schedule.executionTime?.standardize()
 
         note = schedule.note
         priority = schedule.priority

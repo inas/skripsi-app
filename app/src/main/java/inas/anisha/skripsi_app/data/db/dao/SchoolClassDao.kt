@@ -36,4 +36,7 @@ interface SchoolClassDao {
 
     @Query("SELECT COUNT(*) FROM school_class WHERE day = :dayOfWeek")
     fun getCount(dayOfWeek: Int): LiveData<Int>
+
+    @Query("SELECT * FROM school_class WHERE day = :dayOfWeek AND start_minute_of_day < :end AND end_minute_of_day > :start")
+    fun getOverlappingEntity(dayOfWeek: Int, start: Int, end: Int): List<SchoolClassEntity>
 }

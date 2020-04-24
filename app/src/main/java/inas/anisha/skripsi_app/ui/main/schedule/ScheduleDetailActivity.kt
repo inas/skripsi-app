@@ -80,12 +80,12 @@ class ScheduleDetailActivity : AppCompatActivity() {
             }
         }
 
-//        editScheduleDialog.setOnTargetAddedListener(object :
-//            TambahTargetPendukungDialog.OnTargetModifiedListener {
-//            override fun onTargetModified(target: TargetPendukungViewModel) {
-////                mViewModel.updateSupportingTarget(target)
-//            }
-//        })
+        editScheduleDialog.setAddScheduleDialogListener(object :
+            AddScheduleDialog.AddScheduleDialogListener {
+            override fun onScheduleModified(schedule: ScheduleViewModel) {
+                mViewModel.updateSchedule(schedule)
+            }
+        })
 
         editScheduleDialog.show(supportFragmentManager, AddScheduleDialog.TAG)
     }

@@ -21,7 +21,9 @@ class ScheduleDetailViewModel(application: Application) : AndroidViewModel(appli
         mRepository.updateScheduleOnTimeStatus(schedule.id, isOnTime)
     }
 
-    fun deleteTask() = mRepository.deleteSchedule(schedule.id)
+    fun updateSchedule(schedule: ScheduleViewModel) =
+        mRepository.updateSchedule(schedule.toEntity())
 
+    fun deleteTask() = mRepository.deleteSchedule(schedule.id)
 
 }

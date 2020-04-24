@@ -14,7 +14,7 @@ data class ScheduleEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long,
     @ColumnInfo(name = "type") val type: Int = 0,
     @ColumnInfo(name = "name") val name: String = "",
-    @ColumnInfo(name = "start_date") val startDate: Calendar? = null,
+    @ColumnInfo(name = "start_date") val startDate: Calendar = Calendar.getInstance(),
     @ColumnInfo(name = "end_date") val endDate: Calendar = Calendar.getInstance(),
     @ColumnInfo(name = "note") val note: String = "",
     @ColumnInfo(name = "priority") val priority: Int = 0,
@@ -24,7 +24,6 @@ data class ScheduleEntity(
     @ColumnInfo(name = "is_on_time") val isOnTime: Boolean = false,
     @ColumnInfo(name = "week_of_year") val weekOfYear: Int = endDate.get(Calendar.WEEK_OF_YEAR),
     @ColumnInfo(name = "year") val year: Int = endDate.get(Calendar.YEAR),
-    @ColumnInfo(name = "start_minute_of_day") val startMinuteOfDay: Int = (startDate?.toMinuteOfDay()
-        ?: endDate.toMinuteOfDay()),
+    @ColumnInfo(name = "start_minute_of_day") val startMinuteOfDay: Int = startDate.toMinuteOfDay(),
     @ColumnInfo(name = "end_minute_of_day") val endMinuteOfDay: Int = endDate.toMinuteOfDay()
 ) : Parcelable

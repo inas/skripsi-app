@@ -45,4 +45,7 @@ interface ScheduleDao {
 
     @Query("SELECT COUNT(*) FROM schedule WHERE end_date BETWEEN :start AND :end AND type = :type")
     fun getCount(start: Calendar, end: Calendar, type: Int): LiveData<Int>
+
+    @Query("SELECT * FROM schedule WHERE type = :type AND start_date < :end AND end_date > :start")
+    fun getOverlappingEntity(type: Int, start: Calendar, end: Calendar): List<ScheduleEntity>
 }

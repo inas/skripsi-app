@@ -43,36 +43,66 @@ class MockData {
                 SchoolClassEntity(
                     0,
                     "kelas 1",
-                    Calendar.getInstance().apply { set(2020, 3, 23, 8, 0) },
-                    Calendar.getInstance().apply { set(2020, 3, 23, 9, 30) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 23, 8, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 23, 9, 30)
+                    },
                     Calendar.THURSDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 2",
-                    Calendar.getInstance().apply { set(2020, 3, 23, 9, 30) },
-                    Calendar.getInstance().apply { set(2020, 3, 23, 11, 0) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 23, 9, 30)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 23, 11, 0)
+                    },
                     Calendar.THURSDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 3",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 11, 50) },
-                    Calendar.getInstance().apply { set(2020, 3, 23, 13, 30) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 11, 50)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 23, 13, 30)
+                    },
                     Calendar.THURSDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 4",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 8, 0) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 9, 30) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 8, 0, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 9, 0, 0)
+                    },
                     Calendar.FRIDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 5",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 10, 0) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 11, 30) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 10, 0, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 11, 0, 0)
+                    },
                     Calendar.FRIDAY
                 )
             )
@@ -84,30 +114,54 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_ACTIVITY,
                     "Kegiatan 1",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 11, 10) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 11, 50) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 11, 0, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 12, 0, 0)
+                    },
                     "makan siang bawa bekel yang sehat"
                 ),
                 ScheduleEntity(
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_ACTIVITY,
                     "Kegiatan 2",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 14, 10) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 14, 40) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 13, 0, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 14, 0, 0)
+                    },
                     "ngaji bentar"
                 ),
                 ScheduleEntity(
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_ACTIVITY,
                     "Kegiatan 3",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 11, 10) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 11, 50) }),
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 15, 0, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 16, 0, 0)
+                    }),
                 ScheduleEntity(
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TEST,
                     "Test 1",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 8, 10) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 10, 40) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 8, 10, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 10, 40, 0)
+                    },
                     "ulangan biologi aduh belom belajar",
                     5
                 ),
@@ -115,8 +169,14 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TEST,
                     "Test 2",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 10, 10) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 11, 10) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 10, 10)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 11, 10)
+                    },
                     "ulangan ulangin",
                     3
                 ),
@@ -124,8 +184,14 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 1",
-                    null,
-                    Calendar.getInstance().apply { set(2020, 3, 24, 10, 0) },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 10, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 24, 10, 0)
+                    },
                     "Tugas 1",
                     4,
                     "marugame",
@@ -137,7 +203,7 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 2",
-                    null,
+                    Calendar.getInstance().apply { set(2020, 3, 24, 21, 0) },
                     Calendar.getInstance().apply { set(2020, 3, 24, 21, 0) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     5,
@@ -150,7 +216,7 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 3",
-                    null,
+                    Calendar.getInstance().apply { set(2020, 3, 24, 21, 40) },
                     Calendar.getInstance().apply { set(2020, 3, 24, 21, 40) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     4
@@ -159,7 +225,7 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 4",
-                    null,
+                    Calendar.getInstance().apply { set(2020, 3, 25, 11, 10) },
                     Calendar.getInstance().apply { set(2020, 3, 25, 11, 10) },
                     "ulangan ulangin",
                     3,
@@ -169,7 +235,7 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 5",
-                    null,
+                    Calendar.getInstance().apply { set(2020, 3, 26, 11, 10) },
                     Calendar.getInstance().apply { set(2020, 3, 26, 11, 10) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     0

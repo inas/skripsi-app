@@ -3,7 +3,6 @@ package inas.anisha.skripsi_app.ui.main.schedule
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
-import android.graphics.Rect
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -18,10 +17,16 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
+import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddScheduleBinding
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardize
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 
@@ -29,6 +34,8 @@ class AddScheduleDialog : DialogFragment() {
 
     private lateinit var mBinding: FragmentAddScheduleBinding
     private lateinit var mViewModel: ScheduleViewModel
+    private lateinit var mRepository: Repository
+    private lateinit var compositeDisposable: CompositeDisposable
     private var mCallback: AddScheduleDialogListener? = null
     private var mSchedule: ScheduleEntity? = null
 
@@ -58,14 +65,22 @@ class AddScheduleDialog : DialogFragment() {
             initViewValues()
         }
 
+        activity?.application?.let { mRepository = Repository.getInstance(it) }
+        compositeDisposable = CompositeDisposable()
+
         mBinding.imageviewClose.setOnClickListener { dismiss() }
-        mBinding.buttonSave.setOnClickListener { saveSchedule() }
+        mBinding.buttonSave.setOnClickListener { verifyData() }
 
         setChipGroupListener()
         setEditText()
         setRewardView()
 
         return mBinding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        compositeDisposable.dispose()
     }
 
     fun initViewValues() {
@@ -87,7 +102,7 @@ class AddScheduleDialog : DialogFragment() {
         mBinding.edittextName.setText(mViewModel.name)
         mBinding.edittextDate.setText(mViewModel.endDate.toDateString())
 
-        mBinding.edittextStartTime.setText(mViewModel.startDate?.toTimeString() ?: "")
+        mBinding.edittextStartTime.setText(mViewModel.startDate.toTimeString())
         mBinding.edittexttEndTime.setText(mViewModel.endDate.toTimeString())
         mBinding.edittextDeadline.setText(mViewModel.endDate.toTimeString())
 
@@ -202,20 +217,48 @@ class AddScheduleDialog : DialogFragment() {
         }
     }
 
-    fun saveSchedule() {
+    fun verifyData() {
+        applyToViewModel()
         if (mViewModel.type == SkripsiConstant.SCHEDULE_TYPE_ACTIVITY) {
-            Snackbar.make(
-                mBinding.buttonSave,
-                "Tidak boleh ada kegiatan atau kelas dengan waktu yang sama",
-                Snackbar.LENGTH_LONG
-            )
-                .setAnchorView(mBinding.buttonSave).show()
+            isOverlappingScheduleExists(mViewModel.startDate, mViewModel.endDate)
+        } else {
+            saveSchedule()
         }
+    }
+
+    fun applyToViewModel() {
+        mViewModel.name = mBinding.edittextName.text.toString()
+        mViewModel.note = mBinding.ediittextNote.text.toString()
+        mViewModel.priority = mBinding.rating.rating.toInt()
+    }
+
+    fun isOverlappingScheduleExists(start: Calendar, end: Calendar) {
+        mRepository.getOverlappingEntity(start, end)
+            .observeOn(Schedulers.io())
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if (it.first.isNotEmpty() || it.second.isNotEmpty()) {
+                    Snackbar.make(
+                        mBinding.buttonSave,
+                        "Kegiatan tidak boleh memiliki waktu yang sama dengan kegiatan atau jadwal lain",
+                        Snackbar.LENGTH_LONG
+                    )
+                        .setAnchorView(mBinding.buttonSave).show()
+                } else {
+                    saveSchedule()
+                }
+            }.addTo(compositeDisposable)
+    }
+
+    fun saveSchedule() {
+
+        mCallback?.onScheduleModified(mViewModel)
+        dismiss()
     }
 
     fun showDatePicker(textView: TextView, isExecutionDate: Boolean) {
         val currentDate = (if (isExecutionDate) mViewModel.executionTime else mViewModel.endDate)
-            ?: Calendar.getInstance()
+            ?: Calendar.getInstance().standardize()
         val year = currentDate.get(Calendar.YEAR)
         val month = currentDate.get(Calendar.MONTH)
         val day = currentDate.get(Calendar.DAY_OF_MONTH)
@@ -226,12 +269,12 @@ class AddScheduleDialog : DialogFragment() {
                 DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                     if (isExecutionDate) {
                         mViewModel.executionTime =
-                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }
+                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardize()
                     } else {
                         mViewModel.startDate =
-                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }
+                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardize()
                         mViewModel.endDate =
-                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }
+                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardize()
                     }
                     textView.text = currentDate.toDateString()
                 },
@@ -245,7 +288,7 @@ class AddScheduleDialog : DialogFragment() {
 
     fun showTimePicker(isStartTime: Boolean) {
         val currentDate =
-            if (isStartTime) mViewModel.startDate ?: mViewModel.endDate else mViewModel.endDate
+            if (isStartTime) mViewModel.startDate else mViewModel.endDate
         val hour = currentDate[Calendar.HOUR_OF_DAY]
         val minutes = currentDate[Calendar.MINUTE]
 
@@ -255,15 +298,15 @@ class AddScheduleDialog : DialogFragment() {
                 OnTimeSetListener { _, hour, minute ->
                     currentDate.apply {
                         set(Calendar.HOUR_OF_DAY, hour)
-                        set(Calendar.MINUTE, minutes)
+                        set(Calendar.MINUTE, minute)
                         set(Calendar.SECOND, 0)
-                    }
+                    }.standardize()
 
                     if (isStartTime) {
-                        mViewModel.startDate = currentDate
+                        mViewModel.startDate = currentDate.standardize()
                         mBinding.edittextStartTime.setText(currentDate.toTimeString())
                     } else {
-                        mViewModel.endDate = currentDate
+                        mViewModel.endDate = currentDate.standardize()
                         mBinding.edittexttEndTime.setText(currentDate.toTimeString())
                         mBinding.edittextDeadline.setText(currentDate.toTimeString())
                     }
@@ -312,13 +355,7 @@ class AddScheduleDialog : DialogFragment() {
         addRewardsDialog.show(childFragmentManager, AddScheduleRewardsDialog.TAG)
     }
 
-    private fun isSaveButtonVisible(): Boolean {
-        val scrollBounds = Rect()
-        mBinding.scrollview.getHitRect(scrollBounds)
-        return mBinding.buttonSave.getLocalVisibleRect(scrollBounds)
-    }
-
-    fun setOnTargetAddedListener(callback: AddScheduleDialogListener) {
+    fun setAddScheduleDialogListener(callback: AddScheduleDialogListener) {
         mCallback = callback
     }
 

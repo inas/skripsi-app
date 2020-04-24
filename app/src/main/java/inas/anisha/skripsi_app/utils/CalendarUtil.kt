@@ -82,5 +82,11 @@ class CalendarUtil {
                 set(Calendar.MINUTE, minute)
             }.toTimeString()
         }
+
+        fun Calendar.standardize(): Calendar {
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            return this
+        }
     }
 }
