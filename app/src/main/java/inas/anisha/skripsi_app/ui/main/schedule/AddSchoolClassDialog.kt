@@ -3,7 +3,6 @@ package inas.anisha.skripsi_app.ui.main.schedule
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +46,7 @@ class AddSchoolClassDialog : DialogFragment() {
         mBinding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_add_schedule,
+                R.layout.fragment_add_school_class,
                 container,
                 false
             )
@@ -85,22 +84,24 @@ class AddSchoolClassDialog : DialogFragment() {
     }
 
     fun verifyData() {
-
+        applyToViewModel()
+        checkOverlappingSchedule()
     }
 
-    fun checkOverlappingSchedule(start: Calendar, end: Calendar) {
-        Log.d(
-            "debugskripsi",
-            "isoverlappingschedule start: " + start.toTimeString() + " end: " + end.toTimeString()
-        )
-        mRepository.getOverlappingEntity(start, end, mClass?.id ?: -1, -1)
+    fun applyToViewModel() {
+        mViewModel.name = mBinding.edittextName.text.toString()
+        mViewModel.note = mBinding.ediittextNote.text.toString()
+    }
+
+    fun checkOverlappingSchedule() {
+        mRepository.getOverlappingClass(mViewModel.startTime, mViewModel.endTime, mClass?.id ?: -1)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                if (it.first.isNotEmpty() || it.second.isNotEmpty()) {
+                if (it.isNotEmpty()) {
                     Snackbar.make(
                         mBinding.buttonSave,
-                        "Kegiatan tidak boleh memiliki waktu yang sama dengan kegiatan atau jadwal lain",
+                        "Jadwal sekolah tidak boleh memiliki waktu yang sama dengan jadwal sekolah lain",
                         Snackbar.LENGTH_LONG
                     )
                         .setAnchorView(mBinding.buttonSave).show()
@@ -138,22 +139,28 @@ class AddSchoolClassDialog : DialogFragment() {
             setOnClickListener {
                 showTimePicker(mViewModel.startTime) { date: Calendar ->
                     mViewModel.startTime = date
+                    mBinding.edittextStartTime.setText(date.toTimeString())
                 }
             }
             setOnFocusChangeListener { view, hasFocus ->
                 if (hasFocus) showTimePicker(mViewModel.startTime) { date: Calendar ->
                     mViewModel.startTime = date
+                    mBinding.edittextStartTime.setText(date.toTimeString())
                 }
             }
         }
 
         mBinding.edittexttEndTime.apply {
             setOnClickListener {
-                showTimePicker(mViewModel.endTime) { date: Calendar -> mViewModel.endTime = date }
+                showTimePicker(mViewModel.endTime) { date: Calendar ->
+                    mViewModel.endTime = date
+                    mBinding.edittexttEndTime.setText(date.toTimeString())
+                }
             }
             setOnFocusChangeListener { view, hasFocus ->
                 if (hasFocus) showTimePicker(mViewModel.endTime) { date: Calendar ->
                     mViewModel.endTime = date
+                    mBinding.edittexttEndTime.setText(date.toTimeString())
                 }
             }
         }
@@ -181,6 +188,10 @@ class AddSchoolClassDialog : DialogFragment() {
             )
             timePicker.show()
         }
+    }
+
+    fun setAddSchoolDialogCallback(callback: AddSchoolDialogCallback) {
+        mCallback = callback
     }
 
     interface AddSchoolDialogCallback {

@@ -93,6 +93,10 @@ class Repository(application: Application) {
     fun getUserStudy(): String = sharedPreference.getUserStudy()
     fun setUserStudy(study: String) = sharedPreference.setUserStudy(study)
 
+    fun addSchoolClass(schoolClass: SchoolClassEntity) =
+        Observable.fromCallable { schoolClassDao.add(schoolClass) }
+            .subscribeOn(Schedulers.io()).subscribe()
+
     fun getSchoolClasses(dayOfWeek: Int): LiveData<List<SchoolClassEntity>> =
         schoolClassDao.getAll(dayOfWeek)
 
@@ -100,6 +104,21 @@ class Repository(application: Application) {
         schoolClassDao.getAllSorted(dayOfWeek)
 
     fun getSchoolCount(dayOfWeek: Int): LiveData<Int> = schoolClassDao.getCount(dayOfWeek)
+
+    fun getOverlappingClass(
+        start: Calendar,
+        end: Calendar,
+        classId: Long
+    ): Observable<List<SchoolClassEntity>> {
+        return Observable.fromCallable {
+            (schoolClassDao.getOverlappingEntity(
+                start.get(Calendar.DAY_OF_WEEK),
+                start.toMinuteOfDay(),
+                end.toMinuteOfDay(),
+                classId
+            ))
+        }.subscribeOn(Schedulers.io())
+    }
 
     fun getTasks(): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASK)

@@ -13,6 +13,7 @@ import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.SchoolClassEntity
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.main.schedule.ScheduleViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.SchoolClassViewModel
 import inas.anisha.skripsi_app.utils.CalendarUtil
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toNextMidnight
@@ -202,4 +203,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         mRepository.addSupportingTarget(target.toEntity())
 
     fun addSchedule(schedule: ScheduleViewModel) = mRepository.addSchedule(schedule.toEntity())
+    fun addSchoolClass(schoolClass: SchoolClassViewModel) =
+        mRepository.addSchoolClass(schoolClass.toEntity())
 }

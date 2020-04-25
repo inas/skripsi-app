@@ -5,7 +5,6 @@ import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -221,7 +220,7 @@ class AddScheduleDialog : DialogFragment() {
     fun verifyData() {
         applyToViewModel()
         if (mViewModel.type == SkripsiConstant.SCHEDULE_TYPE_ACTIVITY) {
-            checkOverlappingSchedule(mViewModel.startDate, mViewModel.endDate)
+            checkOverlappingSchedule()
         } else {
             saveSchedule()
         }
@@ -233,19 +232,20 @@ class AddScheduleDialog : DialogFragment() {
         mViewModel.priority = mBinding.rating.rating.toInt()
     }
 
-    fun checkOverlappingSchedule(start: Calendar, end: Calendar) {
-        Log.d(
-            "debugskripsi",
-            "isoverlappingschedule start: " + start.toTimeString() + " end: " + end.toTimeString()
+    fun checkOverlappingSchedule() {
+        mRepository.getOverlappingEntity(
+            mViewModel.startDate,
+            mViewModel.endDate,
+            mSchedule?.id ?: -1,
+            -1
         )
-        mRepository.getOverlappingEntity(start, end, mSchedule?.id ?: -1, -1)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if (it.first.isNotEmpty() || it.second.isNotEmpty()) {
                     Snackbar.make(
                         mBinding.buttonSave,
-                        "Kegiatan tidak boleh memiliki waktu yang sama dengan kegiatan atau jadwal lain",
+                        "Kegiatan tidak boleh memiliki waktu yang sama dengan kegiatan atau jadwal sekolah lain",
                         Snackbar.LENGTH_LONG
                     )
                         .setAnchorView(mBinding.buttonSave).show()

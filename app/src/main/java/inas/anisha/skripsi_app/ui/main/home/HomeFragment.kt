@@ -17,9 +17,7 @@ import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentPageHomeBinding
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
-import inas.anisha.skripsi_app.ui.main.schedule.AddScheduleDialog
-import inas.anisha.skripsi_app.ui.main.schedule.ScheduleDetailActivity
-import inas.anisha.skripsi_app.ui.main.schedule.ScheduleViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.*
 import inas.anisha.skripsi_app.utils.CalendarUtil
 import kotlinx.android.synthetic.main.item_besok.view.*
 import java.util.*
@@ -72,6 +70,7 @@ class HomeFragment : Fragment() {
                     when (it.itemId) {
                         R.id.action_target -> openAddSupportingTargetDialog()
                         R.id.action_schedule -> openAddScheduleDialog()
+                        R.id.action_school_class -> openAddSchoolClassDialog()
                     }
                     true
                 }
@@ -282,5 +281,16 @@ class HomeFragment : Fragment() {
                 }
             })
         }.show(childFragmentManager, AddScheduleDialog.TAG)
+    }
+
+    fun openAddSchoolClassDialog() {
+        AddSchoolClassDialog().apply {
+            setAddSchoolDialogCallback(object :
+                AddSchoolClassDialog.AddSchoolDialogCallback {
+                override fun onSubmit(viewModel: SchoolClassViewModel) {
+                    mViewModel.addSchoolClass(viewModel)
+                }
+            })
+        }.show(childFragmentManager, AddSchoolClassDialog.TAG)
     }
 }
