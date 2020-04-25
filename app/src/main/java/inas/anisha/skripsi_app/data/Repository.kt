@@ -148,6 +148,10 @@ class Repository(application: Application) {
     fun getScheduleSorted(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAllSorted(start, end)
 
+    fun addSchedule(schedule: ScheduleEntity) =
+        Observable.fromCallable { scheduleDao.add(schedule) }
+            .subscribeOn(Schedulers.io()).subscribe()
+
     fun updateSchedule(schedule: ScheduleEntity) =
         Observable.fromCallable { scheduleDao.update(schedule) }
             .subscribeOn(Schedulers.io()).subscribe()

@@ -49,6 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_add"
                 style="@style/button_rounded"
                 android:letterSpacing="0"
                 android:layout_marginEnd="@dimen/space_16dp"

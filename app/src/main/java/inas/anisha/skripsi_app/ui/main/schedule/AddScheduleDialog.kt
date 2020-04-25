@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -172,28 +173,28 @@ class AddScheduleDialog : DialogFragment() {
 
         mBinding.edittextStartTime.apply {
             setOnClickListener {
-                showTimePicker(true)
+                showTimePicker(mViewModel.startDate, ::setStartTime)
             }
             setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) showTimePicker(true)
+                if (hasFocus) showTimePicker(mViewModel.startDate, ::setStartTime)
             }
         }
 
         mBinding.edittexttEndTime.apply {
             setOnClickListener {
-                showTimePicker(false)
+                showTimePicker(mViewModel.endDate, ::setEndTime)
             }
             setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) showTimePicker(false)
+                if (hasFocus) showTimePicker(mViewModel.endDate, ::setEndTime)
             }
         }
 
         mBinding.edittextDeadline.apply {
             setOnClickListener {
-                showTimePicker(false)
+                showTimePicker(mViewModel.endDate, ::setEndTime)
             }
             setOnFocusChangeListener { view, hasFocus ->
-                if (hasFocus) showTimePicker(false)
+                if (hasFocus) showTimePicker(mViewModel.endDate, ::setEndTime)
             }
         }
 
@@ -233,6 +234,10 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun isOverlappingScheduleExists(start: Calendar, end: Calendar) {
+        Log.d(
+            "debugskripsi",
+            "isoverlappingschedule start: " + start.toTimeString() + " end: " + end.toTimeString()
+        )
         mRepository.getOverlappingEntity(start, end, mSchedule?.id ?: -1, -1)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
@@ -251,7 +256,6 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun saveSchedule() {
-
         mCallback?.onScheduleModified(mViewModel)
         dismiss()
     }
@@ -299,7 +303,6 @@ class AddScheduleDialog : DialogFragment() {
                     currentDate.apply {
                         set(Calendar.HOUR_OF_DAY, hour)
                         set(Calendar.MINUTE, minute)
-                        set(Calendar.SECOND, 0)
                     }.standardize()
 
                     if (isStartTime) {
@@ -310,6 +313,11 @@ class AddScheduleDialog : DialogFragment() {
                         mBinding.edittexttEndTime.setText(currentDate.toTimeString())
                         mBinding.edittextDeadline.setText(currentDate.toTimeString())
                     }
+
+                    Log.d(
+                        "debugskripsi",
+                        "ontimesetlistener start: " + mViewModel.startDate.toTimeString() + " end: " + mViewModel.endDate.toTimeString()
+                    )
                 },
                 hour,
                 minutes,
@@ -318,6 +326,47 @@ class AddScheduleDialog : DialogFragment() {
             timePicker.show()
         }
 
+    }
+
+    fun showTimePicker(defaultDate: Calendar, onTimeSet: (date: Calendar) -> Unit) {
+        val date = Calendar.getInstance().apply { timeInMillis = defaultDate.timeInMillis }
+        val hour = date[Calendar.HOUR_OF_DAY]
+        val minutes = date[Calendar.MINUTE]
+
+        requireContext().let {
+            val timePicker = TimePickerDialog(
+                it,
+                OnTimeSetListener { _, hour, minute ->
+                    date.apply {
+                        set(Calendar.HOUR_OF_DAY, hour)
+                        set(Calendar.MINUTE, minute)
+                    }.standardize()
+
+                    onTimeSet(date)
+
+                    Log.d(
+                        "debugskripsi",
+                        "ontimesetlistener start: " + mViewModel.startDate.toTimeString() + " end: " + mViewModel.endDate.toTimeString()
+                    )
+                },
+                hour,
+                minutes,
+                true
+            )
+            timePicker.show()
+        }
+
+    }
+
+    fun setStartTime(date: Calendar) {
+        mViewModel.startDate = date.standardize()
+        mBinding.edittextStartTime.setText(date.toTimeString())
+    }
+
+    fun setEndTime(date: Calendar) {
+        mViewModel.endDate = date.standardize()
+        mBinding.edittexttEndTime.setText(date.toTimeString())
+        mBinding.edittextDeadline.setText(date.toTimeString())
     }
 
     fun showHideTaskViews(isTask: Boolean) {

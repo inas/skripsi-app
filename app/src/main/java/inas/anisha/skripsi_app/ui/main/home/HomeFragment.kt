@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,10 +15,15 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentPageHomeBinding
+import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
+import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.AddScheduleDialog
 import inas.anisha.skripsi_app.ui.main.schedule.ScheduleDetailActivity
+import inas.anisha.skripsi_app.ui.main.schedule.ScheduleViewModel
 import inas.anisha.skripsi_app.utils.CalendarUtil
 import kotlinx.android.synthetic.main.item_besok.view.*
 import java.util.*
+
 
 class HomeFragment : Fragment() {
 
@@ -46,6 +52,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initAddButton()
         initSchedule()
         initImportantSchedule()
         initTomorrowsSchedule()
@@ -54,6 +61,23 @@ class HomeFragment : Fragment() {
 
     fun reInitData() {
         setTodaysDate()
+    }
+
+    fun initAddButton() {
+        mBinding.buttonAdd.setOnClickListener { button ->
+            requireContext().let {
+                val popup = PopupMenu(it, button)
+                popup.menuInflater.inflate(R.menu.add_button_menu, popup.menu)
+                popup.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.action_target -> openAddSupportingTargetDialog()
+                        R.id.action_schedule -> openAddScheduleDialog()
+                    }
+                    true
+                }
+                popup.show()
+            }
+        }
     }
 
     fun initSchedule() {
@@ -236,5 +260,27 @@ class HomeFragment : Fragment() {
             )
         }
         startActivity(intent)
+    }
+
+    fun openAddSupportingTargetDialog() {
+        TambahTargetPendukungDialog().apply {
+            setOnTargetAddedListener(object :
+                TambahTargetPendukungDialog.OnTargetModifiedListener {
+                override fun onTargetModified(target: TargetPendukungViewModel) {
+                    mViewModel.addSupportingTarget(target)
+                }
+            })
+        }.show(childFragmentManager, TambahTargetPendukungDialog.TAG)
+    }
+
+    fun openAddScheduleDialog() {
+        AddScheduleDialog().apply {
+            setAddScheduleDialogListener(object :
+                AddScheduleDialog.AddScheduleDialogListener {
+                override fun onScheduleModified(schedule: ScheduleViewModel) {
+                    mViewModel.addSchedule(schedule)
+                }
+            })
+        }.show(childFragmentManager, AddScheduleDialog.TAG)
     }
 }

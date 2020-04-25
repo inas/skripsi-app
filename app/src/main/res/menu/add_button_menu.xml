@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_target"
+        android:title="Target pendukung" />
+    <item
+        android:id="@+id/action_school_class"
+        android:title="Jadwal sekolah" />
+    <item
+        android:id="@+id/action_schedule"
+        android:title="Tugas/ujian/kegiatan" />
+</menu>

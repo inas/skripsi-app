@@ -11,6 +11,8 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant.Companion.SCHEDULE_TIMEL
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.SchoolClassEntity
+import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.ScheduleViewModel
 import inas.anisha.skripsi_app.utils.CalendarUtil
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toNextMidnight
@@ -87,8 +89,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         currentClassIndex = -1
         var previousSchedule: ScheduleTimelineViewModel? = null
-        viewModels.sortBy { it.startMinute }
-        viewModels.forEachIndexed { index, it ->
+        val sortedVms =
+            viewModels.sortedWith(compareBy<ScheduleTimelineViewModel> { it.startMinute }.thenBy { it.endMinute })
+        sortedVms.forEachIndexed { index, it ->
 
             previousSchedule?.let { prev ->
                 if (prev.endMinute == it.startMinute) {
@@ -107,9 +110,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             previousSchedule = it
         }
 
-        if (viewModels.isNotEmpty()) viewModels.last().isLastSchedule.value = true
+        if (sortedVms.isNotEmpty()) sortedVms.last().isLastSchedule.value = true
 
-        return viewModels
+        return sortedVms
     }
 
     fun getImportantScheduleViewModels(schedules: List<ScheduleEntity>): List<ImportantScheduleViewModel> {
@@ -128,4 +131,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         return viewModels
     }
+
+    fun addSupportingTarget(target: TargetPendukungViewModel) =
+        mRepository.addSupportingTarget(target.toEntity())
+
+    fun addSchedule(schedule: ScheduleViewModel) = mRepository.addSchedule(schedule.toEntity())
 }
