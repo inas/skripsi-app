@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.main.schedule.SchoolClassViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:layout_marginTop="16dp"
+            android:text="Tambah Jadwal Sekolah"
+            app:layout_constraintEnd_toStartOf="@id/imageview_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageview_close"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:layout_marginEnd="@dimen/space_4dp"
+            android:padding="@dimen/size_button_padding"
+            android:src="@drawable/ic_close_dark"
+            app:layout_constraintBottom_toBottomOf="@id/textview_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_title" />
+
+        <TextView
+            android:id="@+id/textview_day"
+            style="@style/font_small.bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text="Hari"
+            android:textColor="@color/dark_secondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollview_chip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_day">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_monday"
+                    style="@style/chip"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:checkable="true"
+                    android:checked="true"
+                    android:minWidth="@dimen/size_chip_day"
+                    android:text="Sen"
+                    android:textAlignment="center"
+                    app:chipBackgroundColor="@color/chip_bg_states"
+                    app:chipStrokeColor="@color/chip_stroke_states" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_tuesday"
+                    style="@style/chip"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:minWidth="@dimen/size_chip_day"
+                    android:text="Sel"
+                    android:textAlignment="center"
+                    app:chipBackgroundColor="@color/chip_bg_states"
+                    app:chipStrokeColor="@color/chip_stroke_states" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_wednesday"
+                    style="@style/chip"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:minWidth="@dimen/size_chip_day"
+                    android:text="Rab"
+                    android:textAlignment="center"
+                    app:chipBackgroundColor="@color/chip_bg_states"
+                    app:chipStrokeColor="@color/chip_stroke_states" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_thursday"
+                    style="@style/chip"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:minWidth="@dimen/size_chip_day"
+                    android:text="Kam"
+                    android:textAlignment="center"
+                    app:chipBackgroundColor="@color/chip_bg_states"
+                    app:chipStrokeColor="@color/chip_stroke_states" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_friday"
+                    style="@style/chip"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:minWidth="@dimen/size_chip_day"
+                    android:text="Jum"
+                    android:textAlignment="center"
+                    app:chipBackgroundColor="@color/chip_bg_states"
+                    app:chipStrokeColor="@color/chip_stroke_states" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_saturday"
+                    style="@style/chip"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:minWidth="@dimen/size_chip_day"
+                    android:text="Sab"
+                    android:textAlignment="center"
+                    app:chipBackgroundColor="@color/chip_bg_states"
+                    app:chipStrokeColor="@color/chip_stroke_states" />
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:hint="Mata pelajaran"
+            app:boxBackgroundColor="@color/white"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollview_chip"
+            app:startIconDrawable="@drawable/ic_text_fields">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_name"
+                style="@style/EditText"
+                android:imeOptions="actionNext"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:text="@{viewModel.name}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageview_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:background="@drawable/ic_clock"
+            android:backgroundTint="@color/dark_secondary"
+            app:layout_constraintBottom_toBottomOf="@id/textlayout_start_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textlayout_start_time" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_start_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:hint="Dari"
+            app:boxBackgroundColor="@color/white"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toStartOf="@id/textlayout_end_time"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@id/imageview_clock"
+            app:layout_constraintTop_toBottomOf="@+id/textlayout_name"
+            app:layout_constraintWidth_max="150dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_start_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:inputType="none"
+                android:paddingStart="0dp"
+                android:text="@{viewModel.startTimeText()}"
+                android:textColor="@drawable/edit_text_selector"
+                android:textSize="14sp"
+                tools:text="09.00" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_end_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:hint="Sampai"
+            app:boxBackgroundColor="@color/white"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textlayout_start_time"
+            app:layout_constraintTop_toTopOf="@+id/textlayout_start_time"
+            app:layout_constraintWidth_max="150dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittextt_end_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:inputType="none"
+                android:paddingStart="0dp"
+                android:text="@{viewModel.endTimeText()}"
+                android:textColor="@drawable/edit_text_selector"
+                android:textSize="14sp"
+                tools:text="09.00" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:hint="Catatan (opsional)"
+            app:boxBackgroundColor="@color/white"
+            app:counterEnabled="true"
+            app:counterMaxLength="500"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textlayout_start_time"
+            app:startIconDrawable="@drawable/ic_note">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ediittext_note"
+                style="@style/EditText"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:text="@{viewModel.note}"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_save"
+            style="@style/button_full"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_32dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:background="@drawable/bg_rounded_dark_secondary"
+            android:text="Simpan"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textlayout_note" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

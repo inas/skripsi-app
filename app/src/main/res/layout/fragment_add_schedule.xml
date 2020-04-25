@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16dp"
-            android:text="Edit Jadwal"
+            android:text="Tambah Jadwal"
             app:layout_constraintEnd_toStartOf="@id/imageview_close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

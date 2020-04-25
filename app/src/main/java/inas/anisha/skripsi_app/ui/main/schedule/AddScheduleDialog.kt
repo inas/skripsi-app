@@ -14,14 +14,13 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddScheduleBinding
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardize
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardized
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -62,6 +61,7 @@ class AddScheduleDialog : DialogFragment() {
         mBinding.lifecycleOwner = this
         mSchedule = arguments?.getParcelable(ARG_SCHEDULE)
         mSchedule?.let {
+            mBinding.textviewTitle.text = "Edit Jadwal"
             mViewModel.fromEntity(it)
             initViewValues()
         }
@@ -122,13 +122,13 @@ class AddScheduleDialog : DialogFragment() {
     fun setChipGroupListener() {
         mBinding.chipgroup.setOnCheckedChangeListener { group, checkedId ->
 
-            when (group.findViewById<Chip>(checkedId).text) {
-                resources.getString(R.string.fragment_add_schedule_chip_task) -> {
+            when (checkedId) {
+                R.id.chip_task -> {
                     showHideTaskViews(true)
                     mViewModel.type = SkripsiConstant.SCHEDULE_TYPE_TASK
                 }
 
-                resources.getString(R.string.fragment_add_schedule_chip_test) -> {
+                R.id.chip_test -> {
                     showHideTaskViews(false)
                     mViewModel.type = SkripsiConstant.SCHEDULE_TYPE_TEST
                 }
@@ -221,7 +221,7 @@ class AddScheduleDialog : DialogFragment() {
     fun verifyData() {
         applyToViewModel()
         if (mViewModel.type == SkripsiConstant.SCHEDULE_TYPE_ACTIVITY) {
-            isOverlappingScheduleExists(mViewModel.startDate, mViewModel.endDate)
+            checkOverlappingSchedule(mViewModel.startDate, mViewModel.endDate)
         } else {
             saveSchedule()
         }
@@ -233,7 +233,7 @@ class AddScheduleDialog : DialogFragment() {
         mViewModel.priority = mBinding.rating.rating.toInt()
     }
 
-    fun isOverlappingScheduleExists(start: Calendar, end: Calendar) {
+    fun checkOverlappingSchedule(start: Calendar, end: Calendar) {
         Log.d(
             "debugskripsi",
             "isoverlappingschedule start: " + start.toTimeString() + " end: " + end.toTimeString()
@@ -262,7 +262,7 @@ class AddScheduleDialog : DialogFragment() {
 
     fun showDatePicker(textView: TextView, isExecutionDate: Boolean) {
         val currentDate = (if (isExecutionDate) mViewModel.executionTime else mViewModel.endDate)
-            ?: Calendar.getInstance().standardize()
+            ?: Calendar.getInstance().standardized()
         val year = currentDate.get(Calendar.YEAR)
         val month = currentDate.get(Calendar.MONTH)
         val day = currentDate.get(Calendar.DAY_OF_MONTH)
@@ -273,12 +273,12 @@ class AddScheduleDialog : DialogFragment() {
                 DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                     if (isExecutionDate) {
                         mViewModel.executionTime =
-                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardize()
+                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardized()
                     } else {
                         mViewModel.startDate =
-                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardize()
+                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardized()
                         mViewModel.endDate =
-                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardize()
+                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardized()
                     }
                     textView.text = currentDate.toDateString()
                 },
@@ -288,44 +288,6 @@ class AddScheduleDialog : DialogFragment() {
             )
             datePickerDialog.show()
         }
-    }
-
-    fun showTimePicker(isStartTime: Boolean) {
-        val currentDate =
-            if (isStartTime) mViewModel.startDate else mViewModel.endDate
-        val hour = currentDate[Calendar.HOUR_OF_DAY]
-        val minutes = currentDate[Calendar.MINUTE]
-
-        requireContext().let {
-            val timePicker = TimePickerDialog(
-                it,
-                OnTimeSetListener { _, hour, minute ->
-                    currentDate.apply {
-                        set(Calendar.HOUR_OF_DAY, hour)
-                        set(Calendar.MINUTE, minute)
-                    }.standardize()
-
-                    if (isStartTime) {
-                        mViewModel.startDate = currentDate.standardize()
-                        mBinding.edittextStartTime.setText(currentDate.toTimeString())
-                    } else {
-                        mViewModel.endDate = currentDate.standardize()
-                        mBinding.edittexttEndTime.setText(currentDate.toTimeString())
-                        mBinding.edittextDeadline.setText(currentDate.toTimeString())
-                    }
-
-                    Log.d(
-                        "debugskripsi",
-                        "ontimesetlistener start: " + mViewModel.startDate.toTimeString() + " end: " + mViewModel.endDate.toTimeString()
-                    )
-                },
-                hour,
-                minutes,
-                true
-            )
-            timePicker.show()
-        }
-
     }
 
     fun showTimePicker(defaultDate: Calendar, onTimeSet: (date: Calendar) -> Unit) {
@@ -340,14 +302,9 @@ class AddScheduleDialog : DialogFragment() {
                     date.apply {
                         set(Calendar.HOUR_OF_DAY, hour)
                         set(Calendar.MINUTE, minute)
-                    }.standardize()
+                    }.standardized()
 
                     onTimeSet(date)
-
-                    Log.d(
-                        "debugskripsi",
-                        "ontimesetlistener start: " + mViewModel.startDate.toTimeString() + " end: " + mViewModel.endDate.toTimeString()
-                    )
                 },
                 hour,
                 minutes,
@@ -355,16 +312,15 @@ class AddScheduleDialog : DialogFragment() {
             )
             timePicker.show()
         }
-
     }
 
     fun setStartTime(date: Calendar) {
-        mViewModel.startDate = date.standardize()
+        mViewModel.startDate = date.standardized()
         mBinding.edittextStartTime.setText(date.toTimeString())
     }
 
     fun setEndTime(date: Calendar) {
-        mViewModel.endDate = date.standardize()
+        mViewModel.endDate = date.standardized()
         mBinding.edittexttEndTime.setText(date.toTimeString())
         mBinding.edittextDeadline.setText(date.toTimeString())
     }

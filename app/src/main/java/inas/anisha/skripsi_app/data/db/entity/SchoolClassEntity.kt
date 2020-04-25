@@ -16,6 +16,7 @@ data class SchoolClassEntity(
     @ColumnInfo(name = "start_time") val startTime: Calendar = Calendar.getInstance(),
     @ColumnInfo(name = "end_time") val endTime: Calendar = Calendar.getInstance(),
     @ColumnInfo(name = "day") val day: Int = 0,
+    @ColumnInfo(name = "note") val note: String = "",
     @ColumnInfo(name = "start_minute_of_day") val startMinuteOfDay: Int = startTime.toMinuteOfDay(),
     @ColumnInfo(name = "end_minute_of_day") val endMinuteOfDay: Int = endTime.toMinuteOfDay()
 ) : Parcelable

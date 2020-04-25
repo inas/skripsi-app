@@ -83,7 +83,7 @@ class CalendarUtil {
             }.toTimeString()
         }
 
-        fun Calendar.standardize(): Calendar {
+        fun Calendar.standardized(): Calendar {
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
             return this

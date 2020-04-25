@@ -60,9 +60,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getTodaysScheduleViewModels(): List<ScheduleTimelineViewModel> {
         val viewModels = mutableListOf<ScheduleTimelineViewModel>()
+        val classVms = mutableListOf<ScheduleTimelineViewModel>()
+        val activityVms = mutableListOf<ScheduleTimelineViewModel>()
 
         todaysClasses.forEach {
-            viewModels.add(ScheduleTimelineViewModel().apply {
+            classVms.add(ScheduleTimelineViewModel().apply {
                 id = it.id
                 type = SCHEDULE_TIMELINE_TYPE_CLASS
                 name = it.name
@@ -74,7 +76,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         todaysActivities.forEach {
-            viewModels.add(ScheduleTimelineViewModel().apply {
+            activityVms.add(ScheduleTimelineViewModel().apply {
                 id = it.id
                 type = SCHEDULE_TIMELINE_TYPE_ACTIVITY
                 name = it.name
@@ -89,8 +91,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         currentClassIndex = -1
         var previousSchedule: ScheduleTimelineViewModel? = null
-        val sortedVms =
-            viewModels.sortedWith(compareBy<ScheduleTimelineViewModel> { it.startMinute }.thenBy { it.endMinute })
+        var toBeRemovedSchedule: MutableList<ScheduleTimelineViewModel> = mutableListOf()
+//        val sortedVms =
+//            viewModels.sortedWith(compareBy<ScheduleTimelineViewModel> { it.startMinute }.thenBy { it.endMinute })
+        val sortedVms = mergeList(classVms, activityVms)
         sortedVms.forEachIndexed { index, it ->
 
             previousSchedule?.let { prev ->
@@ -113,6 +117,68 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         if (sortedVms.isNotEmpty()) sortedVms.last().isLastSchedule.value = true
 
         return sortedVms
+    }
+
+    fun mergeList(
+        classVms: List<ScheduleTimelineViewModel>,
+        activityVms: List<ScheduleTimelineViewModel>
+    ): List<ScheduleTimelineViewModel> {
+        val n1 = classVms.size
+        val n2 = activityVms.size
+
+        var i = 0
+        var j = 0
+        var k = 0
+
+        val sortedList = mutableListOf<ScheduleTimelineViewModel>()
+
+        var prev: ScheduleTimelineViewModel? = null
+        while (i < n1 && j < n2) {
+            if (classVms[i].startMinute < activityVms[j].startMinute) {
+                val toBeAdded = classVms[i++]
+                if (prev != null && toBeAdded.startMinute < prev.endMinute) {
+                    sortedList[k - 1] = toBeAdded
+                } else {
+                    sortedList.add(k++, toBeAdded)
+                }
+            } else if (classVms[i].startMinute > activityVms[j].startMinute) {
+                val toBeAdded = activityVms[j++]
+                if (prev == null || toBeAdded.startMinute >= prev.endMinute) {
+                    sortedList.add(k++, toBeAdded)
+                }
+            } else {
+                j++
+                if (prev != null && classVms[i].startMinute < prev.endMinute) {
+                    sortedList[k - 1] = classVms[i++]
+                } else {
+                    sortedList.add(k++, classVms[i++])
+                }
+            }
+            prev = sortedList[k - 1]
+        }
+
+        if (sortedList.isEmpty()) {
+            while (i < n1) sortedList.add(k++, classVms[i++])
+            while (j < n2) sortedList.add(k++, activityVms[j++])
+        } else {
+            val lastElement = sortedList.last()
+            if (i < n1) { // only class vms left
+                if (lastElement.type == SCHEDULE_TIMELINE_TYPE_ACTIVITY && classVms[i].startMinute < lastElement.endMinute) {
+                    sortedList[k - 1] = classVms[i++]
+                }
+                if (i < n1) while (i < n1) sortedList.add(k++, classVms[i++])
+            } else {
+                while (j < n2) {
+                    val toBeAdded = activityVms[j++]
+                    if (toBeAdded.startMinute >= lastElement.endMinute) {
+                        sortedList.add(k++, toBeAdded)
+                    }
+                }
+            }
+
+        }
+
+        return sortedList
     }
 
     fun getImportantScheduleViewModels(schedules: List<ScheduleEntity>): List<ImportantScheduleViewModel> {

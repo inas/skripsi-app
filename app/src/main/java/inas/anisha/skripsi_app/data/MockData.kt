@@ -45,37 +45,37 @@ class MockData {
                     "kelas 1",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 23, 8, 0)
+                        set(2020, 3, 25, 17, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 23, 9, 30)
+                        set(2020, 3, 25, 17, 30)
                     },
-                    Calendar.THURSDAY
+                    Calendar.SATURDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 2",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 23, 9, 30)
+                        set(2020, 3, 25, 17, 30)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 23, 11, 0)
+                        set(2020, 3, 25, 18, 0)
                     },
-                    Calendar.THURSDAY
+                    Calendar.SATURDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 3",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 11, 50)
+                        set(2020, 3, 25, 18, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 13, 30)
+                        set(2020, 3, 25, 19, 0, 0)
                     },
                     Calendar.SATURDAY
                 ),
@@ -84,11 +84,11 @@ class MockData {
                     "kelas 4",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 8, 0, 0)
+                        set(2020, 3, 25, 20, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 9, 0, 0)
+                        set(2020, 3, 25, 21, 0, 0)
                     },
                     Calendar.SATURDAY
                 ),
@@ -97,13 +97,26 @@ class MockData {
                     "kelas 5",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 10, 0, 0)
+                        set(2020, 3, 25, 22, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 11, 0, 0)
+                        set(2020, 3, 25, 23, 0, 0)
                     },
                     Calendar.SATURDAY
+                ),
+                SchoolClassEntity(
+                    0,
+                    "kelas 6",
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 26, 16, 0, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 26, 17, 0, 0)
+                    },
+                    Calendar.SUNDAY
                 )
             )
         }
@@ -116,11 +129,11 @@ class MockData {
                     "Kegiatan 1",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 11, 0, 0)
+                        set(2020, 3, 25, 16, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 12, 0, 0)
+                        set(2020, 3, 25, 16, 10, 0)
                     },
                     "makan siang bawa bekel yang sehat"
                 ),
@@ -130,11 +143,11 @@ class MockData {
                     "Kegiatan 2",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 14, 0, 0)
+                        set(2020, 3, 25, 16, 10, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 14, 30, 0)
+                        set(2020, 3, 25, 17, 10, 0)
                     },
                     "ngaji bentar"
                 ),
@@ -144,11 +157,23 @@ class MockData {
                     "Kegiatan 3",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 15, 0, 0)
+                        set(2020, 3, 25, 16, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 16, 0, 0)
+                        set(2020, 3, 25, 17, 0, 0)
+                    }),
+                ScheduleEntity(
+                    0,
+                    SkripsiConstant.SCHEDULE_TYPE_ACTIVITY,
+                    "Kegiatan 4",
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 25, 18, 10, 0)
+                    },
+                    Calendar.getInstance().apply {
+                        set(Calendar.MILLISECOND, 0)
+                        set(2020, 3, 25, 17, 30, 0)
                     }),
                 ScheduleEntity(
                     0,
