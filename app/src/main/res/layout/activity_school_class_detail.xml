@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="inas.anisha.skripsi_app.constant.SkripsiConstant" />
+
+        <variable
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.main.schedule.SchoolClassViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageview_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size_button_padding"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_edit"
+                style="@style/button_text"
+                android:text="Edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_hapus"
+                style="@style/button_text"
+                android:text="Hapus"
+                android:textColor="@color/warning"
+                app:layout_constraintEnd_toStartOf="@id/button_edit"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textview_title"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_16dp"
+                    android:layout_marginEnd="@dimen/space_16dp"
+                    android:text="@{viewModel.name}"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="PR Bahasa Inggris ahahha ahhaha ahhaha ahahah ahahah" />
+
+                <include
+                    android:id="@+id/divider"
+                    layout="@layout/common_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_1dp"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:layout_marginTop="@dimen/space_16dp"
+                    android:layout_marginEnd="@dimen/space_16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+                <TextView
+                    android:id="@+id/textview_due_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_16dp"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/space_16dp"
+                    android:drawableTint="@color/dark_secondary"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.dayAndTimeText()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    tools:text="28 Juli 2018; 11.00" />
+
+                <TextView
+                    android:id="@+id/textview_notes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_16dp"
+                    android:drawableStart="@drawable/ic_note"
+                    android:drawablePadding="@dimen/space_16dp"
+                    android:drawableTint="@color/dark_secondary"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.note}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_due_date"
+                    app:layout_goneMarginTop="@dimen/space_16dp"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -223,7 +223,7 @@ class HomeFragment : Fragment() {
                 if (type == SkripsiConstant.SCHEDULE_TIMELINE_TYPE_ACTIVITY) {
                     openScheduleDetail(id)
                 } else {
-
+                    openSchoolClassDetail(id)
                 }
             }
         })
@@ -249,6 +249,16 @@ class HomeFragment : Fragment() {
         } else {
             view.visibility = View.GONE
         }
+    }
+
+    fun openSchoolClassDetail(schoolClassId: Long) {
+        val intent = Intent(activity, SchoolClassDetailActivity::class.java).apply {
+            putExtra(
+                SchoolClassDetailActivity.EXTRA_ID,
+                schoolClassId
+            )
+        }
+        startActivity(intent)
     }
 
     fun openScheduleDetail(scheduleId: Long) {

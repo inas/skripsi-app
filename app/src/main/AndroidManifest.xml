@@ -27,5 +27,6 @@
         <activity android:name=".ui.kelolapembelajaran.KelolaPembelajaranActivity" />
         <activity android:name=".ui.main.target.TargetPendukungDetailActivity" />
         <activity android:name=".ui.main.schedule.ScheduleDetailActivity" />
+        <activity android:name=".ui.main.schedule.SchoolClassDetailActivity" />
     </application>
 </manifest>

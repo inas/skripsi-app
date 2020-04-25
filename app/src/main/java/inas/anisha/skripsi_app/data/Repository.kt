@@ -97,11 +97,22 @@ class Repository(application: Application) {
         Observable.fromCallable { schoolClassDao.add(schoolClass) }
             .subscribeOn(Schedulers.io()).subscribe()
 
+    fun getSchoolClass(classId: Long): LiveData<SchoolClassEntity> =
+        schoolClassDao.get(classId)
+
     fun getSchoolClasses(dayOfWeek: Int): LiveData<List<SchoolClassEntity>> =
         schoolClassDao.getAll(dayOfWeek)
 
     fun getSchoolClassesSorted(dayOfWeek: Int): LiveData<List<SchoolClassEntity>> =
         schoolClassDao.getAllSorted(dayOfWeek)
+
+    fun updateSchoolClass(schoolClass: SchoolClassEntity) =
+        Observable.fromCallable { schoolClassDao.update(schoolClass) }
+            .subscribeOn(Schedulers.io()).subscribe()
+
+    fun deleteSchoolClass(classId: Long) =
+        Observable.fromCallable { schoolClassDao.delete(classId) }
+            .subscribeOn(Schedulers.io()).subscribe()
 
     fun getSchoolCount(dayOfWeek: Int): LiveData<Int> = schoolClassDao.getCount(dayOfWeek)
 

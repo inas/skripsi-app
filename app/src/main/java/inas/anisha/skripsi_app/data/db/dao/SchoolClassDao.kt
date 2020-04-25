@@ -1,20 +1,16 @@
 package inas.anisha.skripsi_app.data.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import inas.anisha.skripsi_app.data.db.entity.SchoolClassEntity
-import java.util.*
 
 @Dao
 interface SchoolClassDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(vararg schoolClass: SchoolClassEntity)
 
-    @Query("UPDATE school_class SET name = :name, start_time = :startTime, end_time = :endTime, day = :day WHERE id = :classId")
-    fun update(classId: Long, name: String, startTime: Calendar, endTime: Calendar, day: String)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update(schoolClass: SchoolClassEntity)
 
     @Query("DELETE FROM school_class WHERE id = :classId")
     fun delete(classId: Long)
