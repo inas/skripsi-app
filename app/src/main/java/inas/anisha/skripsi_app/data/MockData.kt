@@ -71,39 +71,39 @@ class MockData {
                     "kelas 3",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 11, 50)
+                        set(2020, 3, 25, 11, 50)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 23, 13, 30)
+                        set(2020, 3, 25, 13, 30)
                     },
-                    Calendar.THURSDAY
+                    Calendar.SATURDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 4",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 8, 0, 0)
+                        set(2020, 3, 25, 8, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 9, 0, 0)
+                        set(2020, 3, 25, 9, 0, 0)
                     },
-                    Calendar.FRIDAY
+                    Calendar.SATURDAY
                 ),
                 SchoolClassEntity(
                     0,
                     "kelas 5",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 10, 0, 0)
+                        set(2020, 3, 25, 10, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 11, 0, 0)
+                        set(2020, 3, 25, 11, 0, 0)
                     },
-                    Calendar.FRIDAY
+                    Calendar.SATURDAY
                 )
             )
         }
@@ -130,11 +130,11 @@ class MockData {
                     "Kegiatan 2",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 13, 0, 0)
+                        set(2020, 3, 25, 14, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 14, 0, 0)
+                        set(2020, 3, 25, 14, 30, 0)
                     },
                     "ngaji bentar"
                 ),
@@ -144,11 +144,11 @@ class MockData {
                     "Kegiatan 3",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 15, 0, 0)
+                        set(2020, 3, 25, 15, 0, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 16, 0, 0)
+                        set(2020, 3, 25, 16, 0, 0)
                     }),
                 ScheduleEntity(
                     0,
@@ -156,11 +156,11 @@ class MockData {
                     "Test 1",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 8, 10, 0)
+                        set(2020, 3, 25, 18, 10, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 10, 40, 0)
+                        set(2020, 3, 25, 20, 40, 0)
                     },
                     "ulangan biologi aduh belom belajar",
                     5
@@ -171,11 +171,11 @@ class MockData {
                     "Test 2",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 10, 10)
+                        set(2020, 3, 25, 10, 10)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 11, 10)
+                        set(2020, 3, 25, 11, 10)
                     },
                     "ulangan ulangin",
                     3
@@ -186,11 +186,11 @@ class MockData {
                     "Tugas 1",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 10, 0)
+                        set(2020, 3, 25, 10, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 24, 10, 0)
+                        set(2020, 3, 25, 10, 0)
                     },
                     "Tugas 1",
                     4,
@@ -203,8 +203,8 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 2",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 21, 0) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 21, 0) },
+                    Calendar.getInstance().apply { set(2020, 3, 25, 21, 0) },
+                    Calendar.getInstance().apply { set(2020, 3, 25, 21, 0) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     5,
                     "main harvest moon",
@@ -225,8 +225,8 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 4",
-                    Calendar.getInstance().apply { set(2020, 3, 25, 11, 10) },
-                    Calendar.getInstance().apply { set(2020, 3, 25, 11, 10) },
+                    Calendar.getInstance().apply { set(2020, 3, 25, 13, 10) },
+                    Calendar.getInstance().apply { set(2020, 3, 25, 13, 10) },
                     "ulangan ulangin",
                     3,
                     "",

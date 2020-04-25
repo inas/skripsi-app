@@ -26,8 +26,11 @@ class ScheduleTimelineAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.viewModel = viewModels[position]
-        if (viewModels[position].type == SkripsiConstant.SCHEDULE_TIMELINE_TYPE_ACTIVITY) {
+        val vm = viewModels[position]
+        holder.binding.viewModel = vm
+        holder.binding.viewJadwal.setOnClickListener { mListener?.onItemClick(vm.type, vm.id) }
+
+        if (vm.type == SkripsiConstant.SCHEDULE_TIMELINE_TYPE_ACTIVITY) {
             holder.binding.viewJadwal.setBackgroundResource(R.drawable.bg_schedule_activity)
         } else {
             holder.binding.viewJadwal.setBackgroundResource(R.drawable.bg_schedule_class)
@@ -52,6 +55,6 @@ class ScheduleTimelineAdapter :
     }
 
     interface ItemListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(type: Int, id: Long)
     }
 }

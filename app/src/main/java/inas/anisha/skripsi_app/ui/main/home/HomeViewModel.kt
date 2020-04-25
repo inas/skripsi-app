@@ -61,6 +61,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         todaysClasses.forEach {
             viewModels.add(ScheduleTimelineViewModel().apply {
+                id = it.id
                 type = SCHEDULE_TIMELINE_TYPE_CLASS
                 name = it.name
                 startMinute = it.startMinuteOfDay
@@ -72,6 +73,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         todaysActivities.forEach {
             viewModels.add(ScheduleTimelineViewModel().apply {
+                id = it.id
                 type = SCHEDULE_TIMELINE_TYPE_ACTIVITY
                 name = it.name
                 startMinute = it.startMinuteOfDay

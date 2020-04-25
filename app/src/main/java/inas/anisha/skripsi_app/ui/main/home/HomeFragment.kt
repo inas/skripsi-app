@@ -195,6 +195,15 @@ class HomeFragment : Fragment() {
 
         val scheduleViewModels = mViewModel.getTodaysScheduleViewModels()
         scheduleTimelineAdapter.setList(scheduleViewModels)
+        scheduleTimelineAdapter.setItemListener(object : ScheduleTimelineAdapter.ItemListener {
+            override fun onItemClick(type: Int, id: Long) {
+                if (type == SkripsiConstant.SCHEDULE_TIMELINE_TYPE_ACTIVITY) {
+                    openScheduleDetail(id)
+                } else {
+
+                }
+            }
+        })
     }
 
     fun updateImportantSchedule() {

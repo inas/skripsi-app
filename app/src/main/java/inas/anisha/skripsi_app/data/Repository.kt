@@ -115,21 +115,25 @@ class Repository(application: Application) {
 
     fun getOverlappingEntity(
         start: Calendar,
-        end: Calendar
+        end: Calendar,
+        scheduleId: Long,
+        classId: Long
     ): Observable<Pair<List<ScheduleEntity>, List<SchoolClassEntity>>> {
         return Observable.zip(
             Observable.fromCallable {
                 (scheduleDao.getOverlappingEntity(
                     SkripsiConstant.SCHEDULE_TYPE_ACTIVITY,
                     start,
-                    end
+                    end,
+                    scheduleId
                 ))
             }.subscribeOn(Schedulers.io()),
             Observable.fromCallable {
                 (schoolClassDao.getOverlappingEntity(
                     start.get(Calendar.DAY_OF_WEEK),
                     start.toMinuteOfDay(),
-                    end.toMinuteOfDay()
+                    end.toMinuteOfDay(),
+                    classId
                 ))
             }.subscribeOn(Schedulers.io()),
             BiFunction { schedule: List<ScheduleEntity>, schoolClass: List<SchoolClassEntity> ->

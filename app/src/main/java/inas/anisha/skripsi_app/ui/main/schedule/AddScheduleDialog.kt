@@ -233,7 +233,7 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun isOverlappingScheduleExists(start: Calendar, end: Calendar) {
-        mRepository.getOverlappingEntity(start, end)
+        mRepository.getOverlappingEntity(start, end, mSchedule?.id ?: -1, -1)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe {
