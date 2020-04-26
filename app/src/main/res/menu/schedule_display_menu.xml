@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_week"
+        android:title="Pekan" />
+    <item
+        android:id="@+id/action_day"
+        android:title="Hari" />
+    <item
+        android:id="@+id/action_tasks"
+        android:title="Tugas" />
+    <item
+        android:id="@+id/action_school"
+        android:title="Sekolah" />
+</menu>

@@ -201,7 +201,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addSupportingTarget(target: TargetPendukungViewModel) =
         mRepository.addSupportingTarget(target.toEntity())
-
     fun addSchedule(schedule: ScheduleViewModel) = mRepository.addSchedule(schedule.toEntity())
     fun addSchoolClass(schoolClass: SchoolClassViewModel) =
         mRepository.addSchoolClass(schoolClass.toEntity())

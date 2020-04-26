@@ -32,29 +32,22 @@
 
             <TextView
                 android:id="@+id/textview_title"
-                style="@style/font_title"
+                style="@style/font_title_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Target"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/button_add"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/button_add" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button_add"
-                style="@style/font_normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_button_rounded_white"
-                android:drawableEnd="@drawable/ic_add"
-                android:paddingStart="@dimen/space_16dp"
-                android:paddingEnd="@dimen/space_16dp"
-                android:text="tambah"
-                android:textColor="@color/green"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_add"
+                style="@style/button_rounded"
+                android:drawableRight="@drawable/ic_add_18dp"
+                android:letterSpacing="0"
+                android:text="Tambah"
+                app:layout_constraintBottom_toBottomOf="@id/textview_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textview_title" />
 
             <TextView
                 android:id="@+id/textview_main_target"
