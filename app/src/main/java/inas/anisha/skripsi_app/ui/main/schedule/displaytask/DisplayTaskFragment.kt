@@ -55,13 +55,13 @@ class DisplayTaskFragment : Fragment() {
         val currentDate = Calendar.getInstance().standardized()
         upcomingTasksObservable = mViewModel.getTasks(currentDate, true).apply {
             observe(this@DisplayTaskFragment, Observer { schedule ->
-                mAdapter.setUpcomingTasks(constructTaskListItems(schedule))
+                mAdapter.setUpcomingTasks(constructTaskListItems(schedule, false))
             })
         }
 
         pastTasksObservable = mViewModel.getTasks(currentDate, false).apply {
             observe(this@DisplayTaskFragment, Observer { schedule ->
-                mAdapter.setPastTasks(constructTaskListItems(schedule))
+                mAdapter.setPastTasks(constructTaskListItems(schedule, true))
             })
         }
     }
@@ -72,13 +72,18 @@ class DisplayTaskFragment : Fragment() {
         pastTasksObservable?.removeObservers(this)
     }
 
-    fun constructTaskListItems(schedules: List<ImportantScheduleViewModel>): List<TaskListItem> {
-        val groupedSchedule = schedules.groupBy {
+    fun constructTaskListItems(
+        schedules: List<ImportantScheduleViewModel>,
+        shouldSortDescending: Boolean
+    ): List<TaskListItem> {
+        var groupedSchedule = schedules.groupBy {
             Calendar.getInstance().apply { timeInMillis = it.timeMillis }.toDateString()
-        }
+        }.toList().sortedBy { it.second[0].timeMillis }
+
+        groupedSchedule = if (shouldSortDescending) groupedSchedule.reversed() else groupedSchedule
 
         val taskListItems = mutableListOf<TaskListItem>()
-        for ((date, tasks) in groupedSchedule) {
+        for ((date, tasks) in groupedSchedule.toMap()) {
             taskListItems.add(TaskDateItem().apply { dateString = date })
             tasks.forEach { taskListItems.add(it) }
         }

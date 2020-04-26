@@ -1,5 +1,6 @@
 package inas.anisha.skripsi_app.ui.main.schedule.displaytask
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTaskListBinding
+import inas.anisha.skripsi_app.ui.main.schedule.ScheduleDetailActivity
 
 class TaskListFragment : Fragment() {
 
@@ -28,7 +30,15 @@ class TaskListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = TaskListAdapter().apply { setItems(taskListItems) }
+        adapter = TaskListAdapter().apply {
+            setItems(taskListItems)
+            setListener(object : TaskListAdapter.ItemClickListener {
+                override fun onClick(itemId: Long) {
+                    openScheduleDetail(itemId)
+                }
+            })
+        }
+
         mBinding.recyclerView.adapter = adapter
         mBinding.textviewEmpty.visibility = if (taskListItems.isEmpty()) View.VISIBLE else View.GONE
     }
@@ -39,5 +49,15 @@ class TaskListFragment : Fragment() {
         }
         adapter?.setItems(items)
         taskListItems = items
+    }
+
+    fun openScheduleDetail(scheduleId: Long) {
+        val intent = Intent(activity, ScheduleDetailActivity::class.java).apply {
+            putExtra(
+                ScheduleDetailActivity.EXTRA_ID,
+                scheduleId
+            )
+        }
+        startActivity(intent)
     }
 }

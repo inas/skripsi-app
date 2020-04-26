@@ -11,7 +11,7 @@ import java.util.*
 class ScheduleViewModel : ViewModel() {
 
     var id: Long = 0
-    var type: Int = 0
+    var type: Int = SkripsiConstant.SCHEDULE_TYPE_TASK
     var name: String = ""
 
     var startDate: Calendar = Calendar.getInstance().standardized()
