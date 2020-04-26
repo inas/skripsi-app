@@ -131,11 +131,17 @@ class Repository(application: Application) {
         }.subscribeOn(Schedulers.io())
     }
 
-    fun getTasks(): LiveData<List<ScheduleEntity>> =
-        scheduleDao.getAll(SkripsiConstant.SCHEDULE_TYPE_TASK)
+    fun getTasks(dateLimit: Calendar, isUpcomingTasks: Boolean): LiveData<List<ScheduleEntity>> {
+        return if (isUpcomingTasks) scheduleDao.getAllAfterDate(
+            SkripsiConstant.SCHEDULE_TYPE_TASK,
+            dateLimit
+        )
+        else scheduleDao.getAllBeforeDate(SkripsiConstant.SCHEDULE_TYPE_TASK, dateLimit)
+    }
+
 
     fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
-        scheduleDao.getAll(
+        scheduleDao.getAllBeforeDate(
             SkripsiConstant.SCHEDULE_TYPE_TASK,
             Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toPreviousMidnight()
         )
@@ -177,6 +183,9 @@ class Repository(application: Application) {
 
     fun getScheduleSorted(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAllSorted(start, end)
+
+    fun getScheduleSorted(type: Int): LiveData<List<ScheduleEntity>> =
+        scheduleDao.getAllSorted(type)
 
     fun addSchedule(schedule: ScheduleEntity) =
         Observable.fromCallable { scheduleDao.add(schedule) }

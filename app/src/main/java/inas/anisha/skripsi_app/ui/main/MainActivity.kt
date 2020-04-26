@@ -11,6 +11,7 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ActivityMainBinding
 import inas.anisha.skripsi_app.ui.main.home.HomeFragment
 import inas.anisha.skripsi_app.ui.main.perjalanan.PerjalananFragment
+import inas.anisha.skripsi_app.ui.main.schedule.ScheduleFragment
 import inas.anisha.skripsi_app.ui.main.target.TargetFragment
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mViewModel: MainViewModel
 
     private val homeFragment: HomeFragment = HomeFragment()
+    private val scheduleFragment: ScheduleFragment = ScheduleFragment()
     private val targetFragment: TargetFragment = TargetFragment()
     private val perjalananFragment: PerjalananFragment = PerjalananFragment()
     lateinit var activeFragment: Fragment
@@ -29,9 +31,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        mBinding.viewModel = mViewModel
-        mBinding.lifecycleOwner = this // todo remove?
 
+        supportFragmentManager.beginTransaction()
+            .add(R.id.layout_fragment_container, scheduleFragment, "1").hide(scheduleFragment)
+            .commit()
         supportFragmentManager.beginTransaction()
             .add(R.id.layout_fragment_container, targetFragment, "2").hide(targetFragment)
             .commit()
@@ -46,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             mOnNavigationItemSelectedListener
         )
 
-        mViewModel.prepopulate()
+//        mViewModel.prepopulate()
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -63,8 +66,9 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.action_jadwal -> {
-                    //                        supportFragmentManager.beginTransaction().hide(activeFragment).show(fragment2).commit()
-                    //                        activeFragment = fragment2
+                    supportFragmentManager.beginTransaction().hide(activeFragment)
+                        .show(scheduleFragment).commit()
+                    activeFragment = scheduleFragment
                 }
 
                 R.id.action_target -> {

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/space_16dp">
+
+        <TextView
+            android:id="@+id/textview_title"
+            style="@style/font_title_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text="Jadwal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_add"
+            style="@style/button_rounded"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:drawableRight="@drawable/ic_add_18dp"
+            android:letterSpacing="0"
+            android:text="Tambah"
+            app:layout_constraintBottom_toBottomOf="@id/textview_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_title" />
+
+        <TextView
+            android:id="@+id/textview_month"
+            style="@style/font_normal.bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            app:layout_constraintBottom_toBottomOf="@id/layout_display"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_display"
+            tools:text="May 2018" />
+
+        <ImageView
+            android:id="@+id/imageview_back"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:layout_marginEnd="@dimen/space_8dp"
+            android:padding="@dimen/space_16dp"
+            android:rotation="180"
+            android:src="@drawable/ic_chevron_next"
+            app:layout_constraintBottom_toBottomOf="@id/layout_display"
+            app:layout_constraintEnd_toStartOf="@id/imageview_next"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_display" />
+
+        <ImageView
+            android:id="@+id/imageview_next"
+            android:layout_width="@dimen/size_button"
+            android:layout_height="@dimen/size_button"
+            android:padding="@dimen/space_16dp"
+            android:src="@drawable/ic_chevron_next"
+            app:layout_constraintBottom_toBottomOf="@id/layout_display"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageview_back"
+            app:layout_constraintTop_toTopOf="@id/layout_display" />
+
+        <LinearLayout
+            android:id="@+id/layout_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/space_12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textview_display"
+                style="@style/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Pekan" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_12dp"
+                android:layout_marginTop="1dp"
+                android:src="@drawable/ic_chevron_down" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageview_back" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

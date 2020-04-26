@@ -230,6 +230,11 @@ class AddScheduleDialog : DialogFragment() {
         mViewModel.name = mBinding.edittextName.text.toString()
         mViewModel.note = mBinding.ediittextNote.text.toString()
         mViewModel.priority = mBinding.rating.rating.toInt()
+
+        if (mViewModel.type == SkripsiConstant.SCHEDULE_TYPE_TASK) {
+            mViewModel.startDate =
+                Calendar.getInstance().apply { timeInMillis = mViewModel.endDate.timeInMillis }
+        }
     }
 
     fun checkOverlappingSchedule() {

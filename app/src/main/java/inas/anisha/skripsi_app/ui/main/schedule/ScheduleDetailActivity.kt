@@ -17,8 +17,8 @@ class ScheduleDetailActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityScheduleDetailBinding
     private lateinit var mViewModel: ScheduleDetailViewModel
-    private lateinit var observable: LiveData<ScheduleEntity>
 
+    private var observable: LiveData<ScheduleEntity>? = null
     private var scheduleId: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class ScheduleDetailActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         observable = mViewModel.getSchedule(scheduleId)
-        observable.observe(this, Observer {
+        observable?.observe(this, Observer {
             it?.let {
                 mViewModel.schedule = it
                 mBinding.viewModel = ScheduleViewModel().fromEntity(it)
@@ -60,7 +60,7 @@ class ScheduleDetailActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        observable.removeObservers(this)
+        observable?.removeObservers(this)
 
         mBinding.imageviewBack.setOnClickListener(null)
         mBinding.buttonMarkAsComplete.setOnClickListener(null)
