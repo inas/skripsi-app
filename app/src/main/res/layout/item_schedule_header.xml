@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8dp"
             android:layout_marginBottom="@dimen/space_8dp"
+            android:textColor="@color/pink"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +23,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginStart="@dimen/space_8dp"
             android:background="@color/light_secondary"
             app:layout_constraintBottom_toBottomOf="@id/textview_header"
             app:layout_constraintEnd_toEndOf="parent"

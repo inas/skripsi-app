@@ -28,23 +28,23 @@ class TaskListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val tvStatus: TextView = itemView.findViewById(R.id.textview_status)
     }
 
-    override fun getItemCount() = taskListItems.count()
-
     override fun getItemViewType(position: Int): Int =
         when (taskListItems[position]) {
             is ImportantScheduleViewModel -> TaskListItem.TYPE_CONTENT
-            else -> TaskListItem.TYPE_CONTENT
+            else -> TaskListItem.TYPE_HEADER
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
-        TaskListItem.TYPE_CONTENT -> HeaderViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_important_schedule, parent, false)
-        )
-        else -> HeaderViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_schedule_header, parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            TaskListItem.TYPE_CONTENT -> ContentViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_important_schedule, parent, false)
+            )
+            else -> HeaderViewHolder(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_schedule_header, parent, false)
+            )
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
@@ -55,6 +55,10 @@ class TaskListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             )
             else -> onBindHeader(holder, taskListItems[position] as TaskDateItem)
         }
+
+    override fun getItemCount(): Int {
+        return taskListItems.size
+    }
 
     private fun onBindHeader(holder: RecyclerView.ViewHolder, item: TaskDateItem) {
         val header = holder as HeaderViewHolder
@@ -75,6 +79,7 @@ class TaskListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun setItems(items: List<TaskListItem>) {
         taskListItems = items
+        notifyDataSetChanged()
     }
 
     fun setListener(listener: ItemClickListener) {

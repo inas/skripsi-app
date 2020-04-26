@@ -30,9 +30,13 @@ class TaskListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = TaskListAdapter().apply { setItems(taskListItems) }
         mBinding.recyclerView.adapter = adapter
+        mBinding.textviewEmpty.visibility = if (taskListItems.isEmpty()) View.VISIBLE else View.GONE
     }
 
     fun setItems(items: List<TaskListItem>) {
+        if (::mBinding.isInitialized) {
+            mBinding.textviewEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        }
         adapter?.setItems(items)
         taskListItems = items
     }

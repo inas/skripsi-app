@@ -13,6 +13,7 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentDisplayTaskBinding
 import inas.anisha.skripsi_app.ui.main.home.ImportantScheduleViewModel
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardized
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import java.util.*
 
 class DisplayTaskFragment : Fragment() {
@@ -44,7 +45,12 @@ class DisplayTaskFragment : Fragment() {
 
         mAdapter = TaskListPagerAdapter(childFragmentManager)
         mBinding.viewPager.adapter = mAdapter
-        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager)
+        mBinding.tabLayout.apply {
+            setupWithViewPager(mBinding.viewPager)
+            getTabAt(0)?.text = "Akan datang"
+            getTabAt(1)?.text = "Sudah lalu"
+        }
+
 
         val currentDate = Calendar.getInstance().standardized()
         upcomingTasksObservable = mViewModel.getTasks(currentDate, true).apply {
@@ -67,7 +73,9 @@ class DisplayTaskFragment : Fragment() {
     }
 
     fun constructTaskListItems(schedules: List<ImportantScheduleViewModel>): List<TaskListItem> {
-        val groupedSchedule = schedules.groupBy { it.time }
+        val groupedSchedule = schedules.groupBy {
+            Calendar.getInstance().apply { timeInMillis = it.timeMillis }.toDateString()
+        }
 
         val taskListItems = mutableListOf<TaskListItem>()
         for ((date, tasks) in groupedSchedule) {
