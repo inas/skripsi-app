@@ -19,7 +19,6 @@ import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialo
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.main.schedule.*
 import inas.anisha.skripsi_app.utils.CalendarUtil
-import kotlinx.android.synthetic.main.item_besok.view.*
 import java.util.*
 
 
@@ -156,6 +155,10 @@ class HomeFragment : Fragment() {
         })
 
         mViewModel.getTomorrowsClassesCount().observe(this, Observer { count ->
+            mViewModel.tomorrowsClassCount = count
+            mBinding.textviewTomorrowEmpty.visibility =
+                if (mViewModel.tomorrowsScheduleCount + mViewModel.tomorrowsClassCount == 0) View.VISIBLE else View.GONE
+
             updateTomorrowsItem(
                 mBinding.layoutItemClass,
                 mBinding.layoutItemClass.textview_count,
@@ -177,6 +180,8 @@ class HomeFragment : Fragment() {
                 }
             }
 
+            mViewModel.tomorrowsScheduleCount = activities.size + tasks.size + tests.size
+
             updateTomorrowsItem(
                 mBinding.layoutItemActivities,
                 mBinding.layoutItemActivities.textview_count,
@@ -194,7 +199,7 @@ class HomeFragment : Fragment() {
             )
 
             mBinding.textviewTomorrowEmpty.visibility =
-                if (activities.size + tasks.size + tests.size == 0) View.VISIBLE else View.GONE
+                if (mViewModel.tomorrowsScheduleCount + mViewModel.tomorrowsClassCount == 0) View.VISIBLE else View.GONE
         })
 
         mViewModel.getCycleTasks().observe(this, Observer { tasks ->

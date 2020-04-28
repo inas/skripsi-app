@@ -31,6 +31,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var todaysTests: List<ScheduleEntity> = mutableListOf()
 
     var currentClassIndex = -1
+    var tomorrowsScheduleCount = 0
+    var tomorrowsClassCount = 0
 
     fun getTodaysClasses(): LiveData<List<SchoolClassEntity>> =
         Transformations.switchMap(currentDate) { today ->
