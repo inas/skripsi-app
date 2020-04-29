@@ -7,16 +7,23 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentPageScheduleBinding
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.displayschool.DisplaySchoolClassFragment
 import inas.anisha.skripsi_app.ui.main.schedule.displaytask.DisplayTaskFragment
+import inas.anisha.skripsi_app.ui.main.schedule.schedule.AddScheduleDialog
+import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.school.AddSchoolClassDialog
+import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel
 
 class ScheduleFragment : Fragment() {
     lateinit var mBinding: FragmentPageScheduleBinding
     lateinit var mViewModel: SchedulePageViewModel
+    lateinit var mFragmentManager: FragmentManager
 
     lateinit var activeFragment: Fragment
 
@@ -55,8 +62,24 @@ class ScheduleFragment : Fragment() {
                         R.id.action_day -> {
                         }
                         R.id.action_tasks -> {
+                            childFragmentManager.beginTransaction().remove(activeFragment).commit()
+                            activeFragment = DisplayTaskFragment()
+                            childFragmentManager.beginTransaction()
+                                .replace(
+                                    R.id.layout_placeholder,
+                                    activeFragment,
+                                    DisplayTaskFragment.TAG
+                                ).commit()
                         }
                         R.id.action_school -> {
+                            childFragmentManager.beginTransaction().remove(activeFragment).commit()
+                            activeFragment = DisplaySchoolClassFragment()
+                            childFragmentManager.beginTransaction()
+                                .replace(
+                                    R.id.layout_placeholder,
+                                    activeFragment,
+                                    DisplaySchoolClassFragment.TAG
+                                ).commit()
                         }
                     }
                     true

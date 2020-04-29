@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.main.schedule
+package inas.anisha.skripsi_app.ui.main.schedule.schedule
 
 import androidx.lifecycle.ViewModel
 import inas.anisha.skripsi_app.constant.SkripsiConstant

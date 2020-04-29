@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.main.schedule
+package inas.anisha.skripsi_app.ui.main.schedule.school
 
 import android.app.TimePickerDialog
 import android.os.Bundle

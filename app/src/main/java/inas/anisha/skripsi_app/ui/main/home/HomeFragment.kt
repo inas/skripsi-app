@@ -17,8 +17,14 @@ import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentPageHomeBinding
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
-import inas.anisha.skripsi_app.ui.main.schedule.*
+import inas.anisha.skripsi_app.ui.main.schedule.schedule.AddScheduleDialog
+import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleDetailActivity
+import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.school.AddSchoolClassDialog
+import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassDetailActivity
+import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel
 import inas.anisha.skripsi_app.utils.CalendarUtil
+import kotlinx.android.synthetic.main.item_besok.view.*
 import java.util.*
 
 

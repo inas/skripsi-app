@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTaskListBinding
-import inas.anisha.skripsi_app.ui.main.schedule.ScheduleDetailActivity
+import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleDetailActivity
 
 class TaskListFragment : Fragment() {
 

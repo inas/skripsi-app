@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_height_xsmall"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="@dimen/radius_small">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textview_time_start"
+                style="@style/font_normal.bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_4dp"
+                android:minWidth="80dp"
+                android:text="@{viewModel.startTimeText()}"
+                android:textAlignment="center"
+                android:textColor="@color/dark_secondary"
+                app:layout_constraintBottom_toTopOf="@id/textview_end_start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="09.00" />
+
+            <TextView
+                android:id="@+id/textview_end_start"
+                style="@style/font_normal.bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="80dp"
+                android:text="@{viewModel.endTimeText()}"
+                android:textAlignment="center"
+                android:textColor="@color/dark_secondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_time_start"
+                tools:text="09.50" />
+
+            <View
+                android:id="@+id/view_background"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textview_end_start" />
+
+            <TextView
+                android:id="@+id/textview_name"
+                style="@style/font_normal.bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_24dp"
+                android:text="@{viewModel.name}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/view_background"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Bahasa Inggris" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

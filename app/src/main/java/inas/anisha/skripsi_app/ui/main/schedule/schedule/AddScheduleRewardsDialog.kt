@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.main.schedule
+package inas.anisha.skripsi_app.ui.main.schedule.schedule
 
 import android.os.Bundle
 import android.view.LayoutInflater

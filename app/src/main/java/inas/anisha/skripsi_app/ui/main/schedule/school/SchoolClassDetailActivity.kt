@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.main.schedule
+package inas.anisha.skripsi_app.ui.main.schedule.school
 
 import android.content.Context
 import android.os.Bundle
@@ -34,7 +34,8 @@ class SchoolClassDetailActivity : AppCompatActivity() {
         observable.observe(this, Observer {
             it?.let {
                 mViewModel.schoolClass = it
-                mBinding.viewModel = SchoolClassViewModel().fromEntity(it)
+                mBinding.viewModel = SchoolClassViewModel()
+                    .fromEntity(it)
             }
         })
 
@@ -63,7 +64,8 @@ class SchoolClassDetailActivity : AppCompatActivity() {
     }
 
     fun openEditSchoolClassDialog() {
-        val editScheduleDialog = AddSchoolClassDialog().apply {
+        val editScheduleDialog = AddSchoolClassDialog()
+            .apply {
             arguments = Bundle().apply {
                 putParcelable(AddSchoolClassDialog.ARG_CLASS, mViewModel.schoolClass)
             }
@@ -76,7 +78,10 @@ class SchoolClassDetailActivity : AppCompatActivity() {
             }
         })
 
-        editScheduleDialog.show(supportFragmentManager, AddSchoolClassDialog.TAG)
+        editScheduleDialog.show(
+            supportFragmentManager,
+            AddSchoolClassDialog.TAG
+        )
     }
 
     companion object {

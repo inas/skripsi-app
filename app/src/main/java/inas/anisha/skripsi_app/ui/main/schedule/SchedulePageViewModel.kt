@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel
 
 class SchedulePageViewModel(application: Application) : AndroidViewModel(application) {
 

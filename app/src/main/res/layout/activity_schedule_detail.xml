@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="inas.anisha.skripsi_app.ui.main.schedule.ScheduleViewModel" />
+            type="inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

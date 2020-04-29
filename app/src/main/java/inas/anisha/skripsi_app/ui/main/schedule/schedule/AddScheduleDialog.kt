@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.main.schedule
+package inas.anisha.skripsi_app.ui.main.schedule.schedule
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -341,7 +341,8 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun showAddRewardsDialog() {
-        val addRewardsDialog = AddScheduleRewardsDialog().apply {
+        val addRewardsDialog = AddScheduleRewardsDialog()
+            .apply {
             arguments = Bundle().apply {
                 putString(
                     AddScheduleRewardsDialog.ARG_REWARDS,
@@ -362,7 +363,10 @@ class AddScheduleDialog : DialogFragment() {
             }
         })
 
-        addRewardsDialog.show(childFragmentManager, AddScheduleRewardsDialog.TAG)
+        addRewardsDialog.show(
+            childFragmentManager,
+            AddScheduleRewardsDialog.TAG
+        )
     }
 
     fun setAddScheduleDialogListener(callback: AddScheduleDialogListener) {

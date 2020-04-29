@@ -1,4 +1,4 @@
-package inas.anisha.skripsi_app.ui.main.schedule
+package inas.anisha.skripsi_app.ui.main.schedule.schedule
 
 import android.content.Context
 import android.os.Bundle
@@ -35,7 +35,8 @@ class ScheduleDetailActivity : AppCompatActivity() {
         observable?.observe(this, Observer {
             it?.let {
                 mViewModel.schedule = it
-                mBinding.viewModel = ScheduleViewModel().fromEntity(it)
+                mBinding.viewModel = ScheduleViewModel()
+                    .fromEntity(it)
                 mBinding.textviewTitle.strikeThrough(it.isCompleted)
             }
         })
@@ -74,7 +75,8 @@ class ScheduleDetailActivity : AppCompatActivity() {
     }
 
     fun openEditScheduleDialog() {
-        val editScheduleDialog = AddScheduleDialog().apply {
+        val editScheduleDialog = AddScheduleDialog()
+            .apply {
             arguments = Bundle().apply {
                 putParcelable(AddScheduleDialog.ARG_SCHEDULE, mViewModel.schedule)
             }

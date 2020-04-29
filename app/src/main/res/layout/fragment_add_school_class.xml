@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="inas.anisha.skripsi_app.ui.main.schedule.SchoolClassViewModel" />
+            type="inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel" />
 
     </data>
 
