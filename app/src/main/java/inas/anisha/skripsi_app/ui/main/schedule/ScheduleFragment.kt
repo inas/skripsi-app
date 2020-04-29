@@ -65,7 +65,7 @@ class ScheduleFragment : Fragment() {
                             childFragmentManager.beginTransaction().remove(activeFragment).commit()
                             activeFragment = DisplayTaskFragment()
                             childFragmentManager.beginTransaction()
-                                .replace(
+                                .add(
                                     R.id.layout_placeholder,
                                     activeFragment,
                                     DisplayTaskFragment.TAG
@@ -75,7 +75,7 @@ class ScheduleFragment : Fragment() {
                             childFragmentManager.beginTransaction().remove(activeFragment).commit()
                             activeFragment = DisplaySchoolClassFragment()
                             childFragmentManager.beginTransaction()
-                                .replace(
+                                .add(
                                     R.id.layout_placeholder,
                                     activeFragment,
                                     DisplaySchoolClassFragment.TAG

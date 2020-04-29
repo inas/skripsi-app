@@ -56,6 +56,6 @@ class SchoolClassAdapter :
 
     companion object {
         private val CARD_COLOUR =
-            mutableListOf(R.color.yellow, R.color.pink_light, R.color.pink, R.color.purple)
+            mutableListOf(R.color.yellow, R.color.purple, R.color.pink_light, R.color.pink)
     }
 }

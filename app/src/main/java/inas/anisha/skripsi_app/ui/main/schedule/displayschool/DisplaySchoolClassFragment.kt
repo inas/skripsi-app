@@ -60,6 +60,7 @@ class DisplaySchoolClassFragment : Fragment() {
             getTabAt(3)?.text = "Kamis"
             getTabAt(4)?.text = "Jumat"
             getTabAt(5)?.text = "Sabtu"
+            selectTab(getTabAt(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2))
         }
 
         observeSchoolClasses()

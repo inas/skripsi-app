@@ -29,6 +29,6 @@ class TaskListPagerAdapter(fragmentManager: FragmentManager) :
     }
 
     companion object {
-        const val NUM_ITEMS = 6
+        const val NUM_ITEMS = 2
     }
 }
