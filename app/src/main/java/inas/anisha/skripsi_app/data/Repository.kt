@@ -6,8 +6,8 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toPreviousMidnight
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
@@ -40,6 +40,14 @@ class Repository(application: Application) {
     fun shouldShowSchoolScheduleDialog() = sharedPreference.shouldShowSchoolScheduleDialog()
     fun setShouldNotShowSchoolScheduleDialog() =
         sharedPreference.setShouldNotShowSchoolScheduleDialog()
+
+    fun shouldShowEndOfCycleWarning() = sharedPreference.shouldShowEndOfCycleWarning()
+    fun setShouldShowEndOfCycleWarning(shouldShow: Boolean) =
+        sharedPreference.setShouldShowEndOfCycleWarning(shouldShow)
+
+    fun shouldShowEvaluationReport() = sharedPreference.shouldShowEvaluationReport()
+    fun setShouldShowEvaluationReport(shouldShow: Boolean) =
+        sharedPreference.setShouldShowEvaluationReport(shouldShow)
 
     fun getMainTarget() = targetUtamaDao.getTarget()
 
@@ -147,7 +155,8 @@ class Repository(application: Application) {
     fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAllBeforeDate(
             SkripsiConstant.SCHEDULE_TYPE_TASK,
-            Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }.toPreviousMidnight()
+            Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }
+                .getPreviousMidnight()
         )
 
     fun getSchedule(scheduleId: Long): LiveData<ScheduleEntity> =

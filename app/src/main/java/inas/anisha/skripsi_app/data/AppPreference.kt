@@ -16,6 +16,14 @@ class AppPreference(mContext: Context) {
     fun setShouldNotShowSchoolScheduleDialog() =
         setBoolean(SHOULD_SHOW_ADD_SCHOOL_SCHEDULE_DIALOG, false)
 
+    fun shouldShowEndOfCycleWarning(): Boolean = getBoolean(SHOULD_SHOW_END_OF_CYCLE_WARNING, true)
+    fun setShouldShowEndOfCycleWarning(shouldShow: Boolean) =
+        setBoolean(SHOULD_SHOW_END_OF_CYCLE_WARNING, shouldShow)
+
+    fun shouldShowEvaluationReport(): Boolean = getBoolean(SHOULD_SHOW_EVALUATION_REPORT, true)
+    fun setShouldShowEvaluationReport(shouldShow: Boolean) =
+        setBoolean(SHOULD_SHOW_EVALUATION_REPORT, shouldShow)
+
     fun getEvaluationDate() = getLong(EVALUATION_DATE, -1)
     fun setEvaluationDate(evaluationDate: Long) = setLong(EVALUATION_DATE, evaluationDate)
 
@@ -71,6 +79,8 @@ class AppPreference(mContext: Context) {
         private const val SHOULD_SHOW_KELOLA_PEMBELAJARAN = "SHOULD_SHOW_KELOLA_PEMBELAJARAN"
         private const val SHOULD_SHOW_ADD_SCHOOL_SCHEDULE_DIALOG =
             "SHOULD_SHOW_ADD_SCHOOL_SCHEDULE_DIALOG"
+        private const val SHOULD_SHOW_END_OF_CYCLE_WARNING = "SHOULD_SHOW_END_OF_CYCLE_WARNING"
+        private const val SHOULD_SHOW_EVALUATION_REPORT = "SHOULD_SHOW_EVALUATION_REPORT"
 
         private const val CYCLE_FREQUENCY = "CYCLE_FREQUENCY"
         private const val CYCLE_DURATION = "CYCLE_DURATION"

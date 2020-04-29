@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="312dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/radius_small">
+        android:background="@drawable/bg_rounded_pink"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="@dimen/radius_medium">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageview"
@@ -18,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg_dialog_add_school"
+                tools:src="@drawable/bg_dialog_add_school"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +32,7 @@
                 android:layout_margin="@dimen/space_16dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:text="Selamat! Kamu telah berhasil melakukan langkah pertama!"
+                tools:text="Selamat! Kamu telah berhasil melakukan langkah pertama!"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageview" />
@@ -55,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8dp"
                 android:layout_marginEnd="@dimen/space_12dp"
-                android:text="Selanjutnya, masukkan jadwal sekolahmu dan kegiatanmu untuk mengatur jadwal belajarmu!"
+                tools:text="Selanjutnya, masukkan jadwal sekolahmu dan kegiatanmu untuk mengatur jadwal belajarmu!"
                 app:layout_constraintEnd_toEndOf="@id/button_close"
                 app:layout_constraintStart_toStartOf="@id/textview_title"
                 app:layout_constraintTop_toBottomOf="@id/textview_title" />
@@ -67,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="@dimen/space_16dp"
-                android:text="Masukkan jadwal"
+                tools:text="Masukkan jadwal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/button_close"
                 app:layout_constraintStart_toStartOf="@id/textview_title"

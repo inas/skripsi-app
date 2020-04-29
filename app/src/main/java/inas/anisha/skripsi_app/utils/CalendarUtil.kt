@@ -6,7 +6,7 @@ import java.util.*
 class CalendarUtil {
 
     companion object {
-        fun Calendar.toPreviousMidnight(): Calendar {
+        fun Calendar.getPreviousMidnight(): Calendar {
             val newCalendar = Calendar.getInstance().also { it.timeInMillis = timeInMillis }
             newCalendar.set(Calendar.HOUR_OF_DAY, 0)
             newCalendar.set(Calendar.MINUTE, 0)
@@ -15,7 +15,7 @@ class CalendarUtil {
             return newCalendar
         }
 
-        fun Calendar.toNextMidnight(): Calendar {
+        fun Calendar.getNextMidnight(): Calendar {
             val newCalendar = Calendar.getInstance().also { it.timeInMillis = timeInMillis }
             newCalendar.set(Calendar.HOUR_OF_DAY, 0)
             newCalendar.set(Calendar.MINUTE, 0)
@@ -23,23 +23,6 @@ class CalendarUtil {
             newCalendar.set(Calendar.MILLISECOND, 0)
             newCalendar.add(Calendar.DAY_OF_MONTH, 1)
             return newCalendar
-        }
-
-        fun getPrevousMidnight(date: Calendar): Calendar {
-            date.set(Calendar.HOUR_OF_DAY, 0)
-            date.set(Calendar.MINUTE, 0)
-            date.set(Calendar.SECOND, 0)
-            date.set(Calendar.MILLISECOND, 0)
-            return date
-        }
-
-        fun getNextMidnight(date: Calendar): Calendar {
-            date.set(Calendar.HOUR_OF_DAY, 0)
-            date.set(Calendar.MINUTE, 0)
-            date.set(Calendar.SECOND, 0)
-            date.set(Calendar.MILLISECOND, 0)
-            date.add(Calendar.DAY_OF_MONTH, 1)
-            return date
         }
 
         fun getDateDisplayDayDate(date: Calendar): String {
@@ -93,5 +76,9 @@ class CalendarUtil {
             set(Calendar.MILLISECOND, 0)
             return this
         }
+
+        fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean =
+            cal1[Calendar.DAY_OF_YEAR] == cal2[Calendar.DAY_OF_YEAR]
+                    && cal1[Calendar.YEAR] == cal2[Calendar.YEAR]
     }
 }

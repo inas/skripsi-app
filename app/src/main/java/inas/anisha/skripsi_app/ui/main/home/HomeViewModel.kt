@@ -15,9 +15,9 @@ import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendu
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleViewModel
 import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel
 import inas.anisha.skripsi_app.utils.CalendarUtil
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getNextMidnight
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toNextMidnight
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toPreviousMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
 import java.util.*
 
@@ -48,7 +48,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         Transformations.switchMap(currentDate) { today ->
             val prev = Calendar.getInstance().apply { time = today.time }
             val next = Calendar.getInstance().apply { time = today.time }
-            mRepository.getScheduleSorted(prev.toPreviousMidnight(), next.toNextMidnight())
+            mRepository.getScheduleSorted(prev.getPreviousMidnight(), next.getNextMidnight())
         }
 
     fun getTomorrowsSchedule(): LiveData<List<ScheduleEntity>> =
@@ -56,7 +56,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             val tomorrow = today.apply { add(Calendar.DAY_OF_MONTH, 1) }
             val prev = Calendar.getInstance().apply { time = tomorrow.time }
             val next = Calendar.getInstance().apply { time = tomorrow.time }
-            mRepository.getSchedule(prev.toPreviousMidnight(), next.toNextMidnight())
+            mRepository.getSchedule(prev.getPreviousMidnight(), next.getNextMidnight())
         }
 
     fun getCycleTasks(): LiveData<List<ScheduleEntity>> = mRepository.getCurrentCycleTasks()
