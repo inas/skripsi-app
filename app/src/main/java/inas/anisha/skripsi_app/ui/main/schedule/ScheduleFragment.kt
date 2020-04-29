@@ -52,8 +52,8 @@ class ScheduleFragment : Fragment() {
             .add(R.id.layout_placeholder, activeFragment, DisplayTaskFragment.TAG).commit()
 
         mBinding.layoutDisplay.setOnClickListener { displayButton ->
-            requireContext().let {
-                val popup = PopupMenu(it, displayButton)
+            requireContext().let { context ->
+                val popup = PopupMenu(context, displayButton)
                 popup.menuInflater.inflate(R.menu.schedule_display_menu, popup.menu)
                 popup.setOnMenuItemClickListener {
                     when (it.itemId) {
@@ -82,6 +82,8 @@ class ScheduleFragment : Fragment() {
                                 ).commit()
                         }
                     }
+
+                    mBinding.textviewDisplay.text = it.title
                     true
                 }
                 popup.show()
@@ -138,6 +140,19 @@ class ScheduleFragment : Fragment() {
                 }
             })
         }.show(childFragmentManager, AddSchoolClassDialog.TAG)
+    }
+
+    fun openSchoolScheduleDisplay() {
+        childFragmentManager.beginTransaction().remove(activeFragment).commit()
+        activeFragment = DisplaySchoolClassFragment()
+        childFragmentManager.beginTransaction()
+            .add(
+                R.id.layout_placeholder,
+                activeFragment,
+                DisplaySchoolClassFragment.TAG
+            ).commit()
+
+        mBinding.textviewDisplay.text = "Sekolah"
     }
 
     companion object {

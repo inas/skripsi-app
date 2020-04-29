@@ -14,5 +14,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun prepopulate() = mRepository.prepopulate()
+    fun shouldShowSchoolScheduleDialog() = mRepository.shouldShowSchoolScheduleDialog()
+    fun setShouldNotShowSchoolScheduleDialog() = mRepository.setShouldNotShowSchoolScheduleDialog()
 
 }

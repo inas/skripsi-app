@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             mOnNavigationItemSelectedListener
         )
 
+        if (mViewModel.shouldShowSchoolScheduleDialog()) showAddSchoolClassDialog()
 //        mViewModel.prepopulate()
     }
 
@@ -85,4 +86,19 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+    private fun showAddSchoolClassDialog() {
+        AddSchoolScheduleDialog().apply {
+            setConfirmationDialogListener(object :
+                AddSchoolScheduleDialog.ConfirmationDialogListener {
+                override fun onConfirmed() {
+                    mBinding.bottomnavigation.selectedItemId = R.id.action_jadwal
+                    scheduleFragment.openSchoolScheduleDisplay()
+                    dismiss()
+                }
+            })
+        }.show(supportFragmentManager, AddSchoolScheduleDialog.TAG)
+
+        mViewModel.setShouldNotShowSchoolScheduleDialog()
+    }
 }

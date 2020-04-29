@@ -33,9 +33,13 @@ class Repository(application: Application) {
         scheduleDao = db.scheduleDao()
     }
 
-    // region shared preferenceex
+    // region shared preference
     fun shouldShowKelolaPembelajaran() = sharedPreference.shouldShowKelolaPembelajaran()
     fun setShouldNotShowKelolaPembelajaran() = sharedPreference.setShouldNotShowKelolaPembelajaran()
+
+    fun shouldShowSchoolScheduleDialog() = sharedPreference.shouldShowSchoolScheduleDialog()
+    fun setShouldNotShowSchoolScheduleDialog() =
+        sharedPreference.setShouldNotShowSchoolScheduleDialog()
 
     fun getMainTarget() = targetUtamaDao.getTarget()
 

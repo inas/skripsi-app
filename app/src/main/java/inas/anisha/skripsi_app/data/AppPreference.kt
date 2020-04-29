@@ -10,6 +10,12 @@ class AppPreference(mContext: Context) {
     fun shouldShowKelolaPembelajaran(): Boolean = getBoolean(SHOULD_SHOW_KELOLA_PEMBELAJARAN, true)
     fun setShouldNotShowKelolaPembelajaran() = setBoolean(SHOULD_SHOW_KELOLA_PEMBELAJARAN, false)
 
+    fun shouldShowSchoolScheduleDialog(): Boolean =
+        getBoolean(SHOULD_SHOW_ADD_SCHOOL_SCHEDULE_DIALOG, true)
+
+    fun setShouldNotShowSchoolScheduleDialog() =
+        setBoolean(SHOULD_SHOW_ADD_SCHOOL_SCHEDULE_DIALOG, false)
+
     fun getEvaluationDate() = getLong(EVALUATION_DATE, -1)
     fun setEvaluationDate(evaluationDate: Long) = setLong(EVALUATION_DATE, evaluationDate)
 
@@ -63,6 +69,9 @@ class AppPreference(mContext: Context) {
 
     companion object {
         private const val SHOULD_SHOW_KELOLA_PEMBELAJARAN = "SHOULD_SHOW_KELOLA_PEMBELAJARAN"
+        private const val SHOULD_SHOW_ADD_SCHOOL_SCHEDULE_DIALOG =
+            "SHOULD_SHOW_ADD_SCHOOL_SCHEDULE_DIALOG"
+
         private const val CYCLE_FREQUENCY = "CYCLE_FREQUENCY"
         private const val CYCLE_DURATION = "CYCLE_DURATION"
         private const val EVALUATION_DATE = "EVALUATION_DATE"
