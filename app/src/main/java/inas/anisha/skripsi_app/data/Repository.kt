@@ -6,6 +6,7 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getNextMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
 import io.reactivex.Observable
@@ -149,19 +150,23 @@ class Repository(application: Application) {
     }
 
     fun getTasks(dateLimit: Calendar, isUpcomingTasks: Boolean): LiveData<List<ScheduleEntity>> {
-        return if (isUpcomingTasks) scheduleDao.getAllAfterDate(
-            SkripsiConstant.SCHEDULE_TYPE_TASK,
-            dateLimit
-        )
-        else scheduleDao.getAllBeforeDate(SkripsiConstant.SCHEDULE_TYPE_TASK, dateLimit)
+        return if (isUpcomingTasks) {
+            scheduleDao.getAllAfterDate(SkripsiConstant.SCHEDULE_TYPE_TASK, dateLimit)
+        } else {
+            scheduleDao.getAllBeforeDate(SkripsiConstant.SCHEDULE_TYPE_TASK, dateLimit)
+        }
     }
 
 
     fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
-        scheduleDao.getAllBeforeDate(
-            SkripsiConstant.SCHEDULE_TYPE_TASK,
-            Calendar.getInstance().apply { timeInMillis = getEvaluationDate() }
-                .getPreviousMidnight()
+        scheduleDao.getAll(
+            Calendar.getInstance().apply { timeInMillis = getCycleStartDate() }
+                .getPreviousMidnight(),
+            Calendar.getInstance().apply {
+                timeInMillis = getEvaluationDate()
+                add(Calendar.DAY_OF_MONTH, -1)
+            }.getNextMidnight(),
+            SkripsiConstant.SCHEDULE_TYPE_TASK
         )
 
     fun getSchedule(scheduleId: Long): LiveData<ScheduleEntity> =

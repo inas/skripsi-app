@@ -44,6 +44,7 @@ class EvaluationExpandableListAdapter(
             val data = getChild(groupPosition, childPosition)
             childBinding.textviewItem.text = data.first
             childBinding.imageviewItem.setImageResource(data.second)
+            view?.isClickable = false
             return childBinding.root
         } else {
             val seeMoreBinding: ItemExpandableEvaluationSeeMoreBinding = DataBindingUtil.inflate(

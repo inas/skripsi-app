@@ -3,7 +3,6 @@ package inas.anisha.skripsi_app.ui.evaluation
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -11,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
+import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.databinding.ActivityEvaluationReportBinding
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
@@ -28,22 +28,28 @@ class EvaluationReportActivity : AppCompatActivity() {
     private lateinit var compositeDisposable: CompositeDisposable
 
     private var supportingTargetObservable: LiveData<List<TargetPendukungEntity>>? = null
+    private var currentCycleTasksObservable: LiveData<List<ScheduleEntity>>? = null
+
     private var taskExpandableListAdapter: EvaluationExpandableListAdapter? = null
     private var onTimeExpandableListAdapter: EvaluationExpandableListAdapter? = null
     private var targetExpandableListAdapter: EvaluationExpandableListAdapter? = null
+
+    private var isInitial = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_evaluation_report)
         mViewModel = ViewModelProviders.of(this).get(EvaluationReportViewModel::class.java)
+        initExpandableListView()
     }
 
     override fun onStart() {
         super.onStart()
         compositeDisposable = CompositeDisposable()
 
-        initExpandableListView()
         setCycleData()
+        setTaskData()
+        setOnTimeData()
         setTargetData()
     }
 
@@ -51,6 +57,7 @@ class EvaluationReportActivity : AppCompatActivity() {
         super.onStop()
         compositeDisposable.dispose()
         supportingTargetObservable?.removeObservers(this)
+        currentCycleTasksObservable?.removeObservers(this)
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -58,37 +65,45 @@ class EvaluationReportActivity : AppCompatActivity() {
     }
 
     fun initExpandableListView() {
-        if (taskExpandableListAdapter == null) taskExpandableListAdapter =
-            EvaluationExpandableListAdapter(this)
-        mBinding.listviewTask.setAdapter(taskExpandableListAdapter)
-        mBinding.listviewTask.setOnGroupClickListener { parent, v, groupPosition, id ->
-            parent.expandGroup(groupPosition)
-            false
-        }
-
-        if (onTimeExpandableListAdapter == null) onTimeExpandableListAdapter =
-            EvaluationExpandableListAdapter(this)
-        mBinding.listviewOnTime.setAdapter(onTimeExpandableListAdapter)
-        mBinding.listviewOnTime.setOnGroupClickListener { parent, v, groupPosition, id ->
-            parent.expandGroup(groupPosition)
-            if (parent.isGroupExpanded(groupPosition)) {
-                v.findViewById<ImageView>(R.id.imageview_chevron)
-                    .setImageDrawable(resources.getDrawable(R.drawable.ic_chevron_up, null))
-            } else {
-                v.findViewById<ImageView>(R.id.imageview_chevron)
-                    .setImageDrawable(resources.getDrawable(R.drawable.ic_chevron_down, null))
+        if (taskExpandableListAdapter == null) {
+            taskExpandableListAdapter = EvaluationExpandableListAdapter(this)
+            mBinding.listviewTask.apply {
+                setAdapter(taskExpandableListAdapter)
+                setOnGroupClickListener { parent, v, groupPosition, id -> false }
             }
-            false
         }
 
-        if (targetExpandableListAdapter == null) targetExpandableListAdapter =
-            EvaluationExpandableListAdapter(this)
-        mBinding.listviewTaskTarget.apply {
-            setAdapter(targetExpandableListAdapter)
-            setOnGroupClickListener { parent, v, groupPosition, id -> false }
+        if (onTimeExpandableListAdapter == null) {
+            onTimeExpandableListAdapter = EvaluationExpandableListAdapter(this)
+            mBinding.listviewOnTime.apply {
+                setAdapter(onTimeExpandableListAdapter)
+                setOnGroupClickListener { parent, v, groupPosition, id -> false }
+            }
         }
 
-        Handler().postDelayed({ mBinding.listviewTaskTarget.expandGroup(0, true) }, 500)
+        if (targetExpandableListAdapter == null) {
+            targetExpandableListAdapter = EvaluationExpandableListAdapter(this)
+            mBinding.listviewTarget.apply {
+                setAdapter(targetExpandableListAdapter)
+                setOnGroupClickListener { parent, v, groupPosition, id -> false }
+            }
+        }
+
+        if (isInitial) Handler().postDelayed({
+            if (targetExpandableListAdapter?.groupCount ?: 0 > 0) mBinding.listviewTask.expandGroup(
+                0,
+                true
+            )
+            if (targetExpandableListAdapter?.groupCount ?: 0 > 0) mBinding.listviewOnTime.expandGroup(
+                0,
+                true
+            )
+            if (targetExpandableListAdapter?.groupCount ?: 0 > 0) mBinding.listviewTarget.expandGroup(
+                0,
+                true
+            )
+            isInitial = false
+        }, 500)
     }
 
     fun setCycleData() {
@@ -114,6 +129,55 @@ class EvaluationReportActivity : AppCompatActivity() {
 
         mBinding.textviewCycleDuration.text =
             "" + (if (cycleTime.second == 1) "" else (" " + cycleTime.second + " ")) + frequency
+    }
+
+    fun setTaskData() {
+        currentCycleTasksObservable = mViewModel.getCurrentCycleTasks().apply {
+            observe(this@EvaluationReportActivity, Observer { tasks ->
+                var completedTask = 0
+                var onTimeTask = 0
+                val statusPairCompleted = mutableListOf<Pair<String, Int>>()
+                val statusPairOnTime = mutableListOf<Pair<String, Int>>()
+                tasks.forEach {
+                    if (it.isCompleted) {
+                        statusPairCompleted.add(Pair(it.name, R.drawable.ic_check_green_white))
+                        completedTask++
+                    } else {
+                        statusPairCompleted.add(Pair(it.name, R.drawable.ic_cross))
+                    }
+
+                    if (it.isOnTime) {
+                        statusPairOnTime.add(Pair(it.name, R.drawable.ic_check_green_white))
+                        onTimeTask++
+                    } else {
+                        statusPairOnTime.add(Pair(it.name, R.drawable.ic_cross))
+                    }
+                }
+
+                val headerTextCompleted = "" + completedTask + "/" + tasks.size + " tugas selesai"
+                val mapCompleted = hashMapOf(
+                    Pair(
+                        headerTextCompleted,
+                        statusPairCompleted.take(EvaluationExpandableListAdapter.MAX_CHILD + 1)
+                    )
+                )
+                taskExpandableListAdapter?.setData(mutableListOf(headerTextCompleted), mapCompleted)
+
+                val headerTextOnTime =
+                    "" + onTimeTask + "/" + tasks.size + " tugas dikerjakan tepat waktu"
+                val mapOnTime = hashMapOf(
+                    Pair(
+                        headerTextOnTime,
+                        statusPairOnTime.take(EvaluationExpandableListAdapter.MAX_CHILD + 1)
+                    )
+                )
+                onTimeExpandableListAdapter?.setData(mutableListOf(headerTextOnTime), mapOnTime)
+            })
+        }
+    }
+
+    fun setOnTimeData() {
+
     }
 
     fun setTargetData() {

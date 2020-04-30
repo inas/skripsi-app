@@ -18,4 +18,5 @@
     <color name="light_secondary">#A5A5A5</color>
 
     <color name="warning">#EF817D</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
