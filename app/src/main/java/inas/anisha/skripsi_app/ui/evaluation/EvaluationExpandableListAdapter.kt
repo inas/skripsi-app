@@ -18,6 +18,7 @@ class EvaluationExpandableListAdapter(
 
     private var listHeaderData: List<String> = mutableListOf()
     private var listChildData: HashMap<String, List<Pair<String, Int>>> = hashMapOf()
+    private var mListener: ItemClickListener? = null
 
     override fun getChild(groupPosition: Int, childPosititon: Int): Pair<String, Int> {
         return listChildData[listHeaderData[groupPosition]]?.get(childPosititon) ?: Pair(
@@ -53,6 +54,8 @@ class EvaluationExpandableListAdapter(
                 viewGroup,
                 false
             )
+
+            seeMoreBinding.layout.setOnClickListener { mListener?.onClick() }
             return seeMoreBinding.root
         }
     }
@@ -105,6 +108,14 @@ class EvaluationExpandableListAdapter(
 
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean {
         return true
+    }
+
+    fun setItemClickListener(listener: ItemClickListener) {
+        mListener = listener
+    }
+
+    interface ItemClickListener {
+        fun onClick()
     }
 
     companion object {

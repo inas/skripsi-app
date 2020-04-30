@@ -24,7 +24,9 @@
             app:layout_constraintEnd_toStartOf="@id/imageview_item"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Mendapat peringkat 3 besar di kelas" />
+            android:ellipsize="end"
+            android:singleLine="true"
+            tools:text="Mendapat peringkat 3 besar di kelas hh h h h hh h hh hh hh" />
 
         <ImageView
             android:id="@+id/imageview_item"
