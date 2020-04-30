@@ -3,14 +3,15 @@ package inas.anisha.skripsi_app.ui.evaluation
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.text.InputType
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
-import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.databinding.ActivityEvaluationReportBinding
@@ -28,9 +29,7 @@ class EvaluationReportActivity : AppCompatActivity() {
     private lateinit var mViewModel: EvaluationReportViewModel
     private lateinit var compositeDisposable: CompositeDisposable
 
-    private lateinit var taskDialog: EvaluationListDialog
-    private lateinit var onTimeDialog: EvaluationListDialog
-    private lateinit var targetDialog: EvaluationListDialog
+    private lateinit var evaluationListDialog: EvaluationListDialog
 
     private var supportingTargetObservable: LiveData<List<TargetPendukungEntity>>? = null
     private var currentCycleTasksObservable: LiveData<List<ScheduleEntity>>? = null
@@ -56,6 +55,14 @@ class EvaluationReportActivity : AppCompatActivity() {
         setCycleData()
         setTaskData()
         setTargetData()
+
+        mBinding.edittextReflection.apply {
+            imeOptions = EditorInfo.IME_ACTION_DONE
+            setRawInputType(InputType.TYPE_CLASS_TEXT)
+        }
+        mBinding.buttonSubmit.setOnClickListener {
+            mViewModel.saveCycle(mBinding.edittextReflection.text.toString())
+        }
     }
 
     override fun onStop() {
@@ -74,7 +81,7 @@ class EvaluationReportActivity : AppCompatActivity() {
             taskExpandableListAdapter = EvaluationExpandableListAdapter(this).apply {
                 setItemClickListener(object : EvaluationExpandableListAdapter.ItemClickListener {
                     override fun onClick() {
-                        taskDialog.show(supportFragmentManager, EvaluationListDialog.TAG)
+                        showCompletedTaskDialog()
                     }
                 })
             }
@@ -89,7 +96,7 @@ class EvaluationReportActivity : AppCompatActivity() {
             onTimeExpandableListAdapter = EvaluationExpandableListAdapter(this).apply {
                 setItemClickListener(object : EvaluationExpandableListAdapter.ItemClickListener {
                     override fun onClick() {
-                        onTimeDialog.show(supportFragmentManager, EvaluationListDialog.TAG)
+                        showOnTimeTaskDialog()
                     }
                 })
             }
@@ -104,7 +111,7 @@ class EvaluationReportActivity : AppCompatActivity() {
             targetExpandableListAdapter = EvaluationExpandableListAdapter(this).apply {
                 setItemClickListener(object : EvaluationExpandableListAdapter.ItemClickListener {
                     override fun onClick() {
-                        targetDialog.show(supportFragmentManager, EvaluationListDialog.TAG)
+                        showTargetDialog()
                     }
                 })
             }
@@ -135,138 +142,56 @@ class EvaluationReportActivity : AppCompatActivity() {
         }, 500)
     }
 
-    fun setCycleData() {
-        val startDate =
-            Calendar.getInstance().apply { timeInMillis = mViewModel.getCycleStartDate() }
-        val endDate = Calendar.getInstance().apply {
-            timeInMillis = mViewModel.getCycleEndDate()
-            add(Calendar.DAY_OF_MONTH, -1)
+    fun setDialog() {
+        evaluationListDialog = EvaluationListDialog().apply {
+            setConfirmationDialogListener(object :
+                EvaluationListDialog.ConfirmationDialogListener {
+                override fun onConfirmed() {
+                    dismiss()
+                }
+            })
         }
+    }
+
+    fun setCycleData() {
+        val startDate = mViewModel.getCycleStartDate()
+        val endDate = mViewModel.getCycleEvaluationDate()
 
         mBinding.textviewPeriod.text = startDate.toDateString() + " - " + endDate.toDateString()
 
         mViewModel.getCurrentCycle().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            mViewModel.id = it.id
+            mViewModel.cycleNumber = it.number
             mBinding.textviewCycle.text = "Siklus " + it.number
         }.addTo(compositeDisposable)
 
-        val cycleTime = mViewModel.getCycleTime()
-        val frequency = when (cycleTime.first) {
-            SkripsiConstant.CYCLE_FREQUENCY_DAILY -> "Harian"
-            SkripsiConstant.CYCLE_FREQUENCY_WEEKLY -> "Mingguan"
-            else -> "Bulanan"
-        }
-
-        mBinding.textviewCycleDuration.text =
-            "" + (if (cycleTime.second == 1) "" else (" " + cycleTime.second + " ")) + frequency
+        mBinding.textviewCycleDuration.text = mViewModel.getCycleTime()
     }
 
     fun setTaskData() {
         currentCycleTasksObservable = mViewModel.getCurrentCycleTasks().apply {
             observe(this@EvaluationReportActivity, Observer { tasks ->
-                var completedTask = 0
-                var onTimeTask = 0
+                tasks?.let { mViewModel.processTasks(tasks) }
 
-                val taskNames = mutableListOf<String>()
-                val taskCompletionIcons = mutableListOf<Int>()
-                val taskOnTimeIcons = mutableListOf<Int>()
-
-                val statusPairCompleted = mutableListOf<Pair<String, Int>>()
-                val statusPairOnTime = mutableListOf<Pair<String, Int>>()
-                tasks.forEach {
-                    taskNames.add(it.name)
-
-                    if (it.isCompleted) {
-                        statusPairCompleted.add(Pair(it.name, R.drawable.ic_check_green_white))
-                        taskCompletionIcons.add(R.drawable.ic_check_green_white)
-                        completedTask++
-                    } else {
-                        statusPairCompleted.add(Pair(it.name, R.drawable.ic_cross))
-                        taskCompletionIcons.add(R.drawable.ic_cross)
-                    }
-
-                    if (it.isOnTime) {
-                        statusPairOnTime.add(Pair(it.name, R.drawable.ic_check_green_white))
-                        taskOnTimeIcons.add(R.drawable.ic_check_green_white)
-                        onTimeTask++
-                    } else {
-                        statusPairOnTime.add(Pair(it.name, R.drawable.ic_cross))
-                        taskOnTimeIcons.add(R.drawable.ic_cross)
-                    }
-                }
-
-                val headerTextCompleted = "" + completedTask + "/" + tasks.size + " tugas selesai"
-                val mapCompleted = hashMapOf(
+                val headerTextCompleted = mViewModel.getCompletedTaskString()
+                val statusPairCompleted = mViewModel.taskNames.zip(mViewModel.taskCompletionIcons)
+                val mapCompleted: HashMap<String, List<Pair<String, Int>>> = hashMapOf(
                     Pair(
                         headerTextCompleted,
                         statusPairCompleted.take(EvaluationExpandableListAdapter.MAX_CHILD + 1)
                     )
                 )
                 taskExpandableListAdapter?.setData(mutableListOf(headerTextCompleted), mapCompleted)
-                taskDialog.apply {
-                    arguments = Bundle().apply {
-                        putString(EvaluationListDialog.ARG_TITLE, headerTextCompleted)
-                        putStringArrayList(
-                            EvaluationListDialog.ARG_ITEM,
-                            taskNames as ArrayList<String>
-                        )
-                        putIntegerArrayList(
-                            EvaluationListDialog.ARG_BOOLEAN,
-                            taskCompletionIcons as ArrayList<Int>
-                        )
-                    }
-                }
 
-                val headerTextOnTime =
-                    "" + onTimeTask + "/" + tasks.size + " tugas dikerjakan tepat waktu"
-                val mapOnTime = hashMapOf(
+                val headerTextOnTime = mViewModel.getOnTimeTaskString()
+                val statusPairOnTime = mViewModel.taskNames.zip(mViewModel.taskOnTimeIcons)
+                val mapOnTime: HashMap<String, List<Pair<String, Int>>> = hashMapOf(
                     Pair(
                         headerTextOnTime,
                         statusPairOnTime.take(EvaluationExpandableListAdapter.MAX_CHILD + 1)
                     )
                 )
                 onTimeExpandableListAdapter?.setData(mutableListOf(headerTextOnTime), mapOnTime)
-                onTimeDialog.apply {
-                    arguments = Bundle().apply {
-                        putString(EvaluationListDialog.ARG_TITLE, headerTextOnTime)
-                        putStringArrayList(
-                            EvaluationListDialog.ARG_ITEM,
-                            taskNames as ArrayList<String>
-                        )
-                        putIntegerArrayList(
-                            EvaluationListDialog.ARG_BOOLEAN,
-                            taskOnTimeIcons as ArrayList<Int>
-                        )
-                    }
-                }
-            })
-        }
-    }
-
-    fun setDialog() {
-        taskDialog = EvaluationListDialog().apply {
-            setConfirmationDialogListener(object :
-                EvaluationListDialog.ConfirmationDialogListener {
-                override fun onConfirmed() {
-                    dismiss()
-                }
-            })
-        }
-
-        onTimeDialog = EvaluationListDialog().apply {
-            setConfirmationDialogListener(object :
-                EvaluationListDialog.ConfirmationDialogListener {
-                override fun onConfirmed() {
-                    dismiss()
-                }
-            })
-        }
-
-        targetDialog = EvaluationListDialog().apply {
-            setConfirmationDialogListener(object :
-                EvaluationListDialog.ConfirmationDialogListener {
-                override fun onConfirmed() {
-                    dismiss()
-                }
             })
         }
     }
@@ -274,48 +199,68 @@ class EvaluationReportActivity : AppCompatActivity() {
     fun setTargetData() {
         supportingTargetObservable = mViewModel.getSupportingTargets().apply {
             observe(this@EvaluationReportActivity, Observer { targets ->
+                targets?.let { mViewModel.processTargets(targets) }
 
-                var completedTarget = 0
-                val statusPair = mutableListOf<Pair<String, Int>>()
-                val itemList = mutableListOf<String>()
-                val icList = mutableListOf<Int>()
-                targets.forEach {
-                    itemList.add(it.name)
-                    if (it.isCompleted) {
-                        statusPair.add(Pair(it.name, R.drawable.ic_check_green_white))
-                        icList.add(R.drawable.ic_check_green_white)
-                        completedTarget++
-                    } else {
-                        statusPair.add(Pair(it.name, R.drawable.ic_cross))
-                        icList.add(R.drawable.ic_cross)
-                    }
-                }
-
-                val headerText = "" + completedTarget + "/" + targets.size + " target tercapai"
-                val map = hashMapOf(
+                val headerText = mViewModel.getCompletedTargetString()
+                val statusPairCompleted = mViewModel.targetNames.zip(mViewModel.targetIcons)
+                val map: HashMap<String, List<Pair<String, Int>>> = hashMapOf(
                     Pair(
                         headerText,
-                        statusPair.take(EvaluationExpandableListAdapter.MAX_CHILD + 1)
+                        statusPairCompleted.take(EvaluationExpandableListAdapter.MAX_CHILD + 1)
                     )
                 )
 
                 targetExpandableListAdapter?.setData(mutableListOf(headerText), map)
-
-                targetDialog.apply {
-                    arguments = Bundle().apply {
-                        putString(EvaluationListDialog.ARG_TITLE, headerText)
-                        putStringArrayList(
-                            EvaluationListDialog.ARG_ITEM,
-                            itemList as ArrayList<String>
-                        )
-                        putIntegerArrayList(
-                            EvaluationListDialog.ARG_BOOLEAN,
-                            icList as ArrayList<Int>
-                        )
-                    }
-                }
             })
         }
+    }
+
+    private fun showCompletedTaskDialog() {
+        evaluationListDialog.apply {
+            arguments = Bundle().apply {
+                putString(EvaluationListDialog.ARG_TITLE, mViewModel.getCompletedTaskString())
+                putStringArrayList(
+                    EvaluationListDialog.ARG_ITEM,
+                    mViewModel.taskNames as ArrayList<String>
+                )
+                putIntegerArrayList(
+                    EvaluationListDialog.ARG_BOOLEAN,
+                    mViewModel.taskCompletionIcons as ArrayList<Int>
+                )
+            }
+        }.show(supportFragmentManager, EvaluationListDialog.TAG)
+    }
+
+    private fun showOnTimeTaskDialog() {
+        evaluationListDialog.apply {
+            arguments = Bundle().apply {
+                putString(EvaluationListDialog.ARG_TITLE, mViewModel.getOnTimeTaskString())
+                putStringArrayList(
+                    EvaluationListDialog.ARG_ITEM,
+                    mViewModel.taskNames as ArrayList<String>
+                )
+                putIntegerArrayList(
+                    EvaluationListDialog.ARG_BOOLEAN,
+                    mViewModel.taskOnTimeIcons as ArrayList<Int>
+                )
+            }
+        }.show(supportFragmentManager, EvaluationListDialog.TAG)
+    }
+
+    private fun showTargetDialog() {
+        evaluationListDialog.apply {
+            arguments = Bundle().apply {
+                putString(EvaluationListDialog.ARG_TITLE, mViewModel.getCompletedTargetString())
+                putStringArrayList(
+                    EvaluationListDialog.ARG_ITEM,
+                    mViewModel.targetNames as ArrayList<String>
+                )
+                putIntegerArrayList(
+                    EvaluationListDialog.ARG_BOOLEAN,
+                    mViewModel.targetIcons as ArrayList<Int>
+                )
+            }
+        }.show(supportFragmentManager, EvaluationListDialog.TAG)
     }
 
     private fun goToStartNewCycle() {

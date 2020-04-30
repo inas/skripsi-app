@@ -45,11 +45,11 @@ class MockData {
                     "kelas 1",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 17, 0)
+                        set(2020, 4, 1, 17, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 17, 30)
+                        set(2020, 4, 1, 17, 30)
                     },
                     Calendar.SATURDAY
                 ),
@@ -211,11 +211,11 @@ class MockData {
                     "Tugas 1",
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 10, 0)
+                        set(2020, 4, 1, 10, 0)
                     },
                     Calendar.getInstance().apply {
                         set(Calendar.MILLISECOND, 0)
-                        set(2020, 3, 25, 10, 0)
+                        set(2020, 4, 1, 10, 0)
                     },
                     "Tugas 1",
                     4,
@@ -228,8 +228,8 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 2",
-                    Calendar.getInstance().apply { set(2020, 3, 25, 21, 0) },
-                    Calendar.getInstance().apply { set(2020, 3, 25, 21, 0) },
+                    Calendar.getInstance().apply { set(2020, 4, 1, 21, 0) },
+                    Calendar.getInstance().apply { set(2020, 4, 1, 21, 0) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     5,
                     "main harvest moon",
@@ -241,8 +241,8 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 3",
-                    Calendar.getInstance().apply { set(2020, 3, 24, 21, 40) },
-                    Calendar.getInstance().apply { set(2020, 3, 24, 21, 40) },
+                    Calendar.getInstance().apply { set(2020, 4, 3, 21, 40) },
+                    Calendar.getInstance().apply { set(2020, 4, 3, 21, 40) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     4
                 ),
@@ -250,18 +250,18 @@ class MockData {
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 4",
-                    Calendar.getInstance().apply { set(2020, 3, 25, 13, 10) },
-                    Calendar.getInstance().apply { set(2020, 3, 25, 13, 10) },
+                    Calendar.getInstance().apply { set(2020, 4, 4, 13, 10) },
+                    Calendar.getInstance().apply { set(2020, 4, 4, 13, 10) },
                     "ulangan ulangin",
                     3,
                     "",
-                    Calendar.getInstance().apply { set(2020, 3, 25, 17, 50) }),
+                    Calendar.getInstance().apply { set(2020, 3, 30, 17, 50) }),
                 ScheduleEntity(
                     0,
                     SkripsiConstant.SCHEDULE_TYPE_TASK,
                     "Tugas 5",
-                    Calendar.getInstance().apply { set(2020, 3, 26, 11, 10) },
-                    Calendar.getInstance().apply { set(2020, 3, 26, 11, 10) },
+                    Calendar.getInstance().apply { set(2020, 4, 2, 11, 10) },
+                    Calendar.getInstance().apply { set(2020, 4, 2, 11, 10) },
                     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa",
                     0
                 )

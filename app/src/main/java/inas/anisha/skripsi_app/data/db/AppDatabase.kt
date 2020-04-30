@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import inas.anisha.skripsi_app.data.db.converter.CalendarConverter
+import inas.anisha.skripsi_app.data.db.converter.Converters
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
 
@@ -13,7 +13,7 @@ import inas.anisha.skripsi_app.data.db.entity.*
     entities = [TargetUtamaEntity::class, TargetPendukungEntity::class, CycleEntity::class, SchoolClassEntity::class, ScheduleEntity::class],
     version = 1
 )
-@TypeConverters(CalendarConverter::class)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun targetUtamaDao(): TargetUtamaDao
