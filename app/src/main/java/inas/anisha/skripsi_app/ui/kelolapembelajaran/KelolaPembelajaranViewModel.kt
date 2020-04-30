@@ -38,6 +38,7 @@ class KelolaPembelajaranViewModel(application: Application) : AndroidViewModel(a
 
         val evaluationDate = calculateDate(cycleTime).timeInMillis
         mRepository.setEvaluationDate(evaluationDate)
+        mRepository.setCycleStartDate(Calendar.getInstance().timeInMillis)
 
         val targetCompletion = if (supportingTargetDataModels.size == 0) -1 else 0
         mRepository.addCycle(CycleEntity(0, 1, targetCompletion))

@@ -24,6 +24,9 @@ class AppPreference(mContext: Context) {
     fun setShouldShowEvaluationReport(shouldShow: Boolean) =
         setBoolean(SHOULD_SHOW_EVALUATION_REPORT, shouldShow)
 
+    fun getCycleStartDate() = getLong(CYCLE_START_DATE, -1)
+    fun setCycleStartDate(evaluationDate: Long) = setLong(CYCLE_START_DATE, evaluationDate)
+
     fun getEvaluationDate() = getLong(EVALUATION_DATE, -1)
     fun setEvaluationDate(evaluationDate: Long) = setLong(EVALUATION_DATE, evaluationDate)
 
@@ -84,6 +87,7 @@ class AppPreference(mContext: Context) {
 
         private const val CYCLE_FREQUENCY = "CYCLE_FREQUENCY"
         private const val CYCLE_DURATION = "CYCLE_DURATION"
+        private const val CYCLE_START_DATE = "CYCLE_START_DATE"
         private const val EVALUATION_DATE = "EVALUATION_DATE"
 
         private const val USER_NAME = "USER_NAME"

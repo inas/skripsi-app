@@ -72,6 +72,11 @@ class AddSchoolClassDialog : DialogFragment() {
         return mBinding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        compositeDisposable.dispose()
+    }
+
     fun initChipValue() {
         when (mViewModel.day) {
             Calendar.MONDAY -> mBinding.chipMonday.isChecked = true

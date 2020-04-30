@@ -80,7 +80,9 @@ class Repository(application: Application) {
         Observable.fromCallable { targetPendukungDao.update(target) }
             .subscribeOn(Schedulers.io()).subscribe()
 
-    fun getCurrentCycle(): LiveData<CycleEntity> = cycleDao.getLatest()
+    fun getCurrentCycle(): Observable<CycleEntity> =
+        Observable.fromCallable { cycleDao.getLatest() }.subscribeOn(Schedulers.io())
+
     fun getCycles(): LiveData<List<CycleEntity>> = cycleDao.getAll()
     fun addCycle(cycle: CycleEntity) =
         Observable.fromCallable { cycleDao.add(cycle) }
@@ -95,6 +97,9 @@ class Repository(application: Application) {
 
     fun getEvaluationDate(): Long = sharedPreference.getEvaluationDate()
     fun setEvaluationDate(evaluationDate: Long) = sharedPreference.setEvaluationDate(evaluationDate)
+
+    fun getCycleStartDate(): Long = sharedPreference.getCycleStartDate()
+    fun setCycleStartDate(startDate: Long) = sharedPreference.setCycleStartDate(startDate)
 
     fun getUserName(): String = sharedPreference.getUserName()
     fun setUserName(name: String) = sharedPreference.setUserName(name)

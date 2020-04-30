@@ -1,6 +1,7 @@
 package inas.anisha.skripsi_app.ui.evaluation
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -27,7 +28,7 @@ class EvaluationReportIntroActivity : AppCompatActivity() {
     }
 
     private fun goToEvaluationReportActivity() {
-//        val intent = Intent(this, EvaluationReportActivity::class.java)
-//        startActivity(intent)
+        val intent = Intent(this, EvaluationReportActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         if (evaluationDate.getPreviousMidnight() < Calendar.getInstance() && mViewModel.shouldShowEvaluationReport()) {
             val intent = Intent(this, EvaluationReportIntroActivity::class.java)
             startActivity(intent)
+            finish()
         } else if (CalendarUtil.isSameDay(
                 evaluationDate.apply { add(Calendar.DAY_OF_MONTH, -1) },
                 Calendar.getInstance()

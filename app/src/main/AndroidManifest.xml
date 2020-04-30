@@ -29,5 +29,6 @@
         <activity android:name=".ui.main.schedule.schedule.ScheduleDetailActivity" />
         <activity android:name=".ui.main.schedule.school.SchoolClassDetailActivity" />
         <activity android:name=".ui.evaluation.EvaluationReportIntroActivity" />
+        <activity android:name=".ui.evaluation.EvaluationReportActivity" />
     </application>
 </manifest>

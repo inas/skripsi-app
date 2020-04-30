@@ -19,7 +19,7 @@ interface CycleDao {
     fun getAll(): LiveData<List<CycleEntity>>
 
     @Query("SELECT * FROM cycle ORDER BY id DESC LIMIT 1")
-    fun getLatest(): LiveData<CycleEntity>
+    fun getLatest(): CycleEntity
 
     @Query("WITH latest AS (SELECT id FROM cycle ORDER BY id DESC LIMIT 1) UPDATE cycle SET completion = :percentage WHERE id IN latest")
     fun updateCurrentCycleCompleteness(percentage: Int)
