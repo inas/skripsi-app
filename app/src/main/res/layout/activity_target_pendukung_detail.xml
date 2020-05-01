@@ -97,26 +97,35 @@
             app:layout_constraintTop_toBottomOf="@id/textview_notes"
             tools:text="Setiap hari, 3 kali sehari, tiap jarak 5 menit" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_mark_as_incomplete"
-            style="@style/Button.Outlined"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:text="Belum Tercapai"
-            android:visibility="@{viewModel.isCompleted? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toTopOf="@id/button_mark_as_complete"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_goneMarginBottom="@dimen/space_16dp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_mark_as_complete"
-            style="@style/button_full"
-            android:layout_margin="@dimen/space_16dp"
-            android:text="Tandai Tercapai"
-            android:visibility="@{viewModel.isCompleted? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_mark_as_incomplete"
+                style="@style/Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_16dp"
+                android:text="Belum Tercapai"
+                android:visibility="@{viewModel.isCompleted? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toTopOf="@id/button_mark_as_complete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_goneMarginBottom="@dimen/space_16dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_mark_as_complete"
+                style="@style/button_full"
+                android:layout_margin="@dimen/space_16dp"
+                android:text="Tandai Tercapai"
+                android:visibility="@{viewModel.isCompleted? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

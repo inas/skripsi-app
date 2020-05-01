@@ -1,7 +1,9 @@
 package inas.anisha.skripsi_app.ui.main.target
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -28,21 +30,34 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_target_pendukung_detail)
         mViewModel = ViewModelProviders.of(this).get(TargetPendukungDetailViewModel::class.java)
+        targetEntity = intent.getParcelableExtra(EXTRA_ENTITY)
         targetId = intent.getLongExtra(EXTRA_ID, 0L)
     }
 
     override fun onStart() {
         super.onStart()
         observable = mViewModel.getSupportingTarget(targetId)
-        observable.observe(this, Observer {
-            it?.let {
+        observable.observe(this, Observer { dbTarget ->
+            var target = dbTarget
+            targetEntity?.let {
+                target = it
+                mBinding.layoutButton.visibility = View.GONE
+            }
+
+            target?.let {
                 mViewModel.target = it
                 mBinding.viewModel = mViewModel.getSupportingTargetViewModel(it)
                 mBinding.textviewTargetName.strikeThrough(it.isCompleted)
             }
         })
 
-        mBinding.imageviewBack.setOnClickListener { finish() }
+        mBinding.imageviewBack.setOnClickListener {
+            val returnIntent = Intent()
+            returnIntent.putExtra(EXTRA_ENTITY, mViewModel.target)
+            setResult(RESULT_UPDATED, returnIntent)
+            finish()
+        }
+
         mBinding.buttonMarkAsComplete.setOnClickListener { mViewModel.setTargetAsComplete(true) }
         mBinding.buttonMarkAsIncomplete.setOnClickListener { mViewModel.setTargetAsComplete(false) }
 
@@ -51,7 +66,12 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
         }
 
         mBinding.buttonHapus.setOnClickListener {
-            mViewModel.deleteSupportingTarget()
+            if (targetEntity == null) {
+                mViewModel.deleteSupportingTarget()
+            } else {
+                val returnIntent = Intent()
+                setResult(RESULT_DELETED, returnIntent)
+            }
             finish()
         }
     }
@@ -65,6 +85,13 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
         mBinding.buttonMarkAsIncomplete.setOnClickListener(null)
         mBinding.buttonEdit.setOnClickListener(null)
         mBinding.buttonHapus.setOnClickListener(null)
+    }
+
+    override fun onBackPressed() {
+        val returnIntent = Intent()
+        returnIntent.putExtra(EXTRA_ENTITY, mViewModel.target)
+        setResult(RESULT_UPDATED, returnIntent)
+        finish()
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -81,7 +108,12 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
         tambahTargetDialog.setOnTargetAddedListener(object :
             TambahTargetPendukungDialog.OnTargetModifiedListener {
             override fun onTargetModified(target: TargetPendukungViewModel) {
-                mViewModel.updateSupportingTarget(target)
+                if (targetEntity == null) {
+                    mViewModel.updateSupportingTarget(target)
+                } else {
+                    mViewModel.target = target.toEntity()
+                    mBinding.viewModel = target
+                }
             }
         })
 
@@ -90,5 +122,9 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ID = "EXTRA_ID"
+        const val EXTRA_ENTITY = "EXTRA_ENTITY"
+
+        const val RESULT_DELETED = 31
+        const val RESULT_UPDATED = 32
     }
 }

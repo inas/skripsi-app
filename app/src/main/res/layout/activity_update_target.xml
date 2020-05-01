@@ -97,13 +97,6 @@
                 app:layout_constraintTop_toBottomOf="@id/textview_cycle_evaluation"
                 tools:text="Evaluasi: setiap hari minggu" />
 
-            <androidx.constraintlayout.widget.Group
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="@{viewModel.supportingTargets.empty? View.GONE : View.VISIBLE}"
-                app:constraint_referenced_ids="textview_supporting_target_label,button_add_supporting_target,recycler_view_supporting_target"
-                tools:visibility="visible" />
-
             <TextView
                 android:id="@+id/textview_supporting_target_label"
                 style="@style/font_heading.bold"
@@ -128,10 +121,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16dp"
                 android:orientation="vertical"
+                android:visibility="@{viewModel.shouldShowSupportingTargets? View.VISIBLE: View.GONE}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_supporting_target_label"
+                tools:visibility="gone"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_card_small" />
+
+            <TextView
+                android:id="@+id/textview_target_empty"
+                style="@style/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:paddingBottom="@dimen/space_32dp"
+                android:text="Tidak ada target pendukung"
+                android:textColor="@color/dark_secondary"
+                android:visibility="@{viewModel.shouldShowSupportingTargets? View.GONE: View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_supporting_target_label" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_start_new_cycle"
@@ -142,7 +152,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recycler_view_supporting_target"
-                app:layout_goneMarginTop="@dimen/space_32dp" />
+                app:layout_goneMarginTop="96dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

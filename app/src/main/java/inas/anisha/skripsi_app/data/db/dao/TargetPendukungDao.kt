@@ -23,7 +23,4 @@ interface TargetPendukungDao {
 
     @Query("SELECT * from target_pendukung")
     fun getAll(): LiveData<List<TargetPendukungEntity>>
-
-    @Query("SELECT * from target_pendukung WHERE isCompleted = :isCompleted")
-    fun getByCompleteness(isCompleted: Boolean): LiveData<List<TargetPendukungEntity>>
 }

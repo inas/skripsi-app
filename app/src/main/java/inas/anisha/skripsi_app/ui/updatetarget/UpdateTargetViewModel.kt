@@ -28,16 +28,16 @@ class UpdateTargetViewModel(application: Application) : AndroidViewModel(applica
 
     var cycleTimeString: MutableLiveData<String> = MutableLiveData("")
     var evaluationDateString: MutableLiveData<String> = MutableLiveData("")
+    var shouldShowSupportingTargets: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun getMainTarget(): LiveData<TargetUtamaEntity> = mRepository.getMainTarget()
-    fun saveMainTarget(target: TargetUtamaViewModel) {
-        mainTarget = target
+    fun saveMainTarget() {
         mRepository.setMainTarget(mainTarget.toEntity())
     }
 
     fun getCycleCount(): LiveData<Int> = mRepository.getCycleCount()
-
     fun getCycleTime() = mRepository.getCycleTime()
+
     fun setCycleTime(cycleTime: Pair<Int, Int>) {
         frequency = cycleTime.first
         duration = cycleTime.second
@@ -66,7 +66,11 @@ class UpdateTargetViewModel(application: Application) : AndroidViewModel(applica
 
     fun getSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
         return Transformations.map(mRepository.getSupportingTargets()) { data ->
-            data.map { TargetPendukungViewModel().fromEntity(it) }
+            data.map {
+                TargetPendukungViewModel().fromEntity(it).apply {
+                    isCompleted = false
+                }
+            }
         }
     }
 

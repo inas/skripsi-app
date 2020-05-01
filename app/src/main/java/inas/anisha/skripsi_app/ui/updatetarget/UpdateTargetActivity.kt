@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
+import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
 import inas.anisha.skripsi_app.databinding.ActivityUpdateTargetBinding
 import inas.anisha.skripsi_app.ui.common.atursiklus.AturSiklusDialogFragment
@@ -19,6 +21,9 @@ import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendu
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
 import inas.anisha.skripsi_app.ui.main.target.TargetPendukungAdapter
 import inas.anisha.skripsi_app.ui.main.target.TargetPendukungDetailActivity
+import inas.anisha.skripsi_app.ui.main.target.TargetPendukungDetailActivity.Companion.EXTRA_ENTITY
+import inas.anisha.skripsi_app.ui.main.target.TargetPendukungDetailActivity.Companion.RESULT_DELETED
+import inas.anisha.skripsi_app.ui.main.target.TargetPendukungDetailActivity.Companion.RESULT_UPDATED
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class UpdateTargetActivity : AppCompatActivity() {
@@ -28,17 +33,16 @@ class UpdateTargetActivity : AppCompatActivity() {
     private lateinit var supportingTargetsAdapter: TargetPendukungAdapter
 
     private var mainTargetObservable: LiveData<TargetUtamaEntity>? = null
-    private var supportingTargetsObservable: LiveData<List<TargetPendukungViewModel>>? = null
     private var cycleCountObservable: LiveData<Int>? = null
+
+    private var openedTarget: TargetPendukungViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewModel = ViewModelProviders.of(this).get(UpdateTargetViewModel::class.java)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_target)
-    }
-
-    override fun onStart() {
-        super.onStart()
+        mBinding.viewModel = mViewModel
+        mBinding.lifecycleOwner = this
 
         mBinding.buttonEditMainTarget.setOnClickListener { openModifyMainTargetDialog() }
         mBinding.buttonEditCycle.setOnClickListener { openSetCycleDialog() }
@@ -49,10 +53,9 @@ class UpdateTargetActivity : AppCompatActivity() {
         initSupportingTarget()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         mainTargetObservable?.removeObservers(this)
-        supportingTargetsObservable?.removeObservers(this)
         cycleCountObservable?.removeObservers(this)
     }
 
@@ -82,16 +85,16 @@ class UpdateTargetActivity : AppCompatActivity() {
         supportingTargetsAdapter = TargetPendukungAdapter().apply {
             setItemListener(object : TargetPendukungAdapter.ItemListener {
                 override fun onItemClick(viewModel: TargetPendukungViewModel) {
-                    openTargetPendukungDetail(viewModel.id)
+                    openTargetPendukungDetail(viewModel)
                 }
             })
             setHasStableIds(false)
         }
         mBinding.recyclerViewSupportingTarget.adapter = supportingTargetsAdapter
 
-        supportingTargetsObservable = mViewModel.getSupportingTargets()
-        supportingTargetsObservable?.observe(this, Observer { targets ->
+        mViewModel.getSupportingTargets().observeOnce(this, { targets ->
             mViewModel.supportingTargets = targets as MutableList<TargetPendukungViewModel>
+            mViewModel.shouldShowSupportingTargets.value = targets.isNotEmpty()
             supportingTargetsAdapter.setTargets(targets)
         })
 
@@ -109,7 +112,8 @@ class UpdateTargetActivity : AppCompatActivity() {
         tambahTargetDialog.setOnTargetModifiedListener(object :
             TambahTargetUtamaDialog.OnTargetModifiedListener {
             override fun onTargetModified(target: TargetUtamaViewModel) {
-                mViewModel.saveMainTarget(target)
+                mViewModel.mainTarget = target
+                mBinding.layoutMainTarget.viewModel = target
             }
         })
 
@@ -140,21 +144,54 @@ class UpdateTargetActivity : AppCompatActivity() {
         tambahTargetDialog.setOnTargetAddedListener(object :
             TambahTargetPendukungDialog.OnTargetModifiedListener {
             override fun onTargetModified(target: TargetPendukungViewModel) {
-                mViewModel.addOrUpdateSupportingTarget(target)
+                mViewModel.supportingTargets.add(target)
+                mViewModel.shouldShowSupportingTargets.value =
+                    mViewModel.supportingTargets.isNotEmpty()
             }
         })
 
         tambahTargetDialog.show(supportFragmentManager, TambahTargetPendukungDialog.TAG)
     }
 
-    fun openTargetPendukungDetail(targetId: Long) {
+    fun openTargetPendukungDetail(target: TargetPendukungViewModel) {
+        openedTarget = target
         val intent = Intent(this, TargetPendukungDetailActivity::class.java).apply {
-            putExtra(TargetPendukungDetailActivity.EXTRA_ID, targetId)
+            putExtra(EXTRA_ENTITY, target.toEntity())
         }
-        startActivity(intent)
+        startActivityForResult(intent, TARGET_DETAIL_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == TARGET_DETAIL_REQUEST) {
+            if (resultCode == RESULT_DELETED) {
+                mViewModel.supportingTargets.remove(openedTarget)
+            } else if (resultCode == RESULT_UPDATED) {
+                data?.getParcelableExtra<TargetPendukungEntity>(EXTRA_ENTITY)
+                    ?.let { openedTarget?.fromEntity(it) }
+            }
+            supportingTargetsAdapter.setTargets(mViewModel.supportingTargets)
+            openedTarget = null
+        }
+    }
+
+    fun <T> LiveData<T>.observeOnce(
+        owner: LifecycleOwner,
+        reactToChange: (T) -> Unit
+    ): Observer<T> {
+        val wrappedObserver = object : Observer<T> {
+            override fun onChanged(data: T) {
+                reactToChange(data)
+                removeObserver(this)
+            }
+        }
+
+        observe(owner, wrappedObserver)
+        return wrappedObserver
     }
 
     companion object {
         const val TAG = "TARGET_FRAGMENT"
+        const val TARGET_DETAIL_REQUEST = 27
     }
 }
