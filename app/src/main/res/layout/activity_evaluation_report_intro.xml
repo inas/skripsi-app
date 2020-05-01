@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_32dp"
-            android:text="Siklus belajar X sudah berakhir"
+            android:text="Siklus belajar sudah berakhir"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16dp"
-            android:text="Lihat kinerja belajarmu di siklus X dan tentukan strategi belajar untuk siklus selanjutnya."
+            android:text="Lihat kinerja belajarmu di siklus ini dan tentukan strategi belajar untuk siklus selanjutnya."
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

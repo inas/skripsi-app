@@ -23,4 +23,7 @@ interface CycleDao {
 
     @Query("WITH latest AS (SELECT id FROM cycle ORDER BY id DESC LIMIT 1) UPDATE cycle SET completion = :percentage WHERE id IN latest")
     fun updateCurrentCycleCompleteness(percentage: Int)
+
+    @Query("SELECT COUNT(*) FROM cycle")
+    fun getCount(): LiveData<Int>
 }

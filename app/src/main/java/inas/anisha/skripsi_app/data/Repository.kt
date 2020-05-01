@@ -50,52 +50,6 @@ class Repository(application: Application) {
     fun setShouldShowEvaluationReport(shouldShow: Boolean) =
         sharedPreference.setShouldShowEvaluationReport(shouldShow)
 
-    fun getMainTarget() = targetUtamaDao.getTarget()
-
-    fun setMainTarget(target: TargetUtamaEntity) {
-        Observable.fromCallable {
-            targetUtamaDao.deleteOldTarget()
-            targetUtamaDao.add(target)
-        }.subscribeOn(Schedulers.io()).subscribe()
-
-    }
-
-    fun getSupportingTarget(targetId: Long): LiveData<TargetPendukungEntity> =
-        targetPendukungDao.get(targetId)
-
-    fun getSupportingTargets(): LiveData<List<TargetPendukungEntity>> = targetPendukungDao.getAll()
-    fun getSupportingTargetsByCompleteness(isCompleted: Boolean): LiveData<List<TargetPendukungEntity>> =
-        targetPendukungDao.getByCompleteness(isCompleted)
-
-    fun deleteSupportingTargets(targetId: Long) {
-        Observable.fromCallable { targetPendukungDao.delete(targetId) }
-            .subscribeOn(Schedulers.io()).subscribe()
-    }
-
-    fun addSupportingTarget(vararg target: TargetPendukungEntity) {
-        Observable.fromCallable { targetPendukungDao.add(*target) }
-            .subscribeOn(Schedulers.io()).subscribe()
-    }
-
-    fun updateSupportingTarget(target: TargetPendukungEntity) =
-        Observable.fromCallable { targetPendukungDao.update(target) }
-            .subscribeOn(Schedulers.io()).subscribe()
-
-    fun getCurrentCycle(): Observable<CycleEntity> =
-        Observable.fromCallable { cycleDao.getLatest() }.subscribeOn(Schedulers.io())
-
-    fun updateCycle(cycle: CycleEntity) =
-        Observable.fromCallable { cycleDao.updateCycle(cycle) }.subscribeOn(Schedulers.io())
-
-    fun getCycles(): LiveData<List<CycleEntity>> = cycleDao.getAll()
-    fun addCycle(cycle: CycleEntity) =
-        Observable.fromCallable { cycleDao.add(cycle) }
-            .subscribeOn(Schedulers.io()).subscribe()
-
-    fun updateCurrentCycleCompleteness(percentage: Int) =
-        Observable.fromCallable { cycleDao.updateCurrentCycleCompleteness(percentage) }
-            .subscribeOn(Schedulers.io()).subscribe()
-
     fun getCycleTime() = sharedPreference.getCycleTime()
     fun setCycleTime(cycleTime: Pair<Int, Int>) = sharedPreference.setCycleTime(cycleTime)
 
@@ -113,7 +67,63 @@ class Repository(application: Application) {
 
     fun getUserStudy(): String = sharedPreference.getUserStudy()
     fun setUserStudy(study: String) = sharedPreference.setUserStudy(study)
+    // end region
 
+
+    // region main target
+    fun getMainTarget() = targetUtamaDao.getTarget()
+
+    fun setMainTarget(target: TargetUtamaEntity) {
+        Observable.fromCallable { targetUtamaDao.deleteOldTarget() }
+            .subscribeOn(Schedulers.io())
+            .subscribe { targetUtamaDao.add(target) }
+    }
+    // end region
+
+
+    // region supporting target
+    fun getSupportingTarget(targetId: Long): LiveData<TargetPendukungEntity> =
+        targetPendukungDao.get(targetId)
+
+    fun getSupportingTargets(): LiveData<List<TargetPendukungEntity>> = targetPendukungDao.getAll()
+
+    fun deleteSupportingTargets(targetId: Long) {
+        Observable.fromCallable { targetPendukungDao.delete(targetId) }
+            .subscribeOn(Schedulers.io()).subscribe()
+    }
+
+    fun addSupportingTarget(vararg target: TargetPendukungEntity) {
+        Observable.fromCallable { targetPendukungDao.add(*target) }
+            .subscribeOn(Schedulers.io()).subscribe()
+    }
+
+    fun updateSupportingTarget(target: TargetPendukungEntity) =
+        Observable.fromCallable { targetPendukungDao.update(target) }
+            .subscribeOn(Schedulers.io()).subscribe()
+    // end region
+
+
+    // region cycle
+    fun getCurrentCycle(): Observable<CycleEntity> =
+        Observable.fromCallable { cycleDao.getLatest() }.subscribeOn(Schedulers.io())
+
+    fun updateCycle(cycle: CycleEntity) =
+        Observable.fromCallable { cycleDao.updateCycle(cycle) }.subscribeOn(Schedulers.io())
+
+    fun getCycles(): LiveData<List<CycleEntity>> = cycleDao.getAll()
+    fun getCycleCount(): LiveData<Int> = cycleDao.getCount()
+
+    fun addCycle(cycle: CycleEntity) =
+        Observable.fromCallable { cycleDao.add(cycle) }
+            .subscribeOn(Schedulers.io()).subscribe()
+
+    fun updateCurrentCycleCompleteness(percentage: Int) =
+        Observable.fromCallable { cycleDao.updateCurrentCycleCompleteness(percentage) }
+            .subscribeOn(Schedulers.io()).subscribe()
+    // end region
+
+
+    // region schedule
     fun addSchoolClass(schoolClass: SchoolClassEntity) =
         Observable.fromCallable { schoolClassDao.add(schoolClass) }
             .subscribeOn(Schedulers.io()).subscribe()
@@ -160,7 +170,6 @@ class Repository(application: Application) {
         }
     }
 
-
     fun getCurrentCycleTasks(): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAll(
             Calendar.getInstance().apply { timeInMillis = getCycleStartDate() }
@@ -175,7 +184,7 @@ class Repository(application: Application) {
     fun getSchedule(scheduleId: Long): LiveData<ScheduleEntity> =
         scheduleDao.get(scheduleId)
 
-    fun getOverlappingEntity(
+    fun getOverlappingScheduleAndSchoolEntity(
         start: Calendar,
         end: Calendar,
         scheduleId: Long,
@@ -232,7 +241,7 @@ class Repository(application: Application) {
     fun deleteSchedule(scheduleId: Long) =
         Observable.fromCallable { scheduleDao.delete(scheduleId) }
             .subscribeOn(Schedulers.io()).subscribe()
-
+    // end schedule
 
     companion object {
         // For Singleton instantiation

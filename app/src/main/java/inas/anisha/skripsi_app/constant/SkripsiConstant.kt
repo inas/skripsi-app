@@ -12,5 +12,13 @@ class SkripsiConstant {
 
         const val SCHEDULE_TIMELINE_TYPE_ACTIVITY = 111020
         const val SCHEDULE_TIMELINE_TYPE_CLASS = 111021
+
+        fun getCycleFrequencyString(frequency: Int): String {
+            return when (frequency) {
+                CYCLE_FREQUENCY_DAILY -> "Harian"
+                CYCLE_FREQUENCY_WEEKLY -> "Mingguan"
+                else -> "Bulanan"
+            }
+        }
     }
 }

@@ -108,10 +108,10 @@ class TargetFragment : Fragment() {
             }
 
             mBinding.hasIncompleteSupportingTargets = incompleteTargets.isNotEmpty()
-            adapterIncompleteTarget.setTargets(incompleteTargets.reversed())
+            adapterIncompleteTarget.setTargets(incompleteTargets.reversed().toMutableList())
 
             mBinding.hasCompletedSupportingTargets = completedTargets.isNotEmpty()
-            adapterCompletedTarget.setTargets(completedTargets.reversed())
+            adapterCompletedTarget.setTargets(completedTargets.reversed().toMutableList())
 
             if (targets.isNotEmpty()) {
                 val percentage = completedTargets.size * 100 / targets.size
@@ -160,10 +160,6 @@ class TargetFragment : Fragment() {
             )
         }
         startActivity(intent)
-    }
-
-    fun deleteTarget(target: TargetPendukungViewModel) {
-        mViewModel.deleteSupportingTarget(target.id)
     }
 
     fun reInitData() {

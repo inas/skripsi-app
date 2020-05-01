@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="inas.anisha.skripsi_app.ui.updatetarget.UpdateTargetViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_16dp">
+
+            <TextView
+                android:id="@+id/textview_title"
+                style="@style/font_title_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perbarui Target"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_main_target_label"
+                style="@style/font_heading.bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text="Target Utama"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_title" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_edit_main_target"
+                style="@style/button_text"
+                android:text="ubah"
+                app:layout_constraintBottom_toBottomOf="@id/textview_main_target_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textview_main_target_label" />
+
+            <include
+                android:id="@+id/layout_main_target"
+                layout="@layout/item_card_big"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_main_target_label" />
+
+            <TextView
+                android:id="@+id/textview_cycle"
+                style="@style/font_heading.bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_24dp"
+                android:text="Cycle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_main_target" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_edit_cycle"
+                style="@style/button_text"
+                android:text="ubah"
+                app:layout_constraintBottom_toBottomOf="@id/textview_cycle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textview_cycle" />
+
+            <TextView
+                android:id="@+id/textview_cycle_evaluation"
+                style="@style/font_normal.bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:text="@{viewModel.cycleTimeString}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_cycle"
+                tools:text="Mingguan" />
+
+            <TextView
+                android:id="@+id/textview_cycle_evaluation_detail"
+                style="@style/font_small.secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4dp"
+                android:text="@{viewModel.evaluationDateString}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_cycle_evaluation"
+                tools:text="Evaluasi: setiap hari minggu" />
+
+            <androidx.constraintlayout.widget.Group
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.supportingTargets.empty? View.GONE : View.VISIBLE}"
+                app:constraint_referenced_ids="textview_supporting_target_label,button_add_supporting_target,recycler_view_supporting_target"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textview_supporting_target_label"
+                style="@style/font_heading.bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_24dp"
+                android:text="Target Pendukung"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_cycle_evaluation_detail" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_add_supporting_target"
+                style="@style/button_text"
+                android:text="tambah"
+                app:layout_constraintBottom_toBottomOf="@id/textview_supporting_target_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textview_supporting_target_label" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_supporting_target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_supporting_target_label"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_card_small" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_start_new_cycle"
+                style="@style/button_full"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:background="@drawable/bg_rounded_green"
+                android:text="Mulai siklus baru"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view_supporting_target"
+                app:layout_goneMarginTop="@dimen/space_32dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

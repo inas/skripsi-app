@@ -13,7 +13,7 @@ import inas.anisha.skripsi_app.utils.ViewUtil.Companion.strikeThrough
 class TargetPendukungAdapter :
     RecyclerView.Adapter<TargetPendukungAdapter.ViewHolder>() {
 
-    private var targets: List<TargetPendukungViewModel> = mutableListOf()
+    private var targets: MutableList<TargetPendukungViewModel> = mutableListOf()
     private var listener: ItemListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,9 +56,14 @@ class TargetPendukungAdapter :
         this.listener = listener
     }
 
-    fun setTargets(newTargets: List<TargetPendukungViewModel>) {
+    fun setTargets(newTargets: MutableList<TargetPendukungViewModel>) {
         targets = newTargets
         notifyDataSetChanged()
+    }
+
+    fun addTarget(target: TargetPendukungViewModel) {
+        targets.add(target)
+        notifyItemInserted(targets.size - 1)
     }
 
     interface ItemListener {

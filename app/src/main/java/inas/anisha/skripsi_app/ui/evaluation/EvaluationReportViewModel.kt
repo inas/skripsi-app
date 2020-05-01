@@ -26,8 +26,8 @@ class EvaluationReportViewModel(application: Application) : AndroidViewModel(app
     var totalTarget: Int = 0
     var completedTarget: Int = 0
     var completedTargetList: List<String> = mutableListOf()
-    var frequency: Int = 0
-    var duration: Int = 0
+    var frequency: Int = SkripsiConstant.CYCLE_FREQUENCY_DAILY
+    var duration: Int = 1
 
     var taskNames: MutableList<String> = mutableListOf()
     var taskCompletionIcons: MutableList<Int> = mutableListOf()

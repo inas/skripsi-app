@@ -238,7 +238,7 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun checkOverlappingSchedule() {
-        mRepository.getOverlappingEntity(
+        mRepository.getOverlappingScheduleAndSchoolEntity(
             mViewModel.startDate,
             mViewModel.endDate,
             mSchedule?.id ?: -1,

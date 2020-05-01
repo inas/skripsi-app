@@ -22,6 +22,7 @@ class TargetPendukungDetailActivity : AppCompatActivity() {
     private lateinit var observable: LiveData<TargetPendukungEntity>
 
     private var targetId: Long = 0L
+    private var targetEntity: TargetPendukungEntity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

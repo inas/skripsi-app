@@ -1,6 +1,7 @@
 package inas.anisha.skripsi_app.ui.evaluation
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.InputType
@@ -15,6 +16,7 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.databinding.ActivityEvaluationReportBinding
+import inas.anisha.skripsi_app.ui.updatetarget.UpdateTargetActivity
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -62,6 +64,7 @@ class EvaluationReportActivity : AppCompatActivity() {
         }
         mBinding.buttonSubmit.setOnClickListener {
             mViewModel.saveCycle(mBinding.edittextReflection.text.toString())
+            goToStartNewCycle()
         }
     }
 
@@ -264,7 +267,7 @@ class EvaluationReportActivity : AppCompatActivity() {
     }
 
     private fun goToStartNewCycle() {
-//        val intent = Intent(this, StartNewCycleActivity::class.java)
-//        startActivity(intent)
+        val intent = Intent(this, UpdateTargetActivity::class.java)
+        startActivity(intent)
     }
 }
