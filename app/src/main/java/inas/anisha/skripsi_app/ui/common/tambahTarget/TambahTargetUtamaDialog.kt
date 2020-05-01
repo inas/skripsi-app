@@ -51,7 +51,7 @@ class TambahTargetUtamaDialog : DialogFragment() {
             setOnClickListener {
                 showDatePicker()
             }
-            setOnFocusChangeListener { view, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) showDatePicker()
             }
         }

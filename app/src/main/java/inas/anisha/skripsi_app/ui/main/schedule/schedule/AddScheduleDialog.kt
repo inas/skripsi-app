@@ -119,7 +119,7 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun setChipGroupListener() {
-        mBinding.chipgroup.setOnCheckedChangeListener { group, checkedId ->
+        mBinding.chipgroup.setOnCheckedChangeListener { _, checkedId ->
 
             when (checkedId) {
                 R.id.chip_task -> {
@@ -174,7 +174,7 @@ class AddScheduleDialog : DialogFragment() {
             setOnClickListener {
                 showTimePicker(mViewModel.startDate, ::setStartTime)
             }
-            setOnFocusChangeListener { view, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) showTimePicker(mViewModel.startDate, ::setStartTime)
             }
         }
@@ -183,7 +183,7 @@ class AddScheduleDialog : DialogFragment() {
             setOnClickListener {
                 showTimePicker(mViewModel.endDate, ::setEndTime)
             }
-            setOnFocusChangeListener { view, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) showTimePicker(mViewModel.endDate, ::setEndTime)
             }
         }
@@ -192,7 +192,7 @@ class AddScheduleDialog : DialogFragment() {
             setOnClickListener {
                 showTimePicker(mViewModel.endDate, ::setEndTime)
             }
-            setOnFocusChangeListener { view, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) showTimePicker(mViewModel.endDate, ::setEndTime)
             }
         }

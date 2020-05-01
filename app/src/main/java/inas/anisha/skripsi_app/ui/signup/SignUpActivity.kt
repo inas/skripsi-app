@@ -35,7 +35,7 @@ class SignUpActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        mBinding.dropdownStudy.setOnItemClickListener { parent, view, position, id ->
+        mBinding.dropdownStudy.setOnItemClickListener { _, _, position, _ ->
             mBinding.textlayoutStudyOther.visibility =
                 if (position == 2) View.VISIBLE else View.GONE
         }

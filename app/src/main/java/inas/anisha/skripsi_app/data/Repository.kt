@@ -84,7 +84,7 @@ class Repository(application: Application) {
     fun getCurrentCycle(): Observable<CycleEntity> =
         Observable.fromCallable { cycleDao.getLatest() }.subscribeOn(Schedulers.io())
 
-    fun updateCycle(cycle: CycleEntity): Observable<CycleEntity> =
+    fun updateCycle(cycle: CycleEntity) =
         Observable.fromCallable { cycleDao.updateCycle(cycle) }.subscribeOn(Schedulers.io())
 
     fun getCycles(): LiveData<List<CycleEntity>> = cycleDao.getAll()

@@ -18,7 +18,6 @@ class EvaluationReportViewModel(application: Application) : AndroidViewModel(app
     var id: Long = 0
     var cycleNumber: Int = 0
     var completion: Int = 0
-    var reflection: String = ""
     var startDate: Calendar = Calendar.getInstance()
     var endDate: Calendar = Calendar.getInstance()
     var totalTask: Int = 0

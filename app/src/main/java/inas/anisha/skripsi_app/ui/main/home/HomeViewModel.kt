@@ -62,7 +62,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun getCycleTasks(): LiveData<List<ScheduleEntity>> = mRepository.getCurrentCycleTasks()
 
     fun getTodaysScheduleViewModels(): List<ScheduleTimelineViewModel> {
-        val viewModels = mutableListOf<ScheduleTimelineViewModel>()
         val classVms = mutableListOf<ScheduleTimelineViewModel>()
         val activityVms = mutableListOf<ScheduleTimelineViewModel>()
 
@@ -94,9 +93,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         currentClassIndex = -1
         var previousSchedule: ScheduleTimelineViewModel? = null
-        var toBeRemovedSchedule: MutableList<ScheduleTimelineViewModel> = mutableListOf()
-//        val sortedVms =
-//            viewModels.sortedWith(compareBy<ScheduleTimelineViewModel> { it.startMinute }.thenBy { it.endMinute })
         val sortedVms = mergeList(classVms, activityVms)
         sortedVms.forEachIndexed { index, it ->
 

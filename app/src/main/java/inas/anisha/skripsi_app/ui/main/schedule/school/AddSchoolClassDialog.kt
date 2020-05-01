@@ -122,7 +122,7 @@ class AddSchoolClassDialog : DialogFragment() {
     }
 
     fun setChipGroupListener() {
-        mBinding.chipgroup.setOnCheckedChangeListener { group, checkedId ->
+        mBinding.chipgroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.chip_monday -> mViewModel.day = Calendar.MONDAY
                 R.id.chip_tuesday -> mViewModel.day = Calendar.TUESDAY
@@ -147,7 +147,7 @@ class AddSchoolClassDialog : DialogFragment() {
                     mBinding.edittextStartTime.setText(date.toTimeString())
                 }
             }
-            setOnFocusChangeListener { view, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) showTimePicker(mViewModel.startTime) { date: Calendar ->
                     mViewModel.startTime = date
                     mBinding.edittextStartTime.setText(date.toTimeString())
@@ -162,7 +162,7 @@ class AddSchoolClassDialog : DialogFragment() {
                     mBinding.edittexttEndTime.setText(date.toTimeString())
                 }
             }
-            setOnFocusChangeListener { view, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) showTimePicker(mViewModel.endTime) { date: Calendar ->
                     mViewModel.endTime = date
                     mBinding.edittexttEndTime.setText(date.toTimeString())

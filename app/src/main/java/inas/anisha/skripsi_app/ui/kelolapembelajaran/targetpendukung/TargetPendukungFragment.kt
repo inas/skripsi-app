@@ -72,7 +72,7 @@ class TargetPendukungFragment : Fragment() {
             Pair("recommended2", recTarget2Vm)
         )
 
-        displayedSupportingTargets.values.forEachIndexed { index, vm ->
+        displayedSupportingTargets.values.forEach { vm ->
             val inflater = LayoutInflater.from(context)
             val card: ItemTargetPendukungBinding =
                 DataBindingUtil.inflate(inflater, R.layout.item_target_pendukung, null, false)

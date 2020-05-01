@@ -88,7 +88,7 @@ class EvaluationReportActivity : AppCompatActivity() {
 
             mBinding.listviewTask.apply {
                 setAdapter(taskExpandableListAdapter)
-                setOnGroupClickListener { parent, v, groupPosition, id -> false }
+                setOnGroupClickListener { _, _, _, _ -> false }
             }
         }
 
@@ -103,7 +103,7 @@ class EvaluationReportActivity : AppCompatActivity() {
 
             mBinding.listviewOnTime.apply {
                 setAdapter(onTimeExpandableListAdapter)
-                setOnGroupClickListener { parent, v, groupPosition, id -> false }
+                setOnGroupClickListener { _, _, _, _ -> false }
             }
         }
 
@@ -118,7 +118,7 @@ class EvaluationReportActivity : AppCompatActivity() {
 
             mBinding.listviewTarget.apply {
                 setAdapter(targetExpandableListAdapter)
-                setOnGroupClickListener { parent, v, groupPosition, id -> false }
+                setOnGroupClickListener { _, _, _, _ -> false }
             }
         }
 
