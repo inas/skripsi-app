@@ -14,7 +14,7 @@ import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaView
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import java.util.*
 
-class UpdateTargetViewModel(application: Application) : AndroidViewModel(application) {
+class StartNewCycleViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mRepository = Repository.getInstance(application)
 
@@ -62,7 +62,13 @@ class UpdateTargetViewModel(application: Application) : AndroidViewModel(applica
         evaluationDateString.value = "Evaluasi berikutnya: " + evaluationDate.toDateString()
     }
 
-    fun addNewCycle() = mRepository.addCycle(CycleEntity(0, cycleNumber, 0))
+    fun addNewCycle() {
+        setEvaluationDate(frequency, duration)
+        mRepository.setCycleStartDate(Calendar.getInstance().timeInMillis)
+        mRepository.setEvaluationDate(evaluationDate.timeInMillis)
+        mRepository.setCycleTime(Pair(frequency, duration))
+        mRepository.addCycle(CycleEntity(0, cycleNumber + 1, 0, ""))
+    }
 
     fun getSupportingTargets(): LiveData<List<TargetPendukungViewModel>> {
         return Transformations.map(mRepository.getSupportingTargets()) { data ->
@@ -74,7 +80,15 @@ class UpdateTargetViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
-    fun addOrUpdateSupportingTarget(target: TargetPendukungViewModel) =
-        mRepository.addSupportingTarget(target.toEntity())
+    fun replaceSupportingTarget() =
+        mRepository.replaceSupportingTarget(*supportingTargets.map { it.toEntity() }.toTypedArray())
+
+    fun startNewCycle() {
+        addNewCycle()
+        saveMainTarget()
+        replaceSupportingTarget()
+        mRepository.setShouldShowEvaluationReport(true)
+        mRepository.setShouldShowEndOfCycleWarning(true)
+    }
 
 }

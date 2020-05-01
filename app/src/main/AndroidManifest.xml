@@ -30,6 +30,6 @@
         <activity android:name=".ui.main.schedule.school.SchoolClassDetailActivity" />
         <activity android:name=".ui.evaluation.EvaluationReportIntroActivity" />
         <activity android:name=".ui.evaluation.EvaluationReportActivity" />
-        <activity android:name=".ui.updatetarget.UpdateTargetActivity" />
+        <activity android:name=".ui.updatetarget.StartNewCycleActivity" />
     </application>
 </manifest>

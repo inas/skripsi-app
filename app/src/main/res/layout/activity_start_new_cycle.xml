@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="inas.anisha.skripsi_app.ui.updatetarget.UpdateTargetViewModel" />
+            type="inas.anisha.skripsi_app.ui.updatetarget.StartNewCycleViewModel" />
     </data>
 
     <ScrollView

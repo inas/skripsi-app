@@ -21,7 +21,5 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         mRepository.setShouldShowEndOfCycleWarning(shouldShow)
 
     fun shouldShowEvaluationReport() = mRepository.shouldShowEvaluationReport()
-    fun setShouldShowEvaluationReport(shouldShow: Boolean) =
-        mRepository.setShouldShowEvaluationReport(shouldShow)
 
 }

@@ -13,12 +13,13 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
-import inas.anisha.skripsi_app.databinding.ActivityUpdateTargetBinding
+import inas.anisha.skripsi_app.databinding.ActivityStartNewCycleBinding
 import inas.anisha.skripsi_app.ui.common.atursiklus.AturSiklusDialogFragment
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetUtamaDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
+import inas.anisha.skripsi_app.ui.main.MainActivity
 import inas.anisha.skripsi_app.ui.main.target.TargetPendukungAdapter
 import inas.anisha.skripsi_app.ui.main.target.TargetPendukungDetailActivity
 import inas.anisha.skripsi_app.ui.main.target.TargetPendukungDetailActivity.Companion.EXTRA_ENTITY
@@ -26,10 +27,10 @@ import inas.anisha.skripsi_app.ui.main.target.TargetPendukungDetailActivity.Comp
 import inas.anisha.skripsi_app.ui.main.target.TargetPendukungDetailActivity.Companion.RESULT_UPDATED
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
-class UpdateTargetActivity : AppCompatActivity() {
+class StartNewCycleActivity : AppCompatActivity() {
 
-    private lateinit var mBinding: ActivityUpdateTargetBinding
-    private lateinit var mViewModel: UpdateTargetViewModel
+    private lateinit var mBinding: ActivityStartNewCycleBinding
+    private lateinit var mViewModel: StartNewCycleViewModel
     private lateinit var supportingTargetsAdapter: TargetPendukungAdapter
 
     private var mainTargetObservable: LiveData<TargetUtamaEntity>? = null
@@ -39,14 +40,21 @@ class UpdateTargetActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(UpdateTargetViewModel::class.java)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_update_target)
+        mViewModel = ViewModelProviders.of(this).get(StartNewCycleViewModel::class.java)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_start_new_cycle)
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this
 
         mBinding.buttonEditMainTarget.setOnClickListener { openModifyMainTargetDialog() }
         mBinding.buttonEditCycle.setOnClickListener { openSetCycleDialog() }
         mBinding.buttonAddSupportingTarget.setOnClickListener { openAddTargetPendukungDialog() }
+        mBinding.buttonStartNewCycle.setOnClickListener {
+            mViewModel.startNewCycle()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
 
         initMainTarget()
         initCycleTime()

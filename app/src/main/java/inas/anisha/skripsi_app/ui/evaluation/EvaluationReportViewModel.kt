@@ -29,6 +29,7 @@ class EvaluationReportViewModel(application: Application) : AndroidViewModel(app
     var frequency: Int = SkripsiConstant.CYCLE_FREQUENCY_DAILY
     var duration: Int = 1
 
+    var cycleEntity: CycleEntity = CycleEntity(0)
     var taskNames: MutableList<String> = mutableListOf()
     var taskCompletionIcons: MutableList<Int> = mutableListOf()
     var taskOnTimeIcons: MutableList<Int> = mutableListOf()

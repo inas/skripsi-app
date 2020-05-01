@@ -16,7 +16,7 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.databinding.ActivityEvaluationReportBinding
-import inas.anisha.skripsi_app.ui.updatetarget.UpdateTargetActivity
+import inas.anisha.skripsi_app.ui.updatetarget.StartNewCycleActivity
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -163,6 +163,7 @@ class EvaluationReportActivity : AppCompatActivity() {
         mBinding.textviewPeriod.text = startDate.toDateString() + " - " + endDate.toDateString()
 
         mViewModel.getCurrentCycle().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            mViewModel.cycleEntity = it
             mViewModel.id = it.id
             mViewModel.cycleNumber = it.number
             mBinding.textviewCycle.text = "Siklus " + it.number
@@ -267,7 +268,7 @@ class EvaluationReportActivity : AppCompatActivity() {
     }
 
     private fun goToStartNewCycle() {
-        val intent = Intent(this, UpdateTargetActivity::class.java)
+        val intent = Intent(this, StartNewCycleActivity::class.java)
         startActivity(intent)
     }
 }

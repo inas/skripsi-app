@@ -100,6 +100,12 @@ class Repository(application: Application) {
     fun updateSupportingTarget(target: TargetPendukungEntity) =
         Observable.fromCallable { targetPendukungDao.update(target) }
             .subscribeOn(Schedulers.io()).subscribe()
+
+    fun replaceSupportingTarget(vararg target: TargetPendukungEntity) {
+        Observable.fromCallable { targetPendukungDao.deleteAll() }
+            .subscribeOn(Schedulers.io())
+            .subscribe { targetPendukungDao.add(*target) }
+    }
     // end region
 
 
@@ -109,6 +115,7 @@ class Repository(application: Application) {
 
     fun updateCycle(cycle: CycleEntity) =
         Observable.fromCallable { cycleDao.updateCycle(cycle) }.subscribeOn(Schedulers.io())
+            .subscribe()
 
     fun getCycles(): LiveData<List<CycleEntity>> = cycleDao.getAll()
     fun getCycleCount(): LiveData<Int> = cycleDao.getCount()
@@ -301,6 +308,7 @@ class Repository(application: Application) {
             }
 
         sharedPreference.setShouldNotShowKelolaPembelajaran()
+        sharedPreference.setCycleStartDate(Calendar.getInstance().timeInMillis)
         sharedPreference.setEvaluationDate(
             Calendar.getInstance().apply { add(Calendar.DATE, 3) }.timeInMillis
         )

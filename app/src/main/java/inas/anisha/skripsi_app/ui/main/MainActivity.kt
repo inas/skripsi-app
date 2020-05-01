@@ -17,6 +17,7 @@ import inas.anisha.skripsi_app.ui.main.perjalanan.PerjalananFragment
 import inas.anisha.skripsi_app.ui.main.schedule.ScheduleFragment
 import inas.anisha.skripsi_app.ui.main.target.TargetFragment
 import inas.anisha.skripsi_app.utils.CalendarUtil
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import java.util.*
 
@@ -62,8 +63,8 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         val evaluationDate = mViewModel.getEvaluationDate()
-//        if (evaluationDate.getPreviousMidnight() < Calendar.getInstance() && mViewModel.shouldShowEvaluationReport()) {
-        if (true) {
+        if (evaluationDate.getPreviousMidnight() < Calendar.getInstance() && mViewModel.shouldShowEvaluationReport()) {
+//        if (true) {
             val intent = Intent(this, EvaluationReportIntroActivity::class.java)
             startActivity(intent)
             finish()
