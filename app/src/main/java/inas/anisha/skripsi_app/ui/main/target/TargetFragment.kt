@@ -65,14 +65,10 @@ class TargetFragment : Fragment() {
                 "Evaluasi berikutnya: " + CalendarUtil.getDateDisplayDate(mViewModel.getEvaluationDate())
         }
 
-        val frequency = when (cycleTime.first) {
-            SkripsiConstant.CYCLE_FREQUENCY_DAILY -> "Harian"
-            SkripsiConstant.CYCLE_FREQUENCY_WEEKLY -> "Mingguan"
-            else -> "Bulanan"
-        }
+        val frequency = SkripsiConstant.getCycleFrequencyString(cycleTime.first)
 
         mBinding.textviewCycle.text =
-            "" + (if (cycleTime.second == 1) "" else (" " + cycleTime.second + " ")) + frequency
+            (if (cycleTime.second == 1) "" else ("" + cycleTime.second + " ")) + frequency
     }
 
     fun initSupportingTarget() {

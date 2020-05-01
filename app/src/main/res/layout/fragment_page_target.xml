@@ -109,9 +109,22 @@
                 android:layout_marginTop="@dimen/space_24dp"
                 android:text="Target Pendukung"
                 android:textStyle="bold"
-                android:visibility="@{hasCompletedSupportingTargets | hasIncompleteSupportingTargets? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_cycle_description" />
+
+            <TextView
+                android:id="@+id/textview_supporting_target_empty"
+                style="@style/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:paddingBottom="@dimen/space_32dp"
+                android:text="Tidak ada target pendukung"
+                android:textColor="@color/dark_secondary"
+                android:visibility="@{hasCompletedSupportingTargets | hasIncompleteSupportingTargets? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_supporting_target" />
 
             <TextView
                 android:id="@+id/textview_supporting_target_incomplete"
