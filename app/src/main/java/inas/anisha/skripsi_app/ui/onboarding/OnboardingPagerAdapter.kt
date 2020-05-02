@@ -6,10 +6,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import inas.anisha.skripsi_app.R
 
 
-class OnboardingPagerAdapter(
-    fragmentManager: FragmentManager,
-    val listener: OnboardingPagerFragment.ButtonClickListener
-) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class OnboardingPagerAdapter(fragmentManager: FragmentManager) :
+    FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
 
     override fun getItem(position: Int): Fragment {
@@ -17,35 +15,20 @@ class OnboardingPagerAdapter(
             0 -> OnboardingPagerFragment.newInstance(
                 "Raih Target Belajar",
                 "Tetapkan target lalu kelola jadwal dan strategi belajarmu",
-                0,
-                R.drawable.img_onboarding_0,
-                object : OnboardingPagerFragment.ButtonClickListener {
-                    override fun onButtonClick(buttonType: Int) {
-                        listener.onButtonClick(buttonType)
-                    }
-                })
+                R.drawable.img_onboarding_0
+            )
 
             1 -> OnboardingPagerFragment.newInstance(
                 "Amati Progres Belajar",
                 "Pantau dan tingkatkan perkembangan belajarmu",
-                1,
-                R.drawable.img_onboarding_1,
-                object : OnboardingPagerFragment.ButtonClickListener {
-                    override fun onButtonClick(buttonType: Int) {
-                        listener.onButtonClick(buttonType)
-                    }
-                })
+                R.drawable.img_onboarding_1
+            )
 
             else -> OnboardingPagerFragment.newInstance(
                 "Evaluasi Pembelajaran",
                 "Evaluasi pada akhir siklus belajarmu dan perbaiki rencana kedepannya",
-                2,
-                R.drawable.img_onboarding_2,
-                object : OnboardingPagerFragment.ButtonClickListener {
-                    override fun onButtonClick(buttonType: Int) {
-                        listener.onButtonClick(buttonType)
-                    }
-                })
+                R.drawable.img_onboarding_2
+            )
         }
     }
 

@@ -5,41 +5,59 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ActivityOnboardingBinding
-import inas.anisha.skripsi_app.ui.onboarding.OnboardingPagerFragment.Companion.CLICK_NEXT
-import inas.anisha.skripsi_app.ui.onboarding.OnboardingPagerFragment.Companion.CLICK_SKIP
-import inas.anisha.skripsi_app.ui.onboarding.OnboardingPagerFragment.Companion.CLICK_START
 import inas.anisha.skripsi_app.ui.signup.SignUpActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityOnboardingBinding
+    private lateinit var mViewModel: OnboardingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_onboarding)
-        mBinding.viewpager.adapter = OnboardingPagerAdapter(
-            supportFragmentManager,
-            object : OnboardingPagerFragment.ButtonClickListener {
-                override fun onButtonClick(buttonType: Int) {
-                    when (buttonType) {
-                        CLICK_SKIP -> mBinding.viewpager.setCurrentItem(2, true)
-                        CLICK_NEXT -> mBinding.viewpager.setCurrentItem(
-                            mBinding.viewpager.currentItem + 1,
-                            true
-                        )
-                        CLICK_START -> {
-                            val intent = Intent(
-                                this@OnboardingActivity,
-                                SignUpActivity::class.java
-                            )
-                            startActivity(intent)
-                        }
-                    }
-                }
-            })
+        mViewModel = ViewModelProviders.of(this).get(OnboardingViewModel::class.java)
+        mBinding.viewModel = mViewModel
+        mBinding.lifecycleOwner = this
+
+        mBinding.buttonNext.setOnClickListener {
+            mBinding.viewpager.setCurrentItem(mBinding.viewpager.currentItem + 1, true)
+        }
+
+        mBinding.buttonPrevious.setOnClickListener {
+            mBinding.viewpager.setCurrentItem(mBinding.viewpager.currentItem - 1, true)
+        }
+
+        mBinding.buttonSkip.setOnClickListener { mBinding.viewpager.setCurrentItem(2, true) }
+        mBinding.buttonStart.setOnClickListener {
+            val intent = Intent(
+                this@OnboardingActivity,
+                SignUpActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+
+        mBinding.viewpager.adapter = OnboardingPagerAdapter(supportFragmentManager)
+
+        mBinding.viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                mViewModel.pageNum.value = position
+            }
+        })
     }
 
     override fun attachBaseContext(newBase: Context?) {

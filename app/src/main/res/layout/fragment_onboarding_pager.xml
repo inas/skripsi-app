@@ -3,17 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="inas.anisha.skripsi_app.ui.onboarding.OnboardingPagerViewModel" />
-
-        <variable
-            name="View"
-            type="android.view.View" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,6 +12,7 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_marginBottom="@dimen/space_32dp"
+            android:layout_marginTop="@dimen/space_64dp"
             app:layout_constraintBottom_toTopOf="@id/textview_heading"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,11 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_8dp"
-            android:text="@{viewModel.title}"
             app:layout_constraintBottom_toTopOf="@id/textview_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageview_onboarding"
             tools:text="Raih Target Belajar" />
 
         <TextView
@@ -47,83 +35,13 @@
             style="@style/font_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.description}"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@id/layout_progress"
+            android:layout_marginBottom="250dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_heading"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Tentukan target lalu kelola jadwal dan strategi belajarmu" />
 
-        <LinearLayout
-            android:id="@+id/layout_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_32dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/button_start"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_description">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageview_progress_0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_4dp"
-                android:src="@drawable/ic_indicator_off" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageview_progress_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_4dp"
-                android:src="@drawable/ic_indicator_off" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageview_progress_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_4dp"
-                android:src="@drawable/ic_indicator_off" />
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_skip"
-            style="@style/button_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.pageNum == 0? @string/fragment_onboarding_pager_lewati: @string/fragment_onboarding_pager_sebelumnya}"
-            android:textColor="@color/dark_secondary"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_next"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="berikutnya"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ripple_button_onboarding"
-            android:text="mulai sekarang"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            fontPath="fonts/rubikMedium.ttf"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
