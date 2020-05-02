@@ -31,6 +31,7 @@
             android:id="@+id/layout_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minHeight="@dimen/card_height_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/checkbox"
             android:layout_marginBottom="@dimen/space_16dp"
@@ -46,35 +47,43 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_illustration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:background="@drawable/bg_supporting_target_study" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_16dp"
+                app:layout_constraintBottom_toTopOf="@id/textview_target"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_bottom_padding"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <TextView
                 android:id="@+id/textview_target"
                 style="@style/font_heading.bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16dp"
-                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginBottom="@dimen/space_4dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@{viewModel.name}"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/imageview_delete"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Rutin belajar mandiri shhsh shhs shhshshs shshsh" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageview_clock"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_clock"
-                android:tint="@color/white"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="@dimen/space_4dp"
-                android:layout_marginBottom="@dimen/space_16dp"
-                android:visibility="@{viewModel.shouldShowTime? View.VISIBLE : View.GONE}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_target_note" />
+                app:layout_constraintBottom_toTopOf="@id/textview_target_note"
+                tools:text="Rutin belajar mandiri shhsh shhsshshs shshsh" />
 
             <TextView
                 android:id="@+id/textview_target_note"
@@ -82,16 +91,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16dp"
-                android:layout_marginTop="@dimen/space_4dp"
+                android:layout_marginBottom="@dimen/space_4dp"
                 android:layout_marginEnd="@dimen/space_16dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@{viewModel.note}"
+                android:visibility="@{viewModel.note.empty? View.GONE : View.VISIBLE}"
                 android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@id/imageview_clock"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_target"
+                tools:visibility="visible"
                 tools:text="Buat sesi khusus untuk belajar mandiri dhhhd hdhdhd dhdhhd" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_clock"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="14dp"
+                android:src="@drawable/ic_clock"
+                android:tint="@color/white"
+                android:visibility="@{viewModel.shouldShowTime? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toTopOf="@id/view_bottom_padding"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="gone" />
 
             <TextView
                 android:id="@+id/textview_target_time"
@@ -104,6 +127,7 @@
                 android:singleLine="true"
                 android:text="@{viewModel.time}"
                 android:textColor="@color/white"
+                tools:visibility="gone"
                 android:visibility="@{viewModel.shouldShowTime? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/imageview_clock"
@@ -120,13 +144,6 @@
                 android:tint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_target_note" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

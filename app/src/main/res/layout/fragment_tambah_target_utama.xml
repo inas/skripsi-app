@@ -3,118 +3,124 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textview_title"
-            style="@style/font_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:text="Tambah Target Utama"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageview_close"
-            android:layout_width="@dimen/size_button"
-            android:layout_height="@dimen/size_button"
-            android:padding="@dimen/size_button_padding"
-            android:src="@drawable/ic_close_dark"
-            app:layout_constraintBottom_toBottomOf="@id/textview_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textview_title" />
+            <TextView
+                android:id="@+id/textview_title"
+                style="@style/font_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_16dp"
+                android:text="Tambah Target Utama"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textlayout_target"
-            style="@style/InputLayout"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:hint="Nama target"
-            app:counterEnabled="true"
-            app:counterMaxLength="50"
-            app:helperText="Contoh: menjadi juara kelas"
-            app:helperTextEnabled="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_title"
-            app:startIconDrawable="@drawable/ic_text_fields">
+            <ImageView
+                android:id="@+id/imageview_close"
+                android:layout_width="@dimen/size_button"
+                android:layout_height="@dimen/size_button"
+                android:padding="@dimen/size_button_padding"
+                android:src="@drawable/ic_close_dark"
+                app:layout_constraintBottom_toBottomOf="@id/textview_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textview_title" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_target"
-                style="@style/EditText"
-                android:inputType="textMultiLine|textNoSuggestions"
-                tools:text="" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_target"
+                style="@style/InputLayout"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:hint="Nama target"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:helperText="Contoh: menjadi juara kelas"
+                app:helperTextEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_title"
+                app:startIconDrawable="@drawable/ic_text_fields">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textlayout_note"
-            style="@style/InputLayout"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:hint="Catatan (opsional)"
-            app:counterEnabled="true"
-            app:counterMaxLength="500"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_target"
-            app:startIconDrawable="@drawable/ic_note">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittext_target"
+                    style="@style/EditText"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    tools:text="" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_note"
-                style="@style/EditText"
-                android:inputType="textMultiLine|textNoSuggestions"
-                tools:text="" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_note"
+                style="@style/InputLayout"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:hint="Catatan (opsional)"
+                app:counterEnabled="true"
+                app:counterMaxLength="500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textlayout_target"
+                app:startIconDrawable="@drawable/ic_note">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textlayout_date"
-            style="@style/InputLayout"
-            android:layout_width="0dp"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:hint="Tanggal pencapaian (opsional)"
-            app:helperTextEnabled="true"
-            app:layout_constraintEnd_toStartOf="@id/imageview_remove"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_note"
-            app:startIconDrawable="@drawable/ic_calendar">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittext_note"
+                    style="@style/EditText"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    tools:text="" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_date"
-                style="@style/EditText"
-                android:cursorVisible="false"
-                android:editable="false"
-                android:inputType="none"
-                tools:text="20 Juli 2018" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textlayout_date"
+                style="@style/InputLayout"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:hint="Tanggal pencapaian (opsional)"
+                app:helperTextEnabled="true"
+                app:layout_constraintEnd_toStartOf="@id/imageview_remove"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textlayout_note"
+                app:startIconDrawable="@drawable/ic_calendar">
 
-        <ImageView
-            android:id="@+id/imageview_remove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:padding="@dimen/size_button_padding"
-            android:src="@drawable/ic_close_round"
-            app:layout_constraintBottom_toBottomOf="@id/textlayout_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textlayout_date"
-            tools:checked="true" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edittext_date"
+                    style="@style/EditText"
+                    android:cursorVisible="false"
+                    android:editable="false"
+                    android:inputType="none"
+                    tools:text="20 Juli 2018" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_add"
-            style="@style/button_full"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_32dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:text="Simpan"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_date" />
+            <ImageView
+                android:id="@+id/imageview_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:padding="@dimen/size_button_padding"
+                android:src="@drawable/ic_close_round"
+                app:layout_constraintBottom_toBottomOf="@id/textlayout_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textlayout_date"
+                tools:checked="true" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_add"
+                style="@style/button_full"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_32dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:text="Simpan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textlayout_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </layout>

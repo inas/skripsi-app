@@ -72,12 +72,27 @@ class TargetPendukungFragment : Fragment() {
             Pair("recommended2", recTarget2Vm)
         )
 
-        displayedSupportingTargets.values.forEach { vm ->
+        val colours = mutableListOf(
+            R.drawable.bg_rounded_pink,
+            R.drawable.bg_rounded_purple,
+            R.drawable.bg_rounded_blue
+        )
+        val resources = mutableListOf(
+            R.drawable.bg_supporting_target_study,
+            R.drawable.bg_supporting_target_exercise,
+            R.drawable.bg_supporting_target_new_skill
+        )
+        displayedSupportingTargets.values.forEachIndexed { index, vm ->
             val inflater = LayoutInflater.from(context)
             val card: ItemTargetPendukungBinding =
                 DataBindingUtil.inflate(inflater, R.layout.item_target_pendukung, null, false)
+
             card.viewModel = vm
             card.lifecycleOwner = this
+            card.imageviewDelete.visibility = View.GONE
+            card.imageviewIllustration.setBackgroundResource(resources[index])
+            card.imageviewTarget.setBackgroundResource(colours[index])
+
             card.layoutCard.setOnClickListener {
                 vm.isSelected.value = true
                 openModifyTargetDialog(vm, card)

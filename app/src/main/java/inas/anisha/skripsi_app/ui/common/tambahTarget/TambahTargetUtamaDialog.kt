@@ -102,7 +102,7 @@ class TambahTargetUtamaDialog : DialogFragment() {
         val targetNote = mBinding.edittextNote.text.toString().trim()
         val targetDate = targetDate
 
-        if (isValid(targetName)) {
+        if (isValid(targetName, targetNote)) {
             val target = TargetUtamaViewModel()
                 .apply {
                     name = targetName
@@ -118,17 +118,17 @@ class TambahTargetUtamaDialog : DialogFragment() {
 
     }
 
-    private fun isValid(name: String): Boolean {
+    private fun isValid(name: String, note: String): Boolean {
         var isValid = true
 
-        when {
-            name.isEmpty() -> {
-                isValid = false
-                mBinding.textlayoutTarget.error = "Nama target harus diisi"
-            }
-            name.length > 50 -> isValid = false
-            else -> mBinding.textlayoutTarget.error = null
+        if (name.isEmpty()) {
+            isValid = false
+            mBinding.textlayoutTarget.error = "Nama target harus diisi"
+        } else {
+            mBinding.textlayoutTarget.error = null
         }
+
+        if (name.length > 50 || note.length > 500) isValid = false
 
         return isValid
     }

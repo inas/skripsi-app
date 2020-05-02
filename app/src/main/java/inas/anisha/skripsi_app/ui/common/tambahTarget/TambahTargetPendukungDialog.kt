@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.TargetPendukungEntity
 import inas.anisha.skripsi_app.databinding.FragmentTambahTargetPendukungBinding
+import inas.anisha.skripsi_app.ui.common.TextValidator
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 
 
@@ -43,6 +45,16 @@ class TambahTargetPendukungDialog : DialogFragment() {
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this
 
+        mBinding.buttonSave.setOnClickListener { modifyTarget() }
+        mBinding.imageviewClose.setOnClickListener { dismiss() }
+
+        initEditText()
+        setInitialValue()
+
+        return mBinding.root
+    }
+
+    fun initEditText() {
         mBinding.edittextTarget.apply {
             imeOptions = EditorInfo.IME_ACTION_NEXT
             setRawInputType(InputType.TYPE_CLASS_TEXT)
@@ -53,41 +65,60 @@ class TambahTargetPendukungDialog : DialogFragment() {
             setRawInputType(InputType.TYPE_CLASS_TEXT)
         }
 
-        mBinding.buttonSave.setOnClickListener { modifyTarget() }
-        mBinding.imageviewClose.setOnClickListener { dismiss() }
+        mBinding.edittextTarget.addTextChangedListener(object :
+            TextValidator(mBinding.edittextTarget) {
+            override fun validate(textView: TextView, text: String) {
+                mBinding.textlayoutTarget.error =
+                    if (text.isEmpty()) "Nama target harus diisi" else null
+            }
+        })
+    }
 
-        val target: TargetPendukungEntity? = arguments?.getParcelable(ARG_TARGET)
-        if (target != null) {
-            mTarget = target
+    fun setInitialValue() {
+        arguments?.getParcelable<TargetPendukungEntity>(ARG_TARGET)?.let {
+            mTarget = it
             mBinding.textviewTitle.text = "Edit Target Pendukung"
+            mBinding.edittextTarget.setText(mTarget.name)
+            mBinding.edittextNote.setText(mTarget.note)
+            mBinding.edittextTime.setText(mTarget.time)
         }
-
-        mBinding.edittextTarget.setText(mTarget.name)
-        mBinding.edittextNote.setText(mTarget.note)
-        mBinding.edittextTime.setText(mTarget.time)
-
-        return mBinding.root
     }
 
     fun modifyTarget() {
-        val targetName = mBinding.edittextTarget.text.toString()
-        val targetNote = mBinding.edittextNote.text.toString()
-        val targetTime = mBinding.edittextTime.text.toString()
+        val targetName = mBinding.edittextTarget.text.toString().trim()
+        val targetNote = mBinding.edittextNote.text.toString().trim()
+        val targetTime = mBinding.edittextTime.text.toString().trim()
 
-        val target = TargetPendukungViewModel()
-            .apply {
-                id = mTarget.id
-                name = targetName
-                note = targetNote
-                time = targetTime
-                isCompleted = mTarget.isCompleted
+        if (isValid(targetName, targetNote, targetTime)) {
+            val target = TargetPendukungViewModel()
+                .apply {
+                    id = mTarget.id
+                    name = targetName
+                    note = targetNote
+                    time = targetTime
+                    isCompleted = mTarget.isCompleted
+                }
+
+            mCallback?.let {
+                it.onTargetModified(target)
+                dismiss()
             }
+        }
+    }
 
-        mCallback?.let {
-            it.onTargetModified(target)
-            dismiss()
+    private fun isValid(name: String, note: String, time: String): Boolean {
+        var isValid = true
+
+        if (name.isEmpty()) {
+            isValid = false
+            mBinding.textlayoutTarget.error = "Nama target harus diisi"
+        } else {
+            mBinding.textlayoutTarget.error = null
         }
 
+        if (name.length > 50 || note.length > 500 || time.length > 50) isValid = false
+
+        return isValid
     }
 
     fun setOnTargetAddedListener(callback: OnTargetModifiedListener) {
