@@ -1,11 +1,9 @@
 package inas.anisha.skripsi_app.ui.common.tambahTarget
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -55,16 +53,6 @@ class TambahTargetPendukungDialog : DialogFragment() {
     }
 
     fun initEditText() {
-        mBinding.edittextTarget.apply {
-            imeOptions = EditorInfo.IME_ACTION_NEXT
-            setRawInputType(InputType.TYPE_CLASS_TEXT)
-        }
-
-        mBinding.edittextTime.apply {
-            imeOptions = EditorInfo.IME_ACTION_DONE
-            setRawInputType(InputType.TYPE_CLASS_TEXT)
-        }
-
         mBinding.edittextTarget.addTextChangedListener(object :
             TextValidator(mBinding.edittextTarget) {
             override fun validate(textView: TextView, text: String) {

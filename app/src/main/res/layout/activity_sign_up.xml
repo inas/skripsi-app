@@ -41,7 +41,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_name"
                 style="@style/EditText"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|textCapWords"
                 tools:text="" />
         </com.google.android.material.textfield.TextInputLayout>
 

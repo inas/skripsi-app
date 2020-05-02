@@ -60,7 +60,7 @@
                     android:id="@+id/edittext_target"
                     style="@style/EditText"
                     android:imeOptions="actionNext"
-                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:inputType="text|textCapSentences"
                     tools:text="Diterima di Ilmu Komputer di Universitas Indonesia" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +81,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edittext_note"
                     style="@style/EditText"
-                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:inputType="textMultiLine|textNoSuggestions|textCapSentences"
                     tools:text="Pellentesque sapien odio, suscipit sed quam eu, commodo maximus lacus. Mauris dignissim rhoncus neque, ac fermentum justo. Nulla id arcu condimentum, bibendum nisi et, suscipit libero. Mauris ut leo tellus. Morbi commodo ex in leo feugiat, id tincidunt dolor dignissim. Nullam pretium facilisis mi, maximus porta mauris scelerisque quis. Donec sit amet massa at elit pellentesque tincidunt quis vitae nisl. Sed id ante id ex molestie euismod. Phasellus tristique gravida sem et accumsan." />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,8 +103,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edittext_time"
                     style="@style/EditText"
-                    android:imeOptions="actionNext"
-                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:imeOptions="actionDone"
+                    android:inputType="text|textCapSentences"
                     tools:text=" ha aahah ahahaha ahah ahahaha ahahahhaha" />
             </com.google.android.material.textfield.TextInputLayout>
 
