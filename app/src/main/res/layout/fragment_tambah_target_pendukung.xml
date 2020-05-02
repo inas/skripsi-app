@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
-                android:text="Target Pendukung"
+                android:text="Tambah Target Pendukung"
                 app:layout_constraintEnd_toStartOf="@id/imageview_close"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

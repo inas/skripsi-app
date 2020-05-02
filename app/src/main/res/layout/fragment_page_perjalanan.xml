@@ -4,203 +4,204 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="0dp"
-        android:paddingBottom="@dimen/space_16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            android:paddingBottom="@dimen/space_16dp">
+
+            <ImageView
+                android:id="@+id/imageview_header"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="150dp"
+                android:background="@drawable/bg_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageview_header"
+            <ImageView
+                android:id="@+id/imageview_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:src="@drawable/bg_profile_picture"
+                app:layout_constraintBottom_toBottomOf="@id/imageview_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageview_header" />
+
+            <ImageView
+                android:id="@+id/imageview_chevron"
+                android:layout_width="@dimen/common_32dp"
+                android:layout_height="@dimen/common_32dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:background="@drawable/ic_chevron_next"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/imageview_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageview_header" />
+
+            <TextView
+                android:id="@+id/textview_name"
+                style="@style/font_heading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/textview_grade_and_study"
+                app:layout_constraintEnd_toStartOf="@id/imageview_chevron"
+                app:layout_constraintStart_toEndOf="@id/imageview_profile"
+                app:layout_constraintTop_toTopOf="@id/imageview_profile"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Naya Aeli taylor" />
+
+            <TextView
+                android:id="@+id/textview_grade_and_study"
+                style="@style/font_normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_4dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/imageview_profile"
+                app:layout_constraintEnd_toStartOf="@id/imageview_chevron"
+                app:layout_constraintStart_toEndOf="@id/imageview_profile"
+                app:layout_constraintTop_toBottomOf="@id/textview_name"
+                tools:text="10 IPA" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardview_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_xsmall"
+                app:layout_constraintBottom_toBottomOf="@id/imageview_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageview_header">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@drawable/bg_header"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageview_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="@dimen/space_16dp"
-                    android:src="@drawable/bg_profile_picture"
-                    app:layout_constraintBottom_toBottomOf="@id/imageview_header"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/imageview_header" />
-
-                <ImageView
-                    android:id="@+id/imageview_chevron"
-                    android:layout_width="@dimen/common_32dp"
-                    android:layout_height="@dimen/common_32dp"
-                    android:layout_marginEnd="@dimen/space_16dp"
-                    android:background="@drawable/ic_chevron_next"
-                    android:backgroundTint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@id/imageview_header"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/imageview_header" />
-
-                <TextView
-                    android:id="@+id/textview_name"
-                    style="@style/font_heading"
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_16dp"
-                    android:layout_marginEnd="@dimen/space_16dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/textview_grade_and_study"
-                    app:layout_constraintEnd_toStartOf="@id/imageview_chevron"
-                    app:layout_constraintStart_toEndOf="@id/imageview_profile"
-                    app:layout_constraintTop_toTopOf="@id/imageview_profile"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    tools:text="Naya Aeli taylor" />
+                    android:padding="@dimen/space_8dp">
 
-                <TextView
-                    android:id="@+id/textview_grade_and_study"
-                    style="@style/font_normal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_16dp"
-                    android:layout_marginTop="@dimen/space_4dp"
-                    android:layout_marginEnd="@dimen/space_16dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/imageview_profile"
-                    app:layout_constraintEnd_toStartOf="@id/imageview_chevron"
-                    app:layout_constraintStart_toEndOf="@id/imageview_profile"
-                    app:layout_constraintTop_toBottomOf="@id/textview_name"
-                    tools:text="10 IPA" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardview_stats"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/space_16dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_xsmall"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/imageview_header"
-                    app:layout_constraintTop_toBottomOf="@id/imageview_header">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textview_task"
+                        style="@style/font_small"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/space_8dp">
+                        android:text="Tugas Selesai"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/textview_time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/textview_task"
-                            style="@style/font_small"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tugas Selesai"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toStartOf="@id/textview_time"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/textview_time"
+                        style="@style/font_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16dp"
+                        android:layout_marginEnd="@dimen/space_16dp"
+                        android:text="Ketepatan waktu"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/textview_target"
+                        app:layout_constraintStart_toEndOf="@id/textview_task"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/textview_time"
-                            style="@style/font_small"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/space_16dp"
-                            android:layout_marginEnd="@dimen/space_16dp"
-                            android:text="Ketepatan waktu"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toStartOf="@id/textview_target"
-                            app:layout_constraintStart_toEndOf="@id/textview_task"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/textview_target"
+                        style="@style/font_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Target tercapai"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/textview_time"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/textview_target"
-                            style="@style/font_small"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Target tercapai"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/textview_time"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/textview_task_value"
+                        style="@style/font_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8dp"
+                        app:layout_constraintStart_toStartOf="@id/textview_task"
+                        app:layout_constraintTop_toBottomOf="@id/textview_task"
+                        tools:text="20/22" />
 
-                        <TextView
-                            android:id="@+id/textview_task_value"
-                            style="@style/font_heading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/space_8dp"
-                            app:layout_constraintStart_toStartOf="@id/textview_task"
-                            app:layout_constraintTop_toBottomOf="@id/textview_task"
-                            tools:text="20/22" />
+                    <TextView
+                        android:id="@+id/textview_time_value"
+                        style="@style/font_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8dp"
+                        app:layout_constraintStart_toStartOf="@id/textview_time"
+                        app:layout_constraintTop_toBottomOf="@id/textview_time"
+                        tools:text="80%" />
 
-                        <TextView
-                            android:id="@+id/textview_time_value"
-                            style="@style/font_heading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/space_8dp"
-                            app:layout_constraintStart_toStartOf="@id/textview_time"
-                            app:layout_constraintTop_toBottomOf="@id/textview_time"
-                            tools:text="80%" />
+                    <TextView
+                        android:id="@+id/textview_target_value"
+                        style="@style/font_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8dp"
+                        app:layout_constraintStart_toStartOf="@id/textview_target"
+                        app:layout_constraintTop_toBottomOf="@id/textview_target"
+                        tools:text="80%" />
 
-                        <TextView
-                            android:id="@+id/textview_target_value"
-                            style="@style/font_heading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/space_8dp"
-                            app:layout_constraintStart_toStartOf="@id/textview_target"
-                            app:layout_constraintTop_toBottomOf="@id/textview_target"
-                            tools:text="80%" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/textview_perjalanan_label"
+                style="@style/font_heading.bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text="Jalan meraih target"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardview_stats" />
 
-                <TextView
-                    android:id="@+id/textview_perjalanan_label"
-                    style="@style/font_heading.bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_16dp"
-                    android:layout_marginTop="@dimen/space_16dp"
-                    android:text="Jalan meraih target"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardview_stats" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_perjalanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_perjalanan_label"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_perjalanan" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview_perjalanan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/space_16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textview_perjalanan_label"
-                    tools:itemCount="3"
-                    tools:listitem="@layout/item_perjalanan" />
+            <ImageView
+                android:id="@+id/imageview_dash"
+                android:layout_width="4dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="25.7dp"
+                android:layerType="software"
+                android:src="@drawable/line_dash_vertical"
+                app:layout_constraintStart_toStartOf="@id/recyclerview_perjalanan"
+                app:layout_constraintTop_toBottomOf="@id/recyclerview_perjalanan" />
 
-                <ImageView
-                    android:id="@+id/imageview_dash"
-                    android:layout_width="4dp"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="25.7dp"
-                    android:layerType="software"
-                    android:src="@drawable/line_dash_vertical"
-                    app:layout_constraintStart_toStartOf="@id/recyclerview_perjalanan"
-                    app:layout_constraintTop_toBottomOf="@id/recyclerview_perjalanan" />
-
-                <include
-                    android:id="@+id/layout_main_target"
-                    layout="@layout/item_perjalanan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_16dp"
-                    android:layout_marginEnd="@dimen/space_16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageview_dash" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+            <include
+                android:id="@+id/layout_main_target"
+                layout="@layout/item_perjalanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageview_dash" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

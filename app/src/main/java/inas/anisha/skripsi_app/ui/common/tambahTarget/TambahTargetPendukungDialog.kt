@@ -56,7 +56,11 @@ class TambahTargetPendukungDialog : DialogFragment() {
         mBinding.buttonSave.setOnClickListener { modifyTarget() }
         mBinding.imageviewClose.setOnClickListener { dismiss() }
 
-        mTarget = arguments?.getParcelable(ARG_TARGET) ?: TargetPendukungEntity(0)
+        val target: TargetPendukungEntity? = arguments?.getParcelable(ARG_TARGET)
+        if (target != null) {
+            mTarget = target
+            mBinding.textviewTitle.text = "Edit Target Pendukung"
+        }
 
         mBinding.edittextTarget.setText(mTarget.name)
         mBinding.edittextNote.setText(mTarget.note)
