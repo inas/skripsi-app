@@ -4,4 +4,6 @@
     <string name="fragment_add_schedule_chip_task">Tugas</string>
     <string name="fragment_add_schedule_chip_test">Ujian</string>
     <string name="fragment_add_schedule_chip_activity">Kegiatan</string>
+    <string name="fragment_onboarding_pager_lewati">Lewati</string>
+    <string name="fragment_onboarding_pager_sebelumnya">Sebelumnya</string>
 </resources>

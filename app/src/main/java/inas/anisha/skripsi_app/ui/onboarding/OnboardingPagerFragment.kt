@@ -31,11 +31,13 @@ class OnboardingPagerFragment : Fragment() {
         mBinding.viewModel = mViewModel
 
         arguments?.let {
+            val pageNum = it.getInt("page", 0)
             mViewModel.initViewModel(
-                title = it.getString("title", "title"),
-                description = it.getString("description", "description")
+                it.getString("title", "title"),
+                it.getString("description", "description"),
+                pageNum
             )
-            when (it.getInt("page", 0)) {
+            when (pageNum) {
                 0 -> {
                     mBinding.imageviewOnboarding.setImageResource(
                         it.getInt(
