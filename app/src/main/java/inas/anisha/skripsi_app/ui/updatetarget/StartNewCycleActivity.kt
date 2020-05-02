@@ -111,9 +111,14 @@ class StartNewCycleActivity : AppCompatActivity() {
     fun openModifyMainTargetDialog() {
         val tambahTargetDialog = TambahTargetUtamaDialog().apply {
             arguments = Bundle().apply {
-                putString("name", mViewModel.mainTarget.name)
-                putString("note", mViewModel.mainTarget.note)
-                mViewModel.mainTarget.date?.timeInMillis?.let { putLong("date", it) }
+                putString(TambahTargetUtamaDialog.ARG_NAME, mViewModel.mainTarget.name)
+                putString(TambahTargetUtamaDialog.ARG_NOTE, mViewModel.mainTarget.note)
+                mViewModel.mainTarget.date?.timeInMillis?.let {
+                    putLong(
+                        TambahTargetUtamaDialog.ARG_DATE,
+                        it
+                    )
+                }
             }
         }
 

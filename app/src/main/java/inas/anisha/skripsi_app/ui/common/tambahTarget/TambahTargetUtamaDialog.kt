@@ -3,14 +3,19 @@ package inas.anisha.skripsi_app.ui.common.tambahTarget
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentTambahTargetUtamaBinding
+import inas.anisha.skripsi_app.ui.common.TextValidator
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import java.util.*
 
 
@@ -38,6 +43,30 @@ class TambahTargetUtamaDialog : DialogFragment() {
                 container,
                 false
             )
+
+        initInitialValue()
+        initButtonClickListener()
+        initEditText()
+
+        return mBinding.root
+    }
+
+    private fun initInitialValue() {
+        arguments?.getString(ARG_NAME)?.let {
+            mBinding.edittextTarget.setText(it)
+            mBinding.textviewTitle.text = "Edit Target Utama"
+        }
+
+        mBinding.edittextNote.setText(arguments?.getString(ARG_NOTE) ?: "")
+        arguments?.getLong(ARG_DATE)?.takeIf { it != 0L }?.let {
+            targetDate = Calendar.getInstance().apply { timeInMillis = it }
+            targetDate?.let { mBinding.edittextDate.setText(it.toDateString()) }
+        }
+
+
+    }
+
+    private fun initButtonClickListener() {
         mBinding.buttonAdd.setOnClickListener { addTarget() }
         mBinding.imageviewClose.setOnClickListener { dismiss() }
 
@@ -46,32 +75,29 @@ class TambahTargetUtamaDialog : DialogFragment() {
             mBinding.edittextDate.setText("")
             if (mBinding.edittextDate.hasFocus()) mBinding.edittextDate.clearFocus()
         }
-
-        mBinding.edittextDate.apply {
-            setOnClickListener {
-                showDatePicker()
-            }
-            setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) showDatePicker()
-            }
-        }
-
-        mBinding.edittextTarget.setText(arguments?.getString("name") ?: "")
-        mBinding.edittextNote.setText(arguments?.getString("note") ?: "")
-        arguments?.getLong("date")?.takeIf { it != 0L }?.let {
-            targetDate = Calendar.getInstance().apply { timeInMillis = it }
-            val year = targetDate?.get(Calendar.YEAR)
-            val month = targetDate?.get(Calendar.MONTH)
-            val day = targetDate?.get(Calendar.DAY_OF_MONTH)
-            if (year != null && month != null && day != null) {
-                mBinding.edittextDate.setText(day.toString() + "-" + (month + 1) + "-" + year)
-            }
-        }
-
-        return mBinding.root
     }
 
-    fun addTarget() {
+    private fun initEditText() {
+        mBinding.edittextTarget.apply {
+            imeOptions = EditorInfo.IME_ACTION_NEXT
+            setRawInputType(InputType.TYPE_CLASS_TEXT)
+        }
+
+        mBinding.edittextDate.apply {
+            setOnClickListener { showDatePicker() }
+            setOnFocusChangeListener { _, hasFocus -> if (hasFocus) showDatePicker() }
+        }
+
+        mBinding.edittextTarget.addTextChangedListener(object :
+            TextValidator(mBinding.edittextTarget) {
+            override fun validate(textView: TextView, text: String) {
+                mBinding.textlayoutTarget.error =
+                    if (text.isEmpty()) "Nama target harus diisi" else null
+            }
+        })
+    }
+
+    private fun addTarget() {
         val targetName = mBinding.edittextTarget.text.toString().trim()
         val targetNote = mBinding.edittextNote.text.toString().trim()
         val targetDate = targetDate
@@ -92,20 +118,22 @@ class TambahTargetUtamaDialog : DialogFragment() {
 
     }
 
-    fun isValid(name: String): Boolean {
+    private fun isValid(name: String): Boolean {
         var isValid = true
 
-        if (name.isEmpty()) {
-            isValid = false
-            mBinding.textlayoutTarget.error = "Nama target harus diisi"
-        } else {
-            mBinding.textlayoutTarget.error = null
+        when {
+            name.isEmpty() -> {
+                isValid = false
+                mBinding.textlayoutTarget.error = "Nama target harus diisi"
+            }
+            name.length > 50 -> isValid = false
+            else -> mBinding.textlayoutTarget.error = null
         }
 
         return isValid
     }
 
-    fun showDatePicker() {
+    private fun showDatePicker() {
         val currentDate = targetDate ?: Calendar.getInstance()
         val year = currentDate.get(Calendar.YEAR)
         val month = currentDate.get(Calendar.MONTH)
@@ -116,12 +144,13 @@ class TambahTargetUtamaDialog : DialogFragment() {
                 it,
                 OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                     targetDate = currentDate.apply { set(year, monthOfYear, dayOfMonth) }
-                    mBinding.edittextDate.setText(dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    mBinding.edittextDate.setText(currentDate.toDateString())
                 },
                 year,
                 month,
                 day
             )
+            datePickerDialog.datePicker.minDate = Calendar.getInstance().timeInMillis
             datePickerDialog.show()
         }
     }
@@ -136,5 +165,8 @@ class TambahTargetUtamaDialog : DialogFragment() {
 
     companion object {
         const val TAG = "TAMBAH_TARGET_UTAMA_DIALOG"
+        const val ARG_NAME = "ARG_NAME"
+        const val ARG_NOTE = "ARG_NOTE"
+        const val ARG_DATE = "ARG_DATE"
     }
 }

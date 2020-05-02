@@ -64,10 +64,18 @@ class TargetUtamaFragment : Fragment() {
     fun initViews() {
         mBinding.layoutTargetAdded.viewModel = addedTargetVm
         mBinding.layoutTargetAdded.lifecycleOwner = this
+
         mBinding.layoutTargetRecommendation0.viewModel = recTarget0Vm
         mBinding.layoutTargetRecommendation0.lifecycleOwner = this
+        mBinding.layoutTargetRecommendation0.imageviewTarget.setBackgroundResource(R.drawable.bg_rounded_blue)
+        mBinding.layoutTargetRecommendation0.imageviewIllustration.setBackgroundResource(R.drawable.bg_main_target_education)
+        mBinding.layoutTargetRecommendation0.imageviewIllustration.visibility = View.VISIBLE
+
         mBinding.layoutTargetRecommendation1.viewModel = recTarget1Vm
         mBinding.layoutTargetRecommendation1.lifecycleOwner = this
+        mBinding.layoutTargetRecommendation1.imageviewTarget.setBackgroundResource(R.drawable.bg_rounded_yellow)
+        mBinding.layoutTargetRecommendation1.imageviewIllustration.setBackgroundResource(R.drawable.bg_main_target_wish)
+        mBinding.layoutTargetRecommendation1.imageviewIllustration.visibility = View.VISIBLE
     }
 
     fun setClickListener() {
@@ -125,9 +133,9 @@ class TargetUtamaFragment : Fragment() {
     fun openModifyTargetDialog(targetVm: TargetUtamaViewModel, clickedBinding: ItemCardBigBinding) {
         val tambahTargetDialog = TambahTargetUtamaDialog().apply {
             arguments = Bundle().apply {
-                putString("name", targetVm.name)
-                putString("note", targetVm.note)
-                targetVm.date?.timeInMillis?.let { putLong("date", it) }
+                putString(TambahTargetUtamaDialog.ARG_NAME, targetVm.name)
+                putString(TambahTargetUtamaDialog.ARG_NOTE, targetVm.note)
+                targetVm.date?.timeInMillis?.let { putLong(TambahTargetUtamaDialog.ARG_DATE, it) }
             }
         }
 

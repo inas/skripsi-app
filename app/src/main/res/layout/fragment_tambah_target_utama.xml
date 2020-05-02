@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16dp"
-            android:text="Target Utama"
+            android:text="Tambah Target Utama"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +34,8 @@
             android:layout_marginEnd="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
             android:hint="Nama target"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
             app:helperText="Contoh: menjadi juara kelas"
             app:helperTextEnabled="true"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +45,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_target"
                 style="@style/EditText"
+                android:inputType="textMultiLine|textNoSuggestions"
                 tools:text="" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,6 +56,8 @@
             android:layout_marginTop="@dimen/space_16dp"
             android:layout_marginEnd="@dimen/space_16dp"
             android:hint="Catatan (opsional)"
+            app:counterEnabled="true"
+            app:counterMaxLength="500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textlayout_target"
@@ -61,7 +66,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_note"
                 style="@style/EditText"
-                android:inputType="text"
+                android:inputType="textMultiLine|textNoSuggestions"
                 tools:text="" />
         </com.google.android.material.textfield.TextInputLayout>
 
