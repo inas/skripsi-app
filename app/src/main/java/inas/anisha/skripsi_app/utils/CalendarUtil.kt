@@ -83,5 +83,9 @@ class CalendarUtil {
 
         fun Calendar.isTimeEarlierThan(other: Calendar): Boolean =
             getMinuteOfDay() < other.getMinuteOfDay()
+
+        fun Calendar.isDateLaterThan(other: Calendar): Boolean {
+            return getPreviousMidnight() > other.getPreviousMidnight()
+        }
     }
 }

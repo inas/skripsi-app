@@ -39,6 +39,8 @@ class TargetPendukungAdapter :
             if (viewModel.shouldShowTime()) View.VISIBLE else View.GONE
 
         holder.itemView.setOnClickListener { listener?.onItemClick(viewModel) }
+
+        holder.binding.imageviewTarget.setBackgroundResource(COLOURS[position % 4])
     }
 
     inner class ViewHolder(val binding: ItemCardSmallBinding) :
@@ -68,5 +70,14 @@ class TargetPendukungAdapter :
 
     interface ItemListener {
         fun onItemClick(viewModel: TargetPendukungViewModel)
+    }
+
+    companion object {
+        private val COLOURS = mutableListOf(
+            R.drawable.bg_rounded_purple,
+            R.drawable.bg_rounded_blue,
+            R.drawable.bg_rounded_pink,
+            R.drawable.bg_rounded_yellow
+        )
     }
 }

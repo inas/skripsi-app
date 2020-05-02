@@ -18,6 +18,7 @@ import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddScheduleBinding
 import inas.anisha.skripsi_app.ui.common.RangeTimePickerDialog
 import inas.anisha.skripsi_app.ui.common.TextValidator
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.isDateLaterThan
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardized
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
@@ -359,7 +360,7 @@ class AddScheduleDialog : DialogFragment() {
                         mViewModel.executionTime =
                             currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardized()
                         mViewModel.executionTime?.let { executionDate ->
-                            if (executionDate > mViewModel.endDate) {
+                            if (executionDate.isDateLaterThan(mViewModel.endDate)) {
                                 mBinding.textlayoutExecutionTime.error =
                                     "Tanggal pengerjaan tidak boleh lebih dari waktu pengumpulan"
                             } else {

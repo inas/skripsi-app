@@ -63,7 +63,7 @@ class EvaluationReportActivity : AppCompatActivity() {
             setRawInputType(InputType.TYPE_CLASS_TEXT)
         }
         mBinding.buttonSubmit.setOnClickListener {
-            mViewModel.saveCycle(mBinding.edittextReflection.text.toString())
+            mViewModel.saveCycle(mBinding.edittextReflection.text.toString().trim())
             goToStartNewCycle()
         }
     }
