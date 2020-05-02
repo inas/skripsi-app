@@ -105,16 +105,13 @@
                 tools:text="" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:src="@drawable/ic_arrow_next_white"
-            app:backgroundTint="@color/green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_add"
+            style="@style/button_full"
+            android:layout_marginTop="@dimen/space_32dp"
+            android:text="Mulai"
             app:layout_constraintStart_toStartOf="parent"
-            app:tint="@color/white" />
+            app:layout_constraintTop_toBottomOf="@id/textlayout_study_other" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

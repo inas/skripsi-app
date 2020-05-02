@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.ActivitySignUpBinding
+import inas.anisha.skripsi_app.ui.common.TextValidator
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranIntroActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
@@ -40,28 +42,61 @@ class SignUpActivity : AppCompatActivity() {
                 if (position == 2) View.VISIBLE else View.GONE
         }
 
-        mBinding.fabNext.setOnClickListener {
-            saveData()
-            goToKelolaPembelajaranIntro()
+        mBinding.buttonAdd.setOnClickListener {
+            val name = mBinding.edittextName.text.toString().trim()
+            val grade = mBinding.dropdownGrade.text.toString()
+            var study = mBinding.dropdownStudy.text.toString()
+            if (study == STUDY_LIST[2]) study = mBinding.edittextStudyOther.text.toString().trim()
+
+            if (isValid(name, study)) {
+                mViewModel.saveData(name, grade, study)
+                goToKelolaPembelajaranIntro()
+            }
         }
+
+        mBinding.edittextName.addTextChangedListener(object : TextValidator(mBinding.edittextName) {
+            override fun validate(textView: TextView, text: String) {
+                mBinding.textlayoutName.error = if (text.isEmpty()) "Nama harus diisi" else null
+            }
+        })
+
+        mBinding.edittextStudyOther.addTextChangedListener(object :
+            TextValidator(mBinding.edittextStudyOther) {
+            override fun validate(textView: TextView, text: String) {
+                mBinding.textlayoutStudyOther.error =
+                    if (text.isEmpty()) "Jurusan harus diisi" else null
+            }
+        })
     }
 
     override fun onStop() {
         super.onStop()
-        mBinding.fabNext.setOnClickListener(null)
+        mBinding.buttonAdd.setOnClickListener(null)
+        mBinding.dropdownStudy.onItemClickListener = null
     }
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
     }
 
-    private fun saveData() {
-        val name = mBinding.edittextName.text.toString()
-        val grade = mBinding.dropdownGrade.text.toString()
-        var study = mBinding.dropdownStudy.text.toString()
-        if (study == STUDY_LIST[2]) study = mBinding.edittextStudyOther.text.toString()
+    fun isValid(name: String, study: String): Boolean {
+        var isValid = true
 
-        mViewModel.saveData(name, grade, study)
+        if (name.isEmpty()) {
+            isValid = false
+            mBinding.textlayoutName.error = "Nama harus diisi"
+        } else {
+            mBinding.textlayoutName.error = null
+        }
+
+        if (study.isEmpty()) {
+            isValid = false
+            mBinding.textlayoutStudyOther.error = "Jurusan harus diisi"
+        } else {
+            mBinding.textlayoutStudyOther.error = null
+        }
+
+        return isValid
     }
 
     private fun goToKelolaPembelajaranIntro() {

@@ -72,22 +72,37 @@ class TambahTargetUtamaDialog : DialogFragment() {
     }
 
     fun addTarget() {
-        val targetName = mBinding.edittextTarget.text.toString()
-        val targetNote = mBinding.edittextNote.text.toString()
+        val targetName = mBinding.edittextTarget.text.toString().trim()
+        val targetNote = mBinding.edittextNote.text.toString().trim()
         val targetDate = targetDate
 
-        val target = TargetUtamaViewModel()
-            .apply {
-                name = targetName
-                note = targetNote
-                date = targetDate
-            }
+        if (isValid(targetName)) {
+            val target = TargetUtamaViewModel()
+                .apply {
+                    name = targetName
+                    note = targetNote
+                    date = targetDate
+                }
 
-        mCallback?.let {
-            it.onTargetModified(target)
-            dismiss()
+            mCallback?.let {
+                it.onTargetModified(target)
+                dismiss()
+            }
         }
 
+    }
+
+    fun isValid(name: String): Boolean {
+        var isValid = true
+
+        if (name.isEmpty()) {
+            isValid = false
+            mBinding.textlayoutTarget.error = "Nama target harus diisi"
+        } else {
+            mBinding.textlayoutTarget.error = null
+        }
+
+        return isValid
     }
 
     fun showDatePicker() {
