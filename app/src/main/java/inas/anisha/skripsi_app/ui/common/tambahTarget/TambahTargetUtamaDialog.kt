@@ -144,7 +144,6 @@ class TambahTargetUtamaDialog : DialogFragment() {
                 month,
                 day
             )
-            datePickerDialog.datePicker.minDate = Calendar.getInstance().timeInMillis
             datePickerDialog.show()
         }
     }

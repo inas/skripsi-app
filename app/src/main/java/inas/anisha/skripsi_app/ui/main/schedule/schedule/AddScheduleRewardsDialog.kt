@@ -29,8 +29,13 @@ class AddScheduleRewardsDialog : DialogFragment() {
         arguments?.getString(ARG_REWARDS)?.let { mBinding.edittextRewards.setText(it) }
         mBinding.buttonClose.setOnClickListener { dismiss() }
         mBinding.buttonConfirm.setOnClickListener {
-            mCallback?.onConfirmed(mBinding.edittextRewards.text.toString())
-            dismiss()
+            val reward = mBinding.edittextRewards.text.toString().trim()
+            if (reward.isEmpty()) {
+                mBinding.textlayoutRewards.error = "Penghargaan harus diisi"
+            } else {
+                mCallback?.onConfirmed(reward)
+                dismiss()
+            }
         }
 
         return mBinding.root

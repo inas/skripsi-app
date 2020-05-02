@@ -1,14 +1,11 @@
 package inas.anisha.skripsi_app.ui.main.schedule.schedule
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -19,6 +16,8 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddScheduleBinding
+import inas.anisha.skripsi_app.ui.common.RangeTimePickerDialog
+import inas.anisha.skripsi_app.ui.common.TextValidator
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardized
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
@@ -70,6 +69,13 @@ class AddScheduleDialog : DialogFragment() {
 
         mBinding.imageviewClose.setOnClickListener { dismiss() }
         mBinding.buttonSave.setOnClickListener { verifyData() }
+
+        mBinding.imageviewRemove.setOnClickListener {
+            mViewModel.executionTime = null
+            mBinding.edittextExecutionTime.setText("")
+            mBinding.textlayoutExecutionTime.error = null
+            if (mBinding.edittextExecutionTime.hasFocus()) mBinding.edittextExecutionTime.clearFocus()
+        }
 
         setChipGroupListener()
         setEditText()
@@ -141,11 +147,6 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun setEditText() {
-        mBinding.edittextName.apply {
-            imeOptions = EditorInfo.IME_ACTION_NEXT
-            setRawInputType(InputType.TYPE_CLASS_TEXT)
-        }
-
         mBinding.edittextDate.apply {
             setOnClickListener {
                 showDatePicker(it as TextView, false)
@@ -162,12 +163,6 @@ class AddScheduleDialog : DialogFragment() {
             setOnFocusChangeListener { view, hasFocus ->
                 if (hasFocus) showDatePicker(view as TextView, true)
             }
-        }
-
-        mBinding.imageviewRemove.setOnClickListener {
-            mViewModel.executionTime = null
-            mBinding.edittextExecutionTime.setText("")
-            if (mBinding.edittextExecutionTime.hasFocus()) mBinding.edittextExecutionTime.clearFocus()
         }
 
         mBinding.edittextStartTime.apply {
@@ -197,6 +192,14 @@ class AddScheduleDialog : DialogFragment() {
             }
         }
 
+        mBinding.edittextName.addTextChangedListener(object :
+            TextValidator(mBinding.edittextName) {
+            override fun validate(textView: TextView, text: String) {
+                mBinding.textlayoutName.error =
+                    if (text.isEmpty()) "Nama jadwal harus diisi" else null
+            }
+        })
+
     }
 
     fun setRewardView() {
@@ -218,23 +221,99 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun verifyData() {
-        applyToViewModel()
-        if (mViewModel.type == SkripsiConstant.SCHEDULE_TYPE_ACTIVITY) {
-            checkOverlappingSchedule()
-        } else {
-            saveSchedule()
-        }
-    }
-
-    fun applyToViewModel() {
-        mViewModel.name = mBinding.edittextName.text.toString()
-        mViewModel.note = mBinding.ediittextNote.text.toString()
+        mViewModel.name = mBinding.edittextName.text.toString().trim()
+        mViewModel.note = mBinding.ediittextNote.text.toString().trim()
         mViewModel.priority = mBinding.rating.rating.toInt()
 
         if (mViewModel.type == SkripsiConstant.SCHEDULE_TYPE_TASK) {
             mViewModel.startDate =
                 Calendar.getInstance().apply { timeInMillis = mViewModel.endDate.timeInMillis }
         }
+
+        if (isValid(
+                mViewModel.name,
+                mViewModel.note,
+                mViewModel.startDate,
+                mViewModel.endDate,
+                mViewModel.type
+            )
+        ) {
+            if (mViewModel.type == SkripsiConstant.SCHEDULE_TYPE_ACTIVITY) {
+                checkOverlappingSchedule()
+            } else {
+                saveSchedule()
+            }
+        }
+    }
+
+    fun isValid(
+        name: String,
+        note: String,
+        startDate: Calendar,
+        endDate: Calendar,
+        type: Int
+    ): Boolean {
+        var isValid = true
+
+        if (name.isEmpty()) {
+            isValid = false
+            mBinding.textlayoutName.error = "Nama jadwal harus diisi"
+        } else {
+            mBinding.textlayoutName.error = null
+        }
+
+        if (type == SkripsiConstant.SCHEDULE_TYPE_TASK) {
+            if (mBinding.edittextDeadline.text.toString().isEmpty()) {
+                isValid = false
+                mBinding.textlayoutDeadline.error = "Waktu harus diisi"
+            } else {
+                mBinding.textlayoutDeadline.error = null
+            }
+
+            mViewModel.executionTime?.let {
+                if (it > mViewModel.endDate) {
+                    isValid = false
+                    mBinding.textlayoutExecutionTime.error =
+                        "Tanggal pengerjaan tidak boleh lebih dari waktu pengumpulan"
+                } else {
+                    mBinding.textlayoutExecutionTime.error = null
+                }
+            }
+
+        } else {
+            if (mBinding.edittextStartTime.text.toString().isEmpty()) {
+                isValid = false
+                mBinding.textlayoutStartTime.error = "Waktu harus diisi"
+            } else {
+                mBinding.textlayoutStartTime.error = null
+            }
+
+            if (mBinding.edittexttEndTime.text.toString().isEmpty()) {
+                isValid = false
+                mBinding.textlayoutEndTime.error = "Waktu harus diisi"
+            } else {
+                mBinding.textlayoutEndTime.error = null
+            }
+
+            if (mBinding.edittextStartTime.text.toString().isNotEmpty() &&
+                mBinding.edittexttEndTime.text.toString().isNotEmpty() &&
+                startDate >= endDate
+            ) {
+                isValid = false
+                mBinding.textlayoutStartTime.error = "Waktu mulai harus lebih awal"
+            }
+        }
+
+        if (mBinding.edittextDate.text.toString().isEmpty()) {
+            isValid = false
+            mBinding.textlayoutDueDate.error = "Tanggal harus diisi"
+        } else {
+            mBinding.textlayoutDueDate.error = null
+        }
+
+        if (name.length > 50 || note.length > 500) isValid = false
+
+        return isValid
     }
 
     fun checkOverlappingSchedule() {
@@ -279,11 +358,22 @@ class AddScheduleDialog : DialogFragment() {
                     if (isExecutionDate) {
                         mViewModel.executionTime =
                             currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardized()
+                        mViewModel.executionTime?.let { executionDate ->
+                            if (executionDate > mViewModel.endDate) {
+                                mBinding.textlayoutExecutionTime.error =
+                                    "Tanggal pengerjaan tidak boleh lebih dari waktu pengumpulan"
+                            } else {
+                                mBinding.textlayoutExecutionTime.error = null
+                            }
+                        }
                     } else {
                         mViewModel.startDate =
-                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardized()
+                            mViewModel.startDate.apply { set(year, monthOfYear, dayOfMonth) }
+                                .standardized()
                         mViewModel.endDate =
-                            currentDate.apply { set(year, monthOfYear, dayOfMonth) }.standardized()
+                            mViewModel.endDate.apply { set(year, monthOfYear, dayOfMonth) }
+                                .standardized()
+                        mBinding.textlayoutDueDate.error = null
                     }
                     textView.text = currentDate.toDateString()
                 },
@@ -301,8 +391,9 @@ class AddScheduleDialog : DialogFragment() {
         val minutes = date[Calendar.MINUTE]
 
         requireContext().let {
-            val timePicker = TimePickerDialog(
+            val timePicker = RangeTimePickerDialog(
                 it,
+                0,
                 OnTimeSetListener { _, hour, minute ->
                     date.apply {
                         set(Calendar.HOUR_OF_DAY, hour)
@@ -320,11 +411,32 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun setStartTime(date: Calendar) {
+        if (mBinding.edittexttEndTime.text.toString().isNotEmpty() &&
+            mViewModel.type != SkripsiConstant.SCHEDULE_TYPE_TASK && mViewModel.endDate <= date
+        ) {
+            mBinding.textlayoutStartTime.error = "Waktu mulai harus lebih awal"
+            mBinding.textlayoutEndTime.error = null
+        } else {
+            mBinding.textlayoutStartTime.error = null
+            mBinding.textlayoutEndTime.error = null
+        }
         mViewModel.startDate = date.standardized()
         mBinding.edittextStartTime.setText(date.toTimeString())
     }
 
     fun setEndTime(date: Calendar) {
+        if (mBinding.edittextStartTime.text.toString().isNotEmpty() &&
+            mViewModel.type != SkripsiConstant.SCHEDULE_TYPE_TASK && date <= mViewModel.startDate
+        ) {
+            mBinding.textlayoutEndTime.error = "Waktu selesai harus lebih akhir"
+            mBinding.textlayoutStartTime.error = null
+            mBinding.textlayoutDeadline.error = null
+        } else {
+            mBinding.textlayoutEndTime.error = null
+            mBinding.textlayoutStartTime.error = null
+            mBinding.textlayoutDeadline.error = null
+        }
+
         mViewModel.endDate = date.standardized()
         mBinding.edittexttEndTime.setText(date.toTimeString())
         mBinding.edittextDeadline.setText(date.toTimeString())
@@ -354,12 +466,10 @@ class AddScheduleDialog : DialogFragment() {
         addRewardsDialog.setConfirmationDialogListener(object :
             AddScheduleRewardsDialog.ConfirmationDialogListener {
             override fun onConfirmed(rewards: String) {
-                if (rewards.isNotBlank()) {
-                    mViewModel.reward = rewards
-                    mBinding.layoutRewards.layout.visibility = View.VISIBLE
-                    mBinding.layoutRewards.textviewTitle.text = rewards
-                    mBinding.textviewRewardsButton.text = "Edit"
-                }
+                mViewModel.reward = rewards
+                mBinding.layoutRewards.layout.visibility = View.VISIBLE
+                mBinding.layoutRewards.textviewTitle.text = rewards
+                mBinding.textviewRewardsButton.text = "Edit"
             }
         })
 
