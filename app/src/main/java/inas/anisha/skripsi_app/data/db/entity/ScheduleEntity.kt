@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getMinuteOfDay
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -24,6 +24,6 @@ data class ScheduleEntity(
     @ColumnInfo(name = "is_on_time") val isOnTime: Boolean = false,
     @ColumnInfo(name = "week_of_year") val weekOfYear: Int = endDate.get(Calendar.WEEK_OF_YEAR),
     @ColumnInfo(name = "year") val year: Int = endDate.get(Calendar.YEAR),
-    @ColumnInfo(name = "start_minute_of_day") val startMinuteOfDay: Int = startDate.toMinuteOfDay(),
-    @ColumnInfo(name = "end_minute_of_day") val endMinuteOfDay: Int = endDate.toMinuteOfDay()
+    @ColumnInfo(name = "start_minute_of_day") val startMinuteOfDay: Int = startDate.getMinuteOfDay(),
+    @ColumnInfo(name = "end_minute_of_day") val endMinuteOfDay: Int = endDate.getMinuteOfDay()
 ) : Parcelable

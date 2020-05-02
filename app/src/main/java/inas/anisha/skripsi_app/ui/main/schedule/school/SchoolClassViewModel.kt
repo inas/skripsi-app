@@ -11,9 +11,11 @@ class SchoolClassViewModel : ViewModel() {
 
     var id: Long = 0
     var name: String = ""
-    var startTime: Calendar = Calendar.getInstance().standardized()
-    var endTime: Calendar = Calendar.getInstance().standardized()
-    var day: Int = 0
+    var startTime: Calendar =
+        Calendar.getInstance().standardized().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) }
+    var endTime: Calendar =
+        Calendar.getInstance().standardized().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) }
+    var day: Int = Calendar.MONDAY
     var note: String = ""
 
     fun startTimeText() = startTime.toTimeString()

@@ -2,11 +2,10 @@ package inas.anisha.skripsi_app.ui.main.schedule.school
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +14,9 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.SchoolClassEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddSchoolClassBinding
+import inas.anisha.skripsi_app.ui.common.RangeTimePickerDialog
+import inas.anisha.skripsi_app.ui.common.TextValidator
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.isTimeEarlierThan
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardized
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -57,6 +59,10 @@ class AddSchoolClassDialog : DialogFragment() {
             mBinding.textviewTitle.text = "Edit Jadwal Sekolah"
             mViewModel.fromEntity(it)
             mBinding.viewModel = mViewModel
+
+            mBinding.edittextStartTime.setText(mViewModel.startTimeText())
+            mBinding.edittexttEndTime.setText(mViewModel.endTimeText())
+
             initChipValue()
         }
 
@@ -89,13 +95,48 @@ class AddSchoolClassDialog : DialogFragment() {
     }
 
     fun verifyData() {
-        applyToViewModel()
-        checkOverlappingSchedule()
+        mViewModel.name = mBinding.edittextName.text.toString().trim()
+        mViewModel.note = mBinding.ediittextNote.text.toString().trim()
+
+        if (isValid(mViewModel.name, mViewModel.note, mViewModel.startTime, mViewModel.endTime))
+            checkOverlappingSchedule()
     }
 
-    fun applyToViewModel() {
-        mViewModel.name = mBinding.edittextName.text.toString()
-        mViewModel.note = mBinding.ediittextNote.text.toString()
+    fun isValid(name: String, note: String, startTime: Calendar, endTime: Calendar): Boolean {
+        var isValid = true
+
+        if (name.isEmpty()) {
+            isValid = false
+            mBinding.textlayoutName.error = "Nama jadwal harus diisi"
+        } else {
+            mBinding.textlayoutName.error = null
+        }
+
+        if (mBinding.edittextStartTime.text.toString().isEmpty()) {
+            isValid = false
+            mBinding.textlayoutStartTime.error = "Waktu harus diisi"
+        } else {
+            mBinding.textlayoutStartTime.error = null
+        }
+
+        if (mBinding.edittexttEndTime.text.toString().isEmpty()) {
+            isValid = false
+            mBinding.textlayoutEndTime.error = "Waktu harus diisi"
+        } else {
+            mBinding.textlayoutEndTime.error = null
+        }
+
+        if (mBinding.edittextStartTime.text.toString().isNotEmpty() &&
+            mBinding.edittexttEndTime.text.toString().isNotEmpty() &&
+            !startTime.isTimeEarlierThan(endTime)
+        ) {
+            isValid = false
+            mBinding.textlayoutStartTime.error = "Waktu mulai harus lebih awal"
+        }
+
+        if (name.length > 50 || note.length > 500) isValid = false
+
+        return isValid
     }
 
     fun checkOverlappingSchedule() {
@@ -124,51 +165,78 @@ class AddSchoolClassDialog : DialogFragment() {
     fun setChipGroupListener() {
         mBinding.chipgroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.chip_monday -> mViewModel.day = Calendar.MONDAY
-                R.id.chip_tuesday -> mViewModel.day = Calendar.TUESDAY
-                R.id.chip_wednesday -> mViewModel.day = Calendar.WEDNESDAY
-                R.id.chip_thursday -> mViewModel.day = Calendar.THURSDAY
-                R.id.chip_friday -> mViewModel.day = Calendar.FRIDAY
-                R.id.chip_saturday -> mViewModel.day = Calendar.SATURDAY
+                R.id.chip_monday -> setDay(Calendar.MONDAY)
+                R.id.chip_tuesday -> setDay(Calendar.TUESDAY)
+                R.id.chip_wednesday -> setDay(Calendar.WEDNESDAY)
+                R.id.chip_thursday -> setDay(Calendar.THURSDAY)
+                R.id.chip_friday -> setDay(Calendar.FRIDAY)
+                R.id.chip_saturday -> setDay(Calendar.SATURDAY)
             }
         }
     }
 
-    fun setEditText() {
-        mBinding.edittextName.apply {
-            imeOptions = EditorInfo.IME_ACTION_NEXT
-            setRawInputType(InputType.TYPE_CLASS_TEXT)
-        }
+    private fun setDay(day: Int) {
+        mViewModel.day = day
+        mViewModel.startTime.set(Calendar.DAY_OF_WEEK, day)
+        mViewModel.endTime.set(Calendar.DAY_OF_WEEK, day)
+    }
 
+    fun setEditText() {
         mBinding.edittextStartTime.apply {
             setOnClickListener {
-                showTimePicker(mViewModel.startTime) { date: Calendar ->
-                    mViewModel.startTime = date
-                    mBinding.edittextStartTime.setText(date.toTimeString())
-                }
+                showTimePicker(mViewModel.startTime, ::setStartTime)
             }
             setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) showTimePicker(mViewModel.startTime) { date: Calendar ->
-                    mViewModel.startTime = date
-                    mBinding.edittextStartTime.setText(date.toTimeString())
-                }
+                if (hasFocus) showTimePicker(mViewModel.startTime, ::setStartTime)
             }
         }
 
         mBinding.edittexttEndTime.apply {
             setOnClickListener {
-                showTimePicker(mViewModel.endTime) { date: Calendar ->
-                    mViewModel.endTime = date
-                    mBinding.edittexttEndTime.setText(date.toTimeString())
-                }
+                showTimePicker(mViewModel.endTime, ::setEndTime)
             }
             setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) showTimePicker(mViewModel.endTime) { date: Calendar ->
-                    mViewModel.endTime = date
-                    mBinding.edittexttEndTime.setText(date.toTimeString())
-                }
+                if (hasFocus) showTimePicker(mViewModel.endTime, ::setEndTime)
             }
         }
+
+        mBinding.edittextName.addTextChangedListener(object :
+            TextValidator(mBinding.edittextName) {
+            override fun validate(textView: TextView, text: String) {
+                mBinding.textlayoutName.error =
+                    if (text.isEmpty()) "Nama jadwal harus diisi" else null
+            }
+        })
+    }
+
+    fun setStartTime(date: Calendar) {
+        if (mBinding.edittexttEndTime.text.toString().isNotEmpty()
+            && !date.isTimeEarlierThan(mViewModel.endTime)
+        ) {
+            mBinding.textlayoutStartTime.error = "Waktu mulai harus lebih awal"
+            mBinding.textlayoutEndTime.error = null
+        } else {
+            mBinding.textlayoutStartTime.error = null
+            mBinding.textlayoutEndTime.error = null
+        }
+
+        mViewModel.startTime = date.standardized()
+        mBinding.edittextStartTime.setText(date.toTimeString())
+    }
+
+    fun setEndTime(date: Calendar) {
+        if (mBinding.edittextStartTime.text.toString().isNotEmpty()
+            && !mViewModel.startTime.isTimeEarlierThan(date)
+        ) {
+            mBinding.textlayoutEndTime.error = "Waktu selesai harus lebih akhir"
+            mBinding.textlayoutStartTime.error = null
+        } else {
+            mBinding.textlayoutStartTime.error = null
+            mBinding.textlayoutEndTime.error = null
+        }
+
+        mViewModel.endTime = date.standardized()
+        mBinding.edittexttEndTime.setText(date.toTimeString())
     }
 
     fun showTimePicker(defaultDate: Calendar, onTimeSet: (date: Calendar) -> Unit) {
@@ -177,8 +245,9 @@ class AddSchoolClassDialog : DialogFragment() {
         val minutes = date[Calendar.MINUTE]
 
         requireContext().let {
-            val timePicker = TimePickerDialog(
+            val timePicker = RangeTimePickerDialog(
                 it,
+                0,
                 TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                     date.apply {
                         set(Calendar.HOUR_OF_DAY, hour)

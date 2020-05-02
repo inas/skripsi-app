@@ -6,9 +6,9 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getMinuteOfDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getNextMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
@@ -139,7 +139,7 @@ class Repository(application: Application) {
         schoolClassDao.get(classId)
 
     fun getSchoolClasses(dayOfWeek: Int): LiveData<List<SchoolClassEntity>> =
-        schoolClassDao.getAll(dayOfWeek)
+        schoolClassDao.getAllSorted(dayOfWeek)
 
     fun getSchoolClassesSorted(dayOfWeek: Int): LiveData<List<SchoolClassEntity>> =
         schoolClassDao.getAllSorted(dayOfWeek)
@@ -162,8 +162,8 @@ class Repository(application: Application) {
         return Observable.fromCallable {
             (schoolClassDao.getOverlappingEntity(
                 start.get(Calendar.DAY_OF_WEEK),
-                start.toMinuteOfDay(),
-                end.toMinuteOfDay(),
+                start.getMinuteOfDay(),
+                end.getMinuteOfDay(),
                 classId
             ))
         }.subscribeOn(Schedulers.io())
@@ -209,8 +209,8 @@ class Repository(application: Application) {
             Observable.fromCallable {
                 (schoolClassDao.getOverlappingEntity(
                     start.get(Calendar.DAY_OF_WEEK),
-                    start.toMinuteOfDay(),
-                    end.toMinuteOfDay(),
+                    start.getMinuteOfDay(),
+                    end.getMinuteOfDay(),
                     classId
                 ))
             }.subscribeOn(Schedulers.io()),

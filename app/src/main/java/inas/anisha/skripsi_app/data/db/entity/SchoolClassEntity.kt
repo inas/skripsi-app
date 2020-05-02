@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getMinuteOfDay
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -17,6 +17,6 @@ data class SchoolClassEntity(
     @ColumnInfo(name = "end_time") val endTime: Calendar = Calendar.getInstance(),
     @ColumnInfo(name = "day") val day: Int = 0,
     @ColumnInfo(name = "note") val note: String = "",
-    @ColumnInfo(name = "start_minute_of_day") val startMinuteOfDay: Int = startTime.toMinuteOfDay(),
-    @ColumnInfo(name = "end_minute_of_day") val endMinuteOfDay: Int = endTime.toMinuteOfDay()
+    @ColumnInfo(name = "start_minute_of_day") val startMinuteOfDay: Int = startTime.getMinuteOfDay(),
+    @ColumnInfo(name = "end_minute_of_day") val endMinuteOfDay: Int = endTime.getMinuteOfDay()
 ) : Parcelable

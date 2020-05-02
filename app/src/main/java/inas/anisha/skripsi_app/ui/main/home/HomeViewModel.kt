@@ -15,9 +15,9 @@ import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendu
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleViewModel
 import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel
 import inas.anisha.skripsi_app.utils.CalendarUtil
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getMinuteOfDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getNextMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMinuteOfDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
 import java.util.*
 
@@ -89,7 +89,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             })
         }
 
-        val currentMinuteOfDay = currentDate.value?.toMinuteOfDay() ?: 0
+        val currentMinuteOfDay = currentDate.value?.getMinuteOfDay() ?: 0
 
         currentClassIndex = -1
         var previousSchedule: ScheduleTimelineViewModel? = null

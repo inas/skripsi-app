@@ -156,7 +156,7 @@
                 android:id="@+id/edittext_name"
                 style="@style/EditText"
                 android:imeOptions="actionNext"
-                android:inputType="textMultiLine|textNoSuggestions"
+                android:inputType="text|textCapSentences"
                 android:text="@{viewModel.name}" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -194,10 +194,32 @@
                 android:editable="false"
                 android:inputType="none"
                 android:paddingStart="0dp"
-                android:text="@{viewModel.startTimeText()}"
                 android:textColor="@drawable/edit_text_selector"
                 android:textSize="14sp"
                 tools:text="09.00" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textlayout_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:hint="Catatan (opsional)"
+            app:boxBackgroundColor="@color/white"
+            app:counterEnabled="true"
+            app:counterMaxLength="500"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textlayout_start_time"
+            app:startIconDrawable="@drawable/ic_note">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ediittext_note"
+                style="@style/EditText"
+                android:inputType="textMultiLine|textNoSuggestions|textCapSentences"
+                android:text="@{viewModel.note}"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -222,33 +244,9 @@
                 android:editable="false"
                 android:inputType="none"
                 android:paddingStart="0dp"
-                android:text="@{viewModel.endTimeText()}"
                 android:textColor="@drawable/edit_text_selector"
                 android:textSize="14sp"
                 tools:text="09.00" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textlayout_note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:hint="Catatan (opsional)"
-            app:boxBackgroundColor="@color/white"
-            app:counterEnabled="true"
-            app:counterMaxLength="500"
-            app:hintEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textlayout_start_time"
-            app:startIconDrawable="@drawable/ic_note">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ediittext_note"
-                style="@style/EditText"
-                android:inputType="textMultiLine|textNoSuggestions"
-                android:text="@{viewModel.note}"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton

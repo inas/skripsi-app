@@ -55,7 +55,7 @@ class CalendarUtil {
             return dateFormat.format(timeInMillis)
         }
 
-        fun Calendar.toMinuteOfDay(): Int {
+        fun Calendar.getMinuteOfDay(): Int {
             val hour = get(Calendar.HOUR_OF_DAY)
             val minute = get(Calendar.MINUTE)
             return ((hour * 60) + minute)
@@ -80,5 +80,8 @@ class CalendarUtil {
         fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean =
             cal1[Calendar.DAY_OF_YEAR] == cal2[Calendar.DAY_OF_YEAR]
                     && cal1[Calendar.YEAR] == cal2[Calendar.YEAR]
+
+        fun Calendar.isTimeEarlierThan(other: Calendar): Boolean =
+            getMinuteOfDay() < other.getMinuteOfDay()
     }
 }
