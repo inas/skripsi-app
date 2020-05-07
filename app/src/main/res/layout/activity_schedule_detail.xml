@@ -189,6 +189,43 @@
                     app:layout_constraintTop_toBottomOf="@id/textview_notes"
                     tools:text="Makan ayce kintan atau shaburi" />
 
+                <TextView
+                    android:id="@+id/textview_reminder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_16dp"
+                    android:drawableStart="@drawable/ic_alarm_black_24dp"
+                    android:drawablePadding="@dimen/space_16dp"
+                    android:drawableTint="@color/dark_secondary"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.getReminderText()}"
+                    android:visibility="@{viewModel.getReminderText().isEmpty()? View.GONE : View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_rewards"
+                    tools:text="besok" />
+
+                <TextView
+                    android:id="@+id/textview_reminder_description"
+                    style="@style/font_small.secondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="56dp"
+                    android:text="Tampilkan pop up"
+                    android:visibility="@{viewModel.reminder.popup? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toTopOf="@id/anchor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_reminder"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
+
+                <View
+                    android:id="@+id/anchor"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    app:layout_constraintBottom_toTopOf="@id/button_mark_as_incomplete"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_reminder_description" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_mark_as_incomplete"
                     style="@style/Button.Outlined"

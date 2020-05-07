@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.Repository
+import inas.anisha.skripsi_app.data.db.entity.ReminderEntity
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddScheduleBinding
 import inas.anisha.skripsi_app.ui.common.RangeTimePickerDialog
@@ -81,6 +82,7 @@ class AddScheduleDialog : DialogFragment() {
         setChipGroupListener()
         setEditText()
         setRewardView()
+        setReminderView()
 
         return mBinding.root
     }
@@ -123,6 +125,8 @@ class AddScheduleDialog : DialogFragment() {
         }
 
         mViewModel.executionTime?.let { mBinding.edittextExecutionTime.setText(it.toDateString()) }
+
+        mViewModel.reminder?.let { initReminderData(it) }
     }
 
     fun setChipGroupListener() {
@@ -204,20 +208,26 @@ class AddScheduleDialog : DialogFragment() {
     }
 
     fun setRewardView() {
-        mBinding.textviewRewardsButton.setOnClickListener {
-            showAddRewardsDialog()
-        }
+        mBinding.textviewRewardsButton.setOnClickListener { showAddRewardsDialog() }
 
-        mBinding.layoutRewards.imageviewIcon.setBackgroundDrawable(
-            resources.getDrawable(
-                R.drawable.ic_trophy,
-                null
-            )
-        )
+        mBinding.layoutRewards.imageviewIcon.setImageResource(R.drawable.ic_trophy)
+        mBinding.layoutRewards.textviewDescription.visibility = View.GONE
         mBinding.layoutRewards.textviewRemoveButton.setOnClickListener {
             mViewModel.reward = ""
             mBinding.layoutRewards.layout.visibility = View.GONE
             mBinding.textviewRewardsButton.text = "Tambahkan"
+        }
+    }
+
+    fun setReminderView() {
+        mBinding.textviewReminderButton.setOnClickListener { showAddReminderDialog() }
+
+        mBinding.layoutReminder.imageviewIcon.setImageResource(R.drawable.ic_clock)
+        mBinding.layoutReminder.textviewDescription.visibility = View.VISIBLE
+        mBinding.layoutReminder.textviewRemoveButton.setOnClickListener {
+            mViewModel.reminder = null
+            mBinding.layoutReminder.layout.visibility = View.GONE
+            mBinding.textviewReminderButton.text = "Tambahkan"
         }
     }
 
@@ -456,13 +466,13 @@ class AddScheduleDialog : DialogFragment() {
     fun showAddRewardsDialog() {
         val addRewardsDialog = AddScheduleRewardsDialog()
             .apply {
-            arguments = Bundle().apply {
-                putString(
-                    AddScheduleRewardsDialog.ARG_REWARDS,
-                    mViewModel.reward
-                )
+                arguments = Bundle().apply {
+                    putString(
+                        AddScheduleRewardsDialog.ARG_REWARDS,
+                        mViewModel.reward
+                    )
+                }
             }
-        }
 
         addRewardsDialog.setConfirmationDialogListener(object :
             AddScheduleRewardsDialog.ConfirmationDialogListener {
@@ -478,6 +488,40 @@ class AddScheduleDialog : DialogFragment() {
             childFragmentManager,
             AddScheduleRewardsDialog.TAG
         )
+    }
+
+    fun showAddReminderDialog() {
+        val addReminderDialog = AddScheduleReminderDialog().apply {
+            mViewModel.reminder?.let {
+                arguments = Bundle().apply {
+                    putParcelable(AddScheduleReminderDialog.ARG_REMINDER, it)
+                }
+            }
+        }
+
+        addReminderDialog.setAddScheduleReminderDialogListener(object :
+            AddScheduleReminderDialog.AddScheduleReminderDialogListener {
+            override fun onReminderAdded(reminder: ReminderEntity) {
+                mViewModel.reminder = reminder
+                initReminderData(reminder)
+            }
+        })
+
+        addReminderDialog.show(
+            childFragmentManager,
+            AddScheduleReminderDialog.TAG
+        )
+    }
+
+    fun initReminderData(reminder: ReminderEntity) {
+        mBinding.layoutReminder.layout.visibility = View.VISIBLE
+        mBinding.layoutReminder.textviewTitle.text =
+            "${reminder.amount} ${SkripsiConstant.getScheduleReminderUnitString(reminder.unit)}"
+        mBinding.layoutReminder.textviewDescription.text =
+            if (reminder.isPopup) "Tampilkan pop up" else ""
+        mBinding.layoutReminder.textviewDescription.visibility =
+            if (reminder.isPopup) View.VISIBLE else View.GONE
+        mBinding.textviewReminderButton.text = "Edit"
     }
 
     fun setAddScheduleDialogListener(callback: AddScheduleDialogListener) {

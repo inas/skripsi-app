@@ -86,7 +86,10 @@ class EvaluationExpandableListAdapter(
             viewGroup,
             false
         )
+
         parentBinding.textviewItem.text = getGroup(groupPosition)
+        parentBinding.imageviewChevron.visibility =
+            if (getChildrenCount(groupPosition) == 0) View.INVISIBLE else View.VISIBLE
 
         if (isExpanded) {
             parentBinding.imageviewChevron.setImageResource(R.drawable.ic_chevron_up)

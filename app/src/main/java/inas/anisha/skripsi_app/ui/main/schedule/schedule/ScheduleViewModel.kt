@@ -1,7 +1,10 @@
 package inas.anisha.skripsi_app.ui.main.schedule.schedule
 
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import inas.anisha.skripsi_app.constant.SkripsiConstant
+import inas.anisha.skripsi_app.data.db.entity.ReminderEntity
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.utils.CalendarUtil
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardized
@@ -21,6 +24,7 @@ class ScheduleViewModel : ViewModel() {
     var note: String = ""
     var priority: Int = 0
     var reward: String = ""
+    var reminder: ReminderEntity? = null
 
     var isCompleted: Boolean = false
     var isOnTime: Boolean = false
@@ -48,6 +52,12 @@ class ScheduleViewModel : ViewModel() {
         }
     }
 
+    fun getReminderText(): String {
+        return if (reminder != null) "${reminder?.amount} ${SkripsiConstant.getScheduleReminderUnitString(
+            reminder?.unit ?: 0
+        )}" else ""
+    }
+
     fun toEntity(): ScheduleEntity = ScheduleEntity(
         id,
         type,
@@ -59,7 +69,8 @@ class ScheduleViewModel : ViewModel() {
         reward,
         executionTime?.standardized(),
         isCompleted,
-        isOnTime
+        isOnTime,
+        reminder = if (reminder != null) GsonBuilder().create().toJson(reminder) else null
     )
 
     fun fromEntity(schedule: ScheduleEntity): ScheduleViewModel {
@@ -77,6 +88,11 @@ class ScheduleViewModel : ViewModel() {
 
         isCompleted = schedule.isCompleted
         isOnTime = schedule.isOnTime
+
+        reminder = if (schedule.reminder == null) null else Gson().fromJson(
+            schedule.reminder,
+            ReminderEntity::class.java
+        )
 
         return this
     }

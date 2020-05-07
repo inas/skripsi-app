@@ -35,8 +35,7 @@ class ScheduleDetailActivity : AppCompatActivity() {
         observable?.observe(this, Observer {
             it?.let {
                 mViewModel.schedule = it
-                mBinding.viewModel = ScheduleViewModel()
-                    .fromEntity(it)
+                mBinding.viewModel = ScheduleViewModel().fromEntity(it)
                 mBinding.textviewTitle.strikeThrough(it.isCompleted)
             }
         })

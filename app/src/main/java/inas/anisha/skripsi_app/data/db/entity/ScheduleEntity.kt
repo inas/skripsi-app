@@ -25,5 +25,6 @@ data class ScheduleEntity(
     @ColumnInfo(name = "week_of_year") val weekOfYear: Int = endDate.get(Calendar.WEEK_OF_YEAR),
     @ColumnInfo(name = "year") val year: Int = endDate.get(Calendar.YEAR),
     @ColumnInfo(name = "start_minute_of_day") val startMinuteOfDay: Int = startDate.getMinuteOfDay(),
-    @ColumnInfo(name = "end_minute_of_day") val endMinuteOfDay: Int = endDate.getMinuteOfDay()
+    @ColumnInfo(name = "end_minute_of_day") val endMinuteOfDay: Int = endDate.getMinuteOfDay(),
+    @ColumnInfo(name = "reminder") val reminder: String? = null
 ) : Parcelable

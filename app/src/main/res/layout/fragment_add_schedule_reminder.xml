@@ -12,83 +12,101 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16dp"
-            android:text="Atur jangka waktu siklus"
-            app:layout_constraintStart_toStartOf="parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:text="Tambah pengingat"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/button_close"
             android:layout_width="@dimen/size_button"
             android:layout_height="@dimen/size_button"
-            android:layout_marginStart="@dimen/common_48dp"
             android:layout_marginEnd="@dimen/space_4dp"
             android:padding="@dimen/size_button_padding"
             android:src="@drawable/ic_close_dark"
             app:layout_constraintBottom_toBottomOf="@id/textview_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textview_title"
             app:layout_constraintTop_toTopOf="@id/textview_title" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputlayout_every"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:id="@+id/inputlayout_amount"
+            style="@style/InputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/space_12dp"
-            android:hint="Setiap"
-            app:layout_constraintBottom_toBottomOf="@id/inputlayout_time_type"
-            app:layout_constraintEnd_toStartOf="@id/inputlayout_time_type"
+            android:minWidth="80dp"
+            app:layout_constraintBottom_toBottomOf="@id/inputlayout_unit"
             app:layout_constraintStart_toStartOf="@id/textview_title"
-            app:layout_constraintTop_toTopOf="@id/inputlayout_time_type">
+            app:layout_constraintTop_toTopOf="@id/inputlayout_unit">
 
-            <AutoCompleteTextView
-                android:id="@+id/dropdown_duration"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_amount"
+                style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:editable="false"
-                android:inputType="none"
-                android:text="1" />
+                android:inputType="numberDecimal"
+                android:text="10" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputlayout_time_type"
+            android:id="@+id/inputlayout_unit"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_32dp"
-            android:layout_marginEnd="@dimen/space_12dp"
-            android:hint="Frekuensi"
-            app:layout_constraintStart_toEndOf="@id/inputlayout_every"
-            app:layout_constraintEnd_toEndOf="@id/button_close"
-            app:layout_constraintWidth_percent="0.51"
-            app:layout_constraintTop_toBottomOf="@id/textview_title">
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:minWidth="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/inputlayout_amount"
+            app:layout_constraintTop_toBottomOf="@id/textview_title"
+            app:layout_constraintWidth_percent="0.51">
 
             <AutoCompleteTextView
-                android:id="@+id/dropdown_frequency"
-                android:layout_width="match_parent"
+                android:id="@+id/dropdown_unit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:cursorVisible="false"
                 android:editable="false"
                 android:inputType="none"
-                android:text="Harian" />
+                android:text="Menit sebelumnya" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_popup"
+            style="@style/switch_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_16dp"
+            app:layout_constraintBottom_toBottomOf="@id/textview_popup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_popup" />
+
+        <TextView
+            android:id="@+id/textview_popup"
+            style="@style/font_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_24dp"
+            android:text="Pop up window"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputlayout_unit" />
+
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_atur"
+            android:id="@+id/button_add"
             style="@style/button_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_32dp"
             android:layout_marginBottom="@dimen/space_16dp"
-            android:text="Atur waktu siklus"
+            android:text="Simpan"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/inputlayout_time_type"
-            app:layout_constraintStart_toStartOf="@id/inputlayout_every"
-            app:layout_constraintTop_toBottomOf="@id/inputlayout_every" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_popup" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
