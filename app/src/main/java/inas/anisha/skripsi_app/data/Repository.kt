@@ -276,32 +276,9 @@ class Repository(val mApplication: Application) {
 
     fun deleteSchedule(scheduleId: Long) =
         Observable.fromCallable { scheduleDao.delete(scheduleId) }
+            .map { cancelReminderAlarm(scheduleId) }
             .subscribeOn(Schedulers.io()).subscribe()
     // end schedule
-
-
-    // region reminder
-    fun getReminder(scheduleId: Long): LiveData<ReminderEntity> = reminderDao.get(scheduleId)
-
-    fun getAllReminders(): Observable<List<ReminderEntity>> =
-        Observable.fromCallable { reminderDao.getAll() }
-            .subscribeOn(Schedulers.io())
-
-    fun deleteReminder(scheduleId: Long) =
-        Observable.fromCallable { reminderDao.delete(scheduleId) }.subscribeOn(Schedulers.io())
-            .subscribe()
-
-    fun upsertReminder(reminder: Observable<ReminderEntity>) {
-        reminder.flatMap {
-            reminderDao.delete(it.scheduleId)
-            Observable.just(it)
-        }
-            .map { reminderDao.add(it) }
-            .subscribeOn(Schedulers.io())
-            .subscribe()
-    }
-    // end region
-
 
     fun cancelReminderAlarm(scheduleId: Long) {
         val intent = Intent(mApplication, AlarmReceiver::class.java)
@@ -314,6 +291,7 @@ class Repository(val mApplication: Application) {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        pendingIntent.cancel()
         alarmManager.cancel(pendingIntent)
     }
 
