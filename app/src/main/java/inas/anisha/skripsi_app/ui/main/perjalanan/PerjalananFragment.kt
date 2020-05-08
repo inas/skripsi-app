@@ -63,7 +63,7 @@ class PerjalananFragment : Fragment() {
                 val percentage = completedTargets.size * 100 / targets.size
                 mBinding.textviewTargetValue.text = "" + percentage + "%"
             } else {
-                mBinding.textviewTargetValue.text = "0%"
+                mBinding.textviewTargetValue.text = "100%"
             }
         })
     }

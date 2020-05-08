@@ -1,6 +1,10 @@
 package inas.anisha.skripsi_app.ui.updatetarget
 
+import android.app.AlarmManager
 import android.app.Application
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,14 +13,16 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.data.db.entity.TargetUtamaEntity
+import inas.anisha.skripsi_app.ui.common.AlarmReceiver
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaViewModel
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDateString
 import java.util.*
 
-class StartNewCycleViewModel(application: Application) : AndroidViewModel(application) {
+class StartNewCycleViewModel(val mApplication: Application) : AndroidViewModel(mApplication) {
 
-    private val mRepository = Repository.getInstance(application)
+    private val mRepository = Repository.getInstance(mApplication)
 
     var mainTarget: TargetUtamaViewModel = TargetUtamaViewModel()
     var supportingTargets: MutableList<TargetPendukungViewModel> = mutableListOf()
@@ -63,6 +69,7 @@ class StartNewCycleViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun addNewCycle() {
+        scheduleNotification(mApplication, evaluationDate.getPreviousMidnight())
         setEvaluationDate(frequency, duration)
         mRepository.setCycleStartDate(Calendar.getInstance().timeInMillis)
         mRepository.setEvaluationDate(evaluationDate.timeInMillis)
@@ -89,6 +96,39 @@ class StartNewCycleViewModel(application: Application) : AndroidViewModel(applic
         replaceSupportingTarget()
         mRepository.setShouldShowEvaluationReport(true)
         mRepository.setShouldShowEndOfCycleWarning(true)
+    }
+
+    fun scheduleNotification(context: Context, evaluationDate: Calendar) {
+        val reminderTime = evaluationDate.apply { add(Calendar.HOUR_OF_DAY, -5) }
+
+        if (reminderTime > Calendar.getInstance()) {
+            val alarmManager: AlarmManager =
+                context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val pendingIntent = createPendingIntent(context)
+            alarmManager.set(AlarmManager.RTC_WAKEUP, reminderTime.timeInMillis, pendingIntent)
+        }
+    }
+
+    private fun createPendingIntent(context: Context): PendingIntent {
+
+        val intent = Intent(context, AlarmReceiver::class.java)
+        intent.action = AlarmReceiver.ACTION_NOTIFICATION
+        intent.putExtra(
+            AlarmReceiver.EXTRA_TITLE,
+            "Besok siklus ke " + (cycleNumber + 1) + " akan berakhir"
+        )
+        intent.putExtra(
+            AlarmReceiver.EXTRA_CONTENT,
+            "Jangan lupa untuk menandai target yang sudah kamu capai"
+        )
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            AlarmReceiver.CYCLE_NOTIFICATION,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        return pendingIntent
     }
 
 }

@@ -56,13 +56,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (mViewModel.shouldShowSchoolScheduleDialog()) showAddSchoolClassDialog()
-
-//        mViewModel.getAllReminders()
-//            .observeOn(Schedulers.io())
-//            .subscribeOn(AndroidSchedulers.mainThread())
-//            .subscribe {
-//                mViewModel.scheduleReminders(it)
-//            }
     }
 
     override fun onStart() {
@@ -170,4 +163,5 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel.setShouldShowEndOfCycleWarning(false)
     }
+
 }

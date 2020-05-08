@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.core.app.TaskStackBuilder
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.ui.main.MainActivity
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleDetailActivity
@@ -30,7 +29,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         when (intent.action) {
             ACTION_REMINDER -> createReminderNotification(context, intent)
-            ACTION_NOTIFICATION -> createReminderNotification(context, intent)
+            ACTION_NOTIFICATION -> createNotification(context, intent)
             else -> return
         }
 
@@ -73,17 +72,6 @@ class AlarmReceiver : BroadcastReceiver() {
         val content = intent.getStringExtra(EXTRA_CONTENT)
         val isPopup = intent.getBooleanExtra(EXTRA_POPUP, false)
 
-
-        val contentIntent = Intent(context, ScheduleDetailActivity::class.java).apply {
-            putExtra(ScheduleDetailActivity.EXTRA_ID, scheduleId)
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-
-        val contentPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
-            addNextIntentWithParentStack(contentIntent)
-            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-        }
-
         val mainActivity = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
@@ -102,7 +90,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         //Build the notification
         val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_clock)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(title)
             .setContentText(content)
             .setContentIntent(pendingIntent)
@@ -113,6 +101,34 @@ class AlarmReceiver : BroadcastReceiver() {
 
         //Deliver the notification
         notificationManager.notify(scheduleId.toInt(), builder.build())
+    }
+
+    fun createNotification(context: Context, intent: Intent) {
+        val title = intent.getStringExtra(EXTRA_TITLE)
+        val content = intent.getStringExtra(EXTRA_CONTENT)
+
+        val mainActivity = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+
+        val pendingIntent = PendingIntent.getActivities(
+            context, 154, arrayOf(mainActivity),
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        //Build the notification
+        val builder: NotificationCompat.Builder =
+            NotificationCompat.Builder(context, CHANNEL_PRIORITY_DEFAULT)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+
+        builder.priority = NotificationCompat.PRIORITY_DEFAULT
+
+        //Deliver the notification
+        notificationManager.notify(CYCLE_NOTIFICATION, builder.build())
     }
 
     companion object {
@@ -128,5 +144,7 @@ class AlarmReceiver : BroadcastReceiver() {
         const val EXTRA_CONTENT = "EXTRA_CONTENT"
         const val EXTRA_POPUP = "EXTRA_POPUP"
         const val EXTRA_SCHEDULE_ID = "EXTRA_SCHEDULE_ID"
+
+        const val CYCLE_NOTIFICATION = 371
     }
 }
