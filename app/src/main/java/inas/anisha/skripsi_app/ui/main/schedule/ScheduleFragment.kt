@@ -16,6 +16,7 @@ import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendu
 import inas.anisha.skripsi_app.ui.main.schedule.displayday.DisplayDayFragment
 import inas.anisha.skripsi_app.ui.main.schedule.displayschool.DisplaySchoolClassFragment
 import inas.anisha.skripsi_app.ui.main.schedule.displaytask.DisplayTaskFragment
+import inas.anisha.skripsi_app.ui.main.schedule.displayweek.DisplayWeekFragment
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.AddScheduleDialog
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleViewModel
 import inas.anisha.skripsi_app.ui.main.schedule.school.AddSchoolClassDialog
@@ -48,7 +49,7 @@ class ScheduleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAddButton()
 
-        activeFragment = DisplayTaskFragment()
+        activeFragment = DisplayWeekFragment()
         childFragmentManager.beginTransaction()
             .add(R.id.layout_placeholder, activeFragment, DisplayTaskFragment.TAG).commit()
 
@@ -59,6 +60,14 @@ class ScheduleFragment : Fragment() {
                 popup.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.action_week -> {
+                            childFragmentManager.beginTransaction().remove(activeFragment).commit()
+                            activeFragment = DisplayWeekFragment()
+                            childFragmentManager.beginTransaction()
+                                .add(
+                                    R.id.layout_placeholder,
+                                    activeFragment,
+                                    DisplayDayFragment.TAG
+                                ).commit()
                         }
                         R.id.action_day -> {
                             childFragmentManager.beginTransaction().remove(activeFragment).commit()

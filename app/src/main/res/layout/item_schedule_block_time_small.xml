@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="@dimen/time_width_week_display"
+        android:layout_height="@dimen/block_height">
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/font_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/space_4dp"
+            tools:text="11" />
+    </RelativeLayout>
+</layout>

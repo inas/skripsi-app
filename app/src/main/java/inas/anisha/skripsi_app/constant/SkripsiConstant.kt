@@ -24,7 +24,9 @@ class SkripsiConstant {
         const val MINUTE_HEIGHT = 1.5
         const val BLOCK_HEIGHT = 90
         const val TIME_WIDTH = 40
+        const val TIME_WIDTH_SMALL = 28
         const val INDICATOR_WIDTH = 4
+        const val INDICATOR_WIDTH_SMALL = 2
 
         fun getScheduleTypeString(type: Int): String {
             return when (type) {
