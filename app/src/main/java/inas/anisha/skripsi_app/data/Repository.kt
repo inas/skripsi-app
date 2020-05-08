@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.LiveData
 import inas.anisha.skripsi_app.constant.SkripsiConstant
+import inas.anisha.skripsi_app.data.datamodel.ReminderData
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
@@ -238,45 +239,29 @@ class Repository(val mApplication: Application) {
     fun getScheduleSorted(start: Calendar, end: Calendar): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAllSorted(start, end)
 
-    fun getScheduleSorted(type: Int): LiveData<List<ScheduleEntity>> =
-        scheduleDao.getAllSorted(type)
-
-    fun addSchedule(schedule: ScheduleEntity, reminder: ReminderEntity?) {
+    fun addSchedule(schedule: ScheduleEntity, reminder: ReminderData?) {
         Observable.fromCallable { scheduleDao.add(schedule) }
-            .observeOn(Schedulers.io())
-            .map { id ->
-                val scheduleId = id.firstOrNull()
-                var newReminder = reminder
-
-                if (reminder == null) {
-                    scheduleId?.let { cancelReminderAlarm(it) }
-                } else {
-                    scheduleId?.let {
-                        newReminder = ReminderEntity(
-                            reminder.id,
-                            reminder.amount,
-                            reminder.unit,
-                            reminder.isPopup,
-                            it,
-                            reminder.scheduleData
-                        )
-                        newReminder?.scheduleReminder(mApplication, getUserName())
-                    }
+            .map {
+                if (reminder == null) cancelReminderAlarm(schedule.id)
+                else {
+                    reminder.title = getUserName() + reminder.title
+                    reminder.scheduleReminder(mApplication)
                 }
-
-                scheduleId?.let { upsertReminder(it, newReminder) }
             }
+            .observeOn(Schedulers.io())
             .subscribeOn(Schedulers.io())
             .subscribe()
     }
 
-    fun updateSchedule(schedule: ScheduleEntity, reminder: ReminderEntity?) =
+    fun updateSchedule(schedule: ScheduleEntity, reminder: ReminderData?) =
         Observable.fromCallable { scheduleDao.update(schedule) }
             .observeOn(Schedulers.io())
             .map {
                 if (reminder == null) cancelReminderAlarm(schedule.id)
-                else reminder.scheduleReminder(mApplication, getUserName())
-                upsertReminder(schedule.id, reminder)
+                else {
+                    reminder.title = getUserName() + reminder.title
+                    reminder.scheduleReminder(mApplication)
+                }
             }
             .subscribeOn(Schedulers.io())
             .subscribe()
@@ -306,10 +291,14 @@ class Repository(val mApplication: Application) {
         Observable.fromCallable { reminderDao.delete(scheduleId) }.subscribeOn(Schedulers.io())
             .subscribe()
 
-    fun upsertReminder(scheduleId: Long, reminder: ReminderEntity?) {
-        Observable.fromCallable { reminderDao.delete(scheduleId) }
+    fun upsertReminder(reminder: Observable<ReminderEntity>) {
+        reminder.flatMap {
+            reminderDao.delete(it.scheduleId)
+            Observable.just(it)
+        }
+            .map { reminderDao.add(it) }
             .subscribeOn(Schedulers.io())
-            .subscribe { reminder?.let { reminderDao.add(it) } }
+            .subscribe()
     }
     // end region
 

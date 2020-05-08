@@ -12,7 +12,7 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.constant.SkripsiConstant.Companion.SCHEDULE_REMINDER_UNIT_DAYS
 import inas.anisha.skripsi_app.constant.SkripsiConstant.Companion.SCHEDULE_REMINDER_UNIT_HOURS
 import inas.anisha.skripsi_app.constant.SkripsiConstant.Companion.SCHEDULE_REMINDER_UNIT_MINUTES
-import inas.anisha.skripsi_app.data.db.entity.ReminderEntity
+import inas.anisha.skripsi_app.data.datamodel.ReminderData
 import inas.anisha.skripsi_app.databinding.FragmentAddScheduleReminderBinding
 
 class AddScheduleReminderDialog : DialogFragment() {
@@ -21,7 +21,7 @@ class AddScheduleReminderDialog : DialogFragment() {
 
     private var mCallback: AddScheduleReminderDialogListener? = null
     private var unitString: List<String> = mutableListOf()
-    private var mReminder: ReminderEntity? = null
+    private var mReminder: ReminderData? = null
     private var mScheduleId: Long = 0
 
     override fun onCreateView(
@@ -37,7 +37,7 @@ class AddScheduleReminderDialog : DialogFragment() {
                 false
             )
 
-        arguments?.getParcelable<ReminderEntity>(ARG_REMINDER)?.let {
+        arguments?.getParcelable<ReminderData>(ARG_REMINDER)?.let {
             mReminder = it
             mBinding.edittextAmount.setText("${it.amount}")
             mBinding.switchPopup.isChecked = it.isPopup
@@ -72,13 +72,10 @@ class AddScheduleReminderDialog : DialogFragment() {
                 }
 
                 mCallback?.onReminderAdded(
-                    ReminderEntity(
-                        mReminder?.id ?: 0,
-                        amount.toInt(),
-                        selectedUnit,
-                        mBinding.switchPopup.isChecked,
-                        mScheduleId,
-                        ""
+                    ReminderData(
+                        amount = amount.toInt(),
+                        unit = selectedUnit,
+                        isPopup = mBinding.switchPopup.isChecked
                     )
                 )
                 dismiss()
@@ -93,7 +90,7 @@ class AddScheduleReminderDialog : DialogFragment() {
     }
 
     interface AddScheduleReminderDialogListener {
-        fun onReminderAdded(reminder: ReminderEntity)
+        fun onReminderAdded(reminder: ReminderData)
     }
 
     companion object {

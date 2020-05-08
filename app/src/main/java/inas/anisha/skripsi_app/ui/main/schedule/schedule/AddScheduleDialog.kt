@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.Repository
-import inas.anisha.skripsi_app.data.db.entity.ReminderEntity
+import inas.anisha.skripsi_app.data.datamodel.ReminderData
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddScheduleBinding
 import inas.anisha.skripsi_app.ui.common.RangeTimePickerDialog
@@ -502,7 +502,7 @@ class AddScheduleDialog : DialogFragment() {
 
         addReminderDialog.setAddScheduleReminderDialogListener(object :
             AddScheduleReminderDialog.AddScheduleReminderDialogListener {
-            override fun onReminderAdded(reminder: ReminderEntity) {
+            override fun onReminderAdded(reminder: ReminderData) {
                 mViewModel.setReminderValue(reminder)
                 initReminderData(reminder)
             }
@@ -514,7 +514,7 @@ class AddScheduleDialog : DialogFragment() {
         )
     }
 
-    fun initReminderData(reminder: ReminderEntity) {
+    fun initReminderData(reminder: ReminderData) {
         mBinding.layoutReminder.layout.visibility = View.VISIBLE
         mBinding.layoutReminder.textviewTitle.text =
             "${reminder.amount} ${SkripsiConstant.getScheduleReminderUnitString(reminder.unit)}"

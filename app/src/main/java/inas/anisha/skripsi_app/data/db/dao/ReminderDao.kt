@@ -13,7 +13,7 @@ interface ReminderDao {
     fun add(reminder: ReminderEntity)
 
     @Query("DELETE FROM reminder WHERE schedule_id = :scheduleId")
-    fun delete(scheduleId: Long)
+    fun delete(scheduleId: Long): Int
 
     @Query("DELETE FROM reminder")
     fun deleteAll()
