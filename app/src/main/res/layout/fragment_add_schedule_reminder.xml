@@ -71,7 +71,7 @@
                 android:cursorVisible="false"
                 android:editable="false"
                 android:inputType="none"
-                android:text="Menit sebelumnya" />
+                android:text="Menit Sebelumnya" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -8,7 +8,7 @@ import java.util.*
 @Dao
 interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(vararg schedule: ScheduleEntity)
+    fun add(vararg schedule: ScheduleEntity): List<Long>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(schedule: ScheduleEntity)

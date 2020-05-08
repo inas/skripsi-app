@@ -10,7 +10,7 @@ import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
 
 @Database(
-    entities = [TargetUtamaEntity::class, TargetPendukungEntity::class, CycleEntity::class, SchoolClassEntity::class, ScheduleEntity::class],
+    entities = [TargetUtamaEntity::class, TargetPendukungEntity::class, CycleEntity::class, SchoolClassEntity::class, ScheduleEntity::class, ReminderEntity::class],
     version = 1
 )
 @TypeConverters(Converters::class)
@@ -21,6 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cycleDao(): CycleDao
     abstract fun schoolClassDao(): SchoolClassDao
     abstract fun scheduleDao(): ScheduleDao
+    abstract fun reminderDao(): ReminderDao
 
     companion object {
         @Volatile

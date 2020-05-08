@@ -21,9 +21,9 @@ import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toTimeString
 import java.util.*
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class HomeViewModel(val mApplication: Application) : AndroidViewModel(mApplication) {
 
-    val mRepository: Repository = Repository.getInstance(application)
+    val mRepository: Repository = Repository.getInstance(mApplication)
     val currentDate: MutableLiveData<Calendar> = MutableLiveData()
     var todaysClasses: List<SchoolClassEntity> = mutableListOf()
     var todaysActivities: List<ScheduleEntity> = mutableListOf()
@@ -199,7 +199,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addSupportingTarget(target: TargetPendukungViewModel) =
         mRepository.addSupportingTarget(target.toEntity())
-    fun addSchedule(schedule: ScheduleViewModel) = mRepository.addSchedule(schedule.toEntity())
+
+    fun addSchedule(schedule: ScheduleViewModel) {
+        val scheduleEntity = schedule.toEntity()
+        mRepository.addSchedule(scheduleEntity, schedule.reminder)
+    }
+
     fun addSchoolClass(schoolClass: SchoolClassViewModel) =
         mRepository.addSchoolClass(schoolClass.toEntity())
 }

@@ -56,7 +56,13 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (mViewModel.shouldShowSchoolScheduleDialog()) showAddSchoolClassDialog()
-//        mViewModel.prepopulate()
+
+//        mViewModel.getAllReminders()
+//            .observeOn(Schedulers.io())
+//            .subscribeOn(AndroidSchedulers.mainThread())
+//            .subscribe {
+//                mViewModel.scheduleReminders(it)
+//            }
     }
 
     override fun onStart() {

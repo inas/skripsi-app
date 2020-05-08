@@ -223,9 +223,8 @@ class AddScheduleDialog : DialogFragment() {
         mBinding.textviewReminderButton.setOnClickListener { showAddReminderDialog() }
 
         mBinding.layoutReminder.imageviewIcon.setImageResource(R.drawable.ic_clock)
-        mBinding.layoutReminder.textviewDescription.visibility = View.VISIBLE
         mBinding.layoutReminder.textviewRemoveButton.setOnClickListener {
-            mViewModel.reminder = null
+            mViewModel.setReminderValue(null)
             mBinding.layoutReminder.layout.visibility = View.GONE
             mBinding.textviewReminderButton.text = "Tambahkan"
         }
@@ -240,6 +239,8 @@ class AddScheduleDialog : DialogFragment() {
             mViewModel.startDate =
                 Calendar.getInstance().apply { timeInMillis = mViewModel.endDate.timeInMillis }
         }
+
+        mViewModel.setReminderValue(mViewModel.reminder)
 
         if (isValid(
                 mViewModel.name,
@@ -502,7 +503,7 @@ class AddScheduleDialog : DialogFragment() {
         addReminderDialog.setAddScheduleReminderDialogListener(object :
             AddScheduleReminderDialog.AddScheduleReminderDialogListener {
             override fun onReminderAdded(reminder: ReminderEntity) {
-                mViewModel.reminder = reminder
+                mViewModel.setReminderValue(reminder)
                 initReminderData(reminder)
             }
         })

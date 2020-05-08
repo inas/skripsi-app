@@ -10,7 +10,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
 import inas.anisha.skripsi_app.R
-import inas.anisha.skripsi_app.constant.SkripsiConstant
+import inas.anisha.skripsi_app.ui.main.MainActivity
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleDetailActivity
 import java.util.*
 
@@ -28,9 +28,9 @@ class AlarmReceiver : BroadcastReceiver() {
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel()
 
-        when (intent.getIntExtra(EXTRA_TYPE, 0)) {
-            SkripsiConstant.ALARM_TYPE_REMINDER -> createReminderNotification(context, intent)
-            SkripsiConstant.ALARM_TYPE_NOTIFICATION -> createReminderNotification(context, intent)
+        when (intent.action) {
+            ACTION_REMINDER -> createReminderNotification(context, intent)
+            ACTION_NOTIFICATION -> createReminderNotification(context, intent)
             else -> return
         }
 
@@ -68,7 +68,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val scheduleTime = intent.getLongExtra(EXTRA_TIME, 0L)
         if (scheduleTime == 0L || Calendar.getInstance().timeInMillis > scheduleTime) return
 
-        val scheduleId = intent.getLongExtra(EXTRA_SCHEDULE_ID, 0)
+        val scheduleId = intent.getIntExtra(EXTRA_SCHEDULE_ID, 0).toLong()
         val title = intent.getStringExtra(EXTRA_TITLE)
         val content = intent.getStringExtra(EXTRA_CONTENT)
         val isPopup = intent.getBooleanExtra(EXTRA_POPUP, false)
@@ -84,6 +84,20 @@ class AlarmReceiver : BroadcastReceiver() {
             getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
+        val mainActivity = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        val detailActivity = Intent(context, ScheduleDetailActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            putExtra(ScheduleDetailActivity.EXTRA_ID, scheduleId)
+        }
+
+
+        val pendingIntent = PendingIntent.getActivities(
+            context, 154, arrayOf(mainActivity, detailActivity),
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
         val channelId = if (isPopup) CHANNEL_PRIORITY_HIGH else CHANNEL_PRIORITY_DEFAULT
 
         //Build the notification
@@ -91,7 +105,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setSmallIcon(R.drawable.ic_clock)
             .setContentTitle(title)
             .setContentText(content)
-            .setContentIntent(contentPendingIntent)
+            .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
         builder.priority =
@@ -102,15 +116,17 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        const val EXTRA_TYPE = "EXTRA_TYPE"
         const val CHANNEL_PRIORITY_LOW = "CHANNEL_PRIORITY_LOW"
         const val CHANNEL_PRIORITY_DEFAULT = "CHANNEL_PRIORITY_DEFAULT"
         const val CHANNEL_PRIORITY_HIGH = "CHANNEL_PRIORITY_HIGH"
+
+        const val ACTION_REMINDER = "ACTION_REMINDER"
+        const val ACTION_NOTIFICATION = "ACTION_NOTIFICATION"
 
         const val EXTRA_TIME = "EXTRA_TIME"
         const val EXTRA_TITLE = "EXTRA_TITLE"
         const val EXTRA_CONTENT = "EXTRA_CONTENT"
         const val EXTRA_POPUP = "EXTRA_POPUP"
-        const val EXTRA_SCHEDULE_ID = "EXTRA_POPUP"
+        const val EXTRA_SCHEDULE_ID = "EXTRA_SCHEDULE_ID"
     }
 }

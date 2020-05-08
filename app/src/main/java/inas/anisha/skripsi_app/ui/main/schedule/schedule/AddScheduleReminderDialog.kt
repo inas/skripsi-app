@@ -77,7 +77,8 @@ class AddScheduleReminderDialog : DialogFragment() {
                         amount.toInt(),
                         selectedUnit,
                         mBinding.switchPopup.isChecked,
-                        mScheduleId
+                        mScheduleId,
+                        ""
                     )
                 )
                 dismiss()

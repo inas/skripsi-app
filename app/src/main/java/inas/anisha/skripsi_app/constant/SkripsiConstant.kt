@@ -19,9 +19,6 @@ class SkripsiConstant {
         const val SCHEDULE_REMINDER_UNIT_HOURS = Calendar.HOUR_OF_DAY
         const val SCHEDULE_REMINDER_UNIT_DAYS = Calendar.DAY_OF_MONTH
 
-        const val ALARM_TYPE_REMINDER = 111030
-        const val ALARM_TYPE_NOTIFICATION = 111031
-
         fun getScheduleTypeString(type: Int): String {
             return when (type) {
                 SCHEDULE_TYPE_TASK -> "Tugas"

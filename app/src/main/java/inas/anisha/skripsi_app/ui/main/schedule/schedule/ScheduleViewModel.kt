@@ -58,6 +58,18 @@ class ScheduleViewModel : ViewModel() {
         )}" else ""
     }
 
+    fun setReminderValue(reminderEntity: ReminderEntity?) {
+        reminder = if (reminderEntity == null) null else
+            ReminderEntity(
+                reminderEntity.id,
+                reminderEntity.amount,
+                reminderEntity.unit,
+                reminderEntity.isPopup,
+                id,
+                GsonBuilder().create().toJson(toEntity())
+            )
+    }
+
     fun toEntity(): ScheduleEntity = ScheduleEntity(
         id,
         type,

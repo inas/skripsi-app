@@ -11,9 +11,9 @@ import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetutama.TargetUtamaView
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleViewModel
 import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel
 
-class TargetViewModel(application: Application) : AndroidViewModel(application) {
+class TargetViewModel(private val mApplication: Application) : AndroidViewModel(mApplication) {
 
-    private val mRepository = Repository.getInstance(application)
+    private val mRepository = Repository.getInstance(mApplication)
     var mainTarget = TargetUtamaViewModel()
 
     fun getMainTarget(): LiveData<TargetUtamaEntity> = mRepository.getMainTarget()
@@ -54,7 +54,10 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
     fun addSupportingTarget(target: TargetPendukungViewModel) =
         mRepository.addSupportingTarget(target.toEntity())
 
-    fun addSchedule(schedule: ScheduleViewModel) = mRepository.addSchedule(schedule.toEntity())
+    fun addSchedule(schedule: ScheduleViewModel) {
+        mRepository.addSchedule(schedule.toEntity(), schedule.reminder)
+    }
+
     fun addSchoolClass(schoolClass: SchoolClassViewModel) =
         mRepository.addSchoolClass(schoolClass.toEntity())
 }

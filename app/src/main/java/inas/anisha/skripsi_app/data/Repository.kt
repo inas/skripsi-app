@@ -1,11 +1,16 @@
 package inas.anisha.skripsi_app.data
 
+import android.app.AlarmManager
 import android.app.Application
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.db.AppDatabase
 import inas.anisha.skripsi_app.data.db.dao.*
 import inas.anisha.skripsi_app.data.db.entity.*
+import inas.anisha.skripsi_app.ui.common.AlarmReceiver
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getMinuteOfDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getNextMidnight
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
@@ -14,24 +19,28 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class Repository(application: Application) {
+class Repository(val mApplication: Application) {
 
-    var sharedPreference: AppPreference
-    var targetUtamaDao: TargetUtamaDao
-    var targetPendukungDao: TargetPendukungDao
-    var cycleDao: CycleDao
-    var schoolClassDao: SchoolClassDao
-    var scheduleDao: ScheduleDao
+    val alarmManager: AlarmManager
+    val sharedPreference: AppPreference
+    val targetUtamaDao: TargetUtamaDao
+    val targetPendukungDao: TargetPendukungDao
+    val cycleDao: CycleDao
+    val schoolClassDao: SchoolClassDao
+    val scheduleDao: ScheduleDao
+    val reminderDao: ReminderDao
 
     init {
-        sharedPreference = AppPreference.getInstance(application)
+        sharedPreference = AppPreference.getInstance(mApplication)
+        alarmManager = mApplication.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val db = AppDatabase.getDatabase(application)
+        val db = AppDatabase.getDatabase(mApplication)
         targetUtamaDao = db.targetUtamaDao()
         targetPendukungDao = db.targetPendukungDao()
         cycleDao = db.cycleDao()
         schoolClassDao = db.schoolClassDao()
         scheduleDao = db.scheduleDao()
+        reminderDao = db.reminderDao()
     }
 
     // region shared preference
@@ -130,7 +139,7 @@ class Repository(application: Application) {
     // end region
 
 
-    // region schedule
+    // region school schedule
     fun addSchoolClass(schoolClass: SchoolClassEntity) =
         Observable.fromCallable { schoolClassDao.add(schoolClass) }
             .subscribeOn(Schedulers.io()).subscribe()
@@ -168,7 +177,10 @@ class Repository(application: Application) {
             ))
         }.subscribeOn(Schedulers.io())
     }
+    // end region
 
+
+    // region schedule
     fun getTasks(dateLimit: Calendar, isUpcomingTasks: Boolean): LiveData<List<ScheduleEntity>> {
         return if (isUpcomingTasks) {
             scheduleDao.getAllAfterDate(SkripsiConstant.SCHEDULE_TYPE_TASK, dateLimit)
@@ -229,13 +241,45 @@ class Repository(application: Application) {
     fun getScheduleSorted(type: Int): LiveData<List<ScheduleEntity>> =
         scheduleDao.getAllSorted(type)
 
-    fun addSchedule(schedule: ScheduleEntity) =
+    fun addSchedule(schedule: ScheduleEntity, reminder: ReminderEntity?) {
         Observable.fromCallable { scheduleDao.add(schedule) }
-            .subscribeOn(Schedulers.io()).subscribe()
+            .observeOn(Schedulers.io())
+            .map { id ->
+                val scheduleId = id.firstOrNull()
+                var newReminder = reminder
 
-    fun updateSchedule(schedule: ScheduleEntity) =
+                if (reminder == null) {
+                    scheduleId?.let { cancelReminderAlarm(it) }
+                } else {
+                    scheduleId?.let {
+                        newReminder = ReminderEntity(
+                            reminder.id,
+                            reminder.amount,
+                            reminder.unit,
+                            reminder.isPopup,
+                            it,
+                            reminder.scheduleData
+                        )
+                        newReminder?.scheduleReminder(mApplication, getUserName())
+                    }
+                }
+
+                scheduleId?.let { upsertReminder(it, newReminder) }
+            }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+    }
+
+    fun updateSchedule(schedule: ScheduleEntity, reminder: ReminderEntity?) =
         Observable.fromCallable { scheduleDao.update(schedule) }
-            .subscribeOn(Schedulers.io()).subscribe()
+            .observeOn(Schedulers.io())
+            .map {
+                if (reminder == null) cancelReminderAlarm(schedule.id)
+                else reminder.scheduleReminder(mApplication, getUserName())
+                upsertReminder(schedule.id, reminder)
+            }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
 
     fun updateScheduleAsComplete(scheduleId: Long, isCompleted: Boolean) =
         Observable.fromCallable { scheduleDao.updateCompleteness(scheduleId, isCompleted) }
@@ -249,6 +293,40 @@ class Repository(application: Application) {
         Observable.fromCallable { scheduleDao.delete(scheduleId) }
             .subscribeOn(Schedulers.io()).subscribe()
     // end schedule
+
+
+    // region reminder
+    fun getReminder(scheduleId: Long): LiveData<ReminderEntity> = reminderDao.get(scheduleId)
+
+    fun getAllReminders(): Observable<List<ReminderEntity>> =
+        Observable.fromCallable { reminderDao.getAll() }
+            .subscribeOn(Schedulers.io())
+
+    fun deleteReminder(scheduleId: Long) =
+        Observable.fromCallable { reminderDao.delete(scheduleId) }.subscribeOn(Schedulers.io())
+            .subscribe()
+
+    fun upsertReminder(scheduleId: Long, reminder: ReminderEntity?) {
+        Observable.fromCallable { reminderDao.delete(scheduleId) }
+            .subscribeOn(Schedulers.io())
+            .subscribe { reminder?.let { reminderDao.add(it) } }
+    }
+    // end region
+
+
+    fun cancelReminderAlarm(scheduleId: Long) {
+        val intent = Intent(mApplication, AlarmReceiver::class.java)
+        intent.action = AlarmReceiver.ACTION_REMINDER
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            mApplication,
+            scheduleId.toInt(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        alarmManager.cancel(pendingIntent)
+    }
 
     companion object {
         // For Singleton instantiation
