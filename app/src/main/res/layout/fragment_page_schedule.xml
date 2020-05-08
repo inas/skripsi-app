@@ -40,31 +40,6 @@
             app:layout_constraintTop_toTopOf="@id/layout_display"
             tools:text="May 2018" />
 
-        <ImageView
-            android:id="@+id/imageview_back"
-            android:layout_width="@dimen/size_button"
-            android:layout_height="@dimen/size_button"
-            android:layout_marginEnd="@dimen/space_8dp"
-            android:padding="@dimen/space_16dp"
-            android:rotation="180"
-            android:src="@drawable/ic_chevron_next"
-            app:layout_constraintBottom_toBottomOf="@id/layout_display"
-            app:layout_constraintEnd_toStartOf="@id/imageview_next"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/layout_display" />
-
-        <ImageView
-            android:id="@+id/imageview_next"
-            android:layout_width="@dimen/size_button"
-            android:layout_height="@dimen/size_button"
-            android:padding="@dimen/space_16dp"
-            android:src="@drawable/ic_chevron_next"
-            app:layout_constraintBottom_toBottomOf="@id/layout_display"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageview_back"
-            app:layout_constraintTop_toTopOf="@id/layout_display" />
-
         <LinearLayout
             android:id="@+id/layout_display"
             android:layout_width="wrap_content"
@@ -98,6 +73,6 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageview_back" />
+            app:layout_constraintTop_toBottomOf="@id/layout_display" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

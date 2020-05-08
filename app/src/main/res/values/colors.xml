@@ -21,4 +21,6 @@
 
     <color name="warning">#EF817D</color>
     <color name="transparent">#00FFFFFF</color>
+
+    <color name="block_border">#CFCFCF</color>
 </resources>

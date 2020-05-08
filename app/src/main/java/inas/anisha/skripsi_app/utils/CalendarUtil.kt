@@ -50,6 +50,11 @@ class CalendarUtil {
             return dateFormat.format(timeInMillis)
         }
 
+        fun Calendar.toDayDateString(): String {
+            val dateFormat = SimpleDateFormat("EEEE, d LLLL yyyy", Locale.getDefault())
+            return dateFormat.format(timeInMillis)
+        }
+
         fun Calendar.toTimeString(): String {
             val dateFormat = SimpleDateFormat("HH.mm", Locale.getDefault())
             return dateFormat.format(timeInMillis)

@@ -13,6 +13,7 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentPageScheduleBinding
 import inas.anisha.skripsi_app.ui.common.tambahTarget.TambahTargetPendukungDialog
 import inas.anisha.skripsi_app.ui.kelolapembelajaran.targetpendukung.TargetPendukungViewModel
+import inas.anisha.skripsi_app.ui.main.schedule.displayday.DisplayDayFragment
 import inas.anisha.skripsi_app.ui.main.schedule.displayschool.DisplaySchoolClassFragment
 import inas.anisha.skripsi_app.ui.main.schedule.displaytask.DisplayTaskFragment
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.AddScheduleDialog
@@ -60,6 +61,14 @@ class ScheduleFragment : Fragment() {
                         R.id.action_week -> {
                         }
                         R.id.action_day -> {
+                            childFragmentManager.beginTransaction().remove(activeFragment).commit()
+                            activeFragment = DisplayDayFragment()
+                            childFragmentManager.beginTransaction()
+                                .add(
+                                    R.id.layout_placeholder,
+                                    activeFragment,
+                                    DisplayDayFragment.TAG
+                                ).commit()
                         }
                         R.id.action_tasks -> {
                             childFragmentManager.beginTransaction().remove(activeFragment).commit()

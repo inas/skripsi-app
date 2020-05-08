@@ -11,6 +11,7 @@ class SkripsiConstant {
         const val SCHEDULE_TYPE_TASK = 111010
         const val SCHEDULE_TYPE_TEST = 111011
         const val SCHEDULE_TYPE_ACTIVITY = 111012
+        const val SCHEDULE_TYPE_SCHOOL = 111013
 
         const val SCHEDULE_TIMELINE_TYPE_ACTIVITY = 111020
         const val SCHEDULE_TIMELINE_TYPE_CLASS = 111021
@@ -18,6 +19,12 @@ class SkripsiConstant {
         const val SCHEDULE_REMINDER_UNIT_MINUTES = Calendar.MINUTE
         const val SCHEDULE_REMINDER_UNIT_HOURS = Calendar.HOUR_OF_DAY
         const val SCHEDULE_REMINDER_UNIT_DAYS = Calendar.DAY_OF_MONTH
+
+        const val OVERLAP_SHIFT = 8
+        const val MINUTE_HEIGHT = 1.5
+        const val BLOCK_HEIGHT = 90
+        const val TIME_WIDTH = 40
+        const val INDICATOR_WIDTH = 4
 
         fun getScheduleTypeString(type: Int): String {
             return when (type) {

@@ -23,6 +23,7 @@
     <dimen name="common_32dp">32dp</dimen>
     <dimen name="common_48dp">48dp</dimen>
 
+    <dimen name="radius_xxsmall">2dp</dimen>
     <dimen name="radius_xsmall">4dp</dimen>
     <dimen name="radius_small">6dp</dimen>
     <dimen name="radius_medium">8dp</dimen>
@@ -39,4 +40,17 @@
     <dimen name="size_button_padding">12dp</dimen>
     <dimen name="size_chip">80dp</dimen>
     <dimen name="size_chip_day">54dp</dimen>
+
+    <dimen name="block_width">80dp</dimen>
+    <dimen name="block_height">90dp</dimen>
+
+    <dimen name="date_height">64dp</dimen>
+    <dimen name="date_height_day_display">48dp</dimen>
+
+    <dimen name="time_width">40dp</dimen>
+
+    <dimen name="minute_height">1.5dp</dimen>
+    <dimen name="day_height">2160dp</dimen>
+
+    <dimen name="overlap_shift_day">8dp</dimen>
 </resources>
