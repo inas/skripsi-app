@@ -60,6 +60,11 @@ class CalendarUtil {
             return dateFormat.format(timeInMillis)
         }
 
+        fun Calendar.toMonthString(): String {
+            val dateFormat = SimpleDateFormat("LLLL yyyy", Locale.getDefault())
+            return dateFormat.format(timeInMillis)
+        }
+
         fun Calendar.getMinuteOfDay(): Int {
             val hour = get(Calendar.HOUR_OF_DAY)
             val minute = get(Calendar.MINUTE)

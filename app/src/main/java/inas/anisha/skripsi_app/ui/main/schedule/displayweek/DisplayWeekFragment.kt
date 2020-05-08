@@ -19,7 +19,7 @@ import inas.anisha.skripsi_app.databinding.ItemScheduleBlockTimeSmallBinding
 import inas.anisha.skripsi_app.ui.main.schedule.displayday.ScheduleBlockViewModel
 import inas.anisha.skripsi_app.ui.main.schedule.schedule.ScheduleDetailActivity
 import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassDetailActivity
-import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toDayDateString
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.toMonthString
 import inas.anisha.skripsi_app.utils.ViewUtil
 import java.util.*
 
@@ -54,28 +54,32 @@ class DisplayWeekFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewModel.displayedDate.value = Calendar.getInstance()
-        mBinding.tvDate.text = mViewModel.displayedDate.value?.toDayDateString() ?: ""
+        mViewModel.displayedDate.value =
+            Calendar.getInstance().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) }
+        mBinding.tvDate.text = mViewModel.displayedDate.value?.toMonthString() ?: ""
 
         mBinding.ivPrevious.setOnClickListener {
             val newDate = Calendar.getInstance().apply {
                 timeInMillis = mViewModel.displayedDate.value?.timeInMillis ?: 0
-                add(Calendar.DAY_OF_MONTH, -1)
+                add(Calendar.WEEK_OF_YEAR, -1)
             }
             mViewModel.displayedDate.value = newDate
-            mBinding.tvDate.text = mViewModel.displayedDate.value?.toDayDateString() ?: ""
+            mBinding.tvDate.text = mViewModel.displayedDate.value?.toMonthString() ?: ""
+            displayDates()
         }
 
         mBinding.ivNext.setOnClickListener {
             val newDate = Calendar.getInstance().apply {
                 timeInMillis = mViewModel.displayedDate.value?.timeInMillis ?: 0
-                add(Calendar.DAY_OF_MONTH, 1)
+                add(Calendar.WEEK_OF_YEAR, 1)
             }
             mViewModel.displayedDate.value = newDate
-            mBinding.tvDate.text = mViewModel.displayedDate.value?.toDayDateString() ?: ""
+            mBinding.tvDate.text = mViewModel.displayedDate.value?.toMonthString() ?: ""
+            displayDates()
         }
 
         observeSchedule()
+        displayDates()
     }
 
     override fun onDestroyView() {
@@ -181,6 +185,39 @@ class DisplayWeekFragment : Fragment() {
                 )
             )
         }
+    }
+
+    fun displayDates() {
+        val currentDate = Calendar.getInstance()
+            .apply { timeInMillis = mViewModel.displayedDate.value?.timeInMillis ?: 0 }
+        currentDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+
+        mBinding.layoutDateMonday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateMonday.tvDay.text = "Sen"
+
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+        mBinding.layoutDateTuesday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateTuesday.tvDay.text = "Sel"
+
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+        mBinding.layoutDateWednesday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateWednesday.tvDay.text = "Rab"
+
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+        mBinding.layoutDateThursday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateThursday.tvDay.text = "Kam"
+
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+        mBinding.layoutDateFriday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateFriday.tvDay.text = "Jum"
+
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+        mBinding.layoutDateSaturday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateSaturday.tvDay.text = "Sab"
+
+        currentDate.add(Calendar.DAY_OF_MONTH, 1)
+        mBinding.layoutDateSunday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateSunday.tvDay.text = "Min"
     }
 
     fun openDetail(type: Int, id: Long) {
