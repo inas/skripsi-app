@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel" />
+            type="inas.anisha.srl_app.ui.main.schedule.school.SchoolClassViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

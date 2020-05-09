@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="inas.anisha.skripsi_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel" />
+            type="inas.anisha.srl_app.ui.kelolapembelajaran.KelolaPembelajaranViewModel" />
 
     </data>
 

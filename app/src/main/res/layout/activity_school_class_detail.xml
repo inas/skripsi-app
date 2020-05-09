@@ -7,11 +7,11 @@
 
         <import type="android.view.View" />
 
-        <import type="inas.anisha.skripsi_app.constant.SkripsiConstant" />
+        <import type="inas.anisha.srl_app.constant.SkripsiConstant" />
 
         <variable
             name="viewModel"
-            type="inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel" />
+            type="inas.anisha.srl_app.ui.main.schedule.school.SchoolClassViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
