@@ -4,7 +4,7 @@
 
     <RelativeLayout
         android:layout_width="@dimen/time_width_week_display"
-        android:layout_height="@dimen/block_height">
+        android:layout_height="@dimen/block_height_week_display">
 
         <TextView
             android:id="@+id/tv_time"

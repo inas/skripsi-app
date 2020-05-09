@@ -51,7 +51,7 @@ class ScheduleFragment : Fragment() {
 
         activeFragment = DisplayWeekFragment()
         childFragmentManager.beginTransaction()
-            .add(R.id.layout_placeholder, activeFragment, DisplayTaskFragment.TAG).commit()
+            .add(R.id.layout_placeholder, activeFragment, DisplayWeekFragment.TAG).commit()
 
         mBinding.layoutDisplay.setOnClickListener { displayButton ->
             requireContext().let { context ->
@@ -171,6 +171,12 @@ class ScheduleFragment : Fragment() {
             ).commit()
 
         mBinding.textviewDisplay.text = "Sekolah"
+    }
+
+    fun reIntitData() {
+        if (activeFragment is DisplayWeekFragment) {
+            (activeFragment as DisplayWeekFragment).reInitData()
+        }
     }
 
     companion object {

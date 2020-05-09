@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.action_jadwal -> {
                     supportFragmentManager.beginTransaction().hide(activeFragment)
-                        .show(scheduleFragment).commit()
+                        .show(scheduleFragment.apply { reIntitData() }).commit()
                     activeFragment = scheduleFragment
                 }
 

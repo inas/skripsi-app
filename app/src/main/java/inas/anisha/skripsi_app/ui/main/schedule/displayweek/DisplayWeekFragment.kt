@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.databinding.FragmentDisplayWeekBinding
+import inas.anisha.skripsi_app.databinding.ItemScheduleBlockDisplayWeekBinding
 import inas.anisha.skripsi_app.databinding.ItemScheduleBlockIndicatorBinding
 import inas.anisha.skripsi_app.databinding.ItemScheduleBlockTimeSmallBinding
 import inas.anisha.skripsi_app.ui.main.schedule.displayday.ScheduleBlockViewModel
@@ -28,8 +29,22 @@ class DisplayWeekFragment : Fragment() {
     lateinit var mBinding: FragmentDisplayWeekBinding
     lateinit var mViewModel: DisplayWeekViewModel
 
-    private var scheduleObservable: LiveData<List<ScheduleBlockViewModel>>? = null
-    private var schoolObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var scheduleMondayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var scheduleTuesdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var scheduleWednesdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var scheduleThursdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var scheduleFridayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var scheduleSaturdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var scheduleSundayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+
+    private var schoolMondayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var schoolTuesdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var schoolWednesdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var schoolThursdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var schoolFridayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+    private var schoolSaturdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
+
+    private var indicatorView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,62 +95,136 @@ class DisplayWeekFragment : Fragment() {
 
         observeSchedule()
         displayDates()
+        displayTime()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        scheduleObservable?.removeObservers(this)
-        schoolObservable?.removeObservers(this)
+        removeObservers()
     }
 
+    fun removeObservers() {
+        scheduleMondayObservable?.removeObservers(this)
+        scheduleTuesdayObservable?.removeObservers(this)
+        scheduleWednesdayObservable?.removeObservers(this)
+        scheduleThursdayObservable?.removeObservers(this)
+        scheduleFridayObservable?.removeObservers(this)
+        scheduleSaturdayObservable?.removeObservers(this)
+        scheduleSundayObservable?.removeObservers(this)
+
+        schoolMondayObservable?.removeObservers(this)
+        schoolTuesdayObservable?.removeObservers(this)
+        schoolWednesdayObservable?.removeObservers(this)
+        schoolThursdayObservable?.removeObservers(this)
+        schoolFridayObservable?.removeObservers(this)
+        schoolSaturdayObservable?.removeObservers(this)
+    }
+
+    fun reInitData() {
+        mViewModel.displayedDate.value =
+            Calendar.getInstance().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) }
+        mBinding.tvDate.text = mViewModel.displayedDate.value?.toMonthString() ?: ""
+        removeObservers()
+        observeSchedule()
+    }
+    
     fun observeSchedule() {
-        schoolObservable = mViewModel.getSchoolSchedule().apply {
+        schoolMondayObservable = mViewModel.getSchoolSchedule(Calendar.MONDAY).apply {
             observe(this@DisplayWeekFragment, Observer {
-                mViewModel.schoolSchedule = it
-                updateDisplay()
+                updateSchoolDisplay(Calendar.MONDAY, it)
             })
         }
 
-        scheduleObservable = mViewModel.getSchedule().apply {
+        schoolTuesdayObservable = mViewModel.getSchoolSchedule(Calendar.TUESDAY).apply {
             observe(this@DisplayWeekFragment, Observer {
-                mViewModel.schedule = it
-                updateDisplay()
+                updateSchoolDisplay(Calendar.TUESDAY, it)
             })
         }
+
+        schoolWednesdayObservable = mViewModel.getSchoolSchedule(Calendar.WEDNESDAY).apply {
+            observe(this@DisplayWeekFragment, Observer {
+                updateSchoolDisplay(Calendar.WEDNESDAY, it)
+            })
+        }
+
+        schoolThursdayObservable = mViewModel.getSchoolSchedule(Calendar.THURSDAY).apply {
+            observe(this@DisplayWeekFragment, Observer {
+                updateSchoolDisplay(Calendar.THURSDAY, it)
+            })
+        }
+
+        schoolFridayObservable = mViewModel.getSchoolSchedule(Calendar.FRIDAY).apply {
+            observe(this@DisplayWeekFragment, Observer {
+                updateSchoolDisplay(Calendar.FRIDAY, it)
+            })
+        }
+
+        schoolSaturdayObservable = mViewModel.getSchoolSchedule(Calendar.SATURDAY).apply {
+            observe(this@DisplayWeekFragment, Observer {
+                updateSchoolDisplay(Calendar.SATURDAY, it)
+            })
+        }
+
+//        scheduleObservable = mViewModel.getSchedule().apply {
+//            observe(this@DisplayWeekFragment, Observer {
+//                mViewModel.schedule = it
+//                updateDisplay()
+//            })
+//        }
     }
 
-    fun updateDisplay() {
-        mViewModel.updateDisplay(mBinding.layoutSchedule.width)
+    fun updateSchoolDisplay(dayOfWeek: Int, schoolVms: List<ScheduleBlockViewModel>) {
+        mBinding.layoutSchoolMonday.removeAllViewsInLayout()
 
-        mBinding.layoutScheduleMonday.removeAllViewsInLayout()
-        mBinding.layoutScheduleTuesday.removeAllViewsInLayout()
-        mBinding.layoutScheduleWednesday.removeAllViewsInLayout()
-        mBinding.layoutScheduleThursday.removeAllViewsInLayout()
-        mBinding.layoutScheduleFriday.removeAllViewsInLayout()
-        mBinding.layoutScheduleSaturday.removeAllViewsInLayout()
-        mBinding.layoutScheduleSunday.removeAllViewsInLayout()
+        val schoolDayLayout: RelativeLayout = when (dayOfWeek) {
+            2 -> mBinding.layoutSchoolMonday
+            3 -> mBinding.layoutSchoolTuesday
+            4 -> mBinding.layoutSchoolWednesday
+            5 -> mBinding.layoutSchoolThursday
+            6 -> mBinding.layoutSchoolFriday
+            7 -> mBinding.layoutSchoolSaturday
+            else -> mBinding.layoutSchoolSunday
+        }
+
+        val blockWidth: Int = mBinding.layoutSchedule.width / 7
+        val inflater = LayoutInflater.from(context)
+        schoolVms.forEach { schedule ->
+            val block: ItemScheduleBlockDisplayWeekBinding =
+                DataBindingUtil.inflate(
+                    inflater,
+                    R.layout.item_schedule_block_display_week,
+                    null,
+                    false
+                )
+            block.tvName.text = schedule.name
+
+            val param: RelativeLayout.LayoutParams =
+                RelativeLayout.LayoutParams(blockWidth, schedule.height)
+            param.topMargin = schedule.positionX
+
+            val view = block.root.apply {
+                layoutParams = param
+                setBackgroundResource(schedule.bgResource)
+                setOnClickListener { openDetail(schedule.type, schedule.id) }
+            }
+
+            schoolDayLayout.addView(view)
+        }
+
+        updateIndicatorViewPosition()
+    }
+
+    fun displayTime() {
         mBinding.layoutTime.removeAllViewsInLayout()
 
         val inflater = LayoutInflater.from(context)
 
-//        mViewModel.allSchedule.forEach { schedule ->
-//            val block: ItemScheduleBlockBinding =
-//                DataBindingUtil.inflate(inflater, R.layout.item_schedule_block, null, false)
-//            block.tvName.text = schedule.name
-//
-//            val param: RelativeLayout.LayoutParams =
-//                RelativeLayout.LayoutParams(schedule.width, schedule.height)
-//            param.marginStart = schedule.marginStart
-//            param.topMargin = schedule.positionX
-//
-//            val view = block.root.apply {
-//                layoutParams = param
-//                setBackgroundResource(schedule.bgResource)
-//                setOnClickListener { openDetail(schedule.type, schedule.id) }
-//            }
-//
-//            mBinding.layoutSchedule.addView(view)
-//        }
+        var timeWidth: Int
+        var timeHeight: Int
+        requireContext().let {
+            timeWidth = ViewUtil.dpToPx(it, SkripsiConstant.TIME_WIDTH_SMALL.toDouble())
+            timeHeight = ViewUtil.dpToPx(it, SkripsiConstant.BLOCK_HEIGHT_WEEK_DISPLAY.toDouble())
+        }
 
         for (i in 0..23) {
             val time: ItemScheduleBlockTimeSmallBinding =
@@ -149,12 +238,11 @@ class DisplayWeekFragment : Fragment() {
 
             time.root.apply {
                 requireContext().let { context ->
-                    val width =
-                        ViewUtil.dpToPx(context, SkripsiConstant.TIME_WIDTH_SMALL.toDouble())
-                    val height = ViewUtil.dpToPx(context, SkripsiConstant.BLOCK_HEIGHT.toDouble())
-                    val params = RelativeLayout.LayoutParams(width, height)
-                    params.topMargin =
-                        ViewUtil.dpToPx(context, (SkripsiConstant.BLOCK_HEIGHT * i).toDouble())
+                    val params = RelativeLayout.LayoutParams(timeWidth, timeHeight)
+                    params.topMargin = ViewUtil.dpToPx(
+                        context,
+                        (SkripsiConstant.BLOCK_HEIGHT_WEEK_DISPLAY * i).toDouble()
+                    )
                     layoutParams = params
                 }
                 mBinding.layoutTime.addView(this)
@@ -163,29 +251,53 @@ class DisplayWeekFragment : Fragment() {
 
         val indicator: ItemScheduleBlockIndicatorBinding =
             DataBindingUtil.inflate(inflater, R.layout.item_schedule_block_indicator, null, false)
-        val indicatorView = indicator.root
+        indicatorView = indicator.root
         requireContext().let { context ->
             val width = ViewUtil.dpToPx(context, SkripsiConstant.INDICATOR_WIDTH_SMALL.toDouble())
-            val height = ViewUtil.dpToPx(context, SkripsiConstant.BLOCK_HEIGHT.toDouble())
+            val height =
+                ViewUtil.dpToPx(context, SkripsiConstant.BLOCK_HEIGHT_WEEK_DISPLAY.toDouble())
             val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             val params = RelativeLayout.LayoutParams(width, height)
             params.addRule(RelativeLayout.ALIGN_PARENT_END)
             params.topMargin =
-                ViewUtil.dpToPx(context, (SkripsiConstant.BLOCK_HEIGHT * hour).toDouble())
-            indicatorView.layoutParams = params
+                ViewUtil.dpToPx(
+                    context,
+                    (SkripsiConstant.BLOCK_HEIGHT_WEEK_DISPLAY * hour).toDouble()
+                )
+            indicatorView?.layoutParams = params
         }
         mBinding.layoutTime.addView(indicatorView)
+
+        updateIndicatorViewPosition()
+    }
+
+    fun updateIndicatorViewPosition() {
+        requireContext().let { context ->
+            val width = ViewUtil.dpToPx(context, SkripsiConstant.INDICATOR_WIDTH_SMALL.toDouble())
+            val height =
+                ViewUtil.dpToPx(context, SkripsiConstant.BLOCK_HEIGHT_WEEK_DISPLAY.toDouble())
+            val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            val params = RelativeLayout.LayoutParams(width, height)
+            params.addRule(RelativeLayout.ALIGN_PARENT_END)
+            params.topMargin =
+                ViewUtil.dpToPx(
+                    context,
+                    (SkripsiConstant.BLOCK_HEIGHT_WEEK_DISPLAY * hour).toDouble()
+                )
+            indicatorView?.layoutParams = params
+        }
 
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         requireContext().let {
             mBinding.scrollView.smoothScrollTo(
                 0, ViewUtil.dpToPx(
                     it,
-                    (SkripsiConstant.BLOCK_HEIGHT * hour).toDouble()
+                    (SkripsiConstant.BLOCK_HEIGHT_WEEK_DISPLAY * hour).toDouble()
                 )
             )
         }
     }
+
 
     fun displayDates() {
         val currentDate = Calendar.getInstance()

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="text_11sp">11sp</dimen>
     <dimen name="text_12sp">12sp</dimen>
     <dimen name="text_14sp">14sp</dimen>
     <dimen name="text_18sp">18sp</dimen>
@@ -43,6 +44,7 @@
 
     <dimen name="block_width">48dp</dimen>
     <dimen name="block_height">90dp</dimen>
+    <dimen name="block_height_week_display">108dp</dimen>
 
     <dimen name="date_height">48dp</dimen>
     <dimen name="date_height_day_display">48dp</dimen>
@@ -51,7 +53,9 @@
     <dimen name="time_width_week_display">28dp</dimen>
 
     <dimen name="minute_height">1.5dp</dimen>
+    <dimen name="minute_height_week_display">1.8dp</dimen>
     <dimen name="day_height">2160dp</dimen>
+    <dimen name="day_height_week_display">2592dp</dimen>
 
     <dimen name="overlap_shift_day">8dp</dimen>
 </resources>

@@ -3,5 +3,4 @@
         android:width="0.1dp"
         android:color="@color/block_border" />
     <corners android:radius="1dp" />
-    <solid android:color="@color/white" />
 </shape>

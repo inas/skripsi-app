@@ -22,11 +22,14 @@ class SkripsiConstant {
 
         const val OVERLAP_SHIFT = 8
         const val MINUTE_HEIGHT = 1.5
+        const val MINUTE_HEIGHT_WEEK_DISPLAY = 1.8
         const val BLOCK_HEIGHT = 90
+        const val BLOCK_HEIGHT_WEEK_DISPLAY = 108
         const val TIME_WIDTH = 40
         const val TIME_WIDTH_SMALL = 28
         const val INDICATOR_WIDTH = 4
         const val INDICATOR_WIDTH_SMALL = 2
+
 
         fun getScheduleTypeString(type: Int): String {
             return when (type) {

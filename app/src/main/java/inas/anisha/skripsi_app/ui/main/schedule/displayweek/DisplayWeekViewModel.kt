@@ -19,27 +19,33 @@ class DisplayWeekViewModel(val mApplication: Application) : AndroidViewModel(mAp
     val mRepository: Repository = Repository.getInstance(mApplication)
     val displayedDate: MutableLiveData<Calendar> = MutableLiveData(Calendar.getInstance())
 
-    var schoolSchedule: List<ScheduleBlockViewModel> = mutableListOf()
-    var schedule: List<ScheduleBlockViewModel> = mutableListOf()
-    var allSchedule: List<ScheduleBlockViewModel> = mutableListOf()
+    var schoolSchedule: HashMap<String, List<ScheduleBlockViewModel>> = hashMapOf()
+    var schedule: HashMap<String, List<ScheduleBlockViewModel>> = hashMapOf()
 
-    fun getSchoolSchedule(): LiveData<List<ScheduleBlockViewModel>> =
-        Transformations.switchMap(displayedDate) { date ->
-            Transformations.map(
-                mRepository.getSchoolClassesSorted(date.get(Calendar.DAY_OF_WEEK))
-            ) {
-                it.map {
-                    ScheduleBlockViewModel().apply {
-                        id = it.id
-                        name = it.name
-                        type = SkripsiConstant.SCHEDULE_TYPE_SCHOOL
-                        startMinute = it.startMinuteOfDay
-                        endMinute = it.endMinuteOfDay
-                        bgResource = R.drawable.bg_block_school
-                    }
+    fun getSchoolSchedule(dayOfWeek: Int): LiveData<List<ScheduleBlockViewModel>> =
+        Transformations.map(
+            mRepository.getSchoolClassesSorted(dayOfWeek)
+        ) {
+            it.map {
+                ScheduleBlockViewModel().apply {
+                    id = it.id
+                    name = it.name
+                    type = SkripsiConstant.SCHEDULE_TYPE_SCHOOL
+                    startMinute = it.startMinuteOfDay
+                    endMinute = it.endMinuteOfDay
+                    bgResource = R.drawable.bg_block_school_week_display
+                    height = ViewUtil.dpToPx(
+                        mApplication,
+                        (endMinute - startMinute) * SkripsiConstant.MINUTE_HEIGHT_WEEK_DISPLAY
+                    )
+                    positionX = ViewUtil.dpToPx(
+                        mApplication,
+                        SkripsiConstant.MINUTE_HEIGHT_WEEK_DISPLAY * startMinute
+                    )
                 }
             }
         }
+
 
     fun getSchedule(): LiveData<List<ScheduleBlockViewModel>> =
         Transformations.switchMap(displayedDate) { date ->
@@ -64,56 +70,56 @@ class DisplayWeekViewModel(val mApplication: Application) : AndroidViewModel(mAp
             }
         }
 
-    fun updateDisplay(blockWidth: Int) {
-        allSchedule = schedule + schoolSchedule
-        allSchedule =
-            allSchedule.sortedWith(compareBy({ it.startMinute }, { -it.endMinute }, { -it.type }))
-
-        var prev: ScheduleBlockViewModel? = null
-        allSchedule.forEachIndexed { index, current ->
-            prev?.let {
-                if (current.startMinute == it.startMinute) {
-                    current.exactScheduleCount = it.exactScheduleCount + 1
-                    current.exactScheduleOrder = it.exactScheduleOrder + 1
-                    current.overlappingScheduleCount = it.overlappingScheduleCount
-                    incrementPrevExactCount(index - 1)
-                } else if (isOverlapping(current, it)) {
-                    current.overlappingScheduleCount = it.overlappingScheduleCount + 1
-                }
-            }
-            prev = current
-        }
-
-        allSchedule.forEach {
-            val overlapShiftTotal = ViewUtil.dpToPx(
-                mApplication,
-                (it.overlappingScheduleCount * SkripsiConstant.OVERLAP_SHIFT).toDouble()
-            )
-            if (it.exactScheduleCount > 0) {
-                it.width = (blockWidth - overlapShiftTotal) / (it.exactScheduleCount + 1)
-                it.marginStart = overlapShiftTotal + (it.exactScheduleOrder * it.width)
-            } else {
-                it.width = blockWidth - overlapShiftTotal
-                it.marginStart = overlapShiftTotal
-            }
-
-            it.height = ViewUtil.dpToPx(
-                mApplication,
-                (it.endMinute - it.startMinute) * SkripsiConstant.MINUTE_HEIGHT
-            )
-            it.positionX =
-                ViewUtil.dpToPx(mApplication, SkripsiConstant.MINUTE_HEIGHT * it.startMinute)
-        }
-
-        allSchedule
-
-    }
-
-    fun incrementPrevExactCount(index: Int) {
-        if (allSchedule[index].exactScheduleCount > 0 && index > 0) incrementPrevExactCount(index - 1)
-        allSchedule[index].exactScheduleCount++
-    }
-
-    fun isOverlapping(item1: ScheduleBlockViewModel, item2: ScheduleBlockViewModel) =
-        item1.startMinute < item2.endMinute && item1.endMinute > item2.startMinute
+//    fun updateDisplay(blockWidth: Int) {
+//        allSchedule = schedule + schoolSchedule
+//        allSchedule =
+//            allSchedule.sortedWith(compareBy({ it.startMinute }, { -it.endMinute }, { -it.type }))
+//
+//        var prev: ScheduleBlockViewModel? = null
+//        allSchedule.forEachIndexed { index, current ->
+//            prev?.let {
+//                if (current.startMinute == it.startMinute) {
+//                    current.exactScheduleCount = it.exactScheduleCount + 1
+//                    current.exactScheduleOrder = it.exactScheduleOrder + 1
+//                    current.overlappingScheduleCount = it.overlappingScheduleCount
+//                    incrementPrevExactCount(index - 1)
+//                } else if (isOverlapping(current, it)) {
+//                    current.overlappingScheduleCount = it.overlappingScheduleCount + 1
+//                }
+//            }
+//            prev = current
+//        }
+//
+//        allSchedule.forEach {
+//            val overlapShiftTotal = ViewUtil.dpToPx(
+//                mApplication,
+//                (it.overlappingScheduleCount * SkripsiConstant.OVERLAP_SHIFT).toDouble()
+//            )
+//            if (it.exactScheduleCount > 0) {
+//                it.width = (blockWidth - overlapShiftTotal) / (it.exactScheduleCount + 1)
+//                it.marginStart = overlapShiftTotal + (it.exactScheduleOrder * it.width)
+//            } else {
+//                it.width = blockWidth - overlapShiftTotal
+//                it.marginStart = overlapShiftTotal
+//            }
+//
+//            it.height = ViewUtil.dpToPx(
+//                mApplication,
+//                (it.endMinute - it.startMinute) * SkripsiConstant.MINUTE_HEIGHT
+//            )
+//            it.positionX =
+//                ViewUtil.dpToPx(mApplication, SkripsiConstant.MINUTE_HEIGHT * it.startMinute)
+//        }
+//
+//        allSchedule
+//
+//    }
+//
+//    fun incrementPrevExactCount(index: Int) {
+//        if (allSchedule[index].exactScheduleCount > 0 && index > 0) incrementPrevExactCount(index - 1)
+//        allSchedule[index].exactScheduleCount++
+//    }
+//
+//    fun isOverlapping(item1: ScheduleBlockViewModel, item2: ScheduleBlockViewModel) =
+//        item1.startMinute < item2.endMinute && item1.endMinute > item2.startMinute
 }
