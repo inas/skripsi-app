@@ -103,7 +103,7 @@
                     android:id="@+id/edittext_reflection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:inputType="textMultiLine|textNoSuggestions|textCapSentences"
                     tools:text="" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -111,16 +111,17 @@ class PerjalananFragment : Fragment() {
 
     fun updateOntimeStat() {
         val tasks: List<ScheduleEntity> = mViewModel.currentTasks
+
         val completedTasks = tasks.filter { it.isCompleted }
         val completenessValue = "" + completedTasks.size + "/" + tasks.size
         mBinding.textviewTaskValue.text = completenessValue
 
         val currentTime = Calendar.getInstance()
-        val pastTasks = tasks.filter { it.endDate < currentTime }
-        val onTimeTasks = pastTasks.filter { it.isOnTime }
-        if (pastTasks.isNotEmpty()) {
-            val percentage = onTimeTasks.size * 100 / pastTasks.size
-            mBinding.textviewTimeValue.text = "" + percentage + "%"
+        val pastIncompleteTask = tasks.filter { it.endDate < currentTime && !it.isOnTime }
+
+        if (tasks.isNotEmpty()) {
+            val percentage = (tasks.size - pastIncompleteTask.size) * 100 / tasks.size
+            mBinding.textviewTimeValue.text = "$percentage%"
         } else {
             mBinding.textviewTimeValue.text = "100%"
         }
