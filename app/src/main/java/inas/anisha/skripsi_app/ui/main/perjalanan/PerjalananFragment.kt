@@ -12,7 +12,6 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.db.entity.CycleEntity
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentPagePerjalananBinding
-import inas.anisha.skripsi_app.ui.common.ConfirmationDialog
 import java.util.*
 
 
@@ -72,7 +71,7 @@ class PerjalananFragment : Fragment() {
         val adapter = PerjalananAdapter().apply {
             setItemListener(object : PerjalananAdapter.ItemListener {
                 override fun onItemClick(position: Int) {
-                    showCycleReflection(mViewModel.cycleHistory[position])
+                    showCycleDetail(mViewModel.cycleHistory[position])
                 }
             })
         }
@@ -86,24 +85,12 @@ class PerjalananFragment : Fragment() {
         })
     }
 
-    private fun showCycleReflection(cycle: CycleEntity) {
-        ConfirmationDialog().apply {
+    private fun showCycleDetail(cycle: CycleEntity) {
+        CycleDetailDialog().apply {
             arguments = Bundle().apply {
-                putString(ConfirmationDialog.ARG_TITLE, "Refleksi Siklus " + cycle.number)
-                putString(
-                    ConfirmationDialog.ARG_MESSAGE,
-                    cycle.reflection
-                )
-                putString(ConfirmationDialog.ARG_BUTTON, "OK")
+                putParcelable(CycleDetailDialog.ARG_CYCLE, cycle)
             }
-
-            setConfirmationDialogListener(object :
-                ConfirmationDialog.ConfirmationDialogListener {
-                override fun onConfirmed() {
-                    dismiss()
-                }
-            })
-        }.show(childFragmentManager, ConfirmationDialog.TAG)
+        }.show(childFragmentManager, CycleDetailDialog.TAG)
     }
 
     private fun initMainTarget() {

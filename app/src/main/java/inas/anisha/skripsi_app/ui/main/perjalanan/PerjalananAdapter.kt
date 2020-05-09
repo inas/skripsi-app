@@ -50,7 +50,6 @@ class PerjalananAdapter :
 
 
     fun setContent(newContent: List<String>) {
-//        content = mutableListOf("siklus 1", "siklus 2", "siklus 3")
         content = newContent
         notifyDataSetChanged()
     }
