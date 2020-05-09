@@ -37,5 +37,9 @@
         <activity android:name="inas.anisha.srl_app.ui.evaluation.EvaluationReportIntroActivity" />
         <activity android:name="inas.anisha.srl_app.ui.evaluation.EvaluationReportActivity" />
         <activity android:name="inas.anisha.srl_app.ui.updatetarget.StartNewCycleActivity" />
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
     </application>
 </manifest>

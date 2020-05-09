@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "252534000813",
+    "firebase_url": "https://srl-app-inas.firebaseio.com",
+    "project_id": "srl-app-inas",
+    "storage_bucket": "srl-app-inas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252534000813:android:8cba6fe86e08a4f3768a24",
+        "android_client_info": {
+          "package_name": "inas.anisha.srl_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252534000813-u7o0pn4791pam295vk63if90fi8unaal.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "inas.anisha.srl_app",
+            "certificate_hash": "0f71e36b398d74bb39370cc3ea67d136f3e9c0bb"
+          }
+        },
+        {
+          "client_id": "252534000813-8m4u3tuf9gl81tmlu3el906dsv1q7qq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHqufPDPdpSbnGhCKaWnzoR7ORPKaEEdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252534000813-8m4u3tuf9gl81tmlu3el906dsv1q7qq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
