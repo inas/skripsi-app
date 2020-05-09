@@ -169,6 +169,7 @@ class ScheduleFragment : Fragment() {
             ).commit()
 
         mBinding.textviewDisplay.text = "Sekolah"
+        openAddSchoolClassDialog()
     }
 
     fun reIntitData() {
