@@ -5,6 +5,7 @@ import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import inas.anisha.skripsi_app.constant.SkripsiConstant
@@ -68,13 +69,22 @@ class KelolaPembelajaranViewModel(val mApplication: Application) : AndroidViewMo
             val alarmManager: AlarmManager =
                 context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val pendingIntent = createPendingIntent(context)
-            alarmManager.set(AlarmManager.RTC_WAKEUP, reminderTime.timeInMillis, pendingIntent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    reminderTime.timeInMillis,
+                    pendingIntent
+                )
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, reminderTime.timeInMillis, pendingIntent)
+            }
         }
     }
 
     private fun createPendingIntent(context: Context): PendingIntent {
 
         val intent = Intent(context, AlarmReceiver::class.java)
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
         intent.action = AlarmReceiver.ACTION_NOTIFICATION
         intent.putExtra(AlarmReceiver.EXTRA_TITLE, "Besok siklus ke 1 akan berakhir")
         intent.putExtra(

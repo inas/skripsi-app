@@ -242,8 +242,10 @@ class Repository(val mApplication: Application) {
     fun addSchedule(schedule: ScheduleEntity, reminder: ReminderData?) {
         Observable.fromCallable { scheduleDao.add(schedule) }
             .map {
+                val id = it.firstOrNull()
                 if (reminder == null) cancelReminderAlarm(schedule.id)
                 else {
+                    id?.let { reminder.scheduleId = it.toInt() }
                     reminder.title = getUserName() + reminder.title
                     reminder.scheduleReminder(mApplication)
                 }
@@ -282,6 +284,7 @@ class Repository(val mApplication: Application) {
 
     fun cancelReminderAlarm(scheduleId: Long) {
         val intent = Intent(mApplication, AlarmReceiver::class.java)
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
         intent.action = AlarmReceiver.ACTION_REMINDER
 
         val pendingIntent = PendingIntent.getBroadcast(
