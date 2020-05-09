@@ -212,7 +212,7 @@ class DisplayWeekFragment : Fragment() {
 
         scheduleSundayObservable = mViewModel.getSchedule(mViewModel.sundayOfWeek).apply {
             observe(this@DisplayWeekFragment, Observer {
-                updateScheduleDisplay(Calendar.SATURDAY, it)
+                updateScheduleDisplay(Calendar.SUNDAY, it)
             })
         }
     }

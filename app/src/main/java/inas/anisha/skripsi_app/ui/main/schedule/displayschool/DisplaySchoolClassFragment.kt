@@ -60,7 +60,12 @@ class DisplaySchoolClassFragment : Fragment() {
             getTabAt(3)?.text = "Kamis"
             getTabAt(4)?.text = "Jumat"
             getTabAt(5)?.text = "Sabtu"
-            selectTab(getTabAt(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2))
+            val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+            if (today == Calendar.SUNDAY) {
+                selectTab(getTabAt(today - 2))
+            } else {
+                selectTab(getTabAt(0))
+            }
         }
 
         observeSchoolClasses()
