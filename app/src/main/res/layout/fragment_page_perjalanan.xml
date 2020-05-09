@@ -40,6 +40,7 @@
                 android:layout_marginEnd="@dimen/space_16dp"
                 android:background="@drawable/ic_chevron_next"
                 android:backgroundTint="@color/white"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/imageview_header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/imageview_header" />

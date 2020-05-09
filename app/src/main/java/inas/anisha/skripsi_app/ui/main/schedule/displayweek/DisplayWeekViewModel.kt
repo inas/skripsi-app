@@ -83,13 +83,12 @@ class DisplayWeekViewModel(val mApplication: Application) : AndroidViewModel(mAp
             }
         }
 
-
-    fun getSchedule(): LiveData<List<ScheduleBlockViewModel>> =
-        Transformations.switchMap(mondayOfWeek) { date ->
+    fun getSchedule(date: MutableLiveData<Calendar>): LiveData<List<ScheduleBlockViewModel>> =
+        Transformations.switchMap(date) {
             Transformations.map(
-                mRepository.getScheduleSorted(date.getPreviousMidnight(), date.getNextMidnight())
-            ) {
-                it.map {
+                mRepository.getScheduleSorted(it.getPreviousMidnight(), it.getNextMidnight())
+            ) { list ->
+                list.map {
                     ScheduleBlockViewModel().apply {
                         id = it.id
                         name = it.name
@@ -98,10 +97,18 @@ class DisplayWeekViewModel(val mApplication: Application) : AndroidViewModel(mAp
                         endMinute = it.endMinuteOfDay
                         if (type == SkripsiConstant.SCHEDULE_TYPE_TASK) endMinute += 30
                         bgResource = when (type) {
-                            SkripsiConstant.SCHEDULE_TYPE_TASK -> R.drawable.bg_block_task
-                            SkripsiConstant.SCHEDULE_TYPE_TEST -> R.drawable.bg_block_test
-                            else -> R.drawable.bg_block_activity
+                            SkripsiConstant.SCHEDULE_TYPE_TASK -> R.drawable.bg_block_task_week_display
+                            SkripsiConstant.SCHEDULE_TYPE_TEST -> R.drawable.bg_block_test_week_display
+                            else -> R.drawable.bg_block_activity_week_display
                         }
+                        height = ViewUtil.dpToPx(
+                            mApplication,
+                            (endMinute - startMinute) * SkripsiConstant.MINUTE_HEIGHT_WEEK_DISPLAY
+                        )
+                        positionX = ViewUtil.dpToPx(
+                            mApplication,
+                            SkripsiConstant.MINUTE_HEIGHT_WEEK_DISPLAY * startMinute
+                        )
                     }
                 }
             }

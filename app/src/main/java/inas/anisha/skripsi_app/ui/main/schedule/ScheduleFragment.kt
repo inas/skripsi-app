@@ -47,9 +47,9 @@ class ScheduleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAddButton()
 
-        activeFragment = DisplaySchoolClassFragment()
+        activeFragment = DisplayTaskFragment()
         childFragmentManager.beginTransaction()
-            .add(R.id.layout_placeholder, activeFragment, DisplaySchoolClassFragment.TAG).commit()
+            .add(R.id.layout_placeholder, activeFragment, DisplayTaskFragment.TAG).commit()
 
         mBinding.layoutDisplay.setOnClickListener { displayButton ->
             requireContext().let { context ->

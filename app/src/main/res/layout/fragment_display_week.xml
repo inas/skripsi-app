@@ -136,6 +136,58 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
+                    android:id="@+id/layout_school_schedule"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/day_height_week_display"
+                    android:paddingStart="@dimen/space_2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/layout_time"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RelativeLayout
+                        android:id="@+id/layout_school_monday"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_school_tuesday"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_school_wednesday"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_school_thursday"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_school_friday"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_school_saturday"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:id="@+id/layout_school_sunday"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/layout_schedule"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/day_height_week_display"
@@ -192,58 +244,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/bg_block" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_school_schedule"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/day_height_week_display"
-                    android:paddingStart="@dimen/space_2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/layout_time"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <RelativeLayout
-                        android:id="@+id/layout_school_monday"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_school_tuesday"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_school_wednesday"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_school_thursday"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_school_friday"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_school_saturday"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <RelativeLayout
-                        android:id="@+id/layout_school_sunday"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
