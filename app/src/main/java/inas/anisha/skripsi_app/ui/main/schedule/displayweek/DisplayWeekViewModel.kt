@@ -10,6 +10,7 @@ import inas.anisha.skripsi_app.constant.SkripsiConstant
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.ui.main.schedule.displayday.ScheduleBlockViewModel
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getNextMidnight
+import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getNextXDay
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.getPreviousMidnight
 import inas.anisha.skripsi_app.utils.ViewUtil
 import java.util.*
@@ -17,10 +18,46 @@ import java.util.*
 class DisplayWeekViewModel(val mApplication: Application) : AndroidViewModel(mApplication) {
 
     val mRepository: Repository = Repository.getInstance(mApplication)
-    val displayedDate: MutableLiveData<Calendar> = MutableLiveData(Calendar.getInstance())
+    val mondayOfWeek: MutableLiveData<Calendar> =
+        MutableLiveData(Calendar.getInstance().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) })
 
-    var schoolSchedule: HashMap<String, List<ScheduleBlockViewModel>> = hashMapOf()
-    var schedule: HashMap<String, List<ScheduleBlockViewModel>> = hashMapOf()
+    val tuesdayOfWeek: MutableLiveData<Calendar> = MutableLiveData(Calendar.getInstance().apply {
+        set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        add(Calendar.DAY_OF_MONTH, 1)
+    })
+    val wednesdayOfWeek: MutableLiveData<Calendar> = MutableLiveData(Calendar.getInstance().apply {
+        set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        add(Calendar.DAY_OF_MONTH, 2)
+    })
+    val thursdayOfWeek: MutableLiveData<Calendar> = MutableLiveData(Calendar.getInstance().apply {
+        set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        add(Calendar.DAY_OF_MONTH, 3)
+    })
+
+    val fridayOfWeek: MutableLiveData<Calendar> = MutableLiveData(Calendar.getInstance().apply {
+        set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        add(Calendar.DAY_OF_MONTH, 4)
+    })
+
+    val saturdayOfWeek: MutableLiveData<Calendar> = MutableLiveData(Calendar.getInstance().apply {
+        set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        add(Calendar.DAY_OF_MONTH, 5)
+    })
+
+    val sundayOfWeek: MutableLiveData<Calendar> = MutableLiveData(Calendar.getInstance().apply {
+        set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        add(Calendar.DAY_OF_MONTH, 6)
+    })
+
+    fun setDatesOfWeek(date: Calendar) {
+        mondayOfWeek.value = date
+        tuesdayOfWeek.value = date.getNextXDay(1)
+        wednesdayOfWeek.value = date.getNextXDay(2)
+        thursdayOfWeek.value = date.getNextXDay(3)
+        fridayOfWeek.value = date.getNextXDay(4)
+        saturdayOfWeek.value = date.getNextXDay(5)
+        sundayOfWeek.value = date.getNextXDay(6)
+    }
 
     fun getSchoolSchedule(dayOfWeek: Int): LiveData<List<ScheduleBlockViewModel>> =
         Transformations.map(
@@ -48,7 +85,7 @@ class DisplayWeekViewModel(val mApplication: Application) : AndroidViewModel(mAp
 
 
     fun getSchedule(): LiveData<List<ScheduleBlockViewModel>> =
-        Transformations.switchMap(displayedDate) { date ->
+        Transformations.switchMap(mondayOfWeek) { date ->
             Transformations.map(
                 mRepository.getScheduleSorted(date.getPreviousMidnight(), date.getNextMidnight())
             ) {

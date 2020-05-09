@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.databinding.FragmentPageScheduleBinding
@@ -25,7 +24,6 @@ import inas.anisha.skripsi_app.ui.main.schedule.school.SchoolClassViewModel
 class ScheduleFragment : Fragment() {
     lateinit var mBinding: FragmentPageScheduleBinding
     lateinit var mViewModel: SchedulePageViewModel
-    lateinit var mFragmentManager: FragmentManager
 
     lateinit var activeFragment: Fragment
 
@@ -49,9 +47,9 @@ class ScheduleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAddButton()
 
-        activeFragment = DisplayWeekFragment()
+        activeFragment = DisplaySchoolClassFragment()
         childFragmentManager.beginTransaction()
-            .add(R.id.layout_placeholder, activeFragment, DisplayWeekFragment.TAG).commit()
+            .add(R.id.layout_placeholder, activeFragment, DisplaySchoolClassFragment.TAG).commit()
 
         mBinding.layoutDisplay.setOnClickListener { displayButton ->
             requireContext().let { context ->
@@ -179,7 +177,4 @@ class ScheduleFragment : Fragment() {
         }
     }
 
-    companion object {
-        val DISPLAY = mutableListOf("Pekan", "Hari", "Tugas", "Sekolah")
-    }
 }

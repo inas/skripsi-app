@@ -44,6 +44,8 @@ class DisplayWeekFragment : Fragment() {
     private var schoolFridayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
     private var schoolSaturdayObservable: LiveData<List<ScheduleBlockViewModel>>? = null
 
+    private var dateOfWeekObservable: LiveData<Calendar>? = null
+
     private var indicatorView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,38 +66,39 @@ class DisplayWeekFragment : Fragment() {
                 false
             )
 
+        mViewModel.setDatesOfWeek(
+            Calendar.getInstance().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) })
+        removeObservers()
+        observeSchedule()
+
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewModel.displayedDate.value =
-            Calendar.getInstance().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) }
-        mBinding.tvDate.text = mViewModel.displayedDate.value?.toMonthString() ?: ""
+        mBinding.tvDate.text = mViewModel.mondayOfWeek.value?.toMonthString() ?: ""
 
         mBinding.ivPrevious.setOnClickListener {
             val newDate = Calendar.getInstance().apply {
-                timeInMillis = mViewModel.displayedDate.value?.timeInMillis ?: 0
+                timeInMillis = mViewModel.mondayOfWeek.value?.timeInMillis ?: 0
                 add(Calendar.WEEK_OF_YEAR, -1)
             }
-            mViewModel.displayedDate.value = newDate
-            mBinding.tvDate.text = mViewModel.displayedDate.value?.toMonthString() ?: ""
-            displayDates()
+            mViewModel.setDatesOfWeek(newDate)
+            updateDates()
         }
 
         mBinding.ivNext.setOnClickListener {
             val newDate = Calendar.getInstance().apply {
-                timeInMillis = mViewModel.displayedDate.value?.timeInMillis ?: 0
+                timeInMillis = mViewModel.mondayOfWeek.value?.timeInMillis ?: 0
                 add(Calendar.WEEK_OF_YEAR, 1)
             }
-            mViewModel.displayedDate.value = newDate
-            mBinding.tvDate.text = mViewModel.displayedDate.value?.toMonthString() ?: ""
-            displayDates()
+            mViewModel.setDatesOfWeek(newDate)
+            updateDates()
         }
 
-        observeSchedule()
-        displayDates()
         displayTime()
+        updateDates()
+        updateIndicatorViewPosition()
     }
 
     override fun onDestroyView() {
@@ -118,14 +121,14 @@ class DisplayWeekFragment : Fragment() {
         schoolThursdayObservable?.removeObservers(this)
         schoolFridayObservable?.removeObservers(this)
         schoolSaturdayObservable?.removeObservers(this)
+
+        dateOfWeekObservable?.removeObservers(this)
     }
 
     fun reInitData() {
-        mViewModel.displayedDate.value =
-            Calendar.getInstance().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) }
-        mBinding.tvDate.text = mViewModel.displayedDate.value?.toMonthString() ?: ""
-        removeObservers()
-        observeSchedule()
+        mViewModel.setDatesOfWeek(
+            Calendar.getInstance().apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) })
+        mBinding.tvDate.text = mViewModel.mondayOfWeek.value?.toMonthString() ?: ""
     }
     
     fun observeSchedule() {
@@ -174,7 +177,6 @@ class DisplayWeekFragment : Fragment() {
     }
 
     fun updateSchoolDisplay(dayOfWeek: Int, schoolVms: List<ScheduleBlockViewModel>) {
-        mBinding.layoutSchoolMonday.removeAllViewsInLayout()
 
         val schoolDayLayout: RelativeLayout = when (dayOfWeek) {
             2 -> mBinding.layoutSchoolMonday
@@ -185,6 +187,7 @@ class DisplayWeekFragment : Fragment() {
             7 -> mBinding.layoutSchoolSaturday
             else -> mBinding.layoutSchoolSunday
         }
+        schoolDayLayout.removeAllViewsInLayout()
 
         val blockWidth: Int = mBinding.layoutSchedule.width / 7
         val inflater = LayoutInflater.from(context)
@@ -299,36 +302,33 @@ class DisplayWeekFragment : Fragment() {
     }
 
 
-    fun displayDates() {
-        val currentDate = Calendar.getInstance()
-            .apply { timeInMillis = mViewModel.displayedDate.value?.timeInMillis ?: 0 }
-        currentDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-
-        mBinding.layoutDateMonday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+    fun updateDates() {
+        mBinding.layoutDateMonday.tvDate.text =
+            mViewModel.mondayOfWeek.value?.get(Calendar.DAY_OF_MONTH).toString()
         mBinding.layoutDateMonday.tvDay.text = "Sen"
 
-        currentDate.add(Calendar.DAY_OF_MONTH, 1)
-        mBinding.layoutDateTuesday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateTuesday.tvDate.text =
+            mViewModel.tuesdayOfWeek.value?.get(Calendar.DAY_OF_MONTH).toString()
         mBinding.layoutDateTuesday.tvDay.text = "Sel"
 
-        currentDate.add(Calendar.DAY_OF_MONTH, 1)
-        mBinding.layoutDateWednesday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateWednesday.tvDate.text =
+            mViewModel.wednesdayOfWeek.value?.get(Calendar.DAY_OF_MONTH).toString()
         mBinding.layoutDateWednesday.tvDay.text = "Rab"
 
-        currentDate.add(Calendar.DAY_OF_MONTH, 1)
-        mBinding.layoutDateThursday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateThursday.tvDate.text =
+            mViewModel.thursdayOfWeek.value?.get(Calendar.DAY_OF_MONTH).toString()
         mBinding.layoutDateThursday.tvDay.text = "Kam"
 
-        currentDate.add(Calendar.DAY_OF_MONTH, 1)
-        mBinding.layoutDateFriday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateFriday.tvDate.text =
+            mViewModel.fridayOfWeek.value?.get(Calendar.DAY_OF_MONTH).toString()
         mBinding.layoutDateFriday.tvDay.text = "Jum"
 
-        currentDate.add(Calendar.DAY_OF_MONTH, 1)
-        mBinding.layoutDateSaturday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateSaturday.tvDate.text =
+            mViewModel.saturdayOfWeek.value?.get(Calendar.DAY_OF_MONTH).toString()
         mBinding.layoutDateSaturday.tvDay.text = "Sab"
 
-        currentDate.add(Calendar.DAY_OF_MONTH, 1)
-        mBinding.layoutDateSunday.tvDate.text = currentDate.get(Calendar.DAY_OF_MONTH).toString()
+        mBinding.layoutDateSunday.tvDate.text =
+            mViewModel.sundayOfWeek.value?.get(Calendar.DAY_OF_MONTH).toString()
         mBinding.layoutDateSunday.tvDay.text = "Min"
     }
 

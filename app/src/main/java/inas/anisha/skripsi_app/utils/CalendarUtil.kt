@@ -97,5 +97,13 @@ class CalendarUtil {
         fun Calendar.isDateLaterThan(other: Calendar): Boolean {
             return getPreviousMidnight() > other.getPreviousMidnight()
         }
+
+        fun Calendar.getNextXDay(x: Int): Calendar {
+            val nextXDay = Calendar.getInstance()
+            nextXDay.timeInMillis = timeInMillis
+            nextXDay.add(Calendar.DAY_OF_MONTH, x)
+            return nextXDay
+        }
+
     }
 }
