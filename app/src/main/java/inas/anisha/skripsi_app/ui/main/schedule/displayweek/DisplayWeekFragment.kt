@@ -395,6 +395,8 @@ class DisplayWeekFragment : Fragment() {
 
 
     fun updateDates() {
+        mBinding.tvDate.text = mViewModel.mondayOfWeek.value?.toMonthString() ?: ""
+
         mBinding.layoutDateMonday.tvDate.text =
             mViewModel.mondayOfWeek.value?.get(Calendar.DAY_OF_MONTH).toString()
         mViewModel.mondayOfWeek.value?.let {
@@ -470,6 +472,9 @@ class DisplayWeekFragment : Fragment() {
         if (CalendarUtil.isSameDay(date, Calendar.getInstance())) {
             scheduleLayout.setBackgroundResource(R.color.yellow_light)
             dateLayout.setBackgroundResource(R.color.yellow_light)
+        } else {
+            scheduleLayout.setBackgroundResource(R.color.white)
+            dateLayout.setBackgroundResource(R.color.white)
         }
     }
 

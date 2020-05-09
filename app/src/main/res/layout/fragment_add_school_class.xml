@@ -165,6 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_12dp"
             android:background="@drawable/ic_clock"
             android:backgroundTint="@color/dark_secondary"
             app:layout_constraintBottom_toBottomOf="@id/textlayout_start_time"

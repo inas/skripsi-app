@@ -14,7 +14,6 @@ import inas.anisha.skripsi_app.R
 import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.db.entity.SchoolClassEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddSchoolClassBinding
-import inas.anisha.skripsi_app.ui.common.RangeTimePickerDialog
 import inas.anisha.skripsi_app.ui.common.TextValidator
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.isTimeEarlierThan
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardized
@@ -245,7 +244,7 @@ class AddSchoolClassDialog : DialogFragment() {
         val minutes = date[Calendar.MINUTE]
 
         requireContext().let {
-            val timePicker = RangeTimePickerDialog(
+            val timePicker = TimePickerDialog(
                 it,
                 0,
                 TimePickerDialog.OnTimeSetListener { _, hour, minute ->

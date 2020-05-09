@@ -1,6 +1,7 @@
 package inas.anisha.skripsi_app.ui.main.schedule.schedule
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +18,6 @@ import inas.anisha.skripsi_app.data.Repository
 import inas.anisha.skripsi_app.data.datamodel.ReminderData
 import inas.anisha.skripsi_app.data.db.entity.ScheduleEntity
 import inas.anisha.skripsi_app.databinding.FragmentAddScheduleBinding
-import inas.anisha.skripsi_app.ui.common.RangeTimePickerDialog
 import inas.anisha.skripsi_app.ui.common.TextValidator
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.isDateLaterThan
 import inas.anisha.skripsi_app.utils.CalendarUtil.Companion.standardized
@@ -97,14 +97,17 @@ class AddScheduleDialog : DialogFragment() {
             SkripsiConstant.SCHEDULE_TYPE_TASK -> {
                 mBinding.chipTask.isChecked = true
                 showHideTaskViews(true)
+                mBinding.textlayoutName.helperText = "Contoh: PR Bahasa Inggris"
             }
             SkripsiConstant.SCHEDULE_TYPE_TEST -> {
                 mBinding.chipTest.isChecked = true
                 showHideTaskViews(false)
+                mBinding.textlayoutName.helperText = "Contoh: Ujian online matematika"
             }
             else -> {
                 mBinding.chipActivity.isChecked = true
                 showHideTaskViews(false)
+                mBinding.textlayoutName.helperText = "Contoh: Kerja kelompok tugas drama"
             }
         }
 
@@ -136,16 +139,19 @@ class AddScheduleDialog : DialogFragment() {
                 R.id.chip_task -> {
                     showHideTaskViews(true)
                     mViewModel.type = SkripsiConstant.SCHEDULE_TYPE_TASK
+                    mBinding.textlayoutName.helperText = "Contoh: PR Bahasa Inggris"
                 }
 
                 R.id.chip_test -> {
                     showHideTaskViews(false)
                     mViewModel.type = SkripsiConstant.SCHEDULE_TYPE_TEST
+                    mBinding.textlayoutName.helperText = "Contoh: Ujian online matematika"
                 }
 
                 else -> {
                     showHideTaskViews(false)
                     mViewModel.type = SkripsiConstant.SCHEDULE_TYPE_ACTIVITY
+                    mBinding.textlayoutName.helperText = "Contoh: Kerja kelompok tugas drama"
                 }
             }
         }
@@ -403,7 +409,7 @@ class AddScheduleDialog : DialogFragment() {
         val minutes = date[Calendar.MINUTE]
 
         requireContext().let {
-            val timePicker = RangeTimePickerDialog(
+            val timePicker = TimePickerDialog(
                 it,
                 0,
                 OnTimeSetListener { _, hour, minute ->
