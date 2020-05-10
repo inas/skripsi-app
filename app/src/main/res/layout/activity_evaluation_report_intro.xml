@@ -21,9 +21,10 @@
         <ImageView
             android:id="@+id/imageview_kelola_pembelajaran"
             android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/space_8dp"
             android:layout_height="300dp"
             android:layout_marginTop="@dimen/space_24dp"
-            android:src="@drawable/img_kelola_pembelajaran_intro"
+            android:src="@drawable/bg_kelola_pembelajaran_intro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_kelola_pembelajaran" />
