@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
+import com.google.firebase.analytics.FirebaseAnalytics
 import inas.anisha.srl_app.R
 import inas.anisha.srl_app.databinding.ActivityKelolaPembelajaranBinding
 import inas.anisha.srl_app.ui.common.ConfirmationDialog
@@ -17,6 +18,7 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityKelolaPembelajaranBinding
     private lateinit var mViewModel: KelolaPembelajaranViewModel
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,7 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
         mViewModel = ViewModelProviders.of(this).get(KelolaPembelajaranViewModel::class.java)
         mBinding.viewModel = mViewModel
         mBinding.lifecycleOwner = this
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         mBinding.viewpager.adapter = KelolaPembelajaranPagerAdapter(supportFragmentManager)
         mBinding.viewpager.offscreenPageLimit = 3
@@ -98,6 +101,8 @@ class KelolaPembelajaranActivity : AppCompatActivity() {
         confirmationDialog.setConfirmationDialogListener(object :
             KelolaPembelajaranConfirmationDialog.ConfirmationDialogListener {
             override fun onConfirmed() {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, null)
+
                 mViewModel.saveDataToRepository()
                 val intent =
                     Intent(this@KelolaPembelajaranActivity, MainActivity::class.java).apply {

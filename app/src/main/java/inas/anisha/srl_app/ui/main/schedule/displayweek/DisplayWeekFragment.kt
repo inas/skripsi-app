@@ -274,7 +274,8 @@ class DisplayWeekFragment : Fragment() {
         val blockWidth: Int = mBinding.layoutSchedule.width / 7
         val inflater = LayoutInflater.from(context)
 
-        val sortedScheduleVms = scheduleVms.sortedWith(compareBy({ it.height }, { -it.type }))
+        val sortedScheduleVms =
+            scheduleVms.sortedWith(compareBy({ -it.height }, { -it.type }, { it.startMinute }))
         sortedScheduleVms.forEach { schedule ->
             val block: ItemScheduleBlockDisplayWeekBinding =
                 DataBindingUtil.inflate(

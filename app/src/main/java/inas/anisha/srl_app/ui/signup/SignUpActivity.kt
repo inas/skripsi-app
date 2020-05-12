@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.analytics.FirebaseAnalytics
 import inas.anisha.srl_app.R
 import inas.anisha.srl_app.databinding.ActivitySignUpBinding
 import inas.anisha.srl_app.ui.common.TextValidator
@@ -20,11 +21,13 @@ class SignUpActivity : AppCompatActivity() {
 
     lateinit var mBinding: ActivitySignUpBinding
     lateinit var mViewModel: SignUpViewModel
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
         mViewModel = ViewModelProviders.of(this).get(SignUpViewModel::class.java)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         val gradeAdapter: ArrayAdapter<String> =
             ArrayAdapter<String>(this, R.layout.item_dropdown, GRADE_LIST)
@@ -50,6 +53,13 @@ class SignUpActivity : AppCompatActivity() {
             if (study == STUDY_LIST[2]) study = mBinding.edittextStudyOther.text.toString().trim()
 
             if (isValid(name, study)) {
+                firebaseAnalytics.setUserId(name)
+                val bundle = Bundle()
+                bundle.putString(
+                    FirebaseAnalytics.Param.METHOD,
+                    "name: " + name + "-" + grade + "-" + study
+                )
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
                 mViewModel.saveData(name, grade, study)
                 goToKelolaPembelajaranIntro()
             }

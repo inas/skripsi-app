@@ -3,6 +3,7 @@ package inas.anisha.srl_app.ui.kelolapembelajaran.targetutama
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import inas.anisha.srl_app.data.db.entity.TargetUtamaEntity
+import inas.anisha.srl_app.utils.CalendarUtil.Companion.toMonthString
 import java.util.*
 
 class TargetUtamaViewModel : ViewModel() {
@@ -13,7 +14,7 @@ class TargetUtamaViewModel : ViewModel() {
     var isSelected: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun dateString(): String {
-        date?.let { return "" + it.get(Calendar.YEAR) }
+        date?.let { return it.toMonthString() }
         return ""
     }
 

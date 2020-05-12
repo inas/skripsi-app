@@ -62,10 +62,7 @@ class OnboardingActivity : AppCompatActivity() {
                 mViewModel.pageNum.value = position
             }
         })
-    }
 
-    override fun onStart() {
-        super.onStart()
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false)
         val dialogClickListener =
             DialogInterface.OnClickListener { dialog, which ->
