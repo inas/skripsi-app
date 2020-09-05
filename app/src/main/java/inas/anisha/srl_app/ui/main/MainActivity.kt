@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
 
         val evaluationDate = mViewModel.getEvaluationDate()
         if (evaluationDate.getPreviousMidnight() < Calendar.getInstance() && mViewModel.shouldShowEvaluationReport()) {
-//        if (true) {
             val intent = Intent(this, EvaluationReportIntroActivity::class.java)
             startActivity(intent)
             finish()

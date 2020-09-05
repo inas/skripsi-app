@@ -80,7 +80,6 @@ class AlarmReceiver : BroadcastReceiver() {
             putExtra(ScheduleDetailActivity.EXTRA_ID, scheduleId)
         }
 
-
         val pendingIntent = PendingIntent.getActivities(
             context, 154, arrayOf(mainActivity, detailActivity),
             PendingIntent.FLAG_UPDATE_CURRENT

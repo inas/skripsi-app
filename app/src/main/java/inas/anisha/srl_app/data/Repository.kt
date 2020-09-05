@@ -280,7 +280,6 @@ class Repository(val mApplication: Application) {
         Observable.fromCallable { scheduleDao.delete(scheduleId) }
             .map { cancelReminderAlarm(scheduleId) }
             .subscribeOn(Schedulers.io()).subscribe()
-    // end schedule
 
     fun cancelReminderAlarm(scheduleId: Long) {
         val intent = Intent(mApplication, AlarmReceiver::class.java)
